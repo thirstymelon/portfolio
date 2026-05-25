@@ -29,6 +29,11 @@ html{scroll-behavior:smooth;font-size:16px}
 body{font-family:var(--font-b);background:var(--white);color:var(--ink);overflow-x:hidden;-webkit-font-smoothing:antialiased;cursor:none}
 a{text-decoration:none;color:inherit}
 
+/* 3D CANVAS BACKGROUNDS */
+.canvas-bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:0;transition:opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1)}
+.canvas-bg.visible{opacity:1}
+.hero,.sec,.sec-alt,nav,footer{position:relative;z-index:1}
+
 /* CURSOR */
 #cur{position:fixed;width:8px;height:8px;background:var(--black);border-radius:50%;pointer-events:none;z-index:9000;transform:translate(-50%,-50%);transition:transform .1s}
 #cur-o{position:fixed;width:30px;height:30px;border:1px solid rgba(14,13,11,.22);border-radius:50%;pointer-events:none;z-index:8999;transform:translate(-50%,-50%);transition:width .3s,height .3s,border-color .3s}
@@ -229,6 +234,13 @@ footer{border-top:1px solid var(--rule);background-color:var(--paper);padding:28
 </head>
 <body>
 
+<!-- 3D Background Canvases -->
+<canvas id="heroCanvas" class="canvas-bg"></canvas>
+<canvas id="aboutCanvas" class="canvas-bg"></canvas>
+<canvas id="skillsCanvas" class="canvas-bg"></canvas>
+<canvas id="projectsCanvas" class="canvas-bg"></canvas>
+<canvas id="contactCanvas" class="canvas-bg"></canvas>
+
 <div id="cur"></div>
 <div id="cur-o"></div>
 
@@ -423,6 +435,7 @@ footer{border-top:1px solid var(--rule);background-color:var(--paper);padding:28
       </div>
     </div>
   </div>
+</section>
 
 <!-- CONTACT -->
 <section class="sec" id="contact">
@@ -473,13 +486,15 @@ footer{border-top:1px solid var(--rule);background-color:var(--paper);padding:28
   </div>
 </section>
 
-<!-- FOOTER -->
-<!-- <footer>
+<footer>
   <div class="ft-w">
-    <div class="ft-l">Built by <strong>Lokesh Panditi</strong> — 2025</div>
-    <div class="ft-r">Embedded Systems Developer</div>
+    <div class="ft-l">© 2024 <strong>Lokesh Panditi</strong></div>
+    <div class="ft-r">Built with low-level precision</div>
   </div>
-</footer> -->
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
 
 <script>
 // Cursor
@@ -509,6 +524,187 @@ window.addEventListener('scroll',()=>{
   secs.forEach(s=>{if(window.scrollY>=s.offsetTop-180)cur=s.id});
   navAs.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+cur));
 },{passive:true});
+
+// 3D BACKGROUNDS WITH THREE.JS
+function init3DBackground(canvasId, config) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) return;
+  
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  
+  camera.position.z = config.cameraZ || 30;
+  
+  const geometry = config.geometry;
+  const material = new THREE.MeshBasicMaterial({
+    color: config.color,
+    wireframe: true,
+    transparent: true,
+    opacity: 0
+  });
+  
+  const mesh = new THREE.Mesh(geometry, material);
+  scene.add(mesh);
+  
+  // Store initial opacity target
+  let targetOpacity = config.opacity || 0.15;
+  
+  // Particle system for some sections
+  let particlesMesh = null;
+  if (config.particles) {
+    const particlesGeometry = new THREE.BufferGeometry();
+    const particlesCount = config.particleCount || 100;
+    const posArray = new Float32Array(particlesCount * 3);
+    
+    for (let i = 0; i < particlesCount * 3; i++) {
+      posArray[i] = (Math.random() - 0.5) * config.particleSpread;
+    }
+    
+    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+    const particlesMaterial = new THREE.PointsMaterial({
+      size: 0.05,
+      color: config.particleColor,
+      transparent: true,
+      opacity: 0
+    });
+    
+    particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+    scene.add(particlesMesh);
+  }
+  
+  // Animation
+  function animate() {
+    requestAnimationFrame(animate);
+    
+    // Smooth opacity transitions
+    if (material.opacity < targetOpacity) {
+      material.opacity += 0.002;
+    }
+    if (particlesMesh && particlesMesh.material.opacity < 0.3) {
+      particlesMesh.material.opacity += 0.002;
+    }
+    
+    mesh.rotation.x += config.rotationSpeed.x;
+    mesh.rotation.y += config.rotationSpeed.y;
+    mesh.rotation.z += config.rotationSpeed.z;
+    
+    if (particlesMesh) {
+      particlesMesh.rotation.y += 0.0005;
+    }
+    
+    renderer.render(scene, camera);
+  }
+  
+  animate();
+  
+  // Handle resize
+  window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
+  
+  // Smooth visibility toggle when scrolling
+  const section = document.querySelector(config.selector);
+  if (section) {
+    const sectionObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          canvas.classList.add('visible');
+          targetOpacity = config.opacity || 0.15;
+        } else {
+          canvas.classList.remove('visible');
+          anime({
+            targets: material,
+            opacity: 0,
+            duration: 800,
+            easing: 'easeOutQuad'
+          });
+          if (particlesMesh) {
+            anime({
+              targets: particlesMesh.material,
+              opacity: 0,
+              duration: 800,
+              easing: 'easeOutQuad'
+            });
+          }
+        }
+      });
+    }, { threshold: 0.1 });
+    sectionObs.observe(section);
+  }
+  
+  return { mesh, particlesMesh, material };
+}
+
+// Initialize backgrounds for each section
+window.addEventListener('load', () => {
+  // Hero - Wireframe Sphere Grid (circuit board aesthetic)
+  const heroGeometry = new THREE.SphereGeometry(15, 32, 32);
+  init3DBackground('heroCanvas', {
+    selector: '.hero',
+    geometry: heroGeometry,
+    color: 0xc8291d,
+    opacity: 0.1,
+    cameraZ: 35,
+    rotationSpeed: { x: 0.0008, y: 0.0012, z: 0.0005 },
+    particles: true,
+    particleCount: 120,
+    particleSpread: 70,
+    particleColor: 0x0e0d0b
+  });
+  
+  // About - Icosahedron (geometric precision)
+  init3DBackground('aboutCanvas', {
+    selector: '#about',
+    geometry: new THREE.IcosahedronGeometry(12, 1),
+    color: 0x706c62,
+    opacity: 0.12,
+    cameraZ: 30,
+    rotationSpeed: { x: 0.0015, y: 0.001, z: 0.001 },
+    particles: true,
+    particleCount: 80,
+    particleSpread: 60,
+    particleColor: 0xa09c92
+  });
+  
+  // Skills - Octahedron (technical structure)
+  init3DBackground('skillsCanvas', {
+    selector: '#skills',
+    geometry: new THREE.OctahedronGeometry(14, 0),
+    color: 0x1a1916,
+    opacity: 0.1,
+    cameraZ: 32,
+    rotationSpeed: { x: 0.0012, y: 0.0012, z: 0.0018 }
+  });
+  
+  // Projects - Dodecahedron (modular systems)
+  init3DBackground('projectsCanvas', {
+    selector: '#projects',
+    geometry: new THREE.DodecahedronGeometry(11, 0),
+    color: 0xc8291d,
+    opacity: 0.09,
+    cameraZ: 28,
+    rotationSpeed: { x: 0.0008, y: 0.002, z: 0.001 },
+    particles: true,
+    particleCount: 60,
+    particleSpread: 50,
+    particleColor: 0x706c62
+  });
+  
+  // Contact - Tetrahedron (minimal, direct)
+  init3DBackground('contactCanvas', {
+    selector: '#contact',
+    geometry: new THREE.TetrahedronGeometry(15, 1),
+    color: 0x4f6b58,
+    opacity: 0.11,
+    cameraZ: 26,
+    rotationSpeed: { x: 0.0015, y: 0.001, z: 0.0012 }
+  });
+});
 </script>
 </body>
 </html>
