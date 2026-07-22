@@ -9,15 +9,56 @@
   <meta name="author" content="Lokesh Panditi" />
   <meta name="theme-color" content="#f4f1ea" />
 
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://lokeshpanditi.qzz.io" />
+
   <!-- Open Graph / social preview -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Lokesh Panditi — Embedded Systems &amp; Firmware Developer" />
   <meta property="og:description" content="Bare-metal C, C++, Rust, ADA & ARM64 assembly. From UART drivers to ESP32 mesh networks. Open to collaborations." />
+  <meta property="og:url" content="https://lokeshpanditi.qzz.io" />
+  <meta property="og:image" content="https://lokeshpanditi.qzz.io/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
   <meta property="og:locale" content="en_IN" />
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://lokeshpanditi.qzz.io/og-image.png" />
 
-  <!-- Inline SVG favicon (register-bit mark) -->
+    <!-- Inline SVG favicon (register-bit mark) -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%231c1a17'/><rect x='7' y='7' width='6' height='6' rx='1.2' fill='%23b8553a'/><rect x='15' y='7' width='6' height='6' rx='1.2' fill='%238a8273'/><rect x='7' y='15' width='6' height='6' rx='1.2' fill='%238a8273'/><rect x='15' y='15' width='6' height='6' rx='1.2' fill='%238a8273'/></svg>" />
+
+  <!-- Content Security Policy -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; font-src fonts.gstatic.com fonts.googleapis.com; style-src 'unsafe-inline' fonts.googleapis.com; script-src 'unsafe-inline' 'self'; img-src 'self' data:; connect-src 'self';" />
+
+  <!-- JSON-LD structured data for SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Lokesh Panditi",
+    "givenName": "Lokesh",
+    "familyName": "Panditi",
+    "alternateName": "Loki",
+    "jobTitle": "Firmware Engineer",
+    "description": "Embedded systems and firmware developer writing bare-metal C, C++, Rust, ADA and ARM64 assembly.",
+    "url": "https://lokeshpanditi.qzz.io",
+    "sameAs": [
+      "https://github.com/thirstymelon",
+      "https://www.linkedin.com/in/lokesh-panditi-594b3b2b2"
+    ],
+    "knowsAbout": [
+      "Embedded Systems",
+      "Firmware",
+      "C",
+      "C++",
+      "Rust",
+      "ADA",
+      "ARM64 Assembly",
+      "ESP32",
+      "FreeRTOS"
+    ]
+  }
+  </script>
 
   <!-- No-flash theme bootstrap: applies stored/preferred theme before paint -->
   <script>
@@ -36,7 +77,8 @@
   <!-- Fraunces (serif display) + Inter (UI) + JetBrains Mono (data) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all';this.onload=null" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet" /></noscript>
 
   <style>
     /* ============================================================
@@ -274,7 +316,7 @@
     }
     .nav-burger span {
       display: block; width: 18px; height: 1.5px;
-      background: var(--ink); transition: all .3s var(--ease);
+      background: var(--ink); transition: transform .3s var(--ease), opacity .3s var(--ease);
     }
     .nav-burger.o span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
     .nav-burger.o span:nth-child(2) { opacity: 0; }
@@ -411,10 +453,10 @@
       color: var(--ink);
       border-color: var(--rule);
     }
-    .btn-outline:hover {
-      background: var(--ink) !important;
-      color: var(--paper) !important;
-      border-color: var(--ink) !important;
+    .btn-solid.btn-outline:hover {
+      background: var(--ink);
+      color: var(--paper);
+      border-color: var(--ink);
     }
     .btn-outline:hover svg { transform: translateX(3px); }
     .btn-text {
@@ -686,7 +728,7 @@
       border-radius: 999px;
       color: var(--ink-2);
       background: var(--paper);
-      transition: all .35s var(--ease);
+      transition: border-color .35s var(--ease), color .35s var(--ease);
     }
     .tag:hover { border-color: var(--ink); color: var(--ink); }
     .tag.hi { background: var(--ink); color: var(--paper); border-color: var(--ink); font-weight: 600; }
@@ -770,7 +812,7 @@
       border: 1px solid var(--rule);
       border-radius: 999px;
       align-self: flex-start;
-      transition: all .35s var(--ease);
+      transition: background .35s var(--ease), color .35s var(--ease), border-color .35s var(--ease);
     }
     .bento-link:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
     .bento-link svg { transition: transform .3s var(--ease); }
@@ -828,13 +870,13 @@
       border-radius: 10px;
       display: flex; align-items: center; justify-content: center;
       color: var(--ink-2);
-      transition: all .35s var(--ease);
+      transition: border-color .35s var(--ease), color .35s var(--ease);
       flex-shrink: 0;
     }
     .contact-row:hover .contact-icon { border-color: var(--clay); color: var(--clay); }
     .contact-name { font-family: var(--serif); font-weight: 500; font-size: 1.15rem; color: var(--ink); transition: color .3s var(--ease); }
     .contact-handle { font-family: var(--mono); font-size: .68rem; color: var(--dim); margin-top: 2px; }
-    .contact-arrow { color: var(--dim); transition: all .3s var(--ease); font-family: var(--mono); }
+    .contact-arrow { color: var(--dim); transition: color .3s var(--ease), transform .3s var(--ease); font-family: var(--mono); }
 
     /* ============================================================
        FOOTER
@@ -925,7 +967,7 @@
       .nav-center { display: none; }
       .hero-left { max-width: 100%; }
       /* wide project card keeps its inner split but tighter */
-      .bento-card.wide > div { grid-template-columns: 1fr !important; gap: 24px !important; }
+      .bento-card.wide .bento-wide-inner { grid-template-columns: 1fr; gap: 24px; }
     }
 
     /* PHONE (≤720px): single column everywhere, denser spacing */
@@ -1073,11 +1115,11 @@
 
   <!-- ===== MOBILE MENU ===== -->
   <div class="mob-menu" id="mobMenu">
-    <a href="#about" onclick="closeMob()"><span>01</span> About</a>
-    <a href="#skills" onclick="closeMob()"><span>02</span> Skills</a>
-    <a href="#principles" onclick="closeMob()"><span>03</span> Principles</a>
-    <a href="#projects" onclick="closeMob()"><span>04</span> Work</a>
-    <a href="#contact" onclick="closeMob()"><span>05</span> Contact</a>
+    <a href="#about" data-mob-close><span>01</span> About</a>
+    <a href="#skills" data-mob-close><span>02</span> Skills</a>
+    <a href="#principles" data-mob-close><span>03</span> Principles</a>
+    <a href="#projects" data-mob-close><span>04</span> Work</a>
+    <a href="#contact" data-mob-close><span>05</span> Contact</a>
     <div class="mob-foot">
       <span>Vadodara, India · Open to collaborate</span>
       <span>lokesh.panditi.29@gmail.com</span>
@@ -1341,7 +1383,7 @@
             </a>
             <!-- bespoke mesh network diagram -->
             <div class="bento-diagram">
-              <svg viewBox="0 0 360 150" aria-hidden="true">
+              <svg viewBox="0 0 360 150" role="img" aria-label="ESP32 mesh network diagram showing nodes A, B, C connected through a relay node">
                 <line x1="60" y1="75" x2="180" y2="35" class="dm-soft" />
                 <line x1="60" y1="75" x2="180" y2="115" class="dm-soft" />
                 <line x1="180" y1="35" x2="300" y2="75" class="dm-soft" />
@@ -1380,7 +1422,7 @@
             </a>
             <!-- terminal diagram -->
             <div class="bento-diagram">
-              <svg viewBox="0 0 360 150" aria-hidden="true">
+              <svg viewBox="0 0 360 150" role="img" aria-label="UART shell terminal interface showing GPIO read and toggle commands">
                 <rect x="20" y="20" width="320" height="110" rx="6" class="dm-fill" />
                 <line x1="20" y1="40" x2="340" y2="40" class="dm-soft" style="stroke-dasharray:none" />
                 <text x="32" y="34" class="dm-text">uart0@esp32 — shell</text>
@@ -1399,7 +1441,7 @@
               <span class="bento-num">PROJECT 03</span>
               <span class="bento-year">Portable driver library</span>
             </div>
-            <div style="display:grid; grid-template-columns:1.3fr 1fr; gap:40px; align-items:start;">
+            <div class="bento-wide-inner" style="display:grid; grid-template-columns:1.3fr 1fr; gap:40px; align-items:start;">
               <div>
                 <h3 class="bento-title">UART <em>Serial</em></h3>
                 <p class="bento-desc">Low-level UART serial communication library in C. Clean abstraction over hardware UART registers with configurable baud rate, parity, stop bits, and interrupt-driven RX/TX ring buffers. Designed for portability across MCU targets.</p>
@@ -1416,7 +1458,7 @@
               </div>
               <!-- ring buffer diagram -->
               <div class="bento-diagram" style="max-width:240px; margin:0;">
-                <svg viewBox="0 0 200 150" aria-hidden="true">
+                <svg viewBox="0 0 200 150" role="img" aria-label="RX and TX ring buffer diagram showing head and tail pointers">
                   <circle cx="100" cy="75" r="48" class="dm-fill" />
                   <path d="M100 27 A48 48 0 0 1 148 75" class="dm-clay dm-anim" />
                   <path d="M148 75 A48 48 0 0 1 100 123" class="dm-clay dm-anim" />
@@ -1560,6 +1602,10 @@
       burger.setAttribute('aria-expanded', 'false');
       document.body.style.overflow = '';
     }
+    // close mobile menu on any link click
+    document.querySelectorAll('[data-mob-close]').forEach(function (link) {
+      link.addEventListener('click', closeMob);
+    });
 
     /* ============================================================
        SCROLL REVEAL
