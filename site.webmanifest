@@ -1,0 +1,21 @@
+{
+  "name": "Lokesh Panditi — Embedded Systems & Firmware Developer",
+  "short_name": "Lokesh Panditi",
+  "description": "Embedded systems and firmware developer writing bare-metal C, C++, Rust, ADA & ARM64 assembly.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f4f1ea",
+  "theme_color": "#f4f1ea",
+  "icons": [
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    }
+  ]
+}
