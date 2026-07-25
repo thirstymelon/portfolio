@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Lokesh Panditi — Embedded Systems &amp; Firmware Developer</title>
-  <meta name="description" content="Lokesh (Loki) Panditi — embedded systems & firmware developer. Bare-metal C, C++, Rust, ADA & ARM64 assembly. From UART drivers to ESP32 mesh networks. Open to collaborations." />
+  <meta name="description" content="Lokesh (Loki) Panditi — embedded systems and firmware developer building bare-metal C, C++, Rust, and Ada projects for the RP2040 and other microcontrollers." />
   <meta name="author" content="Lokesh Panditi" />
   <meta name="theme-color" content="#f4f1ea" />
 
@@ -15,7 +15,7 @@
   <!-- Open Graph / social preview -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Lokesh Panditi — Embedded Systems &amp; Firmware Developer" />
-  <meta property="og:description" content="Bare-metal C, C++, Rust, ADA & ARM64 assembly. From UART drivers to ESP32 mesh networks. Open to collaborations." />
+  <meta property="og:description" content="Embedded systems and firmware developer building bare-metal C, C++, Rust, and Ada projects for the RP2040 and other microcontrollers." />
   <meta property="og:url" content="https://lokeshpanditi.qzz.io" />
   <meta property="og:image" content="https://lokeshpanditi.qzz.io/og-image.png" />
   <meta property="og:image:width" content="1200" />
@@ -47,7 +47,7 @@
     "familyName": "Panditi",
     "alternateName": "Loki",
     "jobTitle": "Firmware Engineer",
-    "description": "Embedded systems and firmware developer writing bare-metal C, C++, Rust, ADA and ARM64 assembly.",
+    "description": "Embedded systems and firmware developer building bare-metal C, C++, Rust, and Ada projects for the RP2040 and other microcontrollers.",
     "url": "https://lokeshpanditi.qzz.io",
     "sameAs": [
       "https://github.com/thirstymelon",
@@ -59,9 +59,9 @@
       "C",
       "C++",
       "Rust",
-      "ADA",
-      "ARM64 Assembly",
-      "ESP32",
+      "Ada",
+      "RP2040",
+      "SSD1306",
       "FreeRTOS"
     ]
   }
@@ -690,6 +690,20 @@
       100% { box-shadow: 0 0 0 0 transparent; }
     }
     .now-card strong { color: var(--ink); font-weight: 600; }
+    .now-card-copy { flex: 1; min-width: 0; }
+    .now-link {
+      flex-shrink: 0;
+      color: var(--ink);
+      font-family: var(--mono);
+      font-size: .65rem;
+      font-weight: 600;
+      letter-spacing: .04em;
+      text-decoration: none;
+      white-space: nowrap;
+      border-bottom: 1px solid var(--clay);
+      transition: color .3s var(--ease), border-color .3s var(--ease);
+    }
+    .now-link:hover { color: var(--clay); border-color: transparent; }
 
     /* ============================================================
        SKILLS
@@ -741,34 +755,6 @@
     .tag.hi { background: var(--ink); color: var(--paper); border-color: var(--ink); font-weight: 600; }
 
     /* ============================================================
-       PRINCIPLES
-       ============================================================ */
-    .principle-list { border-top: 1px solid var(--rule); }
-    .principle {
-      display: grid;
-      grid-template-columns: 70px 1fr 1.2fr;
-      gap: 32px;
-      padding: 40px 0;
-      border-bottom: 1px solid var(--rule);
-      align-items: start;
-      transition: background .4s var(--ease);
-    }
-    .principle:hover { background: var(--paper-2); }
-    .principle:hover .principle-title { color: var(--clay); }
-    .principle-num { font-family: var(--mono); font-size: .68rem; letter-spacing: .1em; color: var(--dim); padding-top: 10px; }
-    .principle-title {
-      font-family: var(--serif);
-      font-weight: 500;
-      font-size: clamp(1.4rem, 3vw, 2rem);
-      letter-spacing: -0.02em;
-      color: var(--ink);
-      line-height: 1.1;
-      transition: color .35s var(--ease);
-    }
-    .principle-title em { font-style: italic; color: var(--clay); }
-    .principle-body { font-size: .98rem; font-weight: 300; color: var(--ink-2); line-height: 1.75; }
-
-    /* ============================================================
        PROJECTS
        ============================================================ */
     .projects-section { background: var(--paper-2); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); transition: background .5s var(--ease), border-color .5s var(--ease); }
@@ -793,6 +779,7 @@
     .bento-meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
     .bento-num { font-family: var(--mono); font-size: .6rem; letter-spacing: .14em; color: var(--dim); }
     .bento-year { font-family: var(--mono); font-size: .6rem; letter-spacing: .1em; color: var(--clay); }
+    .bento-status { font-family: var(--mono); font-size: .55rem; letter-spacing: .08em; text-transform: uppercase; color: var(--clay); border: 1px solid var(--clay); border-radius: 999px; padding: 4px 8px; }
     .bento-title {
       font-family: var(--serif);
       font-weight: 500;
@@ -1017,6 +1004,8 @@
       .spec-card { padding: 20px; }
       .spec-card::before { left: 18px; }
       .nav-logo .ord { display: none; }
+      .now-card { align-items: flex-start; flex-wrap: wrap; }
+      .now-link { margin-left: 20px; }
     }
 
     /* TINY PHONE (≤360px): last-resort clamp to prevent horizontal scroll */
@@ -1075,7 +1064,7 @@
       .bento { grid-template-columns: 1fr; gap: 16px; }
       .bento-card.feat, .bento-card.med, .bento-card.wide { grid-column: span 1; break-inside: avoid; page-break-inside: avoid; box-shadow: none; }
       .bento-diagram, .dm-anim { display: none; }
-      .skill-index, .principle, .about-grid, .contact-grid { break-inside: avoid; page-break-inside: avoid; }
+      .skill-index, .about-grid, .contact-grid { break-inside: avoid; page-break-inside: avoid; }
       .sec-hd { margin-bottom: 24px; }
       .contact-big { font-size: 28pt; }
       .skills-section, .projects-section { background: #fff; border: none; }
@@ -1100,14 +1089,13 @@
       <div class="nav-center" role="navigation" aria-label="Primary">
         <a href="#about">About</a>
         <a href="#skills">Skills</a>
-        <a href="#principles">Principles</a>
         <a href="#projects">Work</a>
         <a href="#contact">Contact</a>
       </div>
       <div class="nav-right">
         <div class="nav-clock" aria-live="polite">
           <span class="dot" aria-hidden="true"></span>
-          <span id="clock">Vadodara · --:--</span>
+          <span id="clock">Ongole · --:--</span>
         </div>
         <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark mode">
           <svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
@@ -1124,11 +1112,10 @@
   <div class="mob-menu" id="mobMenu">
     <a href="#about" data-mob-close><span>01</span> About</a>
     <a href="#skills" data-mob-close><span>02</span> Skills</a>
-    <a href="#principles" data-mob-close><span>03</span> Principles</a>
-    <a href="#projects" data-mob-close><span>04</span> Work</a>
-    <a href="#contact" data-mob-close><span>05</span> Contact</a>
+    <a href="#projects" data-mob-close><span>03</span> Work</a>
+    <a href="#contact" data-mob-close><span>04</span> Contact</a>
     <div class="mob-foot">
-      <span>Vadodara, India · Open to collaborate</span>
+      <span>Ongole, India · Open to collaborate</span>
       <span>lokesh.panditi.29@gmail.com</span>
       <a href="LOKESH_PANDITI.pdf" download style="color:var(--clay);">Download Resume &darr;</a>
     </div>
@@ -1146,8 +1133,8 @@
         </h1>
         <p class="hero-sub">
           I'm <strong>Lokesh</strong> &mdash; building firmware, bare-metal systems, and
-          hardware-close software in <code>C</code>, <code>C++</code>, <code>ADA</code>,
-          <code>Rust</code> &amp; <code>ARM64&nbsp;ASM</code>. From UART drivers to ESP32 mesh networks.
+          hardware-close software in <code>C</code>, <code>C++</code>, <code>Ada</code>,
+          and <code>Rust</code>. Currently focused on the RP2040 and practical Ada projects.
         </p>
         <div class="hero-ctas">
           <a href="#projects" class="btn-solid">
@@ -1174,7 +1161,7 @@
         </div>
         <div class="spec-row">
           <span class="spec-key">Based</span>
-          <span class="spec-val">Vadodara, IN</span>
+          <span class="spec-val">Ongole, IN</span>
         </div>
         <div class="spec-row">
           <span class="spec-key">Focus</span>
@@ -1182,11 +1169,11 @@
         </div>
         <div class="spec-row">
           <span class="spec-key">Languages</span>
-          <span class="spec-val">C · C++ · Rust · ADA · ASM</span>
+          <span class="spec-val">C · C++ · Rust · Ada</span>
         </div>
         <div class="spec-row">
           <span class="spec-key">Targets</span>
-          <span class="spec-val">ESP32 · RP2040 · ARM64</span>
+          <span class="spec-val">RP2040 · Bare metal · RTOS</span>
         </div>
         <div class="spec-row">
           <span class="spec-key">Status</span>
@@ -1199,18 +1186,18 @@
     <div class="marquee" aria-hidden="true">
       <div class="marquee-track">
         <span class="marquee-item">Bare-metal <em>C</em> <span class="marquee-star">✶</span></span>
-        <span class="marquee-item">ESP32 <em>Mesh</em> <span class="marquee-star">✶</span></span>
-        <span class="marquee-item">UART <em>Drivers</em> <span class="marquee-star">✶</span></span>
+        <span class="marquee-item">Ada <em>Projects</em> <span class="marquee-star">✶</span></span>
+        <span class="marquee-item">RP2040 <em>Firmware</em> <span class="marquee-star">✶</span></span>
         <span class="marquee-item">Free<em>RTOS</em> <span class="marquee-star">✶</span></span>
-        <span class="marquee-item">ARM64 <em>Assembly</em> <span class="marquee-star">✶</span></span>
-        <span class="marquee-item">FPGA &amp; <em>Verilog</em> <span class="marquee-star">✶</span></span>
+        <span class="marquee-item">SSD1306 <em>OLED</em> <span class="marquee-star">✶</span></span>
+        <span class="marquee-item">Embedded <em>Graphics</em> <span class="marquee-star">✶</span></span>
         <!-- duplicate set for seamless loop -->
         <span class="marquee-item">Bare-metal <em>C</em> <span class="marquee-star">✶</span></span>
-        <span class="marquee-item">ESP32 <em>Mesh</em> <span class="marquee-star">✶</span></span>
-        <span class="marquee-item">UART <em>Drivers</em> <span class="marquee-star">✶</span></span>
+        <span class="marquee-item">Ada <em>Projects</em> <span class="marquee-star">✶</span></span>
+        <span class="marquee-item">RP2040 <em>Firmware</em> <span class="marquee-star">✶</span></span>
         <span class="marquee-item">Free<em>RTOS</em> <span class="marquee-star">✶</span></span>
-        <span class="marquee-item">ARM64 <em>Assembly</em> <span class="marquee-star">✶</span></span>
-        <span class="marquee-item">FPGA &amp; <em>Verilog</em> <span class="marquee-star">✶</span></span>
+        <span class="marquee-item">SSD1306 <em>OLED</em> <span class="marquee-star">✶</span></span>
+        <span class="marquee-item">Embedded <em>Graphics</em> <span class="marquee-star">✶</span></span>
       </div>
     </div>
 
@@ -1225,35 +1212,36 @@
       <div class="about-grid">
         <div class="about-prose reveal">
           <p class="lead">I'm <strong>Lokesh (Loki)</strong>, an embedded systems developer who prefers <em>registers to abstractions</em>. My work lives at the boundary where software commands hardware directly &mdash; no OS buffer, no managed runtime.</p>
-          <p>I build UART drivers, distributed MCU networks, and firmware that runs reliably on bare silicon. I believe understanding a system at its lowest level is the only way to truly master it.</p>
-          <p>Currently exploring <strong>ADA for embedded targets</strong>, <code>FPGA</code> digital design, and ARM64 assembly on Apple Silicon.</p>
+          <p>I build reusable firmware components, distributed MCU networks, and software that runs reliably on bare silicon. I believe understanding a system at its lowest level is the only way to truly master it.</p>
+          <p>Currently learning <strong>Ada for embedded targets</strong> by building projects on the <code>RP2040</code>, including Glyph for the Vicharak Shrike-Lite and SSD1306 OLED display.</p>
         </div>
 
         <div class="reveal d2">
           <div class="stat-block">
-            <div class="stat-block-title">By the numbers</div>
+            <div class="stat-block-title">Current build</div>
             <div class="stat-item">
-              <span class="stat-num">2<em>+</em></span>
-              <span class="stat-label">Years building</span>
+              <span class="stat-num">Ada</span>
+              <span class="stat-label">Learning through Glyph</span>
             </div>
             <div class="stat-item">
-              <span class="stat-num">6</span>
-              <span class="stat-label">Languages</span>
+              <span class="stat-num">RP</span>
+              <span class="stat-label">RP2040 platform</span>
             </div>
             <div class="stat-item">
-              <span class="stat-num">3</span>
-              <span class="stat-label">Projects shipped</span>
+              <span class="stat-num">1bpp</span>
+              <span class="stat-label">SSD1306 target</span>
             </div>
             <div class="stat-item">
               <span class="stat-num"><em>&infin;</em></span>
-              <span class="stat-label">Register reads</span>
+              <span class="stat-label">Ideas in progress</span>
             </div>
           </div>
 
           <!-- Currently status -->
           <div class="now-card">
             <span class="pulse" aria-hidden="true"></span>
-            <span><strong>Currently</strong> &mdash; exploring ADA for embedded, FPGA digital design &amp; ARM64 on Apple Silicon.</span>
+            <span class="now-card-copy"><strong>Currently working on Glyph</strong> &mdash; an Ada graphics framework for bare-metal systems, built on the Vicharak Shrike-Lite with an SSD1306 OLED.</span>
+            <a class="now-link" href="https://github.com/thirstymelon/glyph" target="_blank" rel="noopener noreferrer">View Repository</a>
           </div>
         </div>
       </div>
@@ -1279,8 +1267,7 @@
                 <span class="tag hi">C</span>
                 <span class="tag hi">C++</span>
                 <span class="tag hi">Rust</span>
-                <span class="tag hi">ADA</span>
-                <span class="tag hi">ARM64 ASM</span>
+                <span class="tag hi">Ada</span>
                 <span class="tag hi">Python</span>
               </div>
             </div>
@@ -1290,9 +1277,8 @@
             <div class="skill-cat-cell">Embedded</div>
             <div class="skill-tags-cell">
               <div class="skill-tags">
-                <span class="tag">ESP32</span>
-                <span class="tag">ESP8266</span>
                 <span class="tag">RP2040</span>
+                <span class="tag">Shrike-Lite</span>
                 <span class="tag">FreeRTOS</span>
                 <span class="tag">PlatformIO</span>
               </div>
@@ -1303,8 +1289,6 @@
             <div class="skill-cat-cell">Hardware</div>
             <div class="skill-tags-cell">
               <div class="skill-tags">
-                <span class="tag">SystemVerilog</span>
-                <span class="tag">FPGA</span>
                 <span class="tag">Digital Logic</span>
                 <span class="tag">Oscilloscope</span>
                 <span class="tag">Logic Analyzer</span>
@@ -1328,59 +1312,46 @@
       </div>
     </section>
 
-    <!-- ===== PRINCIPLES ===== -->
-    <section class="sec" id="principles">
-      <div class="sec-hd reveal">
-        <span class="sec-num">[ 03 ]</span>
-        <h2 class="sec-title">Principles</h2>
-        <span class="sec-note">What I believe about building systems close to hardware.</span>
-      </div>
-
-      <div class="principle-list">
-        <article class="principle reveal">
-          <div class="principle-num">01</div>
-          <h3 class="principle-title">Registers over <em>abstractions.</em></h3>
-          <p class="principle-body">A managed runtime is a wall between you and the machine. Reading the datasheet and writing the register is slower at first &mdash; and faster forever after. I'd rather know exactly which bit I'm flipping than trust a layer I can't see through.</p>
-        </article>
-        <article class="principle reveal d1">
-          <div class="principle-num">02</div>
-          <h3 class="principle-title">Determinate by <em>design.</em></h3>
-          <p class="principle-body">On bare silicon there's no GC, no scheduler surprise, no "it works on my machine." Behavior must be repeatable to the cycle. I design interrupt-driven, bounded, predictable systems &mdash; because on a microcontroller, a millisecond of jitter can be a missed packet.</p>
-        </article>
-        <article class="principle reveal d2">
-          <div class="principle-num">03</div>
-          <h3 class="principle-title">Read the <em>silicon,</em> not the stack trace.</h3>
-          <p class="principle-body">When something breaks at this layer, the oscilloscope and logic analyzer come before the debugger. The hardware is always telling the truth &mdash; you just have to know how to listen to it. I debug from the signal up, not the log down.</p>
-        </article>
-        <article class="principle reveal d3">
-          <div class="principle-num">04</div>
-          <h3 class="principle-title">Portable <em>by default.</em></h3>
-          <p class="principle-body">A UART driver shouldn't be welded to one chip. I separate the hardware interface from the register layer so the same code moves between ESP32, RP2040, and STM32 with a port file, not a rewrite. Good firmware is a clean contract with the metal.</p>
-        </article>
-      </div>
-    </section>
-
     <!-- ===== PROJECTS ===== -->
     <section class="projects-section" id="projects">
       <div class="sec">
         <div class="sec-hd reveal">
-          <span class="sec-num">[ 04 ]</span>
+          <span class="sec-num">[ 03 ]</span>
           <h2 class="sec-title">Selected <em>work</em></h2>
-          <span class="sec-note">Three shipped projects &mdash; firmware, drivers, and mesh networking.</span>
+          <span class="sec-note">Current Ada work alongside embedded systems and networking projects.</span>
         </div>
 
         <div class="bento">
-          <!-- 01 — ESP32 Mesh -->
+          <!-- 01 — Glyph -->
           <article class="bento-card feat reveal">
             <div class="bento-meta">
               <span class="bento-num">PROJECT 01</span>
+              <span class="bento-status">Under Active Development</span>
+            </div>
+            <h3 class="bento-title">Glyph <em>Graphics</em></h3>
+            <p class="bento-desc">An open-source embedded graphics framework in Ada for bare-metal systems. Glyph is being developed on the Vicharak Shrike-Lite (RP2040) with an SSD1306 OLED, using a framebuffer-based and hardware-independent design.</p>
+            <div class="bento-tags">
+              <span class="bento-tag">Ada</span>
+              <span class="bento-tag">RP2040</span>
+              <span class="bento-tag">SSD1306</span>
+              <span class="bento-tag">Bare metal</span>
+            </div>
+            <a href="https://github.com/thirstymelon/glyph" class="bento-link" target="_blank" rel="noopener noreferrer">
+              View Repository
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M7 7h10v10" /></svg>
+            </a>
+          </article>
+
+          <!-- 02 — Mesh Network -->
+          <article class="bento-card med reveal d1">
+            <div class="bento-meta">
+              <span class="bento-num">PROJECT 02</span>
               <span class="bento-year">ESP-NOW · 2.4 GHz</span>
             </div>
             <h3 class="bento-title">ESP32 <em>Mesh</em></h3>
-            <p class="bento-desc">Multi-node ESP32 mesh communication system over ESP-NOW with iOS, macOS, and Windows app support. Devices self-organize into a peer topology, routing messages through intermediate nodes without a central hub &mdash; covering node discovery, message queuing, and packet routing across the 2.4&nbsp;GHz band.</p>
+            <p class="bento-desc">Multi-node mesh communication system over ESP-NOW with iOS, macOS, and Windows app support. Devices self-organize into a peer topology, routing messages through intermediate nodes without a central hub &mdash; covering node discovery, message queuing, and packet routing across the 2.4&nbsp;GHz band.</p>
             <div class="bento-tags">
               <span class="bento-tag">C</span>
-              <span class="bento-tag">ESP32</span>
               <span class="bento-tag">ESP-NOW</span>
               <span class="bento-tag">Mesh</span>
             </div>
@@ -1390,7 +1361,7 @@
             </a>
             <!-- bespoke mesh network diagram -->
             <div class="bento-diagram">
-              <svg viewBox="0 0 360 150" role="img" aria-label="ESP32 mesh network diagram showing nodes A, B, C connected through a relay node">
+              <svg viewBox="0 0 360 150" role="img" aria-label="Mesh network diagram showing nodes A, B, C connected through a relay node">
                 <line x1="60" y1="75" x2="180" y2="35" class="dm-soft" />
                 <line x1="60" y1="75" x2="180" y2="115" class="dm-soft" />
                 <line x1="180" y1="35" x2="300" y2="75" class="dm-soft" />
@@ -1410,18 +1381,18 @@
             </div>
           </article>
 
-          <!-- 02 — UART Shell -->
-          <article class="bento-card med reveal d1">
+          <!-- 03 — Embedded Command Shell -->
+          <article class="bento-card wide reveal d2">
             <div class="bento-meta">
-              <span class="bento-num">PROJECT 02</span>
+              <span class="bento-num">PROJECT 03</span>
               <span class="bento-year">Bare metal</span>
             </div>
-            <h3 class="bento-title">UART <em>Shell</em></h3>
-            <p class="bento-desc">An interactive command shell over UART on the ESP32 &mdash; command parser, argument tokenizer, and dispatch table for querying sensors, toggling GPIO, and inspecting system state without reflashing.</p>
+            <h3 class="bento-title">Embedded <em>Shell</em></h3>
+            <p class="bento-desc">An interactive command shell for embedded targets &mdash; command parsing, argument tokenization, and a dispatch table for querying sensors, toggling GPIO, and inspecting system state without reflashing.</p>
             <div class="bento-tags">
-              <span class="bento-tag">ESP32</span>
               <span class="bento-tag">C</span>
-              <span class="bento-tag">UART</span>
+              <span class="bento-tag">Bare metal</span>
+              <span class="bento-tag">GPIO</span>
             </div>
             <a href="https://github.com/thirstymelon/esp32_uart_shell" class="bento-link" target="_blank" rel="noopener">
               GitHub
@@ -1429,10 +1400,10 @@
             </a>
             <!-- terminal diagram -->
             <div class="bento-diagram">
-              <svg viewBox="0 0 360 150" role="img" aria-label="UART shell terminal interface showing GPIO read and toggle commands">
+              <svg viewBox="0 0 360 150" role="img" aria-label="Embedded shell terminal interface showing GPIO read and toggle commands">
                 <rect x="20" y="20" width="320" height="110" rx="6" class="dm-fill" />
                 <line x1="20" y1="40" x2="340" y2="40" class="dm-soft" style="stroke-dasharray:none" />
-                <text x="32" y="34" class="dm-text">uart0@esp32 — shell</text>
+                <text x="32" y="34" class="dm-text">device — shell</text>
                 <text x="32" y="60" class="dm-text-ink">&gt; read GPIO4</text>
                 <text x="32" y="76" class="dm-text">  ok: HIGH (1)</text>
                 <text x="32" y="94" class="dm-text-ink">&gt; toggle GPIO2</text>
@@ -1442,41 +1413,6 @@
             </div>
           </article>
 
-          <!-- 03 — UART Serial -->
-          <article class="bento-card wide reveal d2">
-            <div class="bento-meta">
-              <span class="bento-num">PROJECT 03</span>
-              <span class="bento-year">Portable driver library</span>
-            </div>
-            <div class="bento-wide-inner" style="display:grid; grid-template-columns:1.3fr 1fr; gap:40px; align-items:start;">
-              <div>
-                <h3 class="bento-title">UART <em>Serial</em></h3>
-                <p class="bento-desc">Low-level UART serial communication library in C. Clean abstraction over hardware UART registers with configurable baud rate, parity, stop bits, and interrupt-driven RX/TX ring buffers. Designed for portability across MCU targets.</p>
-                <div class="bento-tags">
-                  <span class="bento-tag">C</span>
-                  <span class="bento-tag">UART</span>
-                  <span class="bento-tag">Driver</span>
-                  <span class="bento-tag">Portable</span>
-                </div>
-                <a href="https://github.com/thirstymelon/uart_serial" class="bento-link" target="_blank" rel="noopener">
-                  View on GitHub
-                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M7 7h10v10" /></svg>
-                </a>
-              </div>
-              <!-- ring buffer diagram -->
-              <div class="bento-diagram" style="max-width:240px; margin:0;">
-                <svg viewBox="0 0 200 150" role="img" aria-label="RX and TX ring buffer diagram showing head and tail pointers">
-                  <circle cx="100" cy="75" r="48" class="dm-fill" />
-                  <path d="M100 27 A48 48 0 0 1 148 75" class="dm-clay dm-anim" />
-                  <path d="M148 75 A48 48 0 0 1 100 123" class="dm-clay dm-anim" />
-                  <text x="100" y="72" text-anchor="middle" class="dm-text-ink">RX/TX</text>
-                  <text x="100" y="86" text-anchor="middle" class="dm-text">ring buffer</text>
-                  <text x="100" y="14" text-anchor="middle" class="dm-text">head →</text>
-                  <text x="100" y="148" text-anchor="middle" class="dm-text">← tail</text>
-                </svg>
-              </div>
-            </div>
-          </article>
         </div>
       </div>
     </section>
@@ -1484,7 +1420,7 @@
     <!-- ===== CONTACT ===== -->
     <section class="sec contact-section" id="contact">
       <div class="sec-hd reveal" style="border-bottom:none; margin-bottom:20px;">
-        <span class="sec-num">[ 05 ]</span>
+        <span class="sec-num">[ 04 ]</span>
         <h2 class="sec-title"><em>Contact</em></h2>
       </div>
 
@@ -1556,7 +1492,7 @@
     <div class="ft-wrap">
       <div class="ft-big reveal">Built close to the <span class="clay">silicon.</span></div>
       <div class="ft-bottom">
-        <div>&copy; 2024 Lokesh Panditi <span style="opacity:.5">· Vadodara, India</span></div>
+        <div>&copy; 2024 Lokesh Panditi <span style="opacity:.5">· Ongole, India</span></div>
         <div>Designed &amp; engineered with low-level precision</div>
       </div>
     </div>
@@ -1661,7 +1597,7 @@
     });
 
     /* ============================================================
-       LIVE LOCAL CLOCK — Vadodara (IST, UTC+5:30)
+       LIVE LOCAL CLOCK — Ongole (IST, UTC+5:30)
        ============================================================ */
     (function clock() {
       var el = document.getElementById('clock');
@@ -1673,7 +1609,7 @@
         var h = String(ist.getHours()).padStart(2, '0');
         var m = String(ist.getMinutes()).padStart(2, '0');
         var s = String(ist.getSeconds()).padStart(2, '0');
-        el.textContent = 'Vadodara · ' + h + ':' + m + ':' + s;
+        el.textContent = 'Ongole · ' + h + ':' + m + ':' + s;
       }
       tick();
       setInterval(tick, 1000);
