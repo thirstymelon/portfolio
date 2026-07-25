@@ -51,7 +51,7 @@
     "url": "https://lokeshpanditi.qzz.io",
     "sameAs": [
       "https://github.com/thirstymelon",
-      "https://www.linkedin.com/in/lokesh-panditi-594b3b2b2"
+      "https://www.linkedin.com/in/lokeshpanditi"
     ],
     "knowsAbout": [
       "Embedded Systems",
@@ -372,12 +372,12 @@
       width: 100%;
       max-width: var(--max);
       margin-inline: auto;
-      padding: 130px var(--pad) 64px;
+      padding: 100px var(--pad) 36px;
       display: grid;
       grid-template-columns: 1.5fr 1fr;
       gap: 56px;
       align-items: end;
-      min-height: 92svh;
+      min-height: 72svh;
     }
     .hero-left { max-width: 760px; }
 
@@ -631,53 +631,25 @@
       border-radius: 3px;
     }
 
-    .stat-block {
-      background: var(--paper-2);
-      border: 1px solid var(--rule);
-      border-radius: 14px;
-      padding: 32px;
-      transition: background .5s var(--ease), border-color .5s var(--ease);
-    }
-    .stat-block-title {
-      font-family: var(--mono);
-      font-size: .6rem;
-      letter-spacing: .16em;
-      text-transform: uppercase;
-      color: var(--dim);
-      margin-bottom: 22px;
-      padding-bottom: 14px;
-      border-bottom: 1px solid var(--rule);
-    }
-    .stat-item {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      padding: 14px 0;
-      border-bottom: 1px dashed var(--rule-2);
-    }
-    .stat-item:last-child { border-bottom: none; }
-    .stat-num { font-family: var(--serif); font-weight: 500; font-size: 2rem; letter-spacing: -0.02em; color: var(--ink); line-height: 1; }
-    .stat-num em { font-style: italic; color: var(--clay); }
-    .stat-label { font-family: var(--mono); font-size: .64rem; letter-spacing: .08em; text-transform: uppercase; color: var(--dim); text-align: right; }
-
-    /* Currently strip (recruiter-friendly status) */
+    /* Currently working card (recruiter-friendly status) */
     .now-card {
-      margin-top: 20px;
-      padding: 18px 20px;
+      margin-top: 0;
+      padding: 28px;
       background: var(--paper-3);
       border: 1px solid var(--rule);
-      border-radius: 10px;
+      border-radius: 14px;
+      transition: background .5s var(--ease), border-color .5s var(--ease);
+    }
+    .now-card-head {
       display: flex;
       align-items: center;
       gap: 12px;
-      font-family: var(--mono);
-      font-size: .72rem;
-      color: var(--ink-2);
-      line-height: 1.5;
-      transition: background .5s var(--ease), border-color .5s var(--ease);
+      margin-bottom: 18px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--rule);
     }
     .now-card .pulse {
-      width: 8px; height: 8px;
+      width: 10px; height: 10px;
       background: var(--clay);
       border-radius: 50%;
       box-shadow: 0 0 0 0 var(--clay);
@@ -689,21 +661,105 @@
       70% { box-shadow: 0 0 0 10px transparent; }
       100% { box-shadow: 0 0 0 0 transparent; }
     }
-    .now-card strong { color: var(--ink); font-weight: 600; }
-    .now-card-copy { flex: 1; min-width: 0; }
-    .now-link {
-      flex-shrink: 0;
+    .now-card-label {
+      font-family: var(--mono);
+      font-size: .6rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--clay);
+    }
+    .now-card-badge {
+      margin-left: auto;
+      font-family: var(--mono);
+      font-size: .55rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--olive);
+      border: 1px solid var(--olive);
+      border-radius: 999px;
+      padding: 3px 9px;
+    }
+    .now-card-title {
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: 1.3rem;
+      letter-spacing: -0.01em;
       color: var(--ink);
+      line-height: 1.15;
+      margin-bottom: 10px;
+    }
+    .now-card-title em { font-style: italic; color: var(--clay); }
+    .now-card-desc {
+      font-family: var(--sans);
+      font-size: .88rem;
+      font-weight: 300;
+      color: var(--ink-2);
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+    .now-card-desc strong { color: var(--ink); font-weight: 600; }
+    .now-card-details {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 16px;
+      margin-bottom: 20px;
+    }
+    .now-card-detail {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      font-family: var(--mono);
+      font-size: .66rem;
+      color: var(--ink-2);
+      line-height: 1.6;
+    }
+    .now-card-detail .dot {
+      width: 4px; height: 4px;
+      background: var(--clay);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .now-card-detail strong { color: var(--ink); font-weight: 600; }
+    .now-card-ft {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding-top: 16px;
+      border-top: 1px solid var(--rule);
+    }
+    .now-card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .now-card-tag {
+      font-family: var(--mono);
+      font-size: .58rem;
+      letter-spacing: .04em;
+      padding: 3px 9px;
+      border: 1px solid var(--rule);
+      border-radius: 3px;
+      color: var(--dim);
+    }
+    .now-link {
       font-family: var(--mono);
       font-size: .65rem;
       font-weight: 600;
       letter-spacing: .04em;
+      color: var(--ink);
       text-decoration: none;
       white-space: nowrap;
       border-bottom: 1px solid var(--clay);
       transition: color .3s var(--ease), border-color .3s var(--ease);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
     .now-link:hover { color: var(--clay); border-color: transparent; }
+    .now-link svg { transition: transform .3s var(--ease); }
+    .now-link:hover svg { transform: translate(2px, -2px); }
 
     /* ============================================================
        SKILLS
@@ -772,8 +828,8 @@
       transition: transform .4s var(--ease), border-color .4s var(--ease), box-shadow .4s var(--ease), background .5s var(--ease);
     }
     .bento-card:hover { transform: translateY(-4px); border-color: var(--ink); box-shadow: 0 24px 50px -32px rgba(0,0,0,.4); }
-    .bento-card.feat { grid-column: span 4; }
-    .bento-card.med  { grid-column: span 2; }
+    .bento-card.feat { grid-column: span 3; }
+    .bento-card.med  { grid-column: span 3; }
     .bento-card.wide { grid-column: span 6; }
 
     .bento-meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
@@ -813,6 +869,8 @@
     .bento-link:hover svg { transform: translate(2px, -2px); }
     .bento-diagram { margin-top: auto; padding-top: 24px; display: flex; justify-content: center; }
     .bento-diagram svg { width: 100%; height: auto; max-width: 360px; }
+    .bento-card.feat .bento-diagram svg { max-width: 480px; }
+    .bento-card.wide .bento-diagram svg { max-width: 520px; }
 
     /* theme-aware diagram strokes */
     .dm-line       { stroke: var(--ink); stroke-width: 1.3; fill: none; }
@@ -998,14 +1056,15 @@
       .btn-solid { padding: 12px 20px; }
       .about-prose .lead::first-letter { font-size: 3em; }
       .to-top { bottom: 14px; right: 14px; }
-      .stat-block { padding: 24px; }
       .bento-card.feat, .bento-card.med, .bento-card.wide { padding: 20px; }
       .bento-diagram svg { max-width: 260px; }
+      .bento-card.feat .bento-diagram svg { max-width: 260px; }
+      .bento-card.wide .bento-diagram svg { max-width: 260px; }
       .spec-card { padding: 20px; }
       .spec-card::before { left: 18px; }
       .nav-logo .ord { display: none; }
-      .now-card { align-items: flex-start; flex-wrap: wrap; }
-      .now-link { margin-left: 20px; }
+      .now-card { padding: 24px; }
+      .now-card-details { grid-template-columns: 1fr; }
     }
 
     /* TINY PHONE (≤360px): last-resort clamp to prevent horizontal scroll */
@@ -1217,31 +1276,40 @@
         </div>
 
         <div class="reveal d2">
-          <div class="stat-block">
-            <div class="stat-block-title">Current build</div>
-            <div class="stat-item">
-              <span class="stat-num">Ada</span>
-              <span class="stat-label">Learning through Glyph</span>
-            </div>
-            <div class="stat-item">
-              <span class="stat-num">RP</span>
-              <span class="stat-label">RP2040 platform</span>
-            </div>
-            <div class="stat-item">
-              <span class="stat-num">1bpp</span>
-              <span class="stat-label">SSD1306 target</span>
-            </div>
-            <div class="stat-item">
-              <span class="stat-num"><em>&infin;</em></span>
-              <span class="stat-label">Ideas in progress</span>
-            </div>
-          </div>
-
-          <!-- Currently status -->
+          <!-- Currently working on Glyph -->
           <div class="now-card">
-            <span class="pulse" aria-hidden="true"></span>
-            <span class="now-card-copy"><strong>Currently working on Glyph</strong> &mdash; an Ada graphics framework for bare-metal systems, built on the Vicharak Shrike-Lite with an SSD1306 OLED.</span>
-            <a class="now-link" href="https://github.com/thirstymelon/glyph" target="_blank" rel="noopener noreferrer">View Repository</a>
+            <div class="now-card-head">
+              <span class="pulse" aria-hidden="true"></span>
+              <span class="now-card-label">Active Development</span>
+              <span class="now-card-badge">Ada · RP2040</span>
+            </div>
+            <h4 class="now-card-title">Glyph <em>Graphics Framework</em></h4>
+            <p class="now-card-desc">
+              An open-source embedded graphics framework written in <strong>Ada</strong> for bare-metal systems.
+              Being developed on the <strong>Vicharak Shrike-Lite</strong> (RP2040) with an <strong>SSD1306 OLED</strong> display,
+              using a framebuffer-based and hardware-independent design.
+            </p>
+            <div class="now-card-details">
+              <div class="now-card-detail"><span class="dot" aria-hidden="true"></span><strong>Language:</strong> Ada (GNAT)</div>
+              <div class="now-card-detail"><span class="dot" aria-hidden="true"></span><strong>Target:</strong> RP2040 / ARM Cortex-M0+</div>
+              <div class="now-card-detail"><span class="dot" aria-hidden="true"></span><strong>Display:</strong> SSD1306 128×64 OLED</div>
+              <div class="now-card-detail"><span class="dot" aria-hidden="true"></span><strong>Board:</strong> Vicharak Shrike-Lite</div>
+              <div class="now-card-detail"><span class="dot" aria-hidden="true"></span><strong>Design:</strong> Framebuffer-based, HID</div>
+              <div class="now-card-detail"><span class="dot" aria-hidden="true"></span><strong>Status:</strong> Under active development</div>
+            </div>
+            <div class="now-card-ft">
+              <div class="now-card-tags">
+                <span class="now-card-tag">Ada</span>
+                <span class="now-card-tag">RP2040</span>
+                <span class="now-card-tag">SSD1306</span>
+                <span class="now-card-tag">Bare metal</span>
+                <span class="now-card-tag">Framebuffer</span>
+              </div>
+              <a class="now-link" href="https://github.com/thirstymelon/glyph" target="_blank" rel="noopener noreferrer">
+                View Repository
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M7 7h10v10" /></svg>
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -1328,7 +1396,7 @@
               <span class="bento-num">PROJECT 01</span>
               <span class="bento-status">Under Active Development</span>
             </div>
-            <h3 class="bento-title">Glyph <em>Graphics</em></h3>
+            <h3 class="bento-title">Glyph <em>Graphics Library</em></h3>
             <p class="bento-desc">An open-source embedded graphics framework in Ada for bare-metal systems. Glyph is being developed on the Vicharak Shrike-Lite (RP2040) with an SSD1306 OLED, using a framebuffer-based and hardware-independent design.</p>
             <div class="bento-tags">
               <span class="bento-tag">Ada</span>
@@ -1340,6 +1408,32 @@
               View Repository
               <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M7 7h10v10" /></svg>
             </a>
+            <!-- Glyph architecture diagram -->
+            <div class="bento-diagram">
+              <svg viewBox="0 0 400 190" role="img" aria-label="Glyph architecture diagram showing the layered software stack">
+                <!-- Board / MCU -->
+                <rect x="100" y="10" width="200" height="22" rx="4" class="dm-fill" />
+                <text x="200" y="25" text-anchor="middle" class="dm-text">RP2040 — Vicharak Shrike-Lite</text>
+                <!-- Layer connectors -->
+                <line x1="200" y1="32" x2="200" y2="46" class="dm-soft" />
+                <line x1="200" y1="68" x2="200" y2="80" class="dm-soft" />
+                <line x1="200" y1="106" x2="200" y2="118" class="dm-soft" />
+                <line x1="200" y1="142" x2="200" y2="152" class="dm-clay dm-anim" />
+                <!-- Stacked layers -->
+                <rect x="110" y="46" width="180" height="22" rx="3" class="dm-fill" />
+                <text x="200" y="61" text-anchor="middle" class="dm-text-ink">User Application</text>
+                <rect x="110" y="80" width="180" height="26" rx="3" class="dm-fill" stroke="var(--clay)" stroke-width="1.6" />
+                <text x="200" y="97" text-anchor="middle" class="dm-text-ink" fill="var(--clay)">Glyph Graphics API</text>
+                <rect x="110" y="118" width="180" height="24" rx="3" class="dm-fill" />
+                <text x="200" y="134" text-anchor="middle" class="dm-text">Framebuffer &amp; Hardware Abstraction</text>
+                <!-- Animated data flow arrow on the right -->
+                <line x1="300" y1="59" x2="300" y2="130" class="dm-clay dm-anim" />
+                <text x="315" y="96" class="dm-text" font-size="6">data</text>
+                <!-- SSD1306 display -->
+                <rect x="140" y="152" width="120" height="22" rx="4" class="dm-fill" />
+                <text x="200" y="167" text-anchor="middle" class="dm-text-ink">SSD1306 OLED Display</text>
+              </svg>
+            </div>
           </article>
 
           <!-- 02 — Mesh Network -->
@@ -1492,7 +1586,7 @@
     <div class="ft-wrap">
       <div class="ft-big reveal">Built close to the <span class="clay">silicon.</span></div>
       <div class="ft-bottom">
-        <div>&copy; 2024 Lokesh Panditi <span style="opacity:.5">· Ongole, India</span></div>
+        <div>&copy; 2024–2026 Lokesh Panditi <span style="opacity:.5">· Ongole, India</span></div>
         <div>Designed &amp; engineered with low-level precision</div>
       </div>
     </div>
