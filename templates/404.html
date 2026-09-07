@@ -1,0 +1,226 @@
+{% extends "base.html" %}
+
+{% block title %}404 — Page Not Found | Lokesh Panditi{% endblock %}
+
+{% block body_class %}page-404{% endblock %}
+
+{% block content %}
+<section class="notfound-section">
+  <div class="notfound-grid">
+    <div class="notfound-content">
+      <div class="eyebrow" style="margin-bottom: 12px;">Error 404 · Unmapped Address</div>
+      <h1 class="hero-h1 notfound-title">
+        Page not<br /><em>found.</em>
+      </h1>
+      <p class="hero-sub notfound-sub">
+        The hardware register, memory address, or project route you requested does not exist or has been relocated.
+      </p>
+      <div class="hero-ctas notfound-ctas">
+        <a href="{{ url_for('index') }}" class="btn-solid">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="margin-right: 4px;">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+          Return to Portfolio
+        </a>
+      </div>
+    </div>
+
+    <div class="notfound-media">
+      <div class="notfound-gif-card">
+        <div class="notfound-gif-topbar">
+          <div class="notfound-dots">
+            <span></span><span></span><span></span>
+          </div>
+          <div class="notfound-gif-label">SIGSEGV · 0x00000194</div>
+        </div>
+        <div class="notfound-gif-frame">
+          <img src="{{ url_for('static', filename='gifs/' + (gif_file or '1.gif')) }}"
+               alt="404 Page Not Found Animation"
+               class="notfound-gif-img"
+               id="notfoundGif"
+               loading="eager" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+/* 404 Page Viewport Lockdown (Non-Scrollable Layout) */
+@media (min-height: 560px) and (min-width: 861px) {
+  html:has(body.page-404),
+  body.page-404 {
+    height: 100vh;
+    max-height: 100vh;
+    overflow: hidden !important;
+  }
+}
+
+body.page-404 {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+body.page-404 #main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 62px;
+  width: 100%;
+}
+
+body.page-404 footer {
+  padding: 14px var(--pad) 16px;
+  background: var(--footer-bg);
+}
+
+body.page-404 footer .ft-big {
+  display: none !important;
+}
+
+body.page-404 footer .ft-bottom {
+  border-top: none;
+  padding-top: 0;
+}
+
+/* 404 Hero & Grid */
+.notfound-section {
+  width: 100%;
+  max-width: var(--max);
+  margin-inline: auto;
+  padding: clamp(16px, 2.5vw, 36px) var(--pad);
+}
+
+.notfound-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  align-items: center;
+  gap: clamp(28px, 5vw, 64px);
+  width: 100%;
+}
+
+.notfound-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.notfound-title {
+  font-size: clamp(2.6rem, 5.5vw, 4.4rem);
+  margin-bottom: 14px;
+  line-height: 1.05;
+}
+
+.notfound-sub {
+  margin-top: 0;
+  margin-bottom: 24px;
+  max-width: 440px;
+  line-height: 1.65;
+  font-size: clamp(0.95rem, 1.3vw, 1.08rem);
+}
+
+.notfound-ctas {
+  margin-top: 0;
+}
+
+/* Enlarged GIF Terminal Card */
+.notfound-media {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.notfound-gif-card {
+  width: 100%;
+  max-width: 580px;
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 20px 48px -12px rgba(0, 0, 0, 0.16);
+  transition: transform 0.4s var(--ease), border-color 0.4s var(--ease), box-shadow 0.4s var(--ease);
+}
+
+.notfound-gif-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--clay);
+  box-shadow: 0 24px 56px -12px rgba(0, 0, 0, 0.22);
+}
+
+.notfound-gif-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 16px;
+  background: var(--paper-3);
+  border-bottom: 1px solid var(--rule);
+}
+
+.notfound-dots {
+  display: flex;
+  gap: 7px;
+}
+
+.notfound-dots span {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--rule);
+}
+
+.notfound-dots span:nth-child(1) { background: var(--clay); }
+
+.notfound-gif-label {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  color: var(--ink-2);
+  text-transform: uppercase;
+}
+
+.notfound-gif-frame {
+  width: 100%;
+  aspect-ratio: 16 / 11;
+  max-height: min(400px, 48vh);
+  background: var(--paper);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.notfound-gif-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 860px) {
+  body.page-404 {
+    height: auto;
+    overflow-y: auto !important;
+  }
+  .notfound-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .notfound-media {
+    order: -1;
+  }
+  .notfound-gif-card {
+    max-width: 100%;
+  }
+  .notfound-gif-frame {
+    max-height: 280px;
+  }
+}
+</style>
+{% endblock %}

@@ -1,0 +1,504 @@
+{% extends "base.html" %}
+
+{% block title %}Radio_Kit — Turning an RP2040's Clock Tree into an Experimental RF Source | Lokesh Panditi{% endblock %}
+
+{% block meta_description %}Technical deep dive into Radio_Kit, an experimental Ada framework for the RP2040 that generates programmable 6 Hz to 90 MHz digital RF carriers directly from on-chip clock dividers.{% endblock %}
+
+{% block body_class %}project-page{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/project.css') }}" />
+{% endblock %}
+
+{% block nav_center %}
+<div class="nav-project-bubbles" role="navigation" aria-label="Project Navigation">
+  <div class="nav-center nav-bubble-back">
+    <a href="{{ url_for('index') }}#projects" title="Back to all projects">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="margin-right: 4px; vertical-align: -1px;"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>Work
+    </a>
+  </div>
+  <div class="nav-center nav-bubble-projects">
+    <a href="{{ url_for('project_glyph') }}" title="Glyph Graphics Library">✦ Glyph</a>
+    <a href="{{ url_for('project_esp32_mesh') }}" title="MeshOS ESP-NOW Network">⚡ MeshOS</a>
+    <a href="{{ url_for('project_radio_kit') }}" class="on" title="Radio_Kit RF Clock Synthesizer">∿ Radio_Kit</a>
+  </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<!-- Project Header -->
+<header class="project-header">
+  <div class="project-header-wrap">
+    <div class="project-meta-top">
+      <div class="project-num-badge">
+        <span>PROJECT 03</span>
+        <span style="opacity:0.4;">·</span>
+        <span>RF &amp; CLOCK SYNTHESIS</span>
+      </div>
+      <div class="project-status-pill">
+        <span class="pulse-dot"></span>
+        <span>Version 0.2.0 · RP2040</span>
+      </div>
+    </div>
+
+    <h1 class="project-title">∿ Radio_Kit <em>Framework</em></h1>
+    <p class="project-subtitle" style="font-style: italic; color: var(--clay); font-size: 1.25rem; margin-bottom: 16px;">
+      Turning an RP2040's clock tree into an experimental RF source.
+    </p>
+    <p class="project-subtitle">
+      What if an ordinary microcontroller could generate an RF carrier without a radio chip? That was the question behind <strong>Radio_Kit</strong>. The Raspberry Pi RP2040 doesn't have a conventional RF transceiver &mdash; no built-in Wi-Fi, Bluetooth, or dedicated radio peripheral. But while exploring its clock architecture, I found something interesting: the RP2040 has a surprisingly flexible clock-generation system, including PLLs, fractional dividers, and four dedicated General-Purpose Clock Outputs.
+    </p>
+    <p class="project-subtitle" style="margin-top: -12px;">
+      So instead of adding another chip, I decided to experiment with what the RP2040 could do by itself. The result is <strong>Radio_Kit</strong> &mdash; an experimental Ada framework that uses the RP2040's native clock hardware to generate programmable digital RF carriers directly on GPIO pins.
+    </p>
+
+    <div class="project-links">
+      <a href="https://github.com/thirstymelon/Radio_Kit" class="btn-solid" target="_blank" rel="noopener noreferrer">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path
+            d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+        </svg>
+        View GitHub Repository ↗
+      </a>
+      <a href="https://github.com/thirstymelon/Radio_Kit/tree/main/examples/basic_carrier" class="btn-solid btn-outline"
+        target="_blank" rel="noopener noreferrer">
+        Basic Carrier Example &nearr;
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- Quick Spec Matrix -->
+<section class="spec-grid-section">
+  <div class="spec-grid-wrap">
+    <div class="spec-matrix">
+      <div class="spec-box">
+        <div class="spec-box-label">Carrier Frequency Span</div>
+        <div class="spec-box-val">6 Hz &ndash; 90 MHz <small>Programmable fractional steps</small></div>
+      </div>
+      <div class="spec-box">
+        <div class="spec-box-label">Target Architecture</div>
+        <div class="spec-box-val">RP2040 Silicon <small>Dual Cortex-M0+ via pico_bsp</small></div>
+      </div>
+      <div class="spec-box">
+        <div class="spec-box-label">RF Transceiver</div>
+        <div class="spec-box-val">Zero External ICs <small>Pure native GPOUT clock synthesis</small></div>
+      </div>
+      <div class="spec-box">
+        <div class="spec-box-label">System Reference</div>
+        <div class="spec-box-val">90 MHz SYS_CLK <small>Fractional PLL clock tree tuning</small></div>
+      </div>
+      <div class="spec-box">
+        <div class="spec-box-label">Output Channels</div>
+        <div class="spec-box-val">4 GPOUT Lines <small>GPIO21, GPIO23, GPIO24, GPIO25</small></div>
+      </div>
+      <div class="spec-box">
+        <div class="spec-box-label">Language &amp; License</div>
+        <div class="spec-box-val">Ada 2022 <small>Apache License 2.0</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Main Project Content -->
+<div class="project-content-body">
+  <!-- Sticky Table of Contents -->
+  <aside class="project-toc" aria-label="Table of contents">
+    <div class="project-toc-title">On This Page</div>
+    <a href="#the-idea">1. The Idea</a>
+    <a href="#no-radio-chip">2. A Radio Without a Radio Chip</a>
+    <a href="#frequency-range">3. From 6 Hz to 90 MHz</a>
+    <a href="#feel-like-ada">4. Making Hardware Feel Like Ada</a>
+    <a href="#four-outputs">5. Four Outputs in the Silicon</a>
+    <a href="#first-carrier">6. The First Carrier (Code)</a>
+    <a href="#the-catch">7. The Catch: Digital Harmonics</a>
+    <a href="#so-far">8. What I Have So Far</a>
+    <a href="#whats-next">9. What's Next?</a>
+    <a href="#why-built">10. Why I Built It</a>
+  </aside>
+
+  <!-- Deep Dive Article Content -->
+  <article class="project-article">
+    <!-- Section 1: The Idea -->
+    <section class="project-block" id="the-idea">
+      <div class="project-block-hd">
+        <span class="project-block-num">[ 01 ]</span>
+        <h2 class="project-block-title">The <em>Idea</em></h2>
+      </div>
+      <p class="prose-text">
+        Most embedded radio projects start with a radio.
+      </p>
+      <p class="prose-text">
+        You pick a transceiver such as an SX1262, CC1101, or nRF24L01, connect it over SPI, configure a frequency, and let the dedicated hardware handle the RF side.
+      </p>
+      <p class="prose-text">
+        I wanted to approach the problem from the opposite direction. Instead of asking:
+      </p>
+      <div class="callout-box">
+        <div class="callout-box-body" style="font-family: var(--serif); font-size: 1.15rem; font-style: italic; color: var(--ink);">
+          "Which radio chip should I use?"
+        </div>
+      </div>
+      <p class="prose-text">
+        I asked:
+      </p>
+      <div class="callout-box">
+        <div class="callout-box-body" style="font-family: var(--serif); font-size: 1.15rem; font-style: italic; color: var(--clay);">
+          "How much of a radio can I build from the hardware already inside the microcontroller?"
+        </div>
+      </div>
+      <p class="prose-text">
+        The RP2040's clock system turned out to be an interesting answer. A clock is, after all, a precisely timed digital signal. If that signal can be configured over a sufficiently wide frequency range and routed to a physical GPIO, it can also become the starting point for RF experimentation. That became the foundation of Radio_Kit.
+      </p>
+    </section>
+
+    <!-- Section 2: A Radio Without a Radio Chip -->
+    <section class="project-block" id="no-radio-chip">
+      <div class="project-block-hd">
+        <span class="project-block-num">[ 02 ]</span>
+        <h2 class="project-block-title">A Radio Without a <em>Radio Chip</em></h2>
+      </div>
+      <p class="prose-text">
+        The core of the project is remarkably simple. The RP2040 starts with its 12 MHz crystal oscillator, which feeds the chip's clock-generation system. I configure <code>PLL_SYS</code> to produce a <strong>90 MHz reference</strong>, then route that clock into one of the RP2040's dedicated GPOUT channels.
+      </p>
+      <p class="prose-text">
+        The GPOUT peripheral contains an <strong>8-bit integer</strong> and <strong>8-bit fractional divider</strong>. By controlling that divider, the 90 MHz reference can be converted into a much lower programmable frequency.
+      </p>
+      
+      <div class="diagram-container">
+        <svg viewBox="0 0 680 180" role="img" aria-label="Signal path from 12 MHz crystal to RF carrier">
+          <g transform="translate(20, 30)">
+            <rect x="0" y="20" width="110" height="46" rx="5" class="dm-fill" />
+            <text x="55" y="48" text-anchor="middle" class="dm-text-ink" font-size="11">12 MHz XOSC</text>
+
+            <line x1="110" y1="43" x2="140" y2="43" class="dm-soft" />
+
+            <rect x="140" y="20" width="110" height="46" rx="5" class="dm-fill" stroke="var(--clay)" stroke-width="1.5" />
+            <text x="195" y="48" text-anchor="middle" class="dm-text-ink" fill="var(--clay)" font-size="11">PLL_SYS (90M)</text>
+
+            <line x1="250" y1="43" x2="280" y2="43" class="dm-clay dm-anim" />
+
+            <rect x="280" y="20" width="130" height="46" rx="5" class="dm-fill" stroke="var(--olive)" stroke-width="1.5" />
+            <text x="345" y="48" text-anchor="middle" class="dm-text-ink" font-size="11">GPOUT Divider</text>
+
+            <line x1="410" y1="43" x2="440" y2="43" class="dm-clay dm-anim" />
+
+            <rect x="440" y="20" width="90" height="46" rx="5" class="dm-fill" />
+            <text x="485" y="48" text-anchor="middle" class="dm-text-ink" font-size="11">GPIO Pin</text>
+
+            <line x1="530" y1="43" x2="560" y2="43" class="dm-clay dm-anim" />
+
+            <rect x="560" y="20" width="80" height="46" rx="5" class="dm-fill" stroke="var(--clay)" stroke-width="1.5" />
+            <text x="600" y="48" text-anchor="middle" class="dm-text-ink" fill="var(--clay)" font-size="11">∿ Carrier</text>
+          </g>
+
+          <text x="340" y="140" text-anchor="middle" class="dm-text-ink" font-size="12" fill="var(--clay)">
+            Fout = 90 MHz / (INT + FRAC / 256)
+          </text>
+        </svg>
+        <div class="diagram-caption">Conceptually: 12 MHz XOSC → PLL_SYS → 90 MHz → GPOUT Divider → GPIO → Carrier</div>
+      </div>
+
+      <p class="prose-text">
+        That small piece of silicon is essentially the heart of Radio_Kit.
+      </p>
+    </section>
+
+    <!-- Section 3: From 6 Hz to 90 MHz -->
+    <section class="project-block" id="frequency-range">
+      <div class="project-block-hd">
+        <span class="project-block-num">[ 03 ]</span>
+        <h2 class="project-block-title">From 6 Hz to <em>90 MHz</em></h2>
+      </div>
+      <p class="prose-text">
+        One of the most interesting aspects of this approach is the frequency span. The current implementation targets carrier generation from approximately <strong>6 Hz up to 90 MHz</strong>. That is an enormous range for what is fundamentally a clock-output experiment.
+      </p>
+      <p class="prose-text">
+        At the lower end, the same mechanism can be used for extremely slow timing signals. At the upper end, the output enters the RF range and can be observed with appropriate test equipment.
+      </p>
+      <p class="prose-text">
+        The important detail is that this isn't an analog RF synthesizer. The RP2040 is producing a <em>digital clock waveform</em>, not a perfectly sinusoidal carrier. Consequently, the output contains harmonic components that become increasingly important as the signal frequency increases. That limitation is actually part of what makes the project interesting.
+      </p>
+    </section>
+
+    <!-- Section 4: Making the Hardware Feel Like Ada -->
+    <section class="project-block" id="feel-like-ada">
+      <div class="project-block-hd">
+        <span class="project-block-num">[ 04 ]</span>
+        <h2 class="project-block-title">Making the Hardware <em>Feel Like Ada</em></h2>
+      </div>
+      <p class="prose-text">
+        The other half of the project is the software. Radio_Kit is written in <strong>Ada 2022</strong>, and I didn't want the framework to simply expose a collection of register-writing procedures.
+      </p>
+      <p class="prose-text">
+        The goal was to create an abstraction where the application thinks about the hardware in terms of resources and intent. For example, the application should be able to say:
+      </p>
+      <div class="callout-box">
+        <div class="callout-box-body" style="font-family: var(--serif); font-size: 1.1rem; color: var(--ink);">
+          "Generate a carrier at this frequency on this GPIO."
+        </div>
+      </div>
+      <p class="prose-text">
+        It shouldn't have to know which internal GPOUT channel corresponds to that GPIO, which clock multiplexer needs to be selected, or which divider registers need to be modified. Radio_Kit handles those details underneath the API.
+      </p>
+      <p class="prose-text">
+        Ada's type system also provides an interesting advantage here. Frequency values can be constrained to the supported range, allowing invalid values to be rejected at the interface rather than being blindly passed into low-level clock calculations.
+      </p>
+      <p class="prose-text">
+        This was an important part of the experiment for me: <em>Can low-level hardware experimentation still have a clean, strongly typed software interface?</em> Radio_Kit is my attempt at answering that.
+      </p>
+    </section>
+
+    <!-- Section 5: Four Outputs Hidden in the Silicon -->
+    <section class="project-block" id="four-outputs">
+      <div class="project-block-hd">
+        <span class="project-block-num">[ 05 ]</span>
+        <h2 class="project-block-title">Four Outputs Hidden in the <em>Silicon</em></h2>
+      </div>
+      <p class="prose-text">
+        The RP2040 provides four GPOUT channels, exposed through specific GPIO pins:
+      </p>
+
+      <div class="perf-table-wrap">
+        <table class="perf-table">
+          <thead>
+            <tr>
+              <th>GPIO Pin</th>
+              <th>Silicon Clock Output</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>GPIO21</strong></td>
+              <td><code>GPOUT0</code></td>
+            </tr>
+            <tr>
+              <td><strong>GPIO23</strong></td>
+              <td><code>GPOUT1</code></td>
+            </tr>
+            <tr>
+              <td><strong>GPIO24</strong></td>
+              <td><code>GPOUT2</code></td>
+            </tr>
+            <tr>
+              <td><strong>GPIO25</strong></td>
+              <td><code>GPOUT3</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="prose-text">
+        I chose to make the public API GPIO-oriented rather than exposing GPOUT0, GPOUT1, and so on. That small design decision makes the framework considerably more intuitive.
+      </p>
+      <p class="prose-text">
+        From the application's perspective, the physical hardware is what matters: <code>"Use GPIO21."</code> The framework takes care of translating that into the appropriate silicon resource.
+      </p>
+    </section>
+
+    <!-- Section 6: The First Carrier (Code Example) -->
+    <section class="project-block" id="first-carrier">
+      <div class="project-block-hd">
+        <span class="project-block-num">[ 06 ]</span>
+        <h2 class="project-block-title">The First <em>Carrier</em></h2>
+      </div>
+      <p class="prose-text">
+        The first milestone for Radio_Kit was intentionally simple:
+      </p>
+      <p class="prose-text" style="font-family: var(--serif); font-size: 1.15rem; color: var(--clay); font-style: italic;">
+        Generate a stable, unmodulated carrier.<br />
+        No modulation. No receiver. No protocol. No complicated signal processing.<br />
+        Just a programmable carrier coming directly out of the RP2040.
+      </p>
+      <p class="prose-text">
+        That gave me a clean foundation for testing the clock configuration, frequency calculations, GPIO routing, and Ada resource model independently.
+      </p>
+
+      <div class="code-wrapper">
+        <div class="code-header">
+          <span class="code-lang-label">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 19.7778h20L12 2z"/></svg>
+            Ada (examples/basic_carrier/src/basic_carrier.adb)
+          </span>
+          <button class="code-copy-btn" aria-label="Copy code to clipboard">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            Copy
+          </button>
+        </div>
+        <pre class="code-block"><code><span class="kw">with</span> <span class="type">Radio_Kit.Radio_Clock</span>; <span class="kw">use</span> <span class="type">Radio_Kit.Radio_Clock</span>;
+<span class="kw">with</span> <span class="type">Radio_Kit.Types</span>;
+<span class="kw">with</span> <span class="type">RP.GPIO</span>;
+
+<span class="kw">procedure</span> <span class="fn">Basic_Carrier</span> <span class="kw">is</span>
+
+   <span class="type">Config_21</span> : <span class="kw">constant</span> <span class="type">Radio_Kit.Types.Clock_Config_T</span> :=
+     (<span class="type">GPIO_Pin</span> => (<span class="type">Pin</span> => <span class="num">21</span>), <span class="type">Frequency</span> => <span class="num">90_000_000</span>);
+
+   <span class="cm">--  Config_23 : constant Radio_Kit.Types.Clock_Config_T :=</span>
+   <span class="cm">--    (GPIO_Pin => (Pin => 23), Frequency => 30_000_000);</span>
+
+   <span class="cm">--  Config_24 : constant Radio_Kit.Types.Clock_Config_T :=</span>
+   <span class="cm">--    (GPIO_Pin => (Pin => 24), Frequency => 20_000_000);</span>
+
+   <span class="cm">--  Config_25 : constant Radio_Kit.Types.Clock_Config_T :=</span>
+   <span class="cm">--    (GPIO_Pin => (Pin => 25), Frequency => 10_000_000);</span>
+
+   <span class="type">Radio_21</span> : <span class="type">Radio_T</span>;
+   <span class="cm">--  Radio_23 : Radio_T;</span>
+   <span class="cm">--  Radio_24 : Radio_T;</span>
+   <span class="cm">--  Radio_25 : Radio_T;</span>
+
+<span class="kw">begin</span>
+   <span class="type">Radio_21.Initialize</span> (<span class="type">Config_21</span>);
+   <span class="cm">--  Radio_23.Initialize (Config_23);</span>
+   <span class="cm">--  Radio_24.Initialize (Config_24);</span>
+   <span class="cm">--  Radio_25.Initialize (Config_25);</span>
+
+   <span class="type">Radio_21.Transmit</span>;
+   <span class="cm">--  Radio_23.Transmit;</span>
+   <span class="cm">--  Radio_24.Transmit;</span>
+   <span class="cm">--  Radio_25.Transmit;</span>
+
+   <span class="kw">loop</span>
+      <span class="kw">null</span>;
+   <span class="kw">end loop</span>;
+<span class="kw">end</span> <span class="fn">Basic_Carrier</span>;</code></pre>
+      </div>
+    </section>
+
+    <!-- Section 7: The Catch: Digital Harmonics -->
+    <section class="project-block" id="the-catch">
+      <div class="project-block-hd">
+        <span class="project-block-num">[ 07 ]</span>
+        <h2 class="project-block-title">The Catch: A Digital Signal Is Not a <em>Clean RF Signal</em></h2>
+      </div>
+      <p class="prose-text">
+        There is an important distinction between generating a carrier and generating a useful radio signal.
+      </p>
+      <p class="prose-text">
+        A GPOUT output is a digital clock. That means the waveform contains the fundamental frequency along with harmonic energy. A carrier at <em>f</em> can therefore produce significant components around <strong>3f, 5f, 7f</strong>, and other harmonics.
+      </p>
+      <p class="prose-text">
+        So simply connecting a wire to the GPIO and calling it an antenna isn't equivalent to having a proper RF transmitter.
+      </p>
+
+      <div class="callout-box">
+        <div class="callout-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+            <line x1="12" y1="9" x2="12" y2="13" />
+            <line x1="12" y1="17" x2="12.01" y2="17" />
+          </svg>
+        </div>
+        <div class="callout-box-body">
+          For experimentation, the output should be treated as a digital RF source and measured accordingly. Filtering, attenuation, impedance, shielding, and appropriate test equipment become important depending on what is being investigated.
+          <br /><br />
+          This is also why Radio_Kit is currently positioned as an experimental and educational project, rather than a replacement for a dedicated RF transceiver.
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 8: What I Have So Far -->
+    <section class="project-block" id="so-far">
+      <div class="project-block-hd">
+        <span class="project-block-num">[ 08 ]</span>
+        <h2 class="project-block-title">What I Have <em>So Far</em></h2>
+      </div>
+      <p class="prose-text">
+        Version <strong>0.2.0</strong> is intentionally modest. It establishes the underlying carrier-generation mechanism and provides a clean Ada interface around it. At this stage, Radio_Kit can:
+      </p>
+
+      <div class="feature-grid">
+        <div class="feature-card">
+          <h3 class="feature-card-title">Broadband Carriers</h3>
+          <p class="feature-card-desc">Generate programmable carriers from approximately 6 Hz to 90 MHz.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">Native Hardware</h3>
+          <p class="feature-card-desc">Use the RP2040's native PLL_SYS and GPOUT hardware directly.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">4 Supported Output Pins</h3>
+          <p class="feature-card-desc">Output cleanly through GPIO21, GPIO23, GPIO24, and GPIO25.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">Zero Additional RF Silicon</h3>
+          <p class="feature-card-desc">Generate carriers without an external RF synthesizer or transceiver IC.</p>
+        </div>
+      </div>
+
+      <p class="prose-text" style="margin-top: 20px;">
+        The interesting part is that none of this requires additional RF silicon. It is all coming from the clock architecture that was already inside the RP2040.
+      </p>
+    </section>
+
+    <!-- Section 9: What's Next? -->
+    <section class="project-block" id="whats-next">
+      <div class="project-block-hd">
+        <span class="project-block-num">[ 09 ]</span>
+        <h2 class="project-block-title">What's <em>Next?</em></h2>
+      </div>
+      <p class="prose-text">
+        Radio_Kit currently generates an unmodulated carrier. The next step is to make that carrier useful:
+      </p>
+
+      <div class="feature-grid">
+        <div class="feature-card">
+          <h3 class="feature-card-title">FM &amp; FSK</h3>
+          <p class="feature-card-desc">Experiment with dynamically changing the divider to introduce frequency modulation and simple data transmission.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">PIO &amp; DMA</h3>
+          <p class="feature-card-desc">Investigate whether the RP2040's PIO and DMA hardware can provide more precise, high-speed frequency control.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">RP2040-to-RP2040 Link</h3>
+          <p class="feature-card-desc">Eventually, use two RP2040 boards to experiment with a complete transmitter-to-receiver communication path.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 10: Why I Built It -->
+    <section class="project-block" id="why-built">
+      <div class="project-block-hd">
+        <span class="project-block-num">[ 10 ]</span>
+        <h2 class="project-block-title">Why I <em>Built It</em></h2>
+      </div>
+      <p class="prose-text">
+        Radio_Kit isn't really about building a better radio. There are already excellent RF chips that do that far better.
+      </p>
+      <p class="prose-text">
+        What interested me was the boundary between a microcontroller and the hardware underneath it. The RP2040 is usually viewed as a dual-core microcontroller with GPIO, PWM, PIO, ADC, and timers. Its clock-generation system is rarely the first thing that comes to mind when thinking about RF experimentation.
+      </p>
+      <p class="prose-text">
+        I wanted to see what happens when you look at that hardware differently:
+      </p>
+      <div class="callout-box">
+        <div class="callout-box-body" style="font-family: var(--serif); font-size: 1.15rem; line-height: 1.8; color: var(--ink);">
+          A PLL becomes a frequency source.<br />
+          A clock divider becomes a programmable synthesizer.<br />
+          A GPOUT pin becomes a carrier output.<br />
+          And a few lines of strongly typed Ada become the interface between the software and the silicon.
+        </div>
+      </div>
+      <p class="prose-text">
+        That's what Radio_Kit is about: exploring what is possible when you stop treating the microcontroller as just a CPU and start treating the silicon itself as a toolbox.
+      </p>
+    </section>
+  </article>
+</div>
+
+<!-- Project Navigation (Previous / Next) -->
+<section class="project-nav-section">
+  <div class="project-nav-wrap">
+    <a href="{{ url_for('project_esp32_mesh') }}" class="project-nav-card prev">
+      <span class="project-nav-label">&larr; Previous Project</span>
+      <span class="project-nav-title">⚡ MeshOS Mesh Network</span>
+    </a>
+    <a href="{{ url_for('project_glyph') }}" class="project-nav-card next">
+      <span class="project-nav-label">Next Project &rarr;</span>
+      <span class="project-nav-title">✦ Glyph Graphics Framework</span>
+    </a>
+  </div>
+</section>
+{% endblock %}

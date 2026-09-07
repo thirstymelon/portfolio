@@ -1,0 +1,547 @@
+{% extends "base.html" %}
+
+{% block title %}Lokesh Panditi — Embedded Systems &amp; Firmware Developer{% endblock %}
+
+{% block content %}
+<!-- ===== HERO ===== -->
+<header class="hero">
+  <div class="hero-left">
+    <div class="eyebrow">Embedded Systems &amp; Firmware Engineer</div>
+    <h1 class="hero-h1">
+      Writing code<br />
+      close to the<br />
+      <em>silicon.</em>
+    </h1>
+    <p class="hero-sub">
+      I'm <strong>Lokesh</strong> &mdash; building firmware, bare-metal systems, and
+      hardware-close software in <code>C</code>, <code>C++</code>, <code>Ada</code>, <code>Python</code>,
+      and <code>Rust</code>. Currently focused on the RP2040 and practical Ada projects.
+    </p>
+    <div class="hero-ctas">
+      <a href="#projects" class="btn-solid">
+        View Work
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+          stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 12h14M12 5l7 7-7 7" />
+        </svg>
+      </a>
+      <a href="{{ url_for('static', filename='LOKESH_PANDITI.pdf') }}" class="btn-solid btn-outline" download>
+        Resume
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+          stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
+        </svg>
+      </a>
+      <a href="https://github.com/thirstymelon" class="btn-text" target="_blank" rel="noopener">github.com/thirstymelon
+        &nearr;</a>
+    </div>
+  </div>
+
+  <!-- DATASHEET SPEC CARD -->
+  <aside class="spec-card" aria-label="Developer spec sheet">
+    <div class="spec-head">
+      <div class="spec-model">Lokesh <em>Panditi</em></div>
+      <div class="spec-rev">rev. 2026</div>
+    </div>
+    <div class="spec-row">
+      <span class="spec-key">Role</span>
+      <span class="spec-val">Firmware Engineer</span>
+    </div>
+    <div class="spec-row">
+      <span class="spec-key">Based</span>
+      <span class="spec-val">Ongole, IN</span>
+    </div>
+    <div class="spec-row">
+      <span class="spec-key">Focus</span>
+      <span class="spec-val">Speed and Memory Safety</span>
+    </div>
+    <div class="spec-row">
+      <span class="spec-key">Languages</span>
+      <span class="spec-val">C · C++ · ADA · Python · Rust</span>
+    </div>
+    <div class="spec-row">
+      <span class="spec-key">Targets</span>
+      <span class="spec-val">RP2040 · ESP32 · STM32</span>
+    </div>
+    <div class="spec-row">
+      <span class="spec-key">Status</span>
+      <span class="spec-val">Extending Embedded Ada Support<span class="tag-mini">LIVE</span></span>
+    </div>
+  </aside>
+</header>
+
+<!-- ===== MARQUEE ===== -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span class="marquee-item">Embedded <em>C</em> <span class="marquee-star">✶</span></span>
+    <span class="marquee-item">Ada 2022 <em>Embedded Frameworks</em> <span class="marquee-star">✶</span></span>
+    <span class="marquee-item">RP2040 <em>Driver Support</em> <span class="marquee-star">✶</span></span>
+    <span class="marquee-item">Radio_Kit <em>RF Carrier</em> <span class="marquee-star">✶</span></span>
+    <span class="marquee-item">ESP-NOW <em>Mesh</em> <span class="marquee-star">✶</span></span>
+    <span class="marquee-item">Zero-Alloc <em>Memory Safety</em> <span class="marquee-star">✶</span></span>
+    <!-- duplicate set for seamless loop -->
+    <span class="marquee-item">Embedded <em>C</em> <span class="marquee-star">✶</span></span>
+    <span class="marquee-item">Ada 2022 <em>Embedded Frameworks</em> <span class="marquee-star">✶</span></span>
+    <span class="marquee-item">RP2040 <em>Driver Support</em> <span class="marquee-star">✶</span></span>
+    <span class="marquee-item">Radio_Kit <em>RF Carrier</em> <span class="marquee-star">✶</span></span>
+    <span class="marquee-item">ESP-NOW <em>Mesh</em> <span class="marquee-star">✶</span></span>
+    <span class="marquee-item">Zero-Alloc <em>Memory Safety</em> <span class="marquee-star">✶</span></span>
+  </div>
+</div>
+
+<!-- ===== ABOUT ===== -->
+<section class="sec" id="about">
+  <div class="sec-hd reveal">
+    <span class="sec-num">[ 01 ]</span>
+    <h2 class="sec-title">About</h2>
+    <span class="sec-note">A short note on how I work &mdash; and why the lowest layer matters.</span>
+  </div>
+
+  <div class="about-grid">
+    <div class="about-prose reveal">
+      <p class="lead">I'm <strong>Lokesh (Loki)</strong>, an embedded systems developer who prefers <em>registers to
+          abstractions</em>. My work lives at the boundary where software commands hardware directly &mdash; no OS
+        buffer, no managed runtime.</p>
+      <p>I build reusable firmware components, distributed MCU networks, and software that runs reliably on bare
+        silicon. I believe understanding a system at its lowest level is the only way to truly master it.</p>
+      <p>Building embedded frameworks in <strong>Ada 2022</strong> for bare silicon targets, including
+        <strong>Glyph</strong> (published on Alire) and <strong>Radio_Kit</strong> (transceiverless RF carrier
+        synthesis)
+        for the <code>RP2040</code> (Vicharak Shrike-Lite).
+      </p>
+    </div>
+
+    <div class="reveal d2">
+      <!-- Currently working on Glyph -->
+      <div class="now-card">
+        <div class="now-card-head">
+          <span class="pulse" aria-hidden="true"></span>
+          <span class="now-card-label">Published on Alire</span>
+          <span class="now-card-badge">Ada 2022 · Alire</span>
+        </div>
+        <h4 class="now-card-title">Glyph <em>Graphics Framework</em></h4>
+        <p class="now-card-desc">
+          A lightweight, zero-allocation embedded graphics framework written in <strong>Ada 2022</strong> for
+          bare-metal systems, published on the <strong>Alire</strong> package manager. Built with Liang–Barsky line
+          clipping, Bresenham rasterization, and a hardware-independent framebuffer design on the
+          <strong>RP2040</strong> (Vicharak Shrike-Lite) and <strong>SSD1306 OLED</strong>.
+        </p>
+        <div class="now-card-details">
+          <div class="now-card-detail"><span class="dot" aria-hidden="true"></span><strong>Language:</strong> Ada
+            2022</div>
+          <div class="now-card-detail"><span class="dot" aria-hidden="true"></span><strong>Package:</strong> Alire
+            (glyph)</div>
+          <div class="now-card-detail"><span class="dot" aria-hidden="true"></span><strong>Target:</strong> RP2040 /
+            Cortex-M0+</div>
+          <div class="now-card-detail"><span class="dot" aria-hidden="true"></span><strong>Display:</strong> SSD1306
+            OLED</div>
+          <div class="now-card-detail"><span class="dot" aria-hidden="true"></span><strong>Design:</strong>
+            Zero-Alloc, HID</div>
+          <div class="now-card-detail"><span class="dot" aria-hidden="true"></span><strong>Status:</strong>
+            Published on Alire</div>
+        </div>
+        <div class="now-card-ft">
+          <div class="now-card-tags">
+            <span class="now-card-tag">Ada 2022</span>
+            <span class="now-card-tag">Alire</span>
+            <span class="now-card-tag">RP2040</span>
+            <span class="now-card-tag">SSD1306</span>
+            <span class="now-card-tag">Bare metal</span>
+            <span class="now-card-tag">Zero-alloc</span>
+          </div>
+          <div style="display: flex; gap: 12px; align-items: center;">
+            <a class="now-link" href="{{ url_for('project_glyph') }}">
+              Read Deep Dive &rarr;
+            </a>
+            <a class="now-link" href="https://github.com/thirstymelon/glyph" target="_blank" rel="noopener noreferrer">
+              Repo &nearr;
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SKILLS ===== -->
+<section class="skills-section" id="skills">
+  <div class="sec">
+    <div class="sec-hd reveal">
+      <span class="sec-num">[ 02 ]</span>
+      <h2 class="sec-title">Skills <em>&amp; tools</em></h2>
+      <span class="sec-note">Grouped by layer &mdash; from silicon up to protocol.</span>
+    </div>
+
+    <div class="skill-index reveal d1">
+      <div class="skill-index-head">Category</div>
+      <div class="skill-index-head">Technologies</div>
+
+      <div class="skill-row">
+        <div class="skill-cat-cell">Languages</div>
+        <div class="skill-tags-cell">
+          <div class="skill-tags">
+            <span class="tag hi">C</span>
+            <span class="tag hi">C++</span>
+            <span class="tag hi">Ada</span>
+            <span class="tag hi">Python</span>
+            <span class="tag hi">Rust</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="skill-row">
+        <div class="skill-cat-cell">Embedded</div>
+        <div class="skill-tags-cell">
+          <div class="skill-tags">
+            <span class="tag">RP2040</span>
+            <span class="tag">Shrike-Lite</span>
+            <span class="tag">ESP32</span>
+            <span class="tag">STM32</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="skill-row">
+        <div class="skill-cat-cell">Hardware</div>
+        <div class="skill-tags-cell">
+          <div class="skill-tags">
+            <span class="tag">Digital Logic</span>
+            <span class="tag">Oscilloscope</span>
+            <span class="tag">Logic Analyzer</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="skill-row">
+        <div class="skill-cat-cell">Protocols</div>
+        <div class="skill-tags-cell">
+          <div class="skill-tags">
+            <span class="tag">UART</span>
+            <span class="tag">I2C</span>
+            <span class="tag">SPI</span>
+            <span class="tag">CAN</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="skill-row">
+        <div class="skill-cat-cell">Wireless &amp; RF</div>
+        <div class="skill-tags-cell">
+          <div class="skill-tags">
+            <span class="tag">ESP-NOW</span>
+            <span class="tag">WiFi</span>
+            <span class="tag">BLE</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="skill-row">
+        <div class="skill-cat-cell">Tools</div>
+        <div class="skill-tags-cell">
+          <div class="skill-tags">
+            <span class="tag">PlatformIO</span>
+            <span class="tag">Git</span>
+            <span class="tag">CMake</span>
+            <span class="tag">VSCode</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROJECTS ===== -->
+<section class="projects-section" id="projects">
+  <div class="sec">
+    <div class="sec-hd reveal">
+      <span class="sec-num">[ 03 ]</span>
+      <h2 class="sec-title">Selected <em>work</em></h2>
+      <span class="sec-note">Current Ada work alongside embedded systems and RF networking projects.</span>
+    </div>
+
+    <div class="bento">
+      <!-- 01 — Glyph -->
+      <article class="bento-card feat reveal">
+        <div class="bento-meta">
+          <span class="bento-num">PROJECT 01</span>
+          <span class="bento-status">Published on Alire</span>
+        </div>
+        <h3 class="bento-title">Glyph <em>Graphics Library</em></h3>
+        <p class="bento-desc">An open-source, zero-allocation embedded graphics framework written in Ada 2022 for
+          bare-metal systems, published on the Alire package manager. Glyph provides hardware-independent rendering
+          primitives (Liang–Barsky line clipping, Bresenham rasterization, static framebuffer canvas) verified on
+          the Vicharak Shrike-Lite (RP2040) with an SSD1306 OLED.</p>
+        <div class="bento-tags">
+          <span class="bento-tag">Ada 2022</span>
+          <span class="bento-tag">Alire</span>
+          <span class="bento-tag">RP2040</span>
+          <span class="bento-tag">SSD1306</span>
+          <span class="bento-tag">Zero-Alloc</span>
+        </div>
+        <div class="bento-actions">
+          <a href="{{ url_for('project_glyph') }}" class="bento-link bento-primary">
+            Read Deep Dive
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </a>
+          <a href="https://github.com/thirstymelon/glyph" class="bento-link" target="_blank" rel="noopener noreferrer">
+            Repository
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M7 17L17 7M7 7h10v10" />
+            </svg>
+          </a>
+        </div>
+        <!-- Glyph architecture diagram -->
+        <div class="bento-diagram">
+          <svg viewBox="0 0 400 190" role="img"
+            aria-label="Glyph architecture diagram showing the layered software stack">
+            <!-- Board / MCU -->
+            <rect x="100" y="10" width="200" height="22" rx="4" class="dm-fill" />
+            <text x="200" y="25" text-anchor="middle" class="dm-text">RP2040 — Vicharak Shrike-Lite</text>
+            <!-- Layer connectors -->
+            <line x1="200" y1="32" x2="200" y2="46" class="dm-soft" />
+            <line x1="200" y1="68" x2="200" y2="80" class="dm-soft" />
+            <line x1="200" y1="106" x2="200" y2="118" class="dm-soft" />
+            <line x1="200" y1="142" x2="200" y2="152" class="dm-clay dm-anim" />
+            <!-- Stacked layers -->
+            <rect x="110" y="46" width="180" height="22" rx="3" class="dm-fill" />
+            <text x="200" y="61" text-anchor="middle" class="dm-text-ink">User Application</text>
+            <rect x="110" y="80" width="180" height="26" rx="3" class="dm-fill" stroke="var(--clay)"
+              stroke-width="1.6" />
+            <text x="200" y="97" text-anchor="middle" class="dm-text-ink" fill="var(--clay)">Glyph Graphics
+              API</text>
+            <rect x="110" y="118" width="180" height="24" rx="3" class="dm-fill" />
+            <text x="200" y="134" text-anchor="middle" class="dm-text">Framebuffer &amp; Hardware Abstraction</text>
+            <!-- Animated data flow arrow on the right -->
+            <line x1="300" y1="59" x2="300" y2="130" class="dm-clay dm-anim" />
+            <text x="315" y="96" class="dm-text" font-size="6">data</text>
+            <!-- SSD1306 display -->
+            <rect x="140" y="152" width="120" height="22" rx="4" class="dm-fill" />
+            <text x="200" y="167" text-anchor="middle" class="dm-text-ink">SSD1306 OLED Display</text>
+          </svg>
+        </div>
+      </article>
+
+      <!-- 02 — MeshOS -->
+      <article class="bento-card med reveal d1">
+        <div class="bento-meta">
+          <span class="bento-num">PROJECT 02</span>
+          <span class="bento-year">ESP-NOW · 2.4 GHz</span>
+        </div>
+        <h3 class="bento-title">MeshOS <em>Mesh</em></h3>
+        <p class="bento-desc">A decentralized, multi-hop communication platform built around ESP32 nodes, ESP-NOW, and
+          native iOS and macOS companion applications &mdash; operating completely offline with P-256 ECDH and
+          hardware-accelerated AES-128-GCM encryption.</p>
+        <div class="bento-tags">
+          <span class="bento-tag">ESP-NOW</span>
+          <span class="bento-tag">ESP32</span>
+          <span class="bento-tag">iOS / macOS</span>
+          <span class="bento-tag">SwiftUI</span>
+          <span class="bento-tag">AES-128-GCM</span>
+          <span class="bento-tag">Mesh</span>
+        </div>
+        <div class="bento-actions">
+          <a href="{{ url_for('project_esp32_mesh') }}" class="bento-link bento-primary">
+            Read Deep Dive
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </a>
+          <a href="https://github.com/thirstymelon/esp32Mesh" class="bento-link" target="_blank" rel="noopener">
+            GitHub
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M7 17L17 7M7 7h10v10" />
+            </svg>
+          </a>
+        </div>
+        <!-- bespoke mesh network diagram -->
+        <div class="bento-diagram">
+          <svg viewBox="0 0 360 150" role="img"
+            aria-label="Mesh network diagram showing nodes A, B, C connected through a relay node">
+            <line x1="60" y1="75" x2="180" y2="35" class="dm-soft" />
+            <line x1="60" y1="75" x2="180" y2="115" class="dm-soft" />
+            <line x1="180" y1="35" x2="300" y2="75" class="dm-soft" />
+            <line x1="180" y1="115" x2="300" y2="75" class="dm-soft" />
+            <line x1="180" y1="35" x2="180" y2="115" class="dm-soft" />
+            <line x1="60" y1="75" x2="180" y2="115" class="dm-clay dm-anim" />
+            <line x1="180" y1="115" x2="300" y2="75" class="dm-clay dm-anim" />
+            <circle cx="60" cy="75" r="9" class="dm-node" />
+            <circle cx="180" cy="35" r="9" class="dm-node" />
+            <circle cx="180" cy="115" r="9" class="dm-clay-node" />
+            <circle cx="300" cy="75" r="9" class="dm-node" />
+            <text x="60" y="98" text-anchor="middle" class="dm-text">NODE A</text>
+            <text x="180" y="22" text-anchor="middle" class="dm-text">NODE B</text>
+            <text x="180" y="138" text-anchor="middle" class="dm-text">RELAY</text>
+            <text x="300" y="98" text-anchor="middle" class="dm-text">NODE C</text>
+          </svg>
+        </div>
+      </article>
+
+      <!-- 03 — Radio_Kit -->
+      <article class="bento-card wide reveal d2">
+        <div class="bento-meta">
+          <span class="bento-num">PROJECT 03</span>
+          <span class="bento-year">RP2040 · Ada 2022</span>
+        </div>
+        <h3 class="bento-title">Radio_Kit <em>Framework</em></h3>
+        <p class="bento-desc">An experimental Ada radio framework for the RP2040 that synthesizes programmable 6 Hz to
+          90 MHz RF carriers directly from native on-chip fractional clock dividers &mdash; operating without a
+          dedicated external transceiver or oscillator chip across GPIO21, GPIO23, GPIO24, and GPIO25.</p>
+        <div class="bento-tags">
+          <span class="bento-tag">Ada 2022</span>
+          <span class="bento-tag">RP2040</span>
+          <span class="bento-tag">pico_bsp</span>
+          <span class="bento-tag">RF Carrier</span>
+          <span class="bento-tag">Fractional PLL</span>
+          <span class="bento-tag">GPOUT</span>
+        </div>
+        <div class="bento-actions">
+          <a href="{{ url_for('project_radio_kit') }}" class="bento-link bento-primary">
+            Read Deep Dive
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </a>
+          <a href="https://github.com/thirstymelon/Radio_Kit" class="bento-link" target="_blank" rel="noopener">
+            GitHub
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M7 17L17 7M7 7h10v10" />
+            </svg>
+          </a>
+        </div>
+        <!-- Radio_Kit clock synthesis diagram -->
+        <div class="bento-diagram">
+          <svg viewBox="0 0 460 150" role="img"
+            aria-label="Radio_Kit clock synthesis diagram showing RP2040 PLL to GPIO RF carrier output">
+            <rect x="20" y="20" width="100" height="40" rx="4" class="dm-fill" />
+            <text x="70" y="44" text-anchor="middle" class="dm-text-ink">PLL_SYS (90M)</text>
+
+            <line x1="120" y1="40" x2="160" y2="40" class="dm-clay dm-anim" />
+
+            <rect x="160" y="20" width="130" height="40" rx="4" class="dm-fill" stroke="var(--clay)"
+              stroke-width="1.4" />
+            <text x="225" y="38" text-anchor="middle" class="dm-text-ink" fill="var(--clay)">GPOUT Divider</text>
+            <text x="225" y="52" text-anchor="middle" class="dm-text">INT + FRAC/256</text>
+
+            <line x1="290" y1="40" x2="330" y2="40" class="dm-clay dm-anim" />
+
+            <rect x="330" y="20" width="110" height="40" rx="4" class="dm-fill" />
+            <text x="385" y="38" text-anchor="middle" class="dm-text-ink">GPIO Pin</text>
+            <text x="385" y="52" text-anchor="middle" class="dm-text">GPIO21/23/24/25</text>
+
+            <!-- RF Carrier wave -->
+            <path
+              d="M 40 105 Q 60 85, 80 105 T 120 105 T 160 105 T 200 105 T 240 105 T 280 105 T 320 105 T 360 105 T 400 105 T 440 105"
+              fill="none" stroke="var(--clay)" stroke-width="1.8" class="dm-anim" />
+            <text x="230" y="132" text-anchor="middle" class="dm-text">∿ Synthesized RF Carrier: 6 Hz &ndash; 90 MHz
+              (Radio_Kit) ∿</text>
+          </svg>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section class="sec contact-section" id="contact">
+  <div class="sec-hd reveal" style="border-bottom:none; margin-bottom:20px;">
+    <span class="sec-num">[ 04 ]</span>
+    <h2 class="sec-title"><em>Contact</em></h2>
+  </div>
+
+  <h3 class="contact-big reveal">Let's build<br />something <em class="under">real.</em></h3>
+
+  <div class="contact-grid">
+    <div class="contact-left reveal">
+      <p>Open to collaborations, firmware projects, and interesting low-level problems. The best ideas start with a
+        simple message &mdash; pick whichever line below feels right.</p>
+      <a href="{{ url_for('static', filename='LOKESH_PANDITI.pdf') }}" class="btn-solid" download>
+        Download Resume
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+          stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
+        </svg>
+      </a>
+      <a href="https://mail.google.com/mail/?view=cm&fs=1&to=lokesh.panditi.29@gmail.com" class="btn-solid btn-outline"
+        target="_blank" rel="noopener">
+        Say Hello
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+          stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 12h14M12 5l7 7-7 7" />
+        </svg>
+      </a>
+    </div>
+
+    <div class="reveal d2">
+      <div class="contact-rows">
+        <a href="https://github.com/thirstymelon" class="contact-row" target="_blank" rel="noopener">
+          <div class="contact-left-side">
+            <div class="contact-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"
+                aria-hidden="true">
+                <path
+                  d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+              </svg></div>
+            <div>
+              <div class="contact-name">GitHub</div>
+              <div class="contact-handle">@thirstymelon</div>
+            </div>
+          </div>
+          <span class="contact-arrow">&nearr;</span>
+        </a>
+        <a href="https://www.linkedin.com/in/lokeshpanditi" class="contact-row" target="_blank" rel="noopener">
+          <div class="contact-left-side">
+            <div class="contact-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"
+                aria-hidden="true">
+                <path
+                  d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+              </svg></div>
+            <div>
+              <div class="contact-name">LinkedIn</div>
+              <div class="contact-handle">@lokeshpanditi</div>
+            </div>
+          </div>
+          <span class="contact-arrow">&nearr;</span>
+        </a>
+        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=lokesh.panditi.29@gmail.com" class="contact-row"
+          target="_blank" rel="noopener">
+          <div class="contact-left-side">
+            <div class="contact-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect width="20" height="16" x="2" y="4" rx="2" />
+                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+              </svg></div>
+            <div>
+              <div class="contact-name">Email</div>
+              <div class="contact-handle">lokesh.panditi.29@gmail.com</div>
+            </div>
+          </div>
+          <span class="contact-arrow">&nearr;</span>
+        </a>
+        <a href="https://www.instagram.com/simply.lokesh/" class="contact-row" target="_blank" rel="noopener">
+          <div class="contact-left-side">
+            <div class="contact-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect width="20" height="20" x="2" y="2" rx="5" />
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                <line x1="17.5" x2="17.51" y1="6.5" y2="6.51" />
+              </svg></div>
+            <div>
+              <div class="contact-name">Instagram</div>
+              <div class="contact-handle">@simply.lokesh</div>
+            </div>
+          </div>
+          <span class="contact-arrow">&nearr;</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
