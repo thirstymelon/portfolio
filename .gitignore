@@ -14,8 +14,10 @@
 # Logs
 *.log
 
-# Dependencies (if build tooling is added later)
+# Dependencies & Build Output
 node_modules/
+dist/
+.astro/
 
 # Python / Flask / Testing
 .venv/

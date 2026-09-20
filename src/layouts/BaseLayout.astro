@@ -1,0 +1,196 @@
+---
+import ThemeInit from '../components/ThemeInit.astro';
+import '../styles/overlays.scss';
+
+interface Props {
+  title: string;
+  description: string;
+  og_title?: string;
+  og_description?: string;
+  og_type?: string;
+  og_image?: string;
+  robots?: string;
+  keywords?: string;
+  theme_color?: string;
+  stylesheet?: string;
+}
+
+const {
+  title,
+  description,
+  og_title = title,
+  og_description = description,
+  og_type = 'website',
+  og_image = '/og-image.png',
+  robots,
+  keywords,
+  theme_color = '#0b0b0d',
+  stylesheet,
+} = Astro.props;
+
+const siteName = 'Lokesh Panditi Portfolio';
+const baseUrl = Astro.site?.toString().replace(/\/$/, '') || 'https://lokeshpanditi.qzz.io';
+const fullOgImage = og_image.startsWith('http') ? og_image : `${baseUrl}${og_image}`;
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  {keywords && <meta name="keywords" content={keywords} />}
+  <meta name="author" content="Lokesh Panditi" />
+  {robots && <meta name="robots" content={robots} />}
+  <meta name="theme-color" content={theme_color} />
+
+  <!-- OpenGraph & Social Meta -->
+  <meta property="og:type" content={og_type} />
+  <meta property="og:title" content={og_title} />
+  <meta property="og:description" content={og_description} />
+  <meta property="og:site_name" content={siteName} />
+  <meta property="og:image" content={fullOgImage} />
+  <meta name="twitter:image" content={fullOgImage} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={og_title} />
+  <meta name="twitter:description" content={og_description} />
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32x32.png" sizes="32x32" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+
+  <ThemeInit />
+
+  <!-- Without JS the custom cursor never appears, so keep a real one -->
+  <noscript>
+    <style>
+      @media (hover: hover) and (pointer: fine) {
+        *,
+        *::before,
+        *::after {
+          cursor: auto !important;
+        }
+      }
+    </style>
+  </noscript>
+
+  <!-- Fonts: Plus Jakarta Sans + JetBrains Mono + Space Grotesk -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,600&family=Space+Grotesk:wght@500;700&display=swap"
+    rel="stylesheet"
+  />
+
+  {stylesheet && <link rel="stylesheet" href={stylesheet} />}
+</head>
+<body>
+  <slot />
+
+  <!-- NON-CHROME BROWSER IN-DOM TOAST NOTICE -->
+  <div id="browserNotice" class="browser-notice-toast" role="alert" aria-live="polite">
+    <div class="notice-icon">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"></circle>
+        <line x1="12" y1="8" x2="12" y2="12"></line>
+        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+      </svg>
+    </div>
+    <div class="notice-content">
+      <p class="notice-text">Please use chrome for better UI and UX</p>
+      <p class="notice-sub">Liquid cursor physics and dynamic layouts are optimized for Chrome.</p>
+    </div>
+    <button id="closeNoticeBtn" class="notice-close" aria-label="Dismiss notice">&times;</button>
+  </div>
+
+  <!-- MOBILE DEVICE SCREEN BLOCKER -->
+  <div class="mobile-device-blocker" id="mobileBlocker" aria-hidden="true">
+    <div class="blocker-card">
+      <div class="blocker-badge">
+        <span class="beacon"></span>
+        <span>DESKTOP DISPLAY REQUIRED</span>
+      </div>
+      <div class="blocker-emoji">💻 💳 😉</div>
+      <h2 class="blocker-title">Display Too Small for this Experience</h2>
+      <p class="blocker-punchline">"Please use your Laptop or a PC or get one with installment 😉"</p>
+      <p class="blocker-desc">
+        This portfolio is crafted with 120fps physics-driven liquid mercury cursors, bento grid architectures, and bare-metal systems that require a wider display.
+      </p>
+      <div class="blocker-actions">
+        <button class="copy-btn" id="blockerCopyBtn" type="button">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          <span id="copyBtnText">Copy Portfolio Link</span>
+        </button>
+        <a class="email-btn" href="mailto:?subject=Lokesh%20Panditi%20Portfolio&body=Check%20out%20Lokesh%20Panditi's%20portfolio%20on%20a%20PC%20or%20laptop:%20https://lokeshpanditi.qzz.io">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+          </svg>
+          <span>Email Link to Myself</span>
+        </a>
+      </div>
+      <span class="copy-toast-msg" id="copyToastMsg">✓ Link copied to clipboard!</span>
+    </div>
+  </div>
+
+  <script is:inline src="/theme.js"></script>
+  <script is:inline>
+    // Browser Chrome Detection Notice
+    (function() {
+      try {
+        if (sessionStorage.getItem('dismissed_chrome_notice') === '1') return;
+        var ua = navigator.userAgent;
+        var vendor = navigator.vendor || '';
+        var isChromium = /Chrome/.test(ua) && /Google Inc/.test(vendor);
+        var isOther = /Edg|OPR|Brave|Vivaldi|YaBrowser|Firefox|FxiOS|Safari/.test(ua) && !isChromium;
+        var isSafari = /Safari/.test(ua) && !/Chrome/.test(ua);
+        var isFirefox = /Firefox|FxiOS/.test(ua);
+        var isEdge = /Edg/.test(ua);
+
+        if (!isChromium || isOther || isSafari || isFirefox || isEdge) {
+          var notice = document.getElementById('browserNotice');
+          if (notice) {
+            setTimeout(function() {
+              notice.classList.add('visible');
+            }, 600);
+            var closeBtn = document.getElementById('closeNoticeBtn');
+            if (closeBtn) {
+              closeBtn.addEventListener('click', function() {
+                notice.classList.remove('visible');
+                sessionStorage.setItem('dismissed_chrome_notice', '1');
+              });
+            }
+          }
+        }
+      } catch (e) {}
+
+      // Mobile Blocker Copy Link Handler
+      try {
+        var copyBtn = document.getElementById('blockerCopyBtn');
+        var toastMsg = document.getElementById('copyToastMsg');
+        var btnText = document.getElementById('copyBtnText');
+        if (copyBtn && toastMsg) {
+          copyBtn.addEventListener('click', function() {
+            var url = window.location.href;
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              navigator.clipboard.writeText(url).then(function() {
+                if (btnText) btnText.textContent = 'Copied! ✨';
+                toastMsg.classList.add('show');
+                setTimeout(function() {
+                  if (btnText) btnText.textContent = 'Copy Portfolio Link';
+                  toastMsg.classList.remove('show');
+                }, 3000);
+              });
+            }
+          });
+        }
+      } catch (e) {}
+    })();
+  </script>
+  <slot name="scripts" />
+</body>
+</html>

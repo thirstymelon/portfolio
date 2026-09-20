@@ -1,0 +1,530 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectNav from '../../components/ProjectNav.astro';
+import Pagination from '../../components/Pagination.astro';
+import Cursor from '../../components/Cursor.astro';
+import { PROJECTS, getProjectPager } from '../../data/projects';
+import '../../styles/project.scss';
+
+const slug = 'meshos';
+const project = PROJECTS[slug];
+const pager = getProjectPager(slug);
+
+const meta = {
+  title: project.title,
+  description: project.description,
+  og_title: project.og_title,
+  og_description: project.description,
+  og_type: 'article',
+  theme_color: '#070709'
+};
+---
+<BaseLayout {...meta}>
+  <ProjectNav project={project} />
+
+    <!-- Project Hero Header -->
+    <header class="project-hero">
+        <div class="spotlight-overlay"></div>
+        <div class="card-pattern pattern-waves">
+            <div class="card-noise"></div>
+            <svg class="pattern-svg static-svg" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice"
+                fill="none" stroke="currentColor">
+                <g stroke-width="1.1" opacity="0.65">
+                    <path d="M-100 80 Q100 20 300 80 T700 80 T1100 80 T1500 80" />
+                    <path d="M-100 150 Q100 90 300 150 T700 150 T1100 150 T1500 150" />
+                    <path d="M-100 220 Q100 160 300 220 T700 220 T1100 220 T1500 220" />
+                    <path d="M-100 290 Q100 230 300 290 T700 290 T1100 290 T1500 290" />
+                    <path d="M-100 360 Q100 300 300 360 T700 360 T1100 360 T1500 360" />
+                    <path d="M-100 430 Q100 370 300 430 T700 430 T1100 430 T1500 430" />
+                    <path d="M-100 500 Q100 440 300 500 T700 500 T1100 500 T1500 500" />
+                </g>
+            </svg>
+            <svg class="pattern-svg flow-svg" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice"
+                fill="none" stroke="currentColor">
+                <g stroke-width="2" class="wave-flow-group">
+                    <path d="M-100 80 Q100 20 300 80 T700 80 T1100 80 T1500 80" stroke-dasharray="32 80"
+                        class="harmonic-wave-1" />
+                    <path d="M-100 150 Q100 90 300 150 T700 150 T1100 150 T1500 150" stroke-dasharray="40 95"
+                        class="harmonic-wave-2" />
+                    <path d="M-100 220 Q100 160 300 220 T700 220 T1100 220 T1500 220" stroke-dasharray="28 70"
+                        class="harmonic-wave-1" />
+                    <path d="M-100 290 Q100 230 300 290 T700 290 T1100 290 T1500 290" stroke-dasharray="44 100"
+                        class="harmonic-wave-2" />
+                    <path d="M-100 360 Q100 300 300 360 T700 360 T1100 360 T1500 360" stroke-dasharray="32 80"
+                        class="harmonic-wave-1" />
+                    <path d="M-100 430 Q100 370 300 430 T700 430 T1100 430 T1500 430" stroke-dasharray="36 90"
+                        class="harmonic-wave-2" />
+                    <path d="M-100 500 Q100 440 300 500 T700 500 T1100 500 T1500 500" stroke-dasharray="30 75"
+                        class="harmonic-wave-1" />
+                </g>
+            </svg>
+        </div>
+        <div class="hero-container">
+            <div class="meta-badges-row">
+                <div class="project-tag-badge">
+                    <span>PROJECT 02</span>
+                    <span class="badge-sep">·</span>
+                    <span>WIRELESS NETWORKING</span>
+                </div>
+                <div class="status-pill">
+                    <span class="pulse-dot"></span>
+                    <span>ESP-NOW · 2.4 GHz · ESP32 · iOS · macOS</span>
+                </div>
+            </div>
+
+            <h1 class="project-main-title">⚡ MeshOS <em>Mesh Network</em></h1>
+            <p class="project-lead-italic">
+                Building an offline, encrypted communication network with ESP32.
+            </p>
+            <p class="project-hero-desc">
+                Most connected devices assume that there is something in the middle. A Wi-Fi router. A cloud server. An internet connection. A cellular network. I wanted to experiment with what communication would look like if none of those things existed.
+            </p>
+            <p class="project-hero-desc">
+                That idea became <strong>MeshOS</strong> &mdash; a decentralized, multi-hop communication platform built around <strong>ESP32 nodes</strong>, <strong>ESP-NOW</strong>, and native <strong>iOS</strong> and <strong>macOS</strong> applications. Every ESP32 acts as both a communication endpoint and a mesh node. Messages can travel across multiple nodes, while a connected phone or Mac can interact with the network through Bluetooth Low Energy. The result is a completely offline communication system with no central router, cloud service, or internet connection required.
+            </p>
+
+            <div class="project-cta-group">
+                <a href="https://github.com/thirstymelon/esp32Mesh" class="btn-pill-action" target="_blank"
+                    rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                    </svg>
+                    <span>View GitHub Repository ↗</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Quick Spec Matrix -->
+    <section class="spec-matrix-section">
+        <div class="spec-container">
+            <div class="spec-grid">
+                <div class="spec-card">
+                    <div class="spec-label">Radio Protocol</div>
+                    <div class="spec-val">ESP-NOW <small>2.4 GHz connectionless framing</small></div>
+                </div>
+                <div class="spec-card">
+                    <div class="spec-label">Target Hardware</div>
+                    <div class="spec-val">ESP32 / ESP32-S3 <small>Xtensa Dual-Core &amp; FreeRTOS</small></div>
+                </div>
+                <div class="spec-card">
+                    <div class="spec-label">Encryption &amp; Key Exchange</div>
+                    <div class="spec-val">AES-128-GCM <small>Hardware accelerated + P-256 ECDH</small></div>
+                </div>
+                <div class="spec-card">
+                    <div class="spec-label">Topology</div>
+                    <div class="spec-val">Self-Healing Mesh <small>Dynamic AODV-style routing</small></div>
+                </div>
+                <div class="spec-card">
+                    <div class="spec-label">Companion Apps</div>
+                    <div class="spec-val">iOS &amp; macOS <small>Native SwiftUI &amp; Metal topology</small></div>
+                </div>
+                <div class="spec-card">
+                    <div class="spec-label">Gateway Bridge</div>
+                    <div class="spec-val">BLE GATT <small>Zero internet dependency</small></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Article Body with Sticky Table of Contents -->
+    <main class="article-main-body">
+        <!-- Sticky Table of Contents -->
+        <aside class="project-toc-sidebar" aria-label="Table of contents">
+            <div class="toc-title">On This Page</div>
+            <a href="#the-idea" class="toc-link">1. The Idea</a>
+            <a href="#esp-now-to-mesh" class="toc-link">2. From ESP-NOW to a Mesh</a>
+            <a href="#security" class="toc-link">3. Making It Secure</a>
+            <a href="#phone-bridge" class="toc-link">4. The Phone as Part of the Mesh</a>
+            <a href="#visualization" class="toc-link">5. Seeing the Network</a>
+            <a href="#more-than-messaging" class="toc-link">6. More Than Messaging</a>
+            <a href="#whole-stack" class="toc-link">7. Building the Whole Stack</a>
+            <a href="#first-network" class="toc-link">8. The First Working Network</a>
+            <a href="#exists-today" class="toc-link">9. What Exists Today</a>
+            <a href="#whats-next" class="toc-link">10. What's Next?</a>
+            <a href="#means-to-me" class="toc-link">11. What MeshOS Means to Me</a>
+        </aside>
+
+        <!-- Deep Dive Article Content -->
+        <article class="project-article-content">
+            <!-- Section 1: The Idea -->
+            <section class="project-section-block" id="the-idea">
+                <div class="section-header-row">
+                    <span class="section-num">[ 01 ]</span>
+                    <h2 class="section-heading">The <em>Idea</em></h2>
+                </div>
+                <p class="prose-p">
+                    The initial idea was simple: <em>What if a group of ESP32 boards could form their own network?</em>
+                </p>
+                <p class="prose-p">
+                    ESP-NOW makes direct device-to-device communication possible without requiring the normal Wi-Fi association and infrastructure model. That makes it a surprisingly interesting foundation for a mesh network.
+                </p>
+                <p class="prose-p">
+                    Instead of every device communicating through a central access point, nodes can communicate directly with nearby nodes and forward messages toward their destination. So the network can look something like:
+                </p>
+
+                <div class="bento-callout">
+                    <div class="callout-body" style="font-size: 1.15rem; color: var(--text-secondary); font-style: italic;">
+                        Node A → Node B → Node C → Node D
+                    </div>
+                </div>
+
+                <p class="prose-p">
+                    If Node B disappears, the network can find another path when one is available. There is no single router that brings the entire network down.
+                </p>
+            </section>
+
+            <!-- Section 2: From ESP-NOW to a Mesh -->
+            <section class="project-section-block" id="esp-now-to-mesh">
+                <div class="section-header-row">
+                    <span class="section-num">[ 02 ]</span>
+                    <h2 class="section-heading">From ESP-NOW to a <em>Mesh</em></h2>
+                </div>
+                <p class="prose-p">
+                    ESP-NOW provides the low-level wireless transport, but it doesn't give me a complete mesh network by itself. I needed to build the networking layer above it.
+                </p>
+                <p class="prose-p">
+                    MeshOS maintains information about neighboring nodes and uses that information to construct routing paths through the network. Messages can therefore be:
+                </p>
+
+                <div class="feature-cards-grid">
+                    <div class="feature-card">
+                        <h3 class="feature-title">Direct Node Transmission</h3>
+                        <p class="feature-desc">Send targeted packets point-to-point when the destination is within single-hop radio range.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3 class="feature-title">Network-Wide Broadcast</h3>
+                        <p class="feature-desc">Flood telemetry, emergency beacons, and node discovery frames across the entire mesh.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3 class="feature-title">Multi-Hop Relay Forwarding</h3>
+                        <p class="feature-desc">Intermediate nodes decrement TTL and forward packets seamlessly to out-of-range targets.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3 class="feature-title">End-to-End Acknowledgements</h3>
+                        <p class="feature-desc">Guaranteed delivery confirmation routed back to the originator node.</p>
+                    </div>
+                </div>
+
+                <p class="prose-p">
+                    A lightweight AODV-style routing approach keeps the network decentralized while allowing nodes to discover paths dynamically. This was one of the most interesting parts of the project because it meant moving beyond simply sending packets between two ESP32 boards &mdash; I was building an actual network.
+                </p>
+            </section>
+
+            <!-- Section 3: Making It Secure -->
+            <section class="project-section-block" id="security">
+                <div class="section-header-row">
+                    <span class="section-num">[ 03 ]</span>
+                    <h2 class="section-heading">Making It <em>Secure</em></h2>
+                </div>
+                <p class="prose-p">
+                    Once the basic mesh was working, there was another obvious problem: <em>A network that works without infrastructure also needs to protect its communication without infrastructure.</em>
+                </p>
+                <p class="prose-p">
+                    MeshOS uses a two-stage security model:
+                </p>
+
+                <div class="bento-callout">
+                    <div class="callout-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                        </svg>
+                    </div>
+                    <div class="callout-body">
+                        <strong>1. Dynamic Session Key Handshake (P-256 ECDH):</strong><br />
+                        When an iPhone or Mac connects to a node over BLE, the application and node perform an Elliptic Curve Diffie-Hellman handshake to derive an ephemeral dynamic session key.
+                        <br /><br />
+                        <strong>2. Hardware-Accelerated Payload Encryption (AES-128-GCM):</strong><br />
+                        Mesh traffic is authenticated and encrypted using AES-128-GCM with hardware acceleration provided by the ESP32 silicon cryptographic subsystem.
+                    </div>
+                </div>
+
+                <p class="prose-p">
+                    This means encryption isn't dependent on a cloud service or centralized key server &mdash; the devices establish the session themselves.
+                </p>
+            </section>
+
+            <!-- Section 4: The Phone as Part of the Mesh -->
+            <section class="project-section-block" id="phone-bridge">
+                <div class="section-header-row">
+                    <span class="section-num">[ 04 ]</span>
+                    <h2 class="section-heading">The Phone Is Part of the <em>Network</em></h2>
+                </div>
+                <p class="prose-p">
+                    I didn't want MeshOS to become a project where the only way to interact with the network was through a serial terminal. So I built native companion applications for <strong>iOS</strong> and <strong>macOS</strong> using <strong>SwiftUI</strong>.
+                </p>
+                <p class="prose-p">
+                    The ESP32 exposes a BLE GATT interface that acts as the bridge between the physical mesh and the user interface.
+                </p>
+
+                <div class="diagram-box">
+                    <svg viewBox="0 0 680 220" role="img" aria-label="End to End MeshOS Architecture Pipeline">
+                        <g transform="translate(20, 30)">
+                            <rect x="0" y="20" width="130" height="50" rx="8" class="dm-fill" stroke="#ff5a1f" stroke-width="1.6" />
+                            <text x="65" y="47" text-anchor="middle" class="dm-text-ink" fill="#ff5a1f" font-size="11">iPhone / Mac</text>
+                            <text x="65" y="60" text-anchor="middle" class="dm-text" font-size="8">SwiftUI Interface</text>
+
+                            <line x1="130" y1="45" x2="180" y2="45" class="dm-soft" />
+                            <text x="155" y="38" text-anchor="middle" class="dm-text" font-size="8">BLE GATT</text>
+
+                            <rect x="180" y="20" width="140" height="50" rx="8" class="dm-fill" stroke="var(--border-main)" stroke-width="1.6" />
+                            <text x="250" y="47" text-anchor="middle" class="dm-text-ink" font-size="11">Gateway ESP32</text>
+                            <text x="250" y="60" text-anchor="middle" class="dm-text" font-size="8">Bridge &amp; Cryptography</text>
+
+                            <line x1="320" y1="45" x2="380" y2="45" class="dm-clay dm-anim" />
+                            <text x="350" y="38" text-anchor="middle" class="dm-text" font-size="8">ESP-NOW</text>
+
+                            <rect x="380" y="20" width="120" height="50" rx="8" class="dm-fill" />
+                            <text x="440" y="47" text-anchor="middle" class="dm-text-ink" font-size="11">Relay ESP32</text>
+                            <text x="440" y="60" text-anchor="middle" class="dm-text" font-size="8">Hop Forwarder</text>
+
+                            <line x1="500" y1="45" x2="550" y2="45" class="dm-clay dm-anim" />
+
+                            <rect x="550" y="20" width="110" height="50" rx="8" class="dm-fill" />
+                            <text x="605" y="47" text-anchor="middle" class="dm-text-ink" font-size="11">Target Node</text>
+                            <text x="605" y="60" text-anchor="middle" class="dm-text" font-size="8">Destination Endpoint</text>
+                        </g>
+
+                        <text x="340" y="145" text-anchor="middle" class="dm-text-ink" font-size="12" fill="#ff5a1f">
+                            iPhone / Mac ↓ BLE GATT ↓ ESP32 Gateway Node ↓ ESP-NOW Mesh ↓ Other ESP32 Nodes
+                        </text>
+                        <text x="340" y="168" text-anchor="middle" class="dm-text" font-size="9">
+                            Complete decoupling: The physical mesh runs off-grid while phones act as native UI interfaces.
+                        </text>
+                    </svg>
+                    <div class="diagram-label">Figure 1: End-to-end communication flow from native Apple app to distributed mesh nodes</div>
+                </div>
+
+                <p class="prose-p">
+                    This creates an interesting separation: the mesh itself remains completely independent of the internet, while familiar devices such as an iPhone or Mac can still act as the user's interface to it.
+                </p>
+            </section>
+
+            <!-- Section 5: Seeing the Network -->
+            <section class="project-section-block" id="visualization">
+                <div class="section-header-row">
+                    <span class="section-num">[ 05 ]</span>
+                    <h2 class="section-heading">Seeing the <em>Network</em></h2>
+                </div>
+                <p class="prose-p">
+                    One of my favorite parts of the project is the network visualization.
+                </p>
+                <p class="prose-p">
+                    The macOS and iOS applications can display the discovered mesh topology as a live graph, allowing the network to be viewed as it changes. Instead of looking at a collection of anonymous ESP32 boards, the application can show how the nodes are connected and how the network is structured.
+                </p>
+                <div class="bento-callout">
+                    <div class="callout-body">
+                        The topology visualization is rendered using <strong>Metal</strong>, giving the interface enough performance to update the graph dynamically in real time.
+                    </div>
+                </div>
+                <p class="prose-p">
+                    This turned the project from simply being a networking experiment into something that feels much more like an actual communication platform.
+                </p>
+            </section>
+
+            <!-- Section 6: More Than Messaging -->
+            <section class="project-section-block" id="more-than-messaging">
+                <div class="section-header-row">
+                    <span class="section-num">[ 06 ]</span>
+                    <h2 class="section-heading">More Than <em>Messaging</em></h2>
+                </div>
+                <p class="prose-p">
+                    Although messaging was one of the main use cases, I wanted the network to expose more than just text. MeshOS currently includes infrastructure for:
+                </p>
+
+                <div class="feature-cards-grid">
+                    <div class="feature-card">
+                        <h3 class="feature-title">Direct Messages &amp; Broadcasts</h3>
+                        <p class="feature-desc">Flexible addressing schemes for unicast private chat and network-wide emergency alerts.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3 class="feature-title">End-to-End Acknowledgements</h3>
+                        <p class="feature-desc">Reliable transport semantics with automatic timeout and retry logic.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3 class="feature-title">Node Discovery &amp; Routing</h3>
+                        <p class="feature-desc">Automatic neighbor discovery beacons and multi-hop route recovery.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3 class="feature-title">Live Topology Information</h3>
+                        <p class="feature-desc">Real-time link quality indicators (RSSI) and active adjacency tables.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3 class="feature-title">Node Telemetry</h3>
+                        <p class="feature-desc">Battery voltage, memory heap statistics, and ambient sensor readouts.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3 class="feature-title">Network Time Synchronization</h3>
+                        <p class="feature-desc">Distributed clock alignment across all nodes without NTP or GPS.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3 class="feature-title">BLE Communication Bridge</h3>
+                        <p class="feature-desc">Low-energy connectivity to phones, tablets, and laptops.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3 class="feature-title">OTA Firmware Updates</h3>
+                        <p class="feature-desc">Over-the-air firmware distribution across mesh nodes.</p>
+                    </div>
+                </div>
+
+                <p class="prose-p">
+                    The idea is that the mesh becomes a general communication layer rather than a single-purpose chat system.
+                </p>
+            </section>
+
+            <!-- Section 7: Building the Whole Stack -->
+            <section class="project-section-block" id="whole-stack">
+                <div class="section-header-row">
+                    <span class="section-num">[ 07 ]</span>
+                    <h2 class="section-heading">Building the <em>Whole Stack</em></h2>
+                </div>
+                <p class="prose-p">
+                    One of the things I enjoyed most about MeshOS was that it crosses several completely different layers of software.
+                </p>
+                <p class="prose-p">
+                    On the embedded side, the firmware is written in <strong>C</strong> using <strong>ESP-IDF</strong> and <strong>FreeRTOS</strong>. The firmware handles the mesh protocol, routing, encryption, BLE interface, telemetry, and communication with the ESP-NOW hardware.
+                </p>
+                <p class="prose-p">
+                    Then there is the application layer:
+                </p>
+                <div class="bento-callout">
+                    <div class="callout-body" style="font-family: var(--font-mono); color: #ff5a1f;">
+                        SwiftUI → BLE GATT → ESP32 → ESP-NOW → ESP32 → ...
+                    </div>
+                </div>
+                <p class="prose-p">
+                    So a single message can travel from a SwiftUI interface on a Mac or iPhone, through Bluetooth, into an ESP32, across multiple wireless mesh hops, and finally reach another node. Building that entire path was what made the project particularly interesting.
+                </p>
+            </section>
+
+            <!-- Section 8: The First Working Network -->
+            <section class="project-section-block" id="first-network">
+                <div class="section-header-row">
+                    <span class="section-num">[ 08 ]</span>
+                    <h2 class="section-heading">The First <em>Working Network</em></h2>
+                </div>
+                <p class="prose-p">
+                    The first milestone was simply getting multiple ESP32 boards to communicate directly.
+                </p>
+                <p class="prose-p" style="line-height: 2;">
+                    Then came discovery.<br />
+                    Then forwarding.<br />
+                    Then routing.<br />
+                    Then acknowledgements.<br />
+                    Then encryption.<br />
+                    And finally, the companion applications.
+                </p>
+                <p class="prose-p">
+                    Each step turned what started as a wireless experiment into another layer of the system. Eventually, the individual ESP32 boards stopped feeling like separate devices &mdash; they became nodes in one distributed system.
+                </p>
+            </section>
+
+            <!-- Section 9: What Exists Today -->
+            <section class="project-section-block" id="exists-today">
+                <div class="section-header-row">
+                    <span class="section-num">[ 09 ]</span>
+                    <h2 class="section-heading">What Exists <em>Today</em></h2>
+                </div>
+                <p class="prose-p">
+                    MeshOS currently provides the foundation for a complete offline mesh communication platform:
+                </p>
+
+                <div class="feature-cards-grid">
+                    <div class="feature-card">
+                        <h3 class="feature-title">Multi-Hop Networking</h3>
+                        <p class="feature-desc">ESP-NOW-based multi-hop packet routing and dynamic path recovery.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3 class="feature-title">Discovery &amp; Heartbeats</h3>
+                        <p class="feature-desc">Autonomous node presence discovery and topology updates.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3 class="feature-title">Messaging Suite</h3>
+                        <p class="feature-desc">Broadcast, direct unicast, and end-to-end acknowledgement delivery.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3 class="feature-title">Zero-Server Cryptography</h3>
+                        <p class="feature-desc">P-256 ECDH session establishment and AES-128-GCM hardware encryption.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3 class="feature-title">Native Apple Apps</h3>
+                        <p class="feature-desc">SwiftUI iOS and macOS companion applications with Metal graph visualization.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3 class="feature-title">Telemetry &amp; Sync</h3>
+                        <p class="feature-desc">Live battery/voltage telemetry, network time sync, and OTA firmware updates.</p>
+                    </div>
+                </div>
+
+                <div class="bento-callout">
+                    <div class="callout-body" style="font-style: italic; color: var(--text-secondary);">
+                        The project is built around a simple principle: the network should continue to exist even when the infrastructure around it doesn't.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 10: What's Next? -->
+            <section class="project-section-block" id="whats-next">
+                <div class="section-header-row">
+                    <span class="section-num">[ 10 ]</span>
+                    <h2 class="section-heading">What's <em>Next?</em></h2>
+                </div>
+                <p class="prose-p">
+                    The next steps are focused on making the system more robust and easier to use:
+                </p>
+
+                <div class="feature-cards-grid">
+                    <div class="feature-card">
+                        <h3 class="feature-title">Better Routing</h3>
+                        <p class="feature-desc">Improve route management and recovery in larger, dense node meshes.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3 class="feature-title">More Clients</h3>
+                        <p class="feature-desc">Expand the ways applications and operating systems can interact with the network.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3 class="feature-title">Stronger Tooling</h3>
+                        <p class="feature-desc">Improve monitoring, diagnostics, and real-time network latency visualization.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 11: What MeshOS Means to Me -->
+            <section class="project-section-block" id="means-to-me">
+                <div class="section-header-row">
+                    <span class="section-num">[ 11 ]</span>
+                    <h2 class="section-heading">What MeshOS Means to <em>Me</em></h2>
+                </div>
+                <p class="prose-p">
+                    MeshOS started as an experiment with ESP-NOW. It quickly became something much larger.
+                </p>
+                <p class="prose-p">
+                    I ended up building a small distributed communication system from the ground up &mdash; starting at raw wireless communication on the ESP32 and ending at native applications running on Apple devices.
+                </p>
+                <p class="prose-p">
+                    What makes the project interesting to me isn't simply that ESP32 boards can send messages to each other. It's that a handful of inexpensive microcontrollers can form a network that has no router, no server, no cloud, and no internet dependency, while still providing a modern interface on devices people already carry.
+                </p>
+                <p class="prose-p">
+                    The project is an exploration of what independent communication infrastructure can look like when the network itself is distributed across the devices participating in it.
+                </p>
+                <div class="bento-callout">
+                    <div class="callout-body" style="font-size: 1.25rem; font-weight: 700; color: var(--text-primary);">
+                        No central server. No single router. Just nodes communicating with nodes.
+                    </div>
+                </div>
+            </section>
+        </article>
+    </main>
+
+    <!-- Bottom Pagination (Previous / Next) -->
+    <Pagination pager={pager} />
+
+    <Cursor />
+
+  <Fragment slot="scripts">
+    <script is:inline src="/project.js"></script>
+    <script is:inline src="/cursor.js"></script>
+  </Fragment>
+</BaseLayout>

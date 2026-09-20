@@ -1,0 +1,15 @@
+---
+// Anti-Flash Theme Init Script: applies the saved theme before the first paint.
+// Kept in <head>, ahead of the stylesheets, so no page ever paints the wrong theme.
+---
+<script is:inline>
+  (function () {
+    var root = document.documentElement;
+    if (localStorage.getItem('bento-theme') === 'light') {
+      root.setAttribute('data-theme', 'light');
+      root.classList.add('light-theme');
+    } else {
+      root.setAttribute('data-theme', 'dark');
+    }
+  })();
+</script>
