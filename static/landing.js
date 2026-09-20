@@ -3,11 +3,12 @@
    theme.js / cursor.js; the magnetic cursor forks the popovers open through the
    "bento:magnetic-enter" event it dispatches, so neither file knows about the other. */
 (function () {
-    // Rock-Solid Popover Activation with Debounced Hover Stability
-    const skillsWrap = document.querySelector('.skills-popover-wrap');
-    const workWrap = document.querySelector('.work-popover-wrap');
-    const skillsBtn = document.querySelector('.skills-btn');
-    const workBtn = document.querySelector('.work-btn');
+    function initLanding() {
+        const skillsWrap = document.querySelector('.skills-popover-wrap');
+        const workWrap = document.querySelector('.work-popover-wrap');
+        const skillsBtn = document.querySelector('.skills-btn');
+        const workBtn = document.querySelector('.work-btn');
+        if (!skillsWrap && !workWrap && !skillsBtn && !workBtn) return;
 
     let skillsTimer = null;
     let workTimer = null;
@@ -210,14 +211,17 @@
         });
     });
 
-    // The magnetic cursor snapping onto a trigger opens its popover, exactly as hovering did
-    // when this logic lived inside the cursor loop.
-    window.addEventListener('bento:magnetic-enter', (e) => {
-        const el = e.detail.el;
-        if (el.classList.contains('skills-btn')) {
-            openSkills();
-        } else if (el.classList.contains('work-btn')) {
-            openWork();
-        }
-    });
+        // The magnetic cursor snapping onto a trigger opens its popover
+        window.addEventListener('bento:magnetic-enter', (e) => {
+            const el = e.detail.el;
+            if (el && el.classList.contains('skills-btn')) {
+                openSkills();
+            } else if (el && el.classList.contains('work-btn')) {
+                openWork();
+            }
+        });
+    }
+
+    initLanding();
+    document.addEventListener('astro:page-load', initLanding);
 })();

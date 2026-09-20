@@ -10,7 +10,7 @@
     const STORAGE_KEY = 'bento-theme';
 
     function current() {
-        return root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+        return localStorage.getItem(STORAGE_KEY) === 'light' ? 'light' : 'dark';
     }
 
     /* Mirror the live --bg-outer token into <meta name="theme-color"> so the browser chrome
@@ -34,15 +34,22 @@
         syncChromeColor();
     }
 
-    // Re-assert what the head script already applied and fix up the chrome color.
-    apply(current());
-
-    const toggleBtn = document.getElementById('themeToggle');
-    if (toggleBtn) {
-        toggleBtn.addEventListener('click', () => {
-            const next = current() === 'light' ? 'dark' : 'light';
-            apply(next);
-            localStorage.setItem(STORAGE_KEY, next);
-        });
+    function initThemeToggle() {
+        apply(current());
+        const toggleBtn = document.getElementById('themeToggle');
+        if (toggleBtn && !toggleBtn.__themeBound) {
+            toggleBtn.__themeBound = true;
+            toggleBtn.addEventListener('click', () => {
+                const next = current() === 'light' ? 'dark' : 'light';
+                apply(next);
+                localStorage.setItem(STORAGE_KEY, next);
+            });
+        }
     }
+
+    initThemeToggle();
+    document.addEventListener('astro:page-load', initThemeToggle);
+    document.addEventListener('astro:after-swap', () => {
+        apply(current());
+    });
 })();
