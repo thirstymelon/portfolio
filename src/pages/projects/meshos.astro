@@ -2,7 +2,6 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ProjectNav from '../../components/ProjectNav.astro';
 import Pagination from '../../components/Pagination.astro';
-import Cursor from '../../components/Cursor.astro';
 import { PROJECTS, getProjectPager } from '../../data/projects';
 import '../../styles/project.scss';
 
@@ -15,6 +14,7 @@ const meta = {
   description: project.description,
   og_title: project.og_title,
   og_description: project.description,
+  og_image: project.og_image,
   og_type: 'article',
   theme_color: '#070709'
 };
@@ -132,18 +132,26 @@ const meta = {
     <main class="article-main-body">
         <!-- Sticky Table of Contents -->
         <aside class="project-toc-sidebar" aria-label="Table of contents">
-            <div class="toc-title">On This Page</div>
-            <a href="#the-idea" class="toc-link">1. The Idea</a>
-            <a href="#esp-now-to-mesh" class="toc-link">2. From ESP-NOW to a Mesh</a>
-            <a href="#security" class="toc-link">3. Making It Secure</a>
-            <a href="#phone-bridge" class="toc-link">4. The Phone as Part of the Mesh</a>
-            <a href="#visualization" class="toc-link">5. Seeing the Network</a>
-            <a href="#more-than-messaging" class="toc-link">6. More Than Messaging</a>
-            <a href="#whole-stack" class="toc-link">7. Building the Whole Stack</a>
-            <a href="#first-network" class="toc-link">8. The First Working Network</a>
-            <a href="#exists-today" class="toc-link">9. What Exists Today</a>
-            <a href="#whats-next" class="toc-link">10. What's Next?</a>
-            <a href="#means-to-me" class="toc-link">11. What MeshOS Means to Me</a>
+            <div class="toc-header">
+                <span class="toc-title">On This Page</span>
+                <span class="toc-progress-val" id="tocProgressVal">0%</span>
+            </div>
+            <div class="toc-progress-track" aria-hidden="true">
+                <div class="toc-progress-fill" id="tocProgressFill"></div>
+            </div>
+            <nav class="toc-nav-list">
+                <a href="#the-idea" class="toc-link">1. The Idea</a>
+                <a href="#esp-now-to-mesh" class="toc-link">2. From ESP-NOW to a Mesh</a>
+                <a href="#security" class="toc-link">3. Making It Secure</a>
+                <a href="#phone-bridge" class="toc-link">4. The Phone as Part of the Mesh</a>
+                <a href="#visualization" class="toc-link">5. Seeing the Network</a>
+                <a href="#more-than-messaging" class="toc-link">6. More Than Messaging</a>
+                <a href="#whole-stack" class="toc-link">7. Building the Whole Stack</a>
+                <a href="#first-network" class="toc-link">8. The First Working Network</a>
+                <a href="#exists-today" class="toc-link">9. What Exists Today</a>
+                <a href="#whats-next" class="toc-link">10. What's Next?</a>
+                <a href="#means-to-me" class="toc-link">11. What MeshOS Means to Me</a>
+            </nav>
         </aside>
 
         <!-- Deep Dive Article Content -->
@@ -521,10 +529,7 @@ const meta = {
     <!-- Bottom Pagination (Previous / Next) -->
     <Pagination pager={pager} />
 
-    <Cursor />
-
   <Fragment slot="scripts">
     <script is:inline src="/project.js"></script>
-    <script is:inline src="/cursor.js"></script>
   </Fragment>
 </BaseLayout>

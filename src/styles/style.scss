@@ -1,6 +1,8 @@
-$font-main: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+$font-main: "Inter", "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 $font-mono: "JetBrains Mono", monospace;
-$font-display: "Space Grotesk", "Plus Jakarta Sans", sans-serif;
+$font-serif: "Fraunces", Georgia, serif;
+$font-display: "Fraunces", Georgia, serif;
+$font-technical: "Inter", "Plus Jakarta Sans", sans-serif;
 
 // Constant Accent Color
 $luxury-orange: #ff5a1f;
@@ -8,34 +10,8 @@ $card-radius: 25px;
 $transition-smooth: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 $btn-fill-transition: box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1), color 0.5s ease, border-color 0.5s ease;
 
-// CSS Variables for Light / Matte Black Theme Inversion
-:root {
-    --bg-outer: #e6e6ea;
-    --bg-card: #f8f8fa;
-    --bg-card-subtle: #eeeff2;
-    --bg-card-hover-white: #dfdfe6;
-    --bg-card-hover-subtle: #d4d4dc;
-    --text-primary: #0c0c0e;
-    --text-secondary: #222222;
-    --text-muted: #383840;
-    --text-subtle: #4e4e58;
-    --border-main: #0c0c0e;
-    --border-subtle: rgba(12, 12, 14, 0.08);
-    --btn-bg: #f8f8fa;
-    --btn-color: #0c0c0e;
-    --btn-hover-bg: #0c0c0e;
-    --btn-hover-color: #f8f8fa;
-    --chip-bg: rgba(0, 0, 0, 0.05);
-    --spotlight-core: transparent;
-    --spotlight-mid: transparent;
-    --spotlight-ambient: transparent;
-    --cursor-glow: none;
-    --cursor-glow-hover: none;
-    --glass-popover-bg: rgba(248, 248, 250, 0.92);
-    --glass-popover-border: rgba(12, 12, 14, 0.14);
-}
-
-// Ultra-Deep True Black & Layered Obsidian Dark Theme
+// CSS Variables for True Black & Obsidian Dark Theme (Default)
+:root,
 [data-theme="dark"] {
     --bg-outer: #000000;
     --bg-card: #0c0c10;
@@ -60,6 +36,33 @@ $btn-fill-transition: box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1), color 0.5s 
     --cursor-glow-hover: 0 0 22px 5px rgba(255, 255, 255, 0.45);
     --glass-popover-bg: rgba(12, 12, 16, 0.94);
     --glass-popover-border: rgba(255, 255, 255, 0.15);
+}
+
+// Light Theme Inversion
+[data-theme="light"] {
+    --bg-outer: #e6e6ea;
+    --bg-card: #f8f8fa;
+    --bg-card-subtle: #eeeff2;
+    --bg-card-hover-white: #dfdfe6;
+    --bg-card-hover-subtle: #d4d4dc;
+    --text-primary: #0c0c0e;
+    --text-secondary: #222222;
+    --text-muted: #383840;
+    --text-subtle: #4e4e58;
+    --border-main: #0c0c0e;
+    --border-subtle: rgba(12, 12, 14, 0.08);
+    --btn-bg: #f8f8fa;
+    --btn-color: #0c0c0e;
+    --btn-hover-bg: #0c0c0e;
+    --btn-hover-color: #f8f8fa;
+    --chip-bg: rgba(0, 0, 0, 0.05);
+    --spotlight-core: transparent;
+    --spotlight-mid: transparent;
+    --spotlight-ambient: transparent;
+    --cursor-glow: none;
+    --cursor-glow-hover: none;
+    --glass-popover-bg: rgba(248, 248, 250, 0.92);
+    --glass-popover-border: rgba(12, 12, 14, 0.14);
 }
 
 * {
@@ -119,12 +122,12 @@ $btn-fill-transition: box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1), color 0.5s 
 
 // Dark Theme: Subtle Radiant Optical Glow for Liquid Mercury Ring
 [data-theme="dark"] .cursor-ring {
-    box-shadow: 
+    box-shadow:
         0 0 14px 1px rgba(255, 140, 50, 0.22),
         0 0 28px 4px rgba(255, 90, 31, 0.08);
 
     &.is-snapped {
-        box-shadow: 
+        box-shadow:
             0 0 16px 2px rgba(255, 90, 31, 0.25),
             0 0 32px 6px rgba(255, 90, 31, 0.10);
     }
@@ -157,6 +160,7 @@ $btn-fill-transition: box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1), color 0.5s 
 
 // When Skills Popover is active: Dim background & other cards smoothly and disable pointer-events on obscured background
 body.popover-skills-active {
+
     .bento-nav,
     .submain .top,
     .submain .bottom .middle.card-work,
@@ -174,6 +178,7 @@ body.popover-skills-active {
 
 // When Projects Popover is active: Dim background & other cards smoothly and disable pointer-events on obscured background
 body.popover-work-active {
+
     .bento-nav,
     .submain .top,
     .submain .bottom .left.card-skills,
@@ -191,6 +196,7 @@ body.popover-work-active {
 
 
 @media (hover: hover) and (pointer: fine) {
+
     *,
     *::before,
     *::after {
@@ -210,11 +216,11 @@ button.pill-btn {
     justify-content: center;
     gap: 8px;
     padding: 0.82rem 2rem;
-    font-family: inherit;
+    font-family: $font-technical;
     font-size: 0.92rem;
-    font-weight: 700;
+    font-weight: 600;
     line-height: 1;
-    letter-spacing: normal;
+    letter-spacing: -0.01em;
     text-align: center;
     color: var(--text-primary);
     background-color: var(--bg-card);
@@ -347,10 +353,24 @@ body {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+// Global Editorial Serif Accents & Highlighting (Classic Fraunces)
+em,
+i {
+    font-family: $font-serif;
+    font-style: italic;
+    font-weight: 400;
+    color: $luxury-orange;
+}
+
+.under {
+    border-bottom: 2px solid $luxury-orange;
+    padding-bottom: 2px;
+}
+
 // Multi-spectral Ambient Radial Depth for Dark Theme (2.B)
 [data-theme="dark"] body {
     background-color: #000000;
-    background-image: 
+    background-image:
         radial-gradient(1100px circle at 85% 8%, rgba(255, 90, 31, 0.045), transparent 60%),
         radial-gradient(950px circle at 10% 92%, rgba(99, 102, 241, 0.035), transparent 55%),
         radial-gradient(600px circle at 50% 50%, rgba(255, 255, 255, 0.008), transparent 70%);
@@ -381,9 +401,11 @@ body {
         padding: 0.15rem 0.5rem 0.5rem 0.5rem;
 
         .logo {
-            font-size: 1.35rem;
-            font-weight: 800;
-            letter-spacing: -0.03em;
+            font-family: $font-serif;
+            font-size: 1.25rem;
+            font-weight: 500;
+            letter-spacing: -0.015em;
+            font-style: italic;
             color: var(--text-primary);
             text-decoration: none !important;
 
@@ -471,7 +493,7 @@ body {
         border-radius: 20px;
         background-color: #070709;
         overflow: visible;
-        box-shadow: 
+        box-shadow:
             0 24px 64px rgba(0, 0, 0, 0.75),
             inset 0 1px 0 rgba(255, 255, 255, 0.14),
             inset 0 0 0 1px rgba(255, 255, 255, 0.04);
@@ -545,7 +567,7 @@ body {
                 pointer-events: none;
 
                 &.static-svg {
-                    opacity: 0.06;
+                    opacity: 0.028;
                     color: var(--text-primary);
                     transition: opacity 0.35s ease;
                     z-index: 2;
@@ -554,8 +576,8 @@ body {
                 &.flow-svg {
                     opacity: 0;
                     color: $luxury-orange;
-                    mask-image: radial-gradient(360px circle at var(--mouse-x, -999px) var(--mouse-y, -999px), black 0%, rgba(0, 0, 0, 0.45) 45%, transparent 75%);
-                    -webkit-mask-image: radial-gradient(360px circle at var(--mouse-x, -999px) var(--mouse-y, -999px), black 0%, rgba(0, 0, 0, 0.45) 45%, transparent 75%);
+                    mask-image: radial-gradient(320px circle at var(--mouse-x, -999px) var(--mouse-y, -999px), black 0%, rgba(0, 0, 0, 0.3) 50%, transparent 80%);
+                    -webkit-mask-image: radial-gradient(320px circle at var(--mouse-x, -999px) var(--mouse-y, -999px), black 0%, rgba(0, 0, 0, 0.3) 50%, transparent 80%);
                     transition: opacity 0.35s ease;
                     z-index: 3;
                 }
@@ -564,7 +586,7 @@ body {
             &.pattern-topography {
                 .pattern-svg.static-svg {
                     color: $luxury-orange;
-                    opacity: 0.038;
+                    opacity: 0.022;
                 }
 
                 .pattern-svg.flow-svg {
@@ -573,27 +595,27 @@ body {
             }
         }
 
-        // On Card Hover: Illuminate and animate the flow layer under the cursor
+        // On Card Hover: Subtle, luminous ambient illumination that does not interfere with text
         .left.hero-box:hover .pattern-topography .pattern-svg.flow-svg {
-            opacity: 0.85;
+            opacity: 0.22;
         }
 
         .right.poster-box:hover .pattern-circles .pattern-svg.flow-svg,
         .left.card-skills:hover .pattern-isometric .pattern-svg.flow-svg,
         .middle.card-work:hover .pattern-waves .pattern-svg.flow-svg,
         .right.card-connect:hover .pattern-signal .pattern-svg.flow-svg {
-            opacity: 0.95;
+            opacity: 0.28;
         }
 
         .left.hero-box:hover .pattern-topography .pattern-svg.static-svg {
-            opacity: 0.055;
+            opacity: 0.035;
         }
 
         .right.poster-box:hover .pattern-circles .pattern-svg.static-svg,
         .left.card-skills:hover .pattern-isometric .pattern-svg.static-svg,
         .middle.card-work:hover .pattern-waves .pattern-svg.static-svg,
         .right.card-connect:hover .pattern-signal .pattern-svg.static-svg {
-            opacity: 0.085;
+            opacity: 0.045;
         }
 
         .left.hero-box,
@@ -627,7 +649,7 @@ body {
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
-                padding: clamp(1rem, 2.2vh, 2.25rem) clamp(1.25rem, 2.5vw, 3rem) clamp(0.75rem, 1.6vh, 1.75rem) clamp(1.25rem, 2.5vw, 3rem);
+                padding: clamp(1.35rem, 2.8vh, 2.85rem) clamp(1.5rem, 3vw, 3.5rem) clamp(1.15rem, 2.2vh, 2.25rem) clamp(1.5rem, 3vw, 3.5rem);
                 transition: $transition-smooth;
 
                 .hero-content {
@@ -647,7 +669,7 @@ body {
 
                         .hero-title-wrap {
                             flex-shrink: 0;
-                            max-width: 720px;
+                            max-width: 780px;
 
                             .hero-greeting {
                                 font-family: $font-mono;
@@ -657,16 +679,23 @@ body {
                                 color: $luxury-orange;
                                 text-transform: uppercase;
                                 display: block;
-                                margin-bottom: 0.35rem;
+                                margin-bottom: clamp(0.35rem, 0.7vh, 0.6rem);
                             }
 
                             .hero-title {
-                                font-size: clamp(2.35rem, 5.2vh, 4rem);
-                                font-weight: 900;
-                                line-height: 1.05;
-                                letter-spacing: -0.04em;
+                                font-family: $font-serif;
+                                font-size: clamp(2.85rem, 6.4vh, 4.75rem);
+                                font-weight: 500;
+                                line-height: 1.02;
+                                letter-spacing: -0.035em;
                                 color: var(--text-primary);
-                                margin: 0;
+                                margin: clamp(0.2rem, 0.5vh, 0.45rem) 0 clamp(0.35rem, 0.8vh, 0.65rem) 0;
+
+                                em {
+                                    font-style: italic;
+                                    font-weight: 400;
+                                    color: $luxury-orange;
+                                }
 
                                 .dot {
                                     color: $luxury-orange;
@@ -675,22 +704,40 @@ body {
 
                             .hero-role {
                                 font-family: $font-mono;
-                                font-size: clamp(1.02rem, 1.9vh, 1.25rem);
-                                font-weight: 750;
-                                letter-spacing: 0.04em;
+                                font-size: clamp(0.96rem, 1.8vh, 1.2rem);
+                                font-weight: 600;
+                                letter-spacing: 0.03em;
                                 color: var(--text-primary);
                                 display: block;
-                                margin-top: 0.35rem;
+                                margin-top: 0;
+                                margin-bottom: clamp(0.4rem, 0.9vh, 0.75rem);
+
+                                em {
+                                    font-family: $font-serif;
+                                    font-style: italic;
+                                    font-weight: 400;
+                                    color: $luxury-orange;
+                                }
                             }
 
                             .hero-description {
-                                font-size: clamp(1rem, 1.8vh, 1.22rem);
-                                font-weight: 500;
-                                line-height: 1.45;
+                                font-size: clamp(0.98rem, 1.75vh, 1.2rem);
+                                font-weight: 400;
+                                line-height: 1.65;
                                 color: var(--text-secondary);
-                                margin: clamp(0.4rem, 1vh, 0.85rem) 0 0 0;
-                                max-width: 720px;
-                                letter-spacing: -0.012em;
+                                margin: clamp(0.45rem, 1vh, 0.9rem) 0 0 0;
+                                max-width: 780px;
+                                letter-spacing: -0.01em;
+
+                                strong {
+                                    color: var(--text-primary);
+                                    font-weight: 600;
+                                }
+
+                                em {
+                                    font-style: italic;
+                                    color: $luxury-orange;
+                                }
                             }
                         }
                     }
@@ -699,7 +746,9 @@ body {
                         display: flex;
                         align-items: center;
                         justify-content: space-between;
-                        padding-top: clamp(0.6rem, 1.2vh, 1.25rem);
+                        padding-top: clamp(0.8rem, 1.6vh, 1.5rem);
+                        gap: 1rem;
+                        flex-wrap: wrap;
 
                         .cta-cluster {
                             display: flex;
@@ -744,6 +793,32 @@ body {
                             }
                         }
 
+                        .hero-live-badge {
+                            display: inline-flex;
+                            align-items: center;
+                            gap: 8px;
+                            padding: 0.35rem 0.75rem;
+                            border-radius: 20px;
+                            background: rgba(255, 255, 255, 0.03);
+                            border: 1px solid var(--border-subtle);
+                            font-family: $font-mono;
+                            font-size: 0.7rem;
+                            font-weight: 700;
+                            letter-spacing: 0.08em;
+                            color: var(--text-muted);
+                            text-transform: uppercase;
+                            user-select: none;
+
+                            .status-dot {
+                                width: 6px;
+                                height: 6px;
+                                border-radius: 50%;
+                                background-color: #22c55e;
+                                box-shadow: 0 0 8px rgba(34, 197, 94, 0.65);
+                                animation: pulseAnimation 2s infinite ease-in-out;
+                            }
+                        }
+
                         .hero-note {
                             font-family: $font-mono;
                             font-size: 0.82rem;
@@ -772,7 +847,7 @@ body {
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
-                padding: clamp(1rem, 2vh, 1.85rem) clamp(1rem, 2vw, 2rem) clamp(0.75rem, 1.6vh, 1.5rem) clamp(1rem, 2vw, 2rem);
+                padding: clamp(1.35rem, 2.8vh, 2.85rem) clamp(1.25rem, 2.4vw, 2.75rem) clamp(1.15rem, 2.2vh, 2.25rem) clamp(1.25rem, 2.4vw, 2.75rem);
                 transition: $transition-smooth;
 
                 .poster-inner,
@@ -790,16 +865,16 @@ body {
                         .bio-status-tag {
                             display: flex;
                             align-items: center;
-                            gap: 7px;
+                            gap: 8px;
                             font-family: $font-mono;
-                            font-size: 0.78rem;
+                            font-size: clamp(0.78rem, 1.2vh, 0.86rem);
                             font-weight: 700;
                             letter-spacing: 0.08em;
                             color: var(--text-primary);
 
                             .status-pulse {
-                                width: 7px;
-                                height: 7px;
+                                width: 8px;
+                                height: 8px;
                                 border-radius: 50%;
                                 background-color: #10b981;
                                 box-shadow: 0 0 8px #10b981;
@@ -809,7 +884,7 @@ body {
 
                         .bio-location {
                             font-family: $font-mono;
-                            font-size: 0.78rem;
+                            font-size: clamp(0.78rem, 1.2vh, 0.86rem);
                             font-weight: 700;
                             letter-spacing: 0.1em;
                             color: var(--text-muted);
@@ -820,15 +895,22 @@ body {
                         display: flex;
                         flex-direction: column;
                         justify-content: center;
-                        margin: clamp(0.4rem, 1vh, 1.15rem) 0;
+                        margin: clamp(0.5rem, 1.2vh, 1.25rem) 0;
 
                         .poster-statement {
-                            font-size: clamp(1.75rem, 4.2vh, 2.85rem);
-                            font-weight: 900;
-                            line-height: 1.08;
-                            letter-spacing: -0.045em;
+                            font-family: $font-serif;
+                            font-size: clamp(2.15rem, 5.2vh, 3.4rem);
+                            font-weight: 400;
+                            line-height: 1.04;
+                            letter-spacing: -0.035em;
                             color: var(--text-primary);
                             margin: 0;
+
+                            em {
+                                font-style: italic;
+                                font-weight: 400;
+                                color: $luxury-orange;
+                            }
 
                             .dot {
                                 color: $luxury-orange;
@@ -840,21 +922,21 @@ body {
                         display: flex;
                         justify-content: space-between;
                         align-items: center;
-                        padding-top: 0.65rem;
+                        padding-top: clamp(0.65rem, 1.3vh, 1.1rem);
                         border-top: 1px solid var(--border-subtle);
 
                         .bio-tags {
                             display: flex;
                             align-items: center;
-                            gap: 6px;
+                            gap: 7px;
 
                             .bio-tag {
                                 font-family: $font-mono;
-                                font-size: 0.75rem;
+                                font-size: clamp(0.74rem, 1.15vh, 0.82rem);
                                 font-weight: 700;
                                 letter-spacing: 0.06em;
-                                padding: 3px 9px;
-                                border-radius: 4px;
+                                padding: 4px 10px;
+                                border-radius: 5px;
                                 background-color: var(--chip-bg);
                                 color: var(--text-primary);
                                 border: 1px solid var(--border-subtle);
@@ -863,7 +945,7 @@ body {
 
                         .bio-handle {
                             font-family: $font-mono;
-                            font-size: 0.78rem;
+                            font-size: clamp(0.76rem, 1.2vh, 0.84rem);
                             font-weight: 700;
                             letter-spacing: 0.06em;
                             color: var(--text-muted);
@@ -901,7 +983,7 @@ body {
                 border-right: 1.5px solid var(--border-main);
                 border-radius: 0;
                 border-bottom-left-radius: 19px;
-                padding: clamp(0.85rem, 1.8vh, 1.65rem) clamp(1rem, 2vw, 2rem);
+                padding: clamp(1.25rem, 2.5vh, 2.4rem) clamp(1.25rem, 2.2vw, 2.5rem) clamp(1.1rem, 2vh, 2rem) clamp(1.25rem, 2.2vw, 2.5rem);
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
@@ -925,12 +1007,20 @@ body {
                     overflow: visible !important;
 
                     .skills-statement {
+                        font-family: $font-serif;
                         width: 100%;
-                        font-size: clamp(1.22rem, 2.4vh, 1.48rem);
-                        font-weight: 800;
-                        line-height: 1.35;
+                        font-size: clamp(1.38rem, 2.85vh, 1.85rem);
+                        font-weight: 400;
+                        line-height: 1.28;
                         letter-spacing: -0.02em;
                         color: var(--text-primary);
+                        margin: 0 0 clamp(0.6rem, 1.2vh, 1.2rem) 0;
+
+                        em {
+                            font-style: italic;
+                            font-weight: 400;
+                            color: $luxury-orange;
+                        }
                     }
 
                     .skills-popover-wrap {
@@ -1132,7 +1222,7 @@ body {
                 border: none;
                 border-right: 1.5px solid var(--border-main);
                 border-radius: 0;
-                padding: clamp(0.85rem, 1.8vh, 1.65rem) clamp(1rem, 2vw, 2rem);
+                padding: clamp(1.25rem, 2.5vh, 2.4rem) clamp(1.25rem, 2.2vw, 2.5rem) clamp(1.1rem, 2vh, 2rem) clamp(1.25rem, 2.2vw, 2.5rem);
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
@@ -1156,12 +1246,20 @@ body {
                     overflow: visible !important;
 
                     .work-statement {
+                        font-family: $font-serif;
                         width: 100%;
-                        font-size: clamp(1.22rem, 2.4vh, 1.48rem);
-                        font-weight: 800;
-                        line-height: 1.35;
+                        font-size: clamp(1.38rem, 2.85vh, 1.85rem);
+                        font-weight: 400;
+                        line-height: 1.28;
                         letter-spacing: -0.02em;
                         color: var(--text-primary);
+                        margin: 0 0 clamp(0.6rem, 1.2vh, 1.2rem) 0;
+
+                        em {
+                            font-style: italic;
+                            font-weight: 400;
+                            color: $luxury-orange;
+                        }
                     }
 
                     .work-popover-wrap {
@@ -1399,7 +1497,7 @@ body {
             .right.card-connect {
                 grid-column: span 1;
                 background-color: var(--bg-card-subtle);
-                padding: clamp(0.85rem, 1.8vh, 1.65rem) clamp(1rem, 2vw, 2rem);
+                padding: clamp(1.25rem, 2.5vh, 2.4rem) clamp(1.25rem, 2.2vw, 2.5rem) clamp(1.1rem, 2vh, 2rem) clamp(1.25rem, 2.2vw, 2.5rem);
                 border: none;
                 border-radius: 0;
                 border-bottom-right-radius: 19px;
@@ -1443,11 +1541,18 @@ body {
                         }
 
                         .connect-name {
+                            font-family: $font-serif;
                             font-size: 2rem;
-                            font-weight: 900;
+                            font-weight: 400;
                             line-height: 1;
-                            letter-spacing: -0.04em;
+                            letter-spacing: -0.03em;
                             color: var(--text-primary);
+
+                            em {
+                                font-style: italic;
+                                font-weight: 400;
+                                color: $luxury-orange;
+                            }
 
                             .dot {
                                 color: $luxury-orange;
@@ -1604,7 +1709,7 @@ body {
                             gap: 1.5rem;
 
                             .hero-title-wrap .hero-title {
-                                font-size: 3.2rem;
+                                font-size: clamp(3.2rem, 6vw, 4.2rem);
                             }
                         }
 
@@ -1641,6 +1746,7 @@ body {
 
                 .right.card-connect {
                     border-bottom: none;
+                    border-radius: 0;
                     border-bottom-left-radius: 19px;
                     border-bottom-right-radius: 19px;
                 }
@@ -1711,7 +1817,7 @@ body {
                             gap: 1.25rem;
 
                             .hero-title-wrap .hero-title {
-                                font-size: 2.25rem;
+                                font-size: clamp(2.45rem, 8.5vw, 3.2rem);
                                 letter-spacing: -0.04em;
                                 line-height: 1.05;
                             }
@@ -1755,8 +1861,8 @@ body {
                     min-height: auto;
 
                     .poster-inner .poster-statement-wrap .poster-statement {
-                        font-size: 1.85rem;
-                        line-height: 1.1;
+                        font-size: clamp(1.95rem, 6.5vw, 2.35rem);
+                        line-height: 1.08;
                     }
                 }
             }
@@ -1776,8 +1882,8 @@ body {
                         gap: 1.25rem;
 
                         .skills-statement {
-                            font-size: 1.05rem;
-                            line-height: 1.35;
+                            font-size: clamp(1.18rem, 4.2vw, 1.38rem);
+                            line-height: 1.32;
                             margin-bottom: 0;
                         }
 
@@ -1803,8 +1909,8 @@ body {
                         gap: 1.25rem;
 
                         .work-statement {
-                            font-size: 1.05rem;
-                            line-height: 1.35;
+                            font-size: clamp(1.18rem, 4.2vw, 1.38rem);
+                            line-height: 1.32;
                             margin-bottom: 0;
                         }
 

@@ -7,6 +7,7 @@ export interface Project {
     title: string;
     og_title: string;
     description: string;
+    og_image: string;
 }
 
 export const PROJECT_ORDER = ['glyph', 'meshos', 'radiokit'] as const;
@@ -22,6 +23,7 @@ export const PROJECTS: Record<ProjectSlug, Project> = {
         title: 'Glyph — Building a Portable Graphics Framework for Bare-Metal Ada | Lokesh Panditi',
         og_title: 'Glyph — Building a Portable Graphics Framework for Bare-Metal Ada',
         description: 'Technical deep dive into Glyph, a lightweight, portable graphics framework written in Ada 2022 for bare-metal and embedded systems like the RP2040 and SSD1306 OLED.',
+        og_image: '/og-glyph.svg',
     },
     meshos: {
         slug: 'meshos',
@@ -32,6 +34,7 @@ export const PROJECTS: Record<ProjectSlug, Project> = {
         title: 'MeshOS — Building an Offline, Encrypted Communication Network with ESP32 | Lokesh Panditi',
         og_title: 'MeshOS — Building an Offline, Encrypted Communication Network with ESP32',
         description: 'Technical deep dive into MeshOS, an offline, encrypted peer-to-peer multi-hop mesh communication network using ESP32, ESP-NOW, and native iOS/macOS SwiftUI companion apps.',
+        og_image: '/og-meshos.svg',
     },
     radiokit: {
         slug: 'radiokit',
@@ -42,6 +45,7 @@ export const PROJECTS: Record<ProjectSlug, Project> = {
         title: 'Radio_Kit — Turning an RP2040\'s Clock Tree into an Experimental RF Source | Lokesh Panditi',
         og_title: 'Radio_Kit — Turning an RP2040\'s Clock Tree into an Experimental RF Source',
         description: 'Technical deep dive into Radio_Kit, an experimental Ada framework for the RP2040 that generates programmable 6 Hz to 90 MHz digital RF carriers directly from on-chip clock dividers.',
+        og_image: '/og-radiokit.svg',
     },
 };
 

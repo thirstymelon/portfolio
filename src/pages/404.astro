@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Nav from '../components/Nav.astro';
-import Cursor from '../components/Cursor.astro';
 import '../styles/style.scss';
 
 const meta = {
@@ -56,7 +55,6 @@ const meta = {
       </section>
     </div>
   </main>
-  <Cursor />
 
   <Fragment slot="scripts">
     <script is:inline>
@@ -67,6 +65,5 @@ const meta = {
         if (img) img.src = '/gifs/' + randomNum + '.gif';
       })();
     </script>
-    <script is:inline src="/cursor.js"></script>
   </Fragment>
 </BaseLayout>

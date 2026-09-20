@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Nav from '../components/Nav.astro';
-import Cursor from '../components/Cursor.astro';
 import '../styles/style.scss';
 
 const meta = {
@@ -45,13 +44,12 @@ const meta = {
                             <div class="hero-title-wrap">
                                 <span class="hero-greeting">HELLO THERE, THIS IS</span>
                                 <h1 class="hero-title">
-                                    Lokesh Panditi<span class="dot">.</span>
+                                    Lokesh <em>Panditi</em><span class="dot">.</span>
                                 </h1>
-                                <span class="hero-role">Embedded &amp; Firmware Engineer</span>
+                                <span class="hero-role">Embedded Systems &amp; <em>Firmware</em> Engineer</span>
                                 <p class="hero-description">
-                                    Self-learned embedded systems engineer and firmware developer crafting bare-metal
-                                    firmware, deterministic hardware drivers, and real-time MCU systems — actively
-                                    exploring Sub-GHz RF protocols and wireless communication.
+                                    Self-taught embedded systems engineer operating at the hardware–software boundary.
+                                    I design <em>bare-metal drivers</em>, deterministic <em>real-time MCU architectures</em>, and low-latency communication stacks across ARM Cortex-M — with a deep focus on deterministic timing, zero-allocation memory safety, and high-integrity silicon control.
                                 </p>
                             </div>
                         </div>
@@ -76,6 +74,11 @@ const meta = {
                                         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
                                     </svg>
                                 </a>
+                            </div>
+
+                            <div class="hero-live-badge">
+                                <span class="status-dot"></span>
+                                <span class="status-text">AVAILABLE FOR HIRE / COLLAB</span>
                             </div>
                         </div>
                     </div>
@@ -123,7 +126,7 @@ const meta = {
                             <h2 class="poster-statement">
                                 Writing code<br>
                                 close to the<br>
-                                silicon<span class="dot">.</span>
+                                <em>silicon.</em>
                             </h2>
                         </div>
 
@@ -173,8 +176,7 @@ const meta = {
                     </div>
                     <div class="skills-inner">
                         <h3 class="skills-statement">
-                            Crafting high-integrity firmware and safety-critical embedded architecture in C, Ada, and
-                            Rust.
+                            Crafting <em>high-integrity</em> firmware, deterministic drivers, and <em>safety-critical</em> systems in C, Ada, and Rust.
                         </h3>
 
                         <div class="skills-popover-wrap">
@@ -208,9 +210,9 @@ const meta = {
                                         </ul>
                                     </div>
 
-                                    <!-- Embedded -->
+                                    <!-- Embedded Systems -->
                                     <div class="skill-category">
-                                        <h4 class="category-heading">Embedded</h4>
+                                        <h4 class="category-heading">Embedded Systems</h4>
                                         <ul class="skill-bullet-list">
                                             <li>RP2040</li>
                                             <li>ESP32</li>
@@ -290,7 +292,7 @@ const meta = {
                     </div>
                     <div class="work-inner">
                         <h3 class="work-statement">
-                            Hands-on projects spanning custom RF communication, RP2040 drivers, and embedded tooling.
+                            Hands-on projects spanning <em>bare-metal graphics</em>, MCU mesh protocols, and custom <em>RP2040 drivers</em>.
                         </h3>
 
                         <div class="work-popover-wrap">
@@ -397,7 +399,7 @@ const meta = {
                                 <span class="connect-tag">LET'S CONNECT</span>
                                 <span class="connect-clock">OPEN</span>
                             </div>
-                            <h4 class="connect-name">Say Hello<span class="dot">.</span></h4>
+                            <h4 class="connect-name">Say <em>Hello.</em></h4>
                         </div>
 
                         <div class="connect-links">
@@ -428,12 +430,7 @@ const meta = {
         </div>
     </main>
 
-    <!-- LIQUID MERCURY MAGNETIC INVERTING CURSOR -->
-    <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
-  <Cursor />
-
   <Fragment slot="scripts">
-    <script is:inline src="/cursor.js"></script>
     <script is:inline src="/landing.js"></script>
   </Fragment>
 </BaseLayout>

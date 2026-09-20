@@ -4,12 +4,18 @@
 ---
 <script is:inline>
   (function () {
-    var root = document.documentElement;
-    if (localStorage.getItem('bento-theme') === 'light') {
-      root.setAttribute('data-theme', 'light');
-      root.classList.add('light-theme');
-    } else {
-      root.setAttribute('data-theme', 'dark');
+    function applySavedTheme() {
+      var root = document.documentElement;
+      var theme = localStorage.getItem('bento-theme');
+      if (theme === 'light') {
+        root.setAttribute('data-theme', 'light');
+        root.classList.add('light-theme');
+      } else {
+        root.setAttribute('data-theme', 'dark');
+        root.classList.remove('light-theme');
+      }
     }
+    applySavedTheme();
+    document.addEventListener('astro:after-swap', applySavedTheme);
   })();
 </script>

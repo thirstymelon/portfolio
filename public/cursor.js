@@ -2,8 +2,14 @@
    Zero-Reflow / Zero Layout-Thrashing Architecture.
    Used site-wide across landing, project deep dives, and 404 pages. */
 (function () {
-    const cursorRing = document.getElementById('cursorRing');
-    if (!cursorRing || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+    if (window.__customCursorInitialized) return;
+    window.__customCursorInitialized = true;
+
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+    function getCursorRing() {
+        return document.getElementById('cursorRing');
+    }
 
     // ── Spotlight Target Surfaces Cache ──
     const SPOTLIGHT_SELECTOR = [
@@ -103,11 +109,26 @@
         refreshAllCaches();
     }, { passive: true });
 
-    const observer = new MutationObserver(() => {
+    document.addEventListener('astro:page-load', () => {
         pointerDirty = true;
         refreshAllCaches();
+        const ring = getCursorRing();
+        if (ring && isVisible) {
+            ring.classList.add('visible');
+        }
     });
-    observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+
+    document.addEventListener('astro:after-swap', () => {
+        snappedEl = null;
+        currentSnappedElement = null;
+        const ring = getCursorRing();
+        if (ring) {
+            ring.classList.remove('is-snapped');
+            if (isVisible) ring.classList.add('visible');
+        }
+        refreshAllCaches();
+        pointerDirty = true;
+    });
 
     window.addEventListener('mousemove', e => {
         mouseX = e.clientX;
@@ -117,7 +138,10 @@
             isVisible = true;
             ringX = mouseX;
             ringY = mouseY;
-            cursorRing.classList.add('visible');
+        }
+        const ring = getCursorRing();
+        if (ring && !ring.classList.contains('visible')) {
+            ring.classList.add('visible');
         }
     }, { passive: true });
 
@@ -125,7 +149,8 @@
         isVisible = false;
         snappedEl = null;
         currentSnappedElement = null;
-        cursorRing.classList.remove('visible', 'is-snapped');
+        const ring = getCursorRing();
+        if (ring) ring.classList.remove('visible', 'is-snapped');
         document.querySelectorAll('.is-hovered').forEach(el => el.classList.remove('is-hovered'));
         for (let i = 0; i < cachedSpotlightCards.length; i++) {
             cachedSpotlightCards[i].el.style.setProperty('--mouse-x', '-999px');
@@ -238,6 +263,12 @@
             magnetic = { el: currentSnappedElement, rect: currentSnappedElement.getBoundingClientRect() };
         }
 
+        const ring = getCursorRing();
+        if (!ring) {
+            requestAnimationFrame(renderCursor);
+            return;
+        }
+
         let transform;
 
         if (magnetic) {
@@ -251,15 +282,15 @@
 
                 const isRound = el.classList.contains('theme-toggle-btn') || el.classList.contains('circle-btn');
                 const pad = isRound ? 10 : 12;
-                cursorRing.style.setProperty('--ring-w', `${rect.width + pad}px`);
-                cursorRing.style.setProperty('--ring-h', `${rect.height + pad}px`);
-                cursorRing.style.setProperty('--ring-r', isRound ? '50%' : '50px');
+                ring.style.setProperty('--ring-w', `${rect.width + pad}px`);
+                ring.style.setProperty('--ring-h', `${rect.height + pad}px`);
+                ring.style.setProperty('--ring-r', isRound ? '50%' : '50px');
 
                 window.dispatchEvent(new CustomEvent('bento:magnetic-enter', { detail: { el } }));
             }
 
             if (!wasSnapped) {
-                cursorRing.classList.add('is-snapped');
+                ring.classList.add('is-snapped');
                 wasSnapped = true;
             }
 
@@ -270,9 +301,9 @@
         } else {
             if (currentSnappedElement !== null) {
                 currentSnappedElement = null;
-                cursorRing.style.removeProperty('--ring-w');
-                cursorRing.style.removeProperty('--ring-h');
-                cursorRing.style.removeProperty('--ring-r');
+                ring.style.removeProperty('--ring-w');
+                ring.style.removeProperty('--ring-h');
+                ring.style.removeProperty('--ring-r');
             }
 
             if (snappedEl) {
@@ -282,7 +313,7 @@
             }
 
             if (wasSnapped) {
-                cursorRing.classList.remove('is-snapped');
+                ring.classList.remove('is-snapped');
                 wasSnapped = false;
             }
 
@@ -309,12 +340,12 @@
             (document.elementFromPoint(mouseX, mouseY)?.closest('.project-toc-sidebar, .project-pagination-section, .pagination-card, .toc-link'));
 
         if (isNoInvertZone) {
-            cursorRing.classList.add('no-invert');
+            ring.classList.add('no-invert');
         } else {
-            cursorRing.classList.remove('no-invert');
+            ring.classList.remove('no-invert');
         }
 
-        cursorRing.style.transform = transform;
+        ring.style.transform = transform;
         requestAnimationFrame(renderCursor);
     }
     requestAnimationFrame(renderCursor);

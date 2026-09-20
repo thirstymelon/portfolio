@@ -1,5 +1,32 @@
 @charset "UTF-8";
-:root {
+:root,
+[data-theme=dark] {
+  --bg-outer: #000000;
+  --bg-card: #0c0c10;
+  --bg-card-subtle: #121216;
+  --bg-card-hover-white: #1a1a22;
+  --bg-card-hover-subtle: #20202a;
+  --text-primary: #f5f5f7;
+  --text-secondary: #a1a1aa;
+  --text-muted: #71717a;
+  --text-subtle: #8e8e99;
+  --border-main: rgba(255, 255, 255, 0.1);
+  --border-subtle: rgba(255, 255, 255, 0.05);
+  --btn-bg: #0c0c10;
+  --btn-color: #f5f5f7;
+  --btn-hover-bg: #f5f5f7;
+  --btn-hover-color: #000000;
+  --chip-bg: rgba(255, 255, 255, 0.06);
+  --spotlight-core: rgba(255, 255, 255, 0.14);
+  --spotlight-mid: rgba(255, 90, 31, 0.09);
+  --spotlight-ambient: rgba(255, 90, 31, 0.02);
+  --cursor-glow: 0 0 14px 2px rgba(255, 255, 255, 0.35);
+  --cursor-glow-hover: 0 0 22px 5px rgba(255, 255, 255, 0.45);
+  --glass-popover-bg: rgba(12, 12, 16, 0.94);
+  --glass-popover-border: rgba(255, 255, 255, 0.15);
+}
+
+[data-theme=light] {
   --bg-outer: #e6e6ea;
   --bg-card: #f8f8fa;
   --bg-card-subtle: #eeeff2;
@@ -23,32 +50,6 @@
   --cursor-glow-hover: none;
   --glass-popover-bg: rgba(248, 248, 250, 0.92);
   --glass-popover-border: rgba(12, 12, 14, 0.14);
-}
-
-[data-theme=dark] {
-  --bg-outer: #0b0b0d;
-  --bg-card: #131316;
-  --bg-card-subtle: #19191e;
-  --bg-card-hover-white: #26262e;
-  --bg-card-hover-subtle: #2e2e38;
-  --text-primary: #f0f0f4;
-  --text-secondary: #d4d4d8;
-  --text-muted: #b4b4c2;
-  --text-subtle: #c4c4d0;
-  --border-main: #2a2a32;
-  --border-subtle: rgba(255, 255, 255, 0.08);
-  --btn-bg: #131316;
-  --btn-color: #f0f0f4;
-  --btn-hover-bg: #f0f0f4;
-  --btn-hover-color: #0b0b0d;
-  --chip-bg: rgba(255, 255, 255, 0.07);
-  --spotlight-core: rgba(255, 255, 255, 0.14);
-  --spotlight-mid: rgba(255, 90, 31, 0.09);
-  --spotlight-ambient: rgba(255, 90, 31, 0.02);
-  --cursor-glow: 0 0 14px 2px rgba(255, 255, 255, 0.35);
-  --cursor-glow-hover: 0 0 22px 5px rgba(255, 255, 255, 0.45);
-  --glass-popover-bg: rgba(19, 19, 24, 0.92);
-  --glass-popover-border: rgba(255, 255, 255, 0.16);
 }
 
 * {
@@ -82,6 +83,25 @@
 .cursor-ring.is-snapped {
   box-shadow: none;
 }
+.cursor-ring.no-invert {
+  mix-blend-mode: normal;
+  background-color: transparent;
+  border: 1.5px solid #ff5a1f;
+  box-shadow: 0 0 10px rgba(255, 90, 31, 0.35);
+}
+.cursor-ring.no-invert.is-snapped {
+  opacity: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+[data-theme=dark] .cursor-ring {
+  box-shadow: 0 0 14px 1px rgba(255, 140, 50, 0.22), 0 0 28px 4px rgba(255, 90, 31, 0.08);
+}
+[data-theme=dark] .cursor-ring.is-snapped {
+  box-shadow: 0 0 16px 2px rgba(255, 90, 31, 0.25), 0 0 32px 6px rgba(255, 90, 31, 0.1);
+}
 
 .bento-nav,
 .submain .top,
@@ -92,21 +112,6 @@
   will-change: opacity;
 }
 
-body:has(.skills-popover-wrap:hover) .bento-nav,
-body:has(.skills-popover-wrap:hover) .submain .top,
-body:has(.skills-popover-wrap:hover) .submain .bottom .middle.card-work,
-body:has(.skills-popover-wrap:hover) .submain .bottom .right.card-connect,
-body:has(.skills-popover-wrap:hover) .submain .bottom .left.card-skills .skills-statement,
-body:has(.skills-popover-wrap:focus-within) .bento-nav,
-body:has(.skills-popover-wrap:focus-within) .submain .top,
-body:has(.skills-popover-wrap:focus-within) .submain .bottom .middle.card-work,
-body:has(.skills-popover-wrap:focus-within) .submain .bottom .right.card-connect,
-body:has(.skills-popover-wrap:focus-within) .submain .bottom .left.card-skills .skills-statement,
-body:has(.skill-popover-card:hover) .bento-nav,
-body:has(.skill-popover-card:hover) .submain .top,
-body:has(.skill-popover-card:hover) .submain .bottom .middle.card-work,
-body:has(.skill-popover-card:hover) .submain .bottom .right.card-connect,
-body:has(.skill-popover-card:hover) .submain .bottom .left.card-skills .skills-statement,
 body.popover-skills-active .bento-nav,
 body.popover-skills-active .submain .top,
 body.popover-skills-active .submain .bottom .middle.card-work,
@@ -114,28 +119,23 @@ body.popover-skills-active .submain .bottom .right.card-connect,
 body.popover-skills-active .submain .bottom .left.card-skills .skills-statement {
   opacity: 0.45;
 }
+body.popover-skills-active .submain .top,
+body.popover-skills-active .submain .bottom .middle.card-work,
+body.popover-skills-active .submain .bottom .right.card-connect {
+  pointer-events: none;
+}
 
-body:has(.work-popover-wrap:hover) .bento-nav,
-body:has(.work-popover-wrap:hover) .submain .top,
-body:has(.work-popover-wrap:hover) .submain .bottom .left.card-skills,
-body:has(.work-popover-wrap:hover) .submain .bottom .right.card-connect,
-body:has(.work-popover-wrap:hover) .submain .bottom .middle.card-work .work-statement,
-body:has(.work-popover-wrap:focus-within) .bento-nav,
-body:has(.work-popover-wrap:focus-within) .submain .top,
-body:has(.work-popover-wrap:focus-within) .submain .bottom .left.card-skills,
-body:has(.work-popover-wrap:focus-within) .submain .bottom .right.card-connect,
-body:has(.work-popover-wrap:focus-within) .submain .bottom .middle.card-work .work-statement,
-body:has(.project-popover-card:hover) .bento-nav,
-body:has(.project-popover-card:hover) .submain .top,
-body:has(.project-popover-card:hover) .submain .bottom .left.card-skills,
-body:has(.project-popover-card:hover) .submain .bottom .right.card-connect,
-body:has(.project-popover-card:hover) .submain .bottom .middle.card-work .work-statement,
 body.popover-work-active .bento-nav,
 body.popover-work-active .submain .top,
 body.popover-work-active .submain .bottom .left.card-skills,
 body.popover-work-active .submain .bottom .right.card-connect,
 body.popover-work-active .submain .bottom .middle.card-work .work-statement {
   opacity: 0.45;
+}
+body.popover-work-active .submain .top,
+body.popover-work-active .submain .bottom .left.card-skills,
+body.popover-work-active .submain .bottom .right.card-connect {
+  pointer-events: none;
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -156,11 +156,11 @@ button.pill-btn {
   justify-content: center;
   gap: 8px;
   padding: 0.82rem 2rem;
-  font-family: inherit;
+  font-family: "Inter", "Plus Jakarta Sans", sans-serif;
   font-size: 0.92rem;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1;
-  letter-spacing: normal;
+  letter-spacing: -0.01em;
   text-align: center;
   color: var(--text-primary);
   background-color: var(--bg-card);
@@ -173,7 +173,10 @@ button.pill-btn {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-  transition: color 0.9s ease, border-color 0.9s ease;
+  transform: translateZ(0);
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+  isolation: isolate;
+  transition: color 0.4s ease, border-color 0.4s ease;
 }
 .pill-btn::before,
 a.pill-btn::before,
@@ -187,7 +190,7 @@ button.pill-btn::before {
   background-color: #ff5a1f;
   transform: skewX(-30deg);
   transform-origin: top left;
-  transition: width 1.15s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   z-index: 1;
 }
 .pill-btn::after,
@@ -202,7 +205,7 @@ button.pill-btn::after {
   background-color: #ff5a1f;
   transform: skewX(-30deg);
   transform-origin: bottom right;
-  transition: width 1.15s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   z-index: 1;
 }
 .pill-btn span,
@@ -211,7 +214,7 @@ button.pill-btn span {
   position: relative;
   z-index: 2;
   line-height: 1;
-  transition: color 0.85s ease;
+  transition: color 0.4s ease;
 }
 .pill-btn svg,
 a.pill-btn svg,
@@ -223,7 +226,7 @@ button.pill-btn svg {
   flex-shrink: 0;
   color: #ff5a1f;
   stroke: #ff5a1f;
-  transition: color 0.85s ease, stroke 0.85s ease, transform 0.35s ease;
+  transition: color 0.4s ease, stroke 0.4s ease, transform 0.25s ease;
 }
 .pill-btn:hover, .pill-btn.is-hovered,
 a.pill-btn:hover,
@@ -314,26 +317,51 @@ body.popover-work-active .work-btn svg {
 
 html,
 body {
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-  font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  min-height: 100%;
+  min-height: 100dvh;
+  overflow-x: clip;
+  font-family: "Inter", "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   background-color: var(--bg-outer);
   color: var(--text-primary);
   -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
   transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+em,
+i {
+  font-family: "Fraunces", Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  color: #ff5a1f;
+}
+
+.under {
+  border-bottom: 2px solid #ff5a1f;
+  padding-bottom: 2px;
+}
+
+[data-theme=dark] body {
+  background-color: #000000;
+  background-image: radial-gradient(1100px circle at 85% 8%, rgba(255, 90, 31, 0.045), transparent 60%), radial-gradient(950px circle at 10% 92%, rgba(99, 102, 241, 0.035), transparent 55%), radial-gradient(600px circle at 50% 50%, rgba(255, 255, 255, 0.008), transparent 70%);
+  background-attachment: fixed;
 }
 
 .main {
   height: 100vh;
-  max-height: 100vh;
+  height: 100dvh;
+  max-height: 100dvh;
   width: 100%;
   max-width: 1440px;
   margin: 0 auto;
-  padding: 1rem 2rem 1.5rem 2rem;
+  padding: 0.75rem 1.75rem max(0.85rem, env(safe-area-inset-bottom, 0.85rem)) 1.75rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  box-sizing: border-box;
   overflow: hidden;
 }
 .main .bento-nav {
@@ -342,16 +370,22 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.25rem 0.5rem 0.85rem 0.5rem;
+  padding: 0.15rem 0.5rem 0.5rem 0.5rem;
 }
 .main .bento-nav .logo {
-  font-size: 1.35rem;
-  font-weight: 800;
-  letter-spacing: -0.03em;
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 1.25rem;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  font-style: italic;
   color: var(--text-primary);
+  text-decoration: none !important;
 }
 .main .bento-nav .logo span {
   color: #ff5a1f;
+}
+.main .bento-nav .logo:hover, .main .bento-nav .logo:focus, .main .bento-nav .logo:active, .main .bento-nav .logo:visited {
+  text-decoration: none !important;
 }
 .main .bento-nav .nav-links .nav-tag {
   font-family: "JetBrains Mono", monospace;
@@ -397,18 +431,18 @@ body {
   transform: rotate(25deg);
 }
 .main .submain {
-  flex: 1;
-  height: calc(100vh - 90px);
+  flex: 1 1 0;
   min-height: 0;
+  height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 0;
   border: 1.5px solid var(--border-main);
   border-radius: 20px;
-  background-color: transparent;
+  background-color: #070709;
   overflow: visible;
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.14), inset 0 0 0 1px rgba(255, 255, 255, 0.04);
 }
 .main .submain .left.hero-box,
 .main .submain .right.poster-box,
@@ -416,6 +450,7 @@ body {
 .main .submain .middle.card-work,
 .main .submain .right.card-connect {
   position: relative;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 .main .submain .left.hero-box::before,
 .main .submain .right.poster-box::before,
@@ -427,9 +462,9 @@ body {
   inset: 0;
   border-radius: inherit;
   pointer-events: none;
-  background: radial-gradient(650px circle at var(--mouse-x, -999px) var(--mouse-y, -999px), var(--spotlight-core) 0%, var(--spotlight-mid) 28%, var(--spotlight-ambient) 55%, transparent 75%);
+  background: radial-gradient(420px circle at var(--mouse-x, -999px) var(--mouse-y, -999px), rgba(255, 255, 255, 0.05) 0%, rgba(255, 90, 31, 0.035) 35%, transparent 70%);
   opacity: 0;
-  transition: opacity 0.4s ease;
+  transition: opacity 0.3s ease;
   z-index: 1;
 }
 .main .submain .left.hero-box:hover::before,
@@ -480,9 +515,11 @@ body {
   inset: 0;
   pointer-events: none;
   opacity: 0.035;
-  mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 140px 140px;
   z-index: 1;
+  mix-blend-mode: overlay;
 }
 .main .submain .card-pattern .pattern-svg {
   position: absolute;
@@ -492,7 +529,7 @@ body {
   pointer-events: none;
 }
 .main .submain .card-pattern .pattern-svg.static-svg {
-  opacity: 0.06;
+  opacity: 0.028;
   color: var(--text-primary);
   transition: opacity 0.35s ease;
   z-index: 2;
@@ -500,35 +537,35 @@ body {
 .main .submain .card-pattern .pattern-svg.flow-svg {
   opacity: 0;
   color: #ff5a1f;
-  mask-image: radial-gradient(320px circle at var(--mouse-x, -999px) var(--mouse-y, -999px), black 0%, rgba(0, 0, 0, 0.45) 45%, transparent 75%);
-  -webkit-mask-image: radial-gradient(320px circle at var(--mouse-x, -999px) var(--mouse-y, -999px), black 0%, rgba(0, 0, 0, 0.45) 45%, transparent 75%);
+  mask-image: radial-gradient(320px circle at var(--mouse-x, -999px) var(--mouse-y, -999px), black 0%, rgba(0, 0, 0, 0.3) 50%, transparent 80%);
+  -webkit-mask-image: radial-gradient(320px circle at var(--mouse-x, -999px) var(--mouse-y, -999px), black 0%, rgba(0, 0, 0, 0.3) 50%, transparent 80%);
   transition: opacity 0.35s ease;
   z-index: 3;
 }
 .main .submain .card-pattern.pattern-topography .pattern-svg.static-svg {
   color: #ff5a1f;
-  opacity: 0.038;
+  opacity: 0.022;
 }
 .main .submain .card-pattern.pattern-topography .pattern-svg.flow-svg {
   color: #ff5a1f;
 }
 .main .submain .left.hero-box:hover .pattern-topography .pattern-svg.flow-svg {
-  opacity: 0.85;
+  opacity: 0.22;
 }
 .main .submain .right.poster-box:hover .pattern-circles .pattern-svg.flow-svg,
 .main .submain .left.card-skills:hover .pattern-isometric .pattern-svg.flow-svg,
 .main .submain .middle.card-work:hover .pattern-waves .pattern-svg.flow-svg,
 .main .submain .right.card-connect:hover .pattern-signal .pattern-svg.flow-svg {
-  opacity: 0.95;
+  opacity: 0.28;
 }
 .main .submain .left.hero-box:hover .pattern-topography .pattern-svg.static-svg {
-  opacity: 0.055;
+  opacity: 0.035;
 }
 .main .submain .right.poster-box:hover .pattern-circles .pattern-svg.static-svg,
 .main .submain .left.card-skills:hover .pattern-isometric .pattern-svg.static-svg,
 .main .submain .middle.card-work:hover .pattern-waves .pattern-svg.static-svg,
 .main .submain .right.card-connect:hover .pattern-signal .pattern-svg.static-svg {
-  opacity: 0.085;
+  opacity: 0.045;
 }
 .main .submain .left.hero-box,
 .main .submain .right.poster-box,
@@ -558,7 +595,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 2.75rem 3.5rem 2.25rem 3.5rem;
+  padding: clamp(1.35rem, 2.8vh, 2.85rem) clamp(1.5rem, 3vw, 3.5rem) clamp(1.15rem, 2.2vh, 2.25rem) clamp(1.5rem, 3vw, 3.5rem);
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .main .submain .top .left.hero-box .hero-content {
@@ -578,52 +615,75 @@ body {
 }
 .main .submain .top .left.hero-box .hero-content .hero-body .hero-title-wrap {
   flex-shrink: 0;
-  max-width: 720px;
+  max-width: 780px;
 }
 .main .submain .top .left.hero-box .hero-content .hero-body .hero-title-wrap .hero-greeting {
   font-family: "JetBrains Mono", monospace;
-  font-size: 0.78rem;
+  font-size: clamp(0.85rem, 1.4vh, 0.98rem);
   font-weight: 750;
   letter-spacing: 0.12em;
   color: #ff5a1f;
   text-transform: uppercase;
   display: block;
-  margin-bottom: 0.5rem;
+  margin-bottom: clamp(0.35rem, 0.7vh, 0.6rem);
 }
 .main .submain .top .left.hero-box .hero-content .hero-body .hero-title-wrap .hero-title {
-  font-size: 3.4rem;
-  font-weight: 900;
-  line-height: 1.05;
-  letter-spacing: -0.04em;
+  font-family: "Fraunces", Georgia, serif;
+  font-size: clamp(2.85rem, 6.4vh, 4.75rem);
+  font-weight: 500;
+  line-height: 1.02;
+  letter-spacing: -0.035em;
   color: var(--text-primary);
-  margin: 0;
+  margin: clamp(0.2rem, 0.5vh, 0.45rem) 0 clamp(0.35rem, 0.8vh, 0.65rem) 0;
+}
+.main .submain .top .left.hero-box .hero-content .hero-body .hero-title-wrap .hero-title em {
+  font-style: italic;
+  font-weight: 400;
+  color: #ff5a1f;
 }
 .main .submain .top .left.hero-box .hero-content .hero-body .hero-title-wrap .hero-title .dot {
   color: #ff5a1f;
 }
 .main .submain .top .left.hero-box .hero-content .hero-body .hero-title-wrap .hero-role {
   font-family: "JetBrains Mono", monospace;
-  font-size: 0.92rem;
-  font-weight: 750;
-  letter-spacing: 0.04em;
+  font-size: clamp(0.96rem, 1.8vh, 1.2rem);
+  font-weight: 600;
+  letter-spacing: 0.03em;
   color: var(--text-primary);
   display: block;
-  margin-top: 0.4rem;
+  margin-top: 0;
+  margin-bottom: clamp(0.4rem, 0.9vh, 0.75rem);
+}
+.main .submain .top .left.hero-box .hero-content .hero-body .hero-title-wrap .hero-role em {
+  font-family: "Fraunces", Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  color: #ff5a1f;
 }
 .main .submain .top .left.hero-box .hero-content .hero-body .hero-title-wrap .hero-description {
-  font-size: 1.02rem;
-  font-weight: 500;
-  line-height: 1.55;
+  font-size: clamp(0.98rem, 1.75vh, 1.2rem);
+  font-weight: 400;
+  line-height: 1.65;
   color: var(--text-secondary);
-  margin: 0.9rem 0 0 0;
-  max-width: 680px;
-  letter-spacing: -0.012em;
+  margin: clamp(0.45rem, 1vh, 0.9rem) 0 0 0;
+  max-width: 780px;
+  letter-spacing: -0.01em;
+}
+.main .submain .top .left.hero-box .hero-content .hero-body .hero-title-wrap .hero-description strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+.main .submain .top .left.hero-box .hero-content .hero-body .hero-title-wrap .hero-description em {
+  font-style: italic;
+  color: #ff5a1f;
 }
 .main .submain .top .left.hero-box .hero-content .hero-footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-top: 1.5rem;
+  padding-top: clamp(0.8rem, 1.6vh, 1.5rem);
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 .main .submain .top .left.hero-box .hero-content .hero-footer .cta-cluster {
   display: flex;
@@ -631,8 +691,8 @@ body {
   gap: 20px;
 }
 .main .submain .top .left.hero-box .hero-content .hero-footer .cta-cluster .pill-btn {
-  padding: 0.82rem 2rem;
-  font-size: 0.92rem;
+  padding: 0.9rem 2.2rem;
+  font-size: 1.02rem;
 }
 .main .submain .top .left.hero-box .hero-content .hero-footer .cta-cluster .circle-btn {
   width: 46px;
@@ -659,9 +719,33 @@ body {
 .main .submain .top .left.hero-box .hero-content .hero-footer .cta-cluster .circle-btn:active {
   transform: scale(0.97);
 }
+.main .submain .top .left.hero-box .hero-content .hero-footer .hero-live-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.35rem 0.75rem;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-subtle);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  user-select: none;
+}
+.main .submain .top .left.hero-box .hero-content .hero-footer .hero-live-badge .status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #22c55e;
+  box-shadow: 0 0 8px rgba(34, 197, 94, 0.65);
+  animation: pulseAnimation 2s infinite ease-in-out;
+}
 .main .submain .top .left.hero-box .hero-content .hero-footer .hero-note {
   font-family: "JetBrains Mono", monospace;
-  font-size: 0.72rem;
+  font-size: 0.82rem;
   font-weight: 700;
   color: var(--text-muted);
   letter-spacing: 0.08em;
@@ -681,7 +765,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 2.25rem 2.25rem 2rem 2.25rem;
+  padding: clamp(1.35rem, 2.8vh, 2.85rem) clamp(1.25rem, 2.4vw, 2.75rem) clamp(1.15rem, 2.2vh, 2.25rem) clamp(1.25rem, 2.4vw, 2.75rem);
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .main .submain .top .right.poster-box .poster-inner,
@@ -701,17 +785,17 @@ body {
 .main .submain .top .right.poster-box .bio-inner .bio-top-bar .bio-status-tag {
   display: flex;
   align-items: center;
-  gap: 7px;
+  gap: 8px;
   font-family: "JetBrains Mono", monospace;
-  font-size: 0.68rem;
+  font-size: clamp(0.78rem, 1.2vh, 0.86rem);
   font-weight: 700;
   letter-spacing: 0.08em;
   color: var(--text-primary);
 }
 .main .submain .top .right.poster-box .poster-inner .bio-top-bar .bio-status-tag .status-pulse,
 .main .submain .top .right.poster-box .bio-inner .bio-top-bar .bio-status-tag .status-pulse {
-  width: 7px;
-  height: 7px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   background-color: #10b981;
   box-shadow: 0 0 8px #10b981;
@@ -720,7 +804,7 @@ body {
 .main .submain .top .right.poster-box .poster-inner .bio-top-bar .bio-location,
 .main .submain .top .right.poster-box .bio-inner .bio-top-bar .bio-location {
   font-family: "JetBrains Mono", monospace;
-  font-size: 0.65rem;
+  font-size: clamp(0.78rem, 1.2vh, 0.86rem);
   font-weight: 700;
   letter-spacing: 0.1em;
   color: var(--text-muted);
@@ -730,16 +814,23 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 1.25rem 0;
+  margin: clamp(0.5rem, 1.2vh, 1.25rem) 0;
 }
 .main .submain .top .right.poster-box .poster-inner .poster-statement-wrap .poster-statement,
 .main .submain .top .right.poster-box .bio-inner .poster-statement-wrap .poster-statement {
-  font-size: 2.35rem;
-  font-weight: 900;
-  line-height: 1.08;
-  letter-spacing: -0.045em;
+  font-family: "Fraunces", Georgia, serif;
+  font-size: clamp(2.15rem, 5.2vh, 3.4rem);
+  font-weight: 400;
+  line-height: 1.04;
+  letter-spacing: -0.035em;
   color: var(--text-primary);
   margin: 0;
+}
+.main .submain .top .right.poster-box .poster-inner .poster-statement-wrap .poster-statement em,
+.main .submain .top .right.poster-box .bio-inner .poster-statement-wrap .poster-statement em {
+  font-style: italic;
+  font-weight: 400;
+  color: #ff5a1f;
 }
 .main .submain .top .right.poster-box .poster-inner .poster-statement-wrap .poster-statement .dot,
 .main .submain .top .right.poster-box .bio-inner .poster-statement-wrap .poster-statement .dot {
@@ -750,23 +841,23 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 0.75rem;
+  padding-top: clamp(0.65rem, 1.3vh, 1.1rem);
   border-top: 1px solid var(--border-subtle);
 }
 .main .submain .top .right.poster-box .poster-inner .bio-footer .bio-tags,
 .main .submain .top .right.poster-box .bio-inner .bio-footer .bio-tags {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 7px;
 }
 .main .submain .top .right.poster-box .poster-inner .bio-footer .bio-tags .bio-tag,
 .main .submain .top .right.poster-box .bio-inner .bio-footer .bio-tags .bio-tag {
   font-family: "JetBrains Mono", monospace;
-  font-size: 0.65rem;
+  font-size: clamp(0.74rem, 1.15vh, 0.82rem);
   font-weight: 700;
   letter-spacing: 0.06em;
-  padding: 2.5px 8px;
-  border-radius: 4px;
+  padding: 4px 10px;
+  border-radius: 5px;
   background-color: var(--chip-bg);
   color: var(--text-primary);
   border: 1px solid var(--border-subtle);
@@ -774,7 +865,7 @@ body {
 .main .submain .top .right.poster-box .poster-inner .bio-footer .bio-handle,
 .main .submain .top .right.poster-box .bio-inner .bio-footer .bio-handle {
   font-family: "JetBrains Mono", monospace;
-  font-size: 0.68rem;
+  font-size: clamp(0.76rem, 1.2vh, 0.84rem);
   font-weight: 700;
   letter-spacing: 0.06em;
   color: var(--text-muted);
@@ -803,7 +894,7 @@ body {
   border-right: 1.5px solid var(--border-main);
   border-radius: 0;
   border-bottom-left-radius: 19px;
-  padding: 1.85rem 2.25rem;
+  padding: clamp(1.25rem, 2.5vh, 2.4rem) clamp(1.25rem, 2.2vw, 2.5rem) clamp(1.1rem, 2vh, 2rem) clamp(1.25rem, 2.2vw, 2.5rem);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -824,12 +915,19 @@ body {
   overflow: visible !important;
 }
 .main .submain .bottom .left.card-skills .skills-inner .skills-statement {
+  font-family: "Fraunces", Georgia, serif;
   width: 100%;
-  font-size: 1.15rem;
-  font-weight: 800;
-  line-height: 1.35;
+  font-size: clamp(1.38rem, 2.85vh, 1.85rem);
+  font-weight: 400;
+  line-height: 1.28;
   letter-spacing: -0.02em;
   color: var(--text-primary);
+  margin: 0 0 clamp(0.6rem, 1.2vh, 1.2rem) 0;
+}
+.main .submain .bottom .left.card-skills .skills-inner .skills-statement em {
+  font-style: italic;
+  font-weight: 400;
+  color: #ff5a1f;
 }
 .main .submain .bottom .left.card-skills .skills-inner .skills-popover-wrap {
   position: relative;
@@ -842,6 +940,8 @@ body {
 .main .submain .bottom .left.card-skills .skills-inner .skills-popover-wrap .skills-btn {
   position: relative;
   z-index: 4002;
+  font-size: 0.95rem;
+  padding: 0.75rem 1.6rem;
 }
 .main .submain .bottom .left.card-skills .skills-inner .skills-popover-wrap .skill-popover-card {
   position: absolute;
@@ -929,7 +1029,7 @@ body {
   transition: color 0.2s ease;
 }
 .main .submain .bottom .left.card-skills .skills-inner .skills-popover-wrap .skill-popover-card .popover-items .skill-category .category-heading {
-  font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: "Inter", "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   font-size: 0.95rem;
   font-weight: 700;
   color: var(--text-primary);
@@ -1011,7 +1111,7 @@ body.popover-skills-active .main .submain .bottom .left.card-skills .skills-inne
   border: none;
   border-right: 1.5px solid var(--border-main);
   border-radius: 0;
-  padding: 1.85rem 2.25rem;
+  padding: clamp(1.25rem, 2.5vh, 2.4rem) clamp(1.25rem, 2.2vw, 2.5rem) clamp(1.1rem, 2vh, 2rem) clamp(1.25rem, 2.2vw, 2.5rem);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -1032,12 +1132,19 @@ body.popover-skills-active .main .submain .bottom .left.card-skills .skills-inne
   overflow: visible !important;
 }
 .main .submain .bottom .middle.card-work .work-inner .work-statement {
+  font-family: "Fraunces", Georgia, serif;
   width: 100%;
-  font-size: 1.15rem;
-  font-weight: 800;
-  line-height: 1.35;
+  font-size: clamp(1.38rem, 2.85vh, 1.85rem);
+  font-weight: 400;
+  line-height: 1.28;
   letter-spacing: -0.02em;
   color: var(--text-primary);
+  margin: 0 0 clamp(0.6rem, 1.2vh, 1.2rem) 0;
+}
+.main .submain .bottom .middle.card-work .work-inner .work-statement em {
+  font-style: italic;
+  font-weight: 400;
+  color: #ff5a1f;
 }
 .main .submain .bottom .middle.card-work .work-inner .work-popover-wrap {
   position: relative;
@@ -1050,6 +1157,8 @@ body.popover-skills-active .main .submain .bottom .left.card-skills .skills-inne
 .main .submain .bottom .middle.card-work .work-inner .work-popover-wrap .work-btn {
   position: relative;
   z-index: 4002;
+  font-size: 0.95rem;
+  padding: 0.75rem 1.6rem;
 }
 .main .submain .bottom .middle.card-work .work-inner .work-popover-wrap .project-popover-card {
   position: absolute;
@@ -1242,7 +1351,7 @@ body.popover-work-active .main .submain .bottom .middle.card-work .work-inner .w
 .main .submain .bottom .right.card-connect {
   grid-column: span 1;
   background-color: var(--bg-card-subtle);
-  padding: 1.75rem 2rem;
+  padding: clamp(1.25rem, 2.5vh, 2.4rem) clamp(1.25rem, 2.2vw, 2.5rem) clamp(1.1rem, 2vh, 2rem) clamp(1.25rem, 2.2vw, 2.5rem);
   border: none;
   border-radius: 0;
   border-bottom-right-radius: 19px;
@@ -1282,11 +1391,17 @@ body.popover-work-active .main .submain .bottom .middle.card-work .work-inner .w
   border-radius: 4px;
 }
 .main .submain .bottom .right.card-connect .connect-inner .connect-head .connect-name {
+  font-family: "Fraunces", Georgia, serif;
   font-size: 2rem;
-  font-weight: 900;
+  font-weight: 400;
   line-height: 1;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.03em;
   color: var(--text-primary);
+}
+.main .submain .bottom .right.card-connect .connect-inner .connect-head .connect-name em {
+  font-style: italic;
+  font-weight: 400;
+  color: #ff5a1f;
 }
 .main .submain .bottom .right.card-connect .connect-inner .connect-head .connect-name .dot {
   color: #ff5a1f;
@@ -1410,7 +1525,7 @@ body.popover-work-active .main .submain .bottom .middle.card-work .work-inner .w
     gap: 1.5rem;
   }
   .main .submain .top .left.hero-box .hero-content .hero-body .hero-title-wrap .hero-title {
-    font-size: 3.2rem;
+    font-size: clamp(3.2rem, 6vw, 4.2rem);
   }
   .main .submain .top .left.hero-box .hero-content .hero-footer .cta-cluster {
     gap: 18px;
@@ -1439,6 +1554,7 @@ body.popover-work-active .main .submain .bottom .middle.card-work .work-inner .w
   }
   .main .submain .bottom .right.card-connect {
     border-bottom: none;
+    border-radius: 0;
     border-bottom-left-radius: 19px;
     border-bottom-right-radius: 19px;
   }
@@ -1498,7 +1614,7 @@ body.popover-work-active .main .submain .bottom .middle.card-work .work-inner .w
     gap: 1.25rem;
   }
   .main .submain .top .left.hero-box .hero-content .hero-body .hero-title-wrap .hero-title {
-    font-size: 2.25rem;
+    font-size: clamp(2.45rem, 8.5vw, 3.2rem);
     letter-spacing: -0.04em;
     line-height: 1.05;
   }
@@ -1533,8 +1649,8 @@ body.popover-work-active .main .submain .bottom .middle.card-work .work-inner .w
     min-height: auto;
   }
   .main .submain .top .right.poster-box .poster-inner .poster-statement-wrap .poster-statement {
-    font-size: 1.85rem;
-    line-height: 1.1;
+    font-size: clamp(1.95rem, 6.5vw, 2.35rem);
+    line-height: 1.08;
   }
   .main .submain .bottom {
     display: flex;
@@ -1551,8 +1667,8 @@ body.popover-work-active .main .submain .bottom .middle.card-work .work-inner .w
     gap: 1.25rem;
   }
   .main .submain .bottom .left.card-skills .skills-inner .skills-statement {
-    font-size: 1.05rem;
-    line-height: 1.35;
+    font-size: clamp(1.18rem, 4.2vw, 1.38rem);
+    line-height: 1.32;
     margin-bottom: 0;
   }
   .main .submain .bottom .left.card-skills .skills-inner .skills-popover-wrap {
@@ -1573,8 +1689,8 @@ body.popover-work-active .main .submain .bottom .middle.card-work .work-inner .w
     gap: 1.25rem;
   }
   .main .submain .bottom .middle.card-work .work-inner .work-statement {
-    font-size: 1.05rem;
-    line-height: 1.35;
+    font-size: clamp(1.18rem, 4.2vw, 1.38rem);
+    line-height: 1.32;
     margin-bottom: 0;
   }
   .main .submain .bottom .middle.card-work .work-inner .work-popover-wrap {
@@ -1667,7 +1783,7 @@ body.popover-work-active .main .submain .bottom .middle.card-work .work-inner .w
   min-width: 0;
 }
 .error-page .error-box .error-code {
-  font-family: "Space Grotesk", "Plus Jakarta Sans", sans-serif;
+  font-family: "Fraunces", Georgia, serif;
   font-size: clamp(6.5rem, 17vw, 12.5rem);
   font-weight: 700;
   line-height: 0.9;
@@ -1692,7 +1808,7 @@ body.popover-work-active .main .submain .bottom .middle.card-work .work-inner .w
   object-fit: cover;
 }
 .error-page .error-box .error-title {
-  font-family: "Space Grotesk", "Plus Jakarta Sans", sans-serif;
+  font-family: "Fraunces", Georgia, serif;
   font-size: clamp(2.4rem, 4.5vw, 3.5rem);
   font-weight: 700;
   line-height: 1.05;
@@ -1885,3 +2001,5 @@ body.popover-work-active .main .submain .bottom .middle.card-work .work-inner .w
     opacity: 0.2;
   }
 }
+
+/*# sourceMappingURL=style.css.map */
