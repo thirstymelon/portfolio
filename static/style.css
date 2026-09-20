@@ -88,7 +88,8 @@
 .submain .bottom .right.card-connect,
 .skills-statement,
 .work-statement {
-  transition: filter 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+  transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity;
 }
 
 body:has(.skills-popover-wrap:hover) .bento-nav,
@@ -111,8 +112,7 @@ body.popover-skills-active .submain .top,
 body.popover-skills-active .submain .bottom .middle.card-work,
 body.popover-skills-active .submain .bottom .right.card-connect,
 body.popover-skills-active .submain .bottom .left.card-skills .skills-statement {
-  filter: blur(2.5px);
-  opacity: 0.65;
+  opacity: 0.45;
 }
 
 body:has(.work-popover-wrap:hover) .bento-nav,
@@ -135,8 +135,7 @@ body.popover-work-active .submain .top,
 body.popover-work-active .submain .bottom .left.card-skills,
 body.popover-work-active .submain .bottom .right.card-connect,
 body.popover-work-active .submain .bottom .middle.card-work .work-statement {
-  filter: blur(2.5px);
-  opacity: 0.65;
+  opacity: 0.45;
 }
 
 @media (hover: hover) and (pointer: fine) {

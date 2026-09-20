@@ -1,27 +1,45 @@
-/* Shared custom cursor: ambient card spotlight + liquid mercury magnetic ring.
-   Used by the landing page and the 404 page (the project pages have their own
-   rect-caching variant in project.js).
-
-   Page-specific reactions to a snap are not baked in here — listen for the
-   "bento:magnetic-enter" / "bento:magnetic-leave" events on window instead, e.g. the landing
-   page uses them to open its skills/projects popovers. Elements inside a
-   [data-no-magnetic] subtree (the open popover cards) never attract the ring. */
+/* High Performance Custom Cursor: Ambient Card Spotlight + Liquid Mercury Magnetic Ring
+   Zero-Reflow / Zero Layout-Thrashing Architecture.
+   Used by landing and 404 pages. */
 (function () {
+    // 1. Optimized Card Spotlight (RAF-batched, cached bounds on enter)
     const spotlightCards = document.querySelectorAll(
         '.hero-box, .poster-box, .card-skills, .card-work, .card-connect, .error-box'
     );
     spotlightCards.forEach(card => {
+        let rect = null;
+        let px = 0, py = 0, rafQueued = false;
+
+        const updateSpotlight = () => {
+            rafQueued = false;
+            if (!rect) return;
+            card.style.setProperty('--mouse-x', `${px - rect.left}px`);
+            card.style.setProperty('--mouse-y', `${py - rect.top}px`);
+        };
+
+        card.addEventListener('mouseenter', () => {
+            rect = card.getBoundingClientRect();
+        }, { passive: true });
+
         card.addEventListener('mousemove', e => {
-            const rect = card.getBoundingClientRect();
-            card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
-            card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+            if (!rect) rect = card.getBoundingClientRect();
+            px = e.clientX;
+            py = e.clientY;
+            if (!rafQueued) {
+                rafQueued = true;
+                requestAnimationFrame(updateSpotlight);
+            }
+        }, { passive: true });
+
+        card.addEventListener('mouseleave', () => {
+            rect = null;
         }, { passive: true });
     });
 
     const cursorRing = document.getElementById('cursorRing');
     if (!cursorRing || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
 
-    const SNAP_SELECTOR = '.theme-toggle-btn, .circle-btn, .pill-btn';
+    const SNAP_SELECTOR = '.theme-toggle-btn, .circle-btn, .pill-btn, .skills-btn, .work-btn';
     const SNAP_RANGE = 32;
 
     let mouseX = -100, mouseY = -100;
@@ -30,10 +48,53 @@
     let snappedEl = null;
     let currentSnappedElement = null;
     let lastTime = performance.now();
+    let pointerDirty = true;
+
+    // ── Cached Rect System (Eliminates getBoundingClientRect inside rAF loop) ──
+    let cachedCandidates = [];
+
+    function updateCandidateCache() {
+        const els = document.querySelectorAll(SNAP_SELECTOR);
+        cachedCandidates = [];
+        for (let i = 0; i < els.length; i++) {
+            const el = els[i];
+            if (el.offsetParent !== null && !el.closest('[data-no-magnetic]')) {
+                cachedCandidates.push({ el, rect: el.getBoundingClientRect() });
+            }
+        }
+    }
+
+    // Initial cache build & invalidate on scroll / resize / popover changes
+    updateCandidateCache();
+
+    let scrollRaf = false;
+    window.addEventListener('scroll', () => {
+        pointerDirty = true;
+        if (!scrollRaf) {
+            scrollRaf = true;
+            requestAnimationFrame(() => {
+                updateCandidateCache();
+                scrollRaf = false;
+            });
+        }
+    }, { passive: true });
+
+    window.addEventListener('resize', () => {
+        pointerDirty = true;
+        updateCandidateCache();
+    }, { passive: true });
+
+    // Refresh candidate rects when popovers toggle
+    const observer = new MutationObserver(() => {
+        pointerDirty = true;
+        updateCandidateCache();
+    });
+    observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
 
     window.addEventListener('mousemove', e => {
         mouseX = e.clientX;
         mouseY = e.clientY;
+        pointerDirty = true;
         if (!isVisible) {
             isVisible = true;
             ringX = mouseX;
@@ -51,15 +112,24 @@
     });
 
     function getNearestMagneticElement(x, y) {
-        const candidates = document.querySelectorAll(SNAP_SELECTOR);
+        // 1. Direct hit-test first (O(1) layout-free check)
+        const hit = document.elementFromPoint(x, y);
+        if (hit) {
+            const directTarget = hit.closest(SNAP_SELECTOR);
+            if (directTarget && !directTarget.closest('[data-no-magnetic]')) {
+                for (let i = 0; i < cachedCandidates.length; i++) {
+                    if (cachedCandidates[i].el === directTarget) {
+                        return cachedCandidates[i];
+                    }
+                }
+                return { el: directTarget, rect: directTarget.getBoundingClientRect() };
+            }
+        }
+
+        // 2. Proximity check from pre-cached rects
         let closestEl = null, closestRect = null, closestDist = Infinity;
-
-        for (let i = 0; i < candidates.length; i++) {
-            const el = candidates[i];
-            // Open popovers opt out of snapping entirely, cards and all.
-            if (el.closest('[data-no-magnetic]')) continue;
-
-            const rect = el.getBoundingClientRect();
+        for (let i = 0; i < cachedCandidates.length; i++) {
+            const { el, rect } = cachedCandidates[i];
             if (rect.bottom < 0 || rect.top > window.innerHeight || rect.right < 0 || rect.left > window.innerWidth) continue;
 
             const nearX = Math.max(rect.left, Math.min(x, rect.right));
@@ -76,8 +146,7 @@
         return closestDist <= SNAP_RANGE ? { el: closestEl, rect: closestRect } : null;
     }
 
-    // A click that lands inside the magnet's pull activates the snapped element, even when the
-    // pointer stopped just short of it.
+    // A click that lands inside the magnet's pull activates the snapped element
     window.addEventListener('click', e => {
         if (!currentSnappedElement || !document.body.contains(currentSnappedElement)) return;
         if (currentSnappedElement === e.target || currentSnappedElement.contains(e.target)) return;
@@ -99,14 +168,21 @@
         }
     });
 
+    let wasSnapped = false;
+
     function renderCursor(now) {
-        // Frame-rate independent smoothing: identical feel at 60/120/144Hz.
-        // K = 33 reproduces the previous 0.42-per-frame easing at 60Hz.
         const dt = Math.min((now - lastTime) / 1000, 0.05) || 0;
         lastTime = now;
         const ease = 1 - Math.exp(-33 * dt);
 
-        const magnetic = getNearestMagneticElement(mouseX, mouseY);
+        let magnetic = null;
+        if (pointerDirty) {
+            pointerDirty = false;
+            magnetic = getNearestMagneticElement(mouseX, mouseY);
+        } else if (currentSnappedElement && document.body.contains(currentSnappedElement)) {
+            magnetic = { el: currentSnappedElement, rect: currentSnappedElement.getBoundingClientRect() };
+        }
+
         let transform;
 
         if (magnetic) {
@@ -118,8 +194,6 @@
                 el.classList.add('is-hovered');
                 snappedEl = el;
 
-                // Size/shape change once per snap, never per frame (the 0.22s CSS transition
-                // would otherwise restart every frame and never settle).
                 const isRound = el.classList.contains('theme-toggle-btn') || el.classList.contains('circle-btn');
                 const pad = isRound ? 10 : 12;
                 cursorRing.style.setProperty('--ring-w', `${rect.width + pad}px`);
@@ -129,10 +203,14 @@
                 window.dispatchEvent(new CustomEvent('bento:magnetic-enter', { detail: { el } }));
             }
 
+            if (!wasSnapped) {
+                cursorRing.classList.add('is-snapped');
+                wasSnapped = true;
+            }
+
             ringX += (rect.left + rect.width / 2 - ringX) * ease;
             ringY += (rect.top + rect.height / 2 - ringY) * ease;
 
-            cursorRing.classList.add('is-snapped');
             transform = `translate3d(${ringX}px, ${ringY}px, 0) translate(-50%, -50%)`;
         } else {
             if (currentSnappedElement !== null) {
@@ -148,15 +226,19 @@
                 snappedEl = null;
             }
 
+            if (wasSnapped) {
+                cursorRing.classList.remove('is-snapped');
+                wasSnapped = false;
+            }
+
             const vx = mouseX - ringX;
             const vy = mouseY - ringY;
             const speed = Math.hypot(vx, vy);
 
             ringX += vx * ease;
             ringY += vy * ease;
-            cursorRing.classList.remove('is-snapped');
 
-            // Compositor-only write: no layout, no paint.
+            // Compositor-only write: GPU transform, zero layout
             if (speed > 1.5) {
                 const angle = Math.atan2(vy, vx);
                 const stretch = Math.min(speed * 0.0028, 0.42);
