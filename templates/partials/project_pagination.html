@@ -1,0 +1,13 @@
+{# Previous / Next project footer. Expects `pager` (cyclic prev/next, from app.py). #}
+<footer class="project-pagination-section">
+    <div class="pagination-container">
+        <a href="{{ url_for('project_page', slug=pager.prev.slug) }}" class="pagination-card prev">
+            <span class="card-nav-dir">&larr; Previous Project</span>
+            <span class="card-nav-title">{{ pager.prev.card_label }}</span>
+        </a>
+        <a href="{{ url_for('project_page', slug=pager.next.slug) }}" class="pagination-card next">
+            <span class="card-nav-dir">Next Project &rarr;</span>
+            <span class="card-nav-title">{{ pager.next.card_label }}</span>
+        </a>
+    </div>
+</footer>

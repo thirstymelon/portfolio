@@ -1,0 +1,26 @@
+# macOS filesystem metadata
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# Editors / IDEs
+.vscode/
+.idea/
+*.swp
+
+# Logs
+*.log
+
+# Dependencies (if build tooling is added later)
+node_modules/
+
+# Python / Flask / Testing
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.freebuff/

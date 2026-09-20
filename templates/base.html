@@ -2,187 +2,68 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{% block title %}Lokesh Panditi — Embedded Systems &amp; Firmware Developer{% endblock %}</title>
-  <meta name="description"
-    content="{% block meta_description %}Lokesh (Loki) Panditi — embedded systems and firmware developer building bare-metal C, C++, Rust, and Ada projects for the RP2040 and other microcontrollers.{% endblock %}" />
-  <meta name="author" content="Lokesh Panditi" />
-  <meta name="theme-color" content="#FAF5E9" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ meta.title }}</title>
+    <meta name="description" content="{{ meta.description }}">
+    {%- if meta.keywords %}
+    <meta name="keywords" content="{{ meta.keywords }}">
+    {%- endif %}
+    <meta name="author" content="Lokesh Panditi">
+    {%- if meta.robots %}
+    <meta name="robots" content="{{ meta.robots }}">
+    {%- endif %}
+    <meta name="theme-color" content="{{ meta.theme_color }}">
 
-  <!-- Canonical URL -->
-  <link rel="canonical" href="{% block canonical_url %}https://lokeshpanditi.qzz.io{% endblock %}" />
+    <!-- OpenGraph & Social Meta -->
+    <meta property="og:type" content="{{ meta.og_type }}">
+    <meta property="og:title" content="{{ meta.og_title }}">
+    <meta property="og:description" content="{{ meta.og_description }}">
+    <meta property="og:site_name" content="{{ site.og_site_name }}">
+    {%- if meta.og_image %}
+    <meta property="og:image" content="{{ meta.og_image if meta.og_image.startswith('http') else site.base_url ~ meta.og_image }}">
+    <meta name="twitter:image" content="{{ meta.og_image if meta.og_image.startswith('http') else site.base_url ~ meta.og_image }}">
+    {%- endif %}
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ meta.og_title }}">
+    <meta name="twitter:description" content="{{ meta.og_description }}">
 
-  <!-- Open Graph / social preview -->
-  <meta property="og:type" content="website" />
-  <meta property="og:title"
-    content="{% block og_title %}Lokesh Panditi — Embedded Systems &amp; Firmware Developer{% endblock %}" />
-  <meta property="og:description"
-    content="{% block og_description %}Embedded systems and firmware developer building bare-metal C, C++, Rust, and Ada projects for the RP2040 and other microcontrollers.{% endblock %}" />
-  <meta property="og:url" content="{% block og_url %}https://lokeshpanditi.qzz.io{% endblock %}" />
-  <meta property="og:image" content="{{ url_for('static', filename='og-image.png') }}" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta property="og:locale" content="en_IN" />
-  <meta property="og:image:alt"
-    content="Lokesh Panditi — Embedded Systems & Firmware Developer. Writing code close to the silicon." />
-  <meta property="og:site_name" content="Lokesh Panditi" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:image" content="{{ url_for('static', filename='og-image.png') }}" />
-  <meta name="twitter:site" content="@thirstymelon" />
+    <link rel="icon" href="{{ url_for('static', filename='favicon.svg') }}" type="image/svg+xml">
+    <link rel="icon" href="{{ url_for('static', filename='favicon-32x32.png') }}" sizes="32x32" type="image/png">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='apple-touch-icon.png') }}">
+    <link rel="manifest" href="{{ url_for('static', filename='site.webmanifest') }}">
 
-  <!-- Favicons -->
-  <link rel="icon"
-    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%231c1a17'/><rect x='7' y='7' width='6' height='6' rx='1.2' fill='%23b8553a'/><rect x='15' y='7' width='6' height='6' rx='1.2' fill='%238a8273'/><rect x='7' y='15' width='6' height='6' rx='1.2' fill='%238a8273'/><rect x='15' y='15' width='6' height='6' rx='1.2' fill='%238a8273'/></svg>" />
-  <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}" />
-  <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon-32x32.png') }}" />
-  <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='apple-touch-icon.png') }}" />
-  <link rel="manifest" href="{{ url_for('static', filename='site.webmanifest') }}" />
+    {% include 'partials/theme_init.html' %}
 
-  <!-- JSON-LD structured data for SEO -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Lokesh Panditi",
-    "givenName": "Lokesh",
-    "familyName": "Panditi",
-    "alternateName": "Loki",
-    "jobTitle": "Firmware Engineer",
-    "description": "Embedded systems and firmware developer building bare-metal C, C++, Rust, and Ada projects for the RP2040 and other microcontrollers.",
-    "url": "https://lokeshpanditi.qzz.io",
-    "sameAs": [
-      "https://github.com/thirstymelon",
-      "https://www.linkedin.com/in/lokeshpanditi"
-    ],
-    "knowsAbout": [
-      "Embedded Systems",
-      "Firmware",
-      "C",
-      "C++",
-      "Rust",
-      "Ada",
-      "RP2040",
-      "SSD1306",
-      "FreeRTOS",
-      "ESP-NOW"
-    ]
-  }
-  </script>
+    <!-- Without JS the custom cursor never appears, so keep a real one -->
+    <noscript>
+        <style>
+            @media (hover: hover) and (pointer: fine) {
 
-  <!-- No-flash theme bootstrap: applies stored/preferred theme before paint -->
-  <script>
-    (function () {
-      try {
-        var stored = localStorage.getItem('loki-theme');
-        var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        var theme = stored || (prefersDark ? 'dark' : 'light');
-        document.documentElement.setAttribute('data-theme', theme);
-      } catch (e) {
-        document.documentElement.setAttribute('data-theme', 'light');
-      }
-    })();
-  </script>
+                *,
+                *::before,
+                *::after {
+                    cursor: auto !important;
+                }
+            }
+        </style>
+    </noscript>
 
-  <!-- Fraunces (serif display) + Inter (UI) + JetBrains Mono (data) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap"
-    rel="stylesheet" media="print" onload="this.media='all';this.onload=null" />
-  <noscript>
+    <!-- Fonts: Plus Jakarta Sans + JetBrains Mono (superset of every weight the site uses) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap"
-      rel="stylesheet" />
-  </noscript>
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,600&family=Space+Grotesk:wght@500;700&display=swap"
+        rel="stylesheet">
 
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" />
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/project.css') }}" />
-  {% block extra_css %}{% endblock %}
+    <link rel="stylesheet" href="{{ url_for('static', filename=meta.stylesheet) }}">
 </head>
 
-<body class="{% block body_class %}{% endblock %}">
-  <a href="#main" class="skip-link">Skip to content</a>
-  <div class="progress" id="progress" aria-hidden="true"></div>
+<body>
+    {% block body %}{% endblock %}
 
-  <!-- ===== NAV ===== -->
-  <nav>
-    <div class="nav-w">
-      <a href="{{ url_for('index') }}" class="nav-logo" aria-label="Lokesh Panditi — home">
-        Lokesh Panditi
-        <!-- <span class="ord">LP</span> -->
-      </a>
-      {% block nav_center %}
-      <div class="nav-center" role="navigation" aria-label="Primary">
-        <a href="{{ url_for('index') }}#about">About</a>
-        <a href="{{ url_for('index') }}#skills">Skills</a>
-        <a href="{{ url_for('index') }}#projects">Work</a>
-        <a href="{{ url_for('index') }}#contact">Contact</a>
-      </div>
-      {% endblock %}
-      <div class="nav-right">
-        <div class="nav-clock" aria-live="polite">
-          <span class="dot" aria-hidden="true"></span>
-          <span id="clock">Ongole · --:--</span>
-        </div>
-        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark mode">
-          <svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-          </svg>
-          <svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <circle cx="12" cy="12" r="4" />
-            <path
-              d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
-          </svg>
-        </button>
-        <button class="nav-burger" id="burger" aria-label="Toggle menu" aria-expanded="false">
-          <span></span><span></span><span></span>
-        </button>
-      </div>
-    </div>
-  </nav>
-
-  <!-- ===== MOBILE MENU ===== -->
-  <div class="mob-menu" id="mobMenu">
-    <a href="{{ url_for('index') }}#about" data-mob-close><span>01</span> About</a>
-    <a href="{{ url_for('index') }}#skills" data-mob-close><span>02</span> Skills</a>
-    <a href="{{ url_for('index') }}#projects" data-mob-close><span>03</span> Work</a>
-    <a href="{{ url_for('index') }}#contact" data-mob-close><span>04</span> Contact</a>
-    <div class="mob-foot">
-      <span>Ongole, India · Open to collaborate</span>
-      <span>lokesh.panditi.29@gmail.com</span>
-      <a href="{{ url_for('static', filename='LOKESH_PANDITI.pdf') }}" download style="color:var(--clay);">Download
-        Resume &darr;</a>
-    </div>
-  </div>
-
-  <main id="main">
-    {% block content %}{% endblock %}
-  </main>
-
-  <!-- ===== FOOTER ===== -->
-  <footer>
-    <div class="ft-wrap">
-      <div class="ft-big reveal">Built close to the <span class="clay">silicon.</span></div>
-      <div class="ft-bottom">
-        <div>&copy; 2024–2026 Lokesh Panditi <span style="opacity:.5">· Ongole, India</span></div>
-        <div>Designed &amp; engineered with low-level precision</div>
-      </div>
-    </div>
-  </footer>
-
-  <!-- Back to top -->
-  <button class="to-top" id="toTop" aria-label="Back to top" title="Back to top">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-      stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <path d="M12 19V5M5 12l7-7 7 7" />
-    </svg>
-  </button>
-
-  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
-  {% block extra_scripts %}{% endblock %}
+    <script src="{{ url_for('static', filename='theme.js') }}"></script>
+    {% block scripts %}{% endblock %}
 </body>
 
 </html>

@@ -1,368 +1,432 @@
 {% extends "base.html" %}
 
-{% block title %}Glyph — Building a Portable Graphics Framework for Bare-Metal Ada | Lokesh Panditi{% endblock %}
+{% block body %}
+    {% include 'partials/project_nav.html' %}
 
-{% block meta_description %}Technical deep dive into Glyph, a lightweight, portable graphics framework written in Ada 2022 for bare-metal and embedded systems like the RP2040 and SSD1306 OLED.{% endblock %}
-
-{% block body_class %}project-page{% endblock %}
-
-{% block extra_css %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/project.css') }}" />
-{% endblock %}
-
-{% block nav_center %}
-<div class="nav-project-bubbles" role="navigation" aria-label="Project Navigation">
-  <div class="nav-center nav-bubble-back">
-    <a href="{{ url_for('index') }}#projects" title="Back to all projects">
-      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="margin-right: 4px; vertical-align: -1px;"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>Work
-    </a>
-  </div>
-  <div class="nav-center nav-bubble-projects">
-    <a href="{{ url_for('project_glyph') }}" class="on" title="Glyph Graphics Library">✦ Glyph</a>
-    <a href="{{ url_for('project_esp32_mesh') }}" title="MeshOS ESP-NOW Network">⚡ MeshOS</a>
-    <a href="{{ url_for('project_radio_kit') }}" title="Radio_Kit RF Clock Synthesizer">∿ Radio_Kit</a>
-  </div>
-</div>
-{% endblock %}
-
-{% block content %}
-<!-- Project Header -->
-<header class="project-header">
-  <div class="project-header-wrap">
-    <div class="project-meta-top">
-      <div class="project-num-badge">
-        <span>PROJECT 01</span>
-        <span style="opacity:0.4;">·</span>
-        <span>EMBEDDED GRAPHICS</span>
-      </div>
-      <div class="project-status-pill">
-        <span class="pulse-dot"></span>
-        <span>Published on Alire · Ada 2022</span>
-      </div>
-    </div>
-
-    <h1 class="project-title">✦ Glyph <em>Graphics Framework</em></h1>
-    <p class="project-subtitle" style="font-style: italic; color: var(--clay); font-size: 1.25rem; margin-bottom: 16px;">
-      Building a portable graphics framework for bare-metal Ada.
-    </p>
-    <p class="project-subtitle">
-      Embedded graphics are usually a story of compromises. Tiny displays have tiny framebuffers. Microcontrollers have limited memory. Communication with the display can be slower than the rendering itself. And unlike desktop systems, there is no operating system quietly taking care of memory management and hardware abstraction underneath the application.
-    </p>
-    <p class="project-subtitle" style="margin-top: -12px;">
-      I wanted to explore what a graphics framework could look like when built specifically around those constraints. That became <strong>Glyph</strong> &mdash; a lightweight, portable graphics framework written in <strong>Ada 2022</strong> for bare-metal and embedded systems. Glyph is designed to remain independent of any BSP, HAL, SDK, or RTOS. The graphics core focuses purely on rendering, while framebuffer management, memory layouts, display controllers, and hardware transports remain separate layers. Development currently targets the <strong>Vicharak Shrike-Lite (RP2040)</strong> with an <strong>SSD1306 128×64 OLED</strong> over I²C.
-    </p>
-
-    <div class="project-links">
-      <a href="https://github.com/thirstymelon/glyph" class="btn-solid" target="_blank" rel="noopener noreferrer">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <path
-            d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-        </svg>
-        View GitHub Repository ↗
-      </a>
-      <a href="https://alire.ada.dev/crates/glyph" class="btn-solid btn-outline" target="_blank"
-        rel="noopener noreferrer">
-        Alire Crate Registry ↗
-      </a>
-    </div>
-  </div>
-</header>
-
-<!-- Quick Spec Matrix -->
-<section class="spec-grid-section">
-  <div class="spec-grid-wrap">
-    <div class="spec-matrix">
-      <div class="spec-box">
-        <div class="spec-box-label">Target Hardware</div>
-        <div class="spec-box-val">RP2040 <small>Vicharak Shrike-Lite (Cortex-M0+)</small></div>
-      </div>
-      <div class="spec-box">
-        <div class="spec-box-label">Language &amp; Standard</div>
-        <div class="spec-box-val">Ada 2022 <small>Strong typing &amp; Alire package manager</small></div>
-      </div>
-      <div class="spec-box">
-        <div class="spec-box-label">Display Target</div>
-        <div class="spec-box-val">SSD1306 OLED <small>128×64 Monochrome over I²C</small></div>
-      </div>
-      <div class="spec-box">
-        <div class="spec-box-label">Memory Footprint</div>
-        <div class="spec-box-val">1024 Bytes <small>Static 1-bit monochrome framebuffer</small></div>
-      </div>
-      <div class="spec-box">
-        <div class="spec-box-label">Clipping Engine</div>
-        <div class="spec-box-val">Liang–Barsky <small>Parametric line rejection before raster</small></div>
-      </div>
-      <div class="spec-box">
-        <div class="spec-box-label">Rasterizer</div>
-        <div class="spec-box-val">Bresenham <small>Fast integer-only line rendering</small></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Main Project Content -->
-<div class="project-content-body">
-  <!-- Sticky Table of Contents -->
-  <aside class="project-toc" aria-label="Table of contents">
-    <div class="project-toc-title">On This Page</div>
-    <a href="#scratch">1. Starting From Scratch</a>
-    <a href="#why-ada">2. Why Ada?</a>
-    <a href="#architecture">3. The Architecture</a>
-    <a href="#clipping">4. Line Clipping</a>
-    <a href="#memory">5. Keeping Memory Predictable</a>
-    <a href="#oled">6. From Pixels to an OLED</a>
-    <a href="#first-proof">7. The First Proof (Code)</a>
-    <a href="#exists-today">8. What Exists Today</a>
-    <a href="#whats-next">9. What's Next?</a>
-    <a href="#means-to-me">10. What Glyph Means to Me</a>
-  </aside>
-
-  <!-- Deep Dive Article Content -->
-  <article class="project-article">
-    <!-- Section 1: Starting From Scratch -->
-    <section class="project-block" id="scratch">
-      <div class="project-block-hd">
-        <span class="project-block-num">[ 01 ]</span>
-        <h2 class="project-block-title">Starting From <em>Scratch</em></h2>
-      </div>
-      <p class="prose-text">
-        Glyph is both a framework and a learning project.
-      </p>
-      <p class="prose-text">
-        This is my first embedded graphics framework and my first time building the different pieces of a display stack from the ground up.
-      </p>
-      <p class="prose-text">
-        Instead of taking an existing graphics library and adapting it to Ada, I wanted to understand what actually goes into one. That meant exploring:
-      </p>
-
-      <div class="feature-grid">
-        <div class="feature-card">
-          <h3 class="feature-card-title">Graphics Primitives &amp; Rasterization</h3>
-          <p class="feature-card-desc">Drawing pixels, lines, rectangles, and filled bounds with deterministic integer math.</p>
+    <!-- Project Hero Header -->
+    <header class="project-hero">
+        <div class="spotlight-overlay"></div>
+        <div class="card-pattern pattern-isometric">
+            <div class="card-noise"></div>
+            <svg class="pattern-svg static-svg" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice"
+                fill="none" stroke="currentColor">
+                <g stroke-width="1" opacity="0.6">
+                    <path
+                        d="M-200 -100 L1400 400 M-200 -20 L1400 480 M-200 60 L1400 560 M-200 140 L1400 640 M-200 220 L1400 720 M-200 300 L1400 800 M-200 -180 L1400 320 M-200 -260 L1400 240 M-200 -340 L1400 160" />
+                    <path
+                        d="M1400 -100 L-200 400 M1400 -20 L-200 480 M1400 60 L-200 560 M1400 140 L-200 640 M1400 220 L-200 720 M1400 300 L-200 800 M1400 -180 L-200 320 M1400 -260 L-200 240 M1400 -340 L-200 160" />
+                    <line x1="0" y1="0" x2="0" y2="600" opacity="0.35" />
+                    <line x1="150" y1="0" x2="150" y2="600" opacity="0.35" />
+                    <line x1="300" y1="0" x2="300" y2="600" opacity="0.35" />
+                    <line x1="450" y1="0" x2="450" y2="600" opacity="0.35" />
+                    <line x1="600" y1="0" x2="600" y2="600" opacity="0.35" />
+                    <line x1="750" y1="0" x2="750" y2="600" opacity="0.35" />
+                    <line x1="900" y1="0" x2="900" y2="600" opacity="0.35" />
+                    <line x1="1050" y1="0" x2="1050" y2="600" opacity="0.35" />
+                    <line x1="1200" y1="0" x2="1200" y2="600" opacity="0.35" />
+                </g>
+            </svg>
+            <svg class="pattern-svg flow-svg" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice"
+                fill="none" stroke="currentColor">
+                <g stroke-width="2" class="iso-flow-group">
+                    <path
+                        d="M-200 -100 L1400 400 M-200 60 L1400 560 M-200 220 L1400 720 M-200 -260 L1400 240"
+                        stroke-dasharray="32 80" class="iso-line-flow-1" />
+                    <path
+                        d="M1400 -20 L-200 480 M1400 140 L-200 640 M1400 300 L-200 800 M1400 -180 L-200 320"
+                        stroke-dasharray="28 75" class="iso-line-flow-2" />
+                </g>
+            </svg>
         </div>
-        <div class="feature-card">
-          <h3 class="feature-card-title">Line Clipping Algorithms</h3>
-          <p class="feature-card-desc">Preventing memory corruption when drawing geometry beyond screen edges.</p>
-        </div>
-        <div class="feature-card">
-          <h3 class="feature-card-title">Framebuffer Representation</h3>
-          <p class="feature-card-desc">Managing bit-packed monochrome arrays with zero dynamic heap allocation.</p>
-        </div>
-        <div class="feature-card">
-          <h3 class="feature-card-title">Display Memory Layouts</h3>
-          <p class="feature-card-desc">Mapping screen coordinates to physical controller page layouts.</p>
-        </div>
-        <div class="feature-card">
-          <h3 class="feature-card-title">Display Controller Protocols</h3>
-          <p class="feature-card-desc">Translating commands, initialization sequences, and window bounds for the SSD1306.</p>
-        </div>
-        <div class="feature-card">
-          <h3 class="feature-card-title">Transport Abstraction</h3>
-          <p class="feature-card-desc">Decoupling rendering logic from I²C and SPI bus communication.</p>
-        </div>
-        <div class="feature-card">
-          <h3 class="feature-card-title">Ada Generics &amp; Strong Types</h3>
-          <p class="feature-card-desc">Enforcing coordinate boundaries and preventing X/Y argument inversions at compile time.</p>
-        </div>
-        <div class="feature-card">
-          <h3 class="feature-card-title">Bare-Metal Software Architecture</h3>
-          <p class="feature-card-desc">Designing clean, isolated abstraction boundaries without relying on an OS.</p>
-        </div>
-      </div>
+        <div class="hero-container">
+            <div class="meta-badges-row">
+                <div class="project-tag-badge">
+                    <span>PROJECT 01</span>
+                    <span class="badge-sep">·</span>
+                    <span>EMBEDDED GRAPHICS</span>
+                </div>
+                <div class="status-pill">
+                    <span class="pulse-dot"></span>
+                    <span>Published on Alire · Ada 2022</span>
+                </div>
+            </div>
 
-      <p class="prose-text" style="margin-top: 20px;">
-        The goal wasn't to build the biggest graphics framework possible. It was to understand the layers well enough to design them properly.
-      </p>
+            <h1 class="project-main-title">✦ Glyph <em>Graphics Framework</em></h1>
+            <p class="project-lead-italic">
+                Building a portable graphics framework for bare-metal Ada.
+            </p>
+            <p class="project-hero-desc">
+                Embedded graphics are usually a story of compromises. Tiny displays have tiny framebuffers.
+                Microcontrollers have limited memory. Communication with the display can be slower than the rendering
+                itself. And unlike desktop systems, there is no operating system quietly taking care of memory
+                management and hardware abstraction underneath the application.
+            </p>
+            <p class="project-hero-desc">
+                I wanted to explore what a graphics framework could look like when built specifically around those
+                constraints. That became <strong>Glyph</strong> &mdash; a lightweight, portable graphics framework
+                written in <strong>Ada 2022</strong> for bare-metal and embedded systems. Glyph is designed to remain
+                independent of any BSP, HAL, SDK, or RTOS. The graphics core focuses purely on rendering, while
+                framebuffer management, memory layouts, display controllers, and hardware transports remain separate
+                layers. Development currently targets the <strong>Vicharak Shrike-Lite (RP2040)</strong> with an
+                <strong>SSD1306 128×64 OLED</strong> over I²C.
+            </p>
+
+            <div class="project-cta-group">
+                <a href="https://github.com/thirstymelon/glyph" class="btn-pill-action" target="_blank"
+                    rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                    </svg>
+                    <span>View GitHub Repository ↗</span>
+                </a>
+                <a href="https://alire.ada.dev/crates/glyph" class="btn-pill-action btn-outline" target="_blank"
+                    rel="noopener noreferrer">
+                    <span>Alire Crate Registry ↗</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Quick Spec Matrix -->
+    <section class="spec-matrix-section">
+        <div class="spec-container">
+            <div class="spec-grid">
+                <div class="spec-card">
+                    <div class="spec-label">Target Hardware</div>
+                    <div class="spec-val">RP2040 <small>Vicharak Shrike-Lite (Cortex-M0+)</small></div>
+                </div>
+                <div class="spec-card">
+                    <div class="spec-label">Language &amp; Standard</div>
+                    <div class="spec-val">Ada 2022 <small>Strong typing &amp; Alire package manager</small></div>
+                </div>
+                <div class="spec-card">
+                    <div class="spec-label">Display Target</div>
+                    <div class="spec-val">SSD1306 OLED <small>128×64 Monochrome over I²C</small></div>
+                </div>
+                <div class="spec-card">
+                    <div class="spec-label">Memory Footprint</div>
+                    <div class="spec-val">1024 Bytes <small>Static 1-bit monochrome framebuffer</small></div>
+                </div>
+                <div class="spec-card">
+                    <div class="spec-label">Clipping Engine</div>
+                    <div class="spec-val">Liang–Barsky <small>Parametric line rejection before raster</small></div>
+                </div>
+                <div class="spec-card">
+                    <div class="spec-label">Rasterizer</div>
+                    <div class="spec-val">Bresenham <small>Fast integer-only line rendering</small></div>
+                </div>
+            </div>
+        </div>
     </section>
 
-    <!-- Section 2: Why Ada? -->
-    <section class="project-block" id="why-ada">
-      <div class="project-block-hd">
-        <span class="project-block-num">[ 02 ]</span>
-        <h2 class="project-block-title">Why <em>Ada?</em></h2>
-      </div>
-      <p class="prose-text">
-        One of the main reasons I started Glyph was the lack of graphics and display-driver infrastructure in the Ada embedded ecosystem.
-      </p>
-      <p class="prose-text">
-        For embedded C and C++, it is relatively easy to find libraries and drivers for common displays and controllers. In Ada, the selection is considerably smaller. If I wanted a reusable graphics framework that was truly Ada-native, I couldn't simply assume that all the pieces I needed already existed.
-      </p>
-      <p class="prose-text">
-        So I decided to build one.
-      </p>
-      <div class="callout-box">
-        <div class="callout-box-body" style="font-family: var(--serif); font-size: 1.15rem; color: var(--ink);">
-          That also made Glyph a useful way to explore how Ada's strengths could translate into embedded graphics: <strong>strong types, static memory, explicit interfaces, and predictable behavior.</strong>
-        </div>
-      </div>
-    </section>
+    <!-- Main Article Body with Sticky Table of Contents -->
+    <main class="article-main-body">
+        <!-- Sticky Table of Contents -->
+        <aside class="project-toc-sidebar" aria-label="Table of contents">
+            <div class="toc-title">On This Page</div>
+            <a href="#scratch" class="toc-link">1. Starting From Scratch</a>
+            <a href="#why-ada" class="toc-link">2. Why Ada?</a>
+            <a href="#architecture" class="toc-link">3. The Architecture</a>
+            <a href="#clipping" class="toc-link">4. Line Clipping</a>
+            <a href="#memory" class="toc-link">5. Predictable Memory</a>
+            <a href="#oled" class="toc-link">6. From Pixels to OLED</a>
+            <a href="#first-proof" class="toc-link">7. The First Proof</a>
+            <a href="#exists-today" class="toc-link">8. What Exists Today</a>
+            <a href="#whats-next" class="toc-link">9. What's Next?</a>
+            <a href="#means-to-me" class="toc-link">10. Meaning &amp; Takeaway</a>
+        </aside>
 
-    <!-- Section 3: The Architecture -->
-    <section class="project-block" id="architecture">
-      <div class="project-block-hd">
-        <span class="project-block-num">[ 03 ]</span>
-        <h2 class="project-block-title">The <em>Architecture</em></h2>
-      </div>
-      <p class="prose-text">
-        I wanted the graphics engine to be completely unaware of the hardware it eventually renders to. So Glyph is split into a series of independent layers.
-      </p>
-      <p class="prose-text">
-        At the top is the <strong>Display</strong> abstraction, which brings the pieces together for an application. Underneath it are the <strong>Canvas</strong>, <strong>Framebuffer</strong>, <strong>Layout</strong>, <strong>Controller</strong>, and <strong>Transport</strong> layers.
-      </p>
+        <!-- Deep Dive Article Content -->
+        <article class="project-article-content">
+            <!-- Section 1: Starting From Scratch -->
+            <section class="project-section-block" id="scratch">
+                <div class="section-header-row">
+                    <span class="section-num">[ 01 ]</span>
+                    <h2 class="section-heading">Starting From <em>Scratch</em></h2>
+                </div>
+                <p class="prose-p">
+                    Glyph is both a framework and a learning project.
+                </p>
+                <p class="prose-p">
+                    This is my first embedded graphics framework and my first time building the different pieces of a
+                    display stack from the ground up.
+                </p>
+                <p class="prose-p">
+                    Instead of taking an existing graphics library and adapting it to Ada, I wanted to understand what
+                    actually goes into one. That meant exploring:
+                </p>
 
-      <div class="diagram-container">
-        <svg viewBox="0 0 680 200" role="img" aria-label="Glyph layered architecture diagram">
-          <g transform="translate(10, 20)">
-            <rect x="0" y="20" width="105" height="44" rx="5" class="dm-fill" />
-            <text x="52" y="47" text-anchor="middle" class="dm-text-ink" font-size="10">Application</text>
+                <div class="feature-cards-grid">
+                    <div class="feature-card">
+                        <h3 class="feature-title">Graphics Primitives &amp; Rasterization</h3>
+                        <p class="feature-desc">Drawing pixels, lines, rectangles, and filled bounds with deterministic
+                            integer math.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3 class="feature-title">Line Clipping Algorithms</h3>
+                        <p class="feature-desc">Preventing memory corruption when drawing geometry beyond screen edges.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <h3 class="feature-title">Framebuffer Representation</h3>
+                        <p class="feature-desc">Managing bit-packed monochrome arrays with zero dynamic heap allocation.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <h3 class="feature-title">Display Memory Layouts</h3>
+                        <p class="feature-desc">Mapping screen coordinates to physical controller page layouts.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3 class="feature-title">Display Controller Protocols</h3>
+                        <p class="feature-desc">Translating commands, initialization sequences, and window bounds for
+                            the SSD1306.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3 class="feature-title">Transport Abstraction</h3>
+                        <p class="feature-desc">Decoupling rendering logic from I²C and SPI bus communication.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3 class="feature-title">Ada Generics &amp; Strong Types</h3>
+                        <p class="feature-desc">Enforcing coordinate boundaries and preventing X/Y argument inversions
+                            at compile time.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3 class="feature-title">Bare-Metal Software Architecture</h3>
+                        <p class="feature-desc">Designing clean, isolated abstraction boundaries without relying on an
+                            OS.</p>
+                    </div>
+                </div>
 
-            <line x1="105" y1="42" x2="125" y2="42" class="dm-soft" />
+                <p class="prose-p">
+                    The goal wasn't to build the biggest graphics framework possible. It was to understand the layers
+                    well enough to design them properly.
+                </p>
+            </section>
 
-            <rect x="125" y="20" width="125" height="44" rx="5" class="dm-fill" stroke="var(--clay)" stroke-width="1.5" />
-            <text x="187" y="42" text-anchor="middle" class="dm-text-ink" fill="var(--clay)" font-size="10">Display / Canvas</text>
-            <text x="187" y="55" text-anchor="middle" class="dm-text" font-size="8">Graphics Algorithms</text>
+            <!-- Section 2: Why Ada? -->
+            <section class="project-section-block" id="why-ada">
+                <div class="section-header-row">
+                    <span class="section-num">[ 02 ]</span>
+                    <h2 class="section-heading">Why <em>Ada?</em></h2>
+                </div>
+                <p class="prose-p">
+                    One of the main reasons I started Glyph was the lack of graphics and display-driver infrastructure
+                    in the Ada embedded ecosystem.
+                </p>
+                <p class="prose-p">
+                    For embedded C and C++, it is relatively easy to find libraries and drivers for common displays and
+                    controllers. In Ada, the selection is considerably smaller. If I wanted a reusable graphics
+                    framework that was truly Ada-native, I couldn't simply assume that all the pieces I needed already
+                    existed.
+                </p>
+                <p class="prose-p">
+                    So I decided to build one.
+                </p>
+                <div class="bento-callout">
+                    <div class="callout-body">
+                        That also made Glyph a useful way to explore how Ada's strengths could translate into embedded
+                        graphics: <strong>strong types, static memory, explicit interfaces, and predictable
+                            behavior.</strong>
+                    </div>
+                </div>
+            </section>
 
-            <line x1="250" y1="42" x2="270" y2="42" class="dm-clay dm-anim" />
+            <!-- Section 3: The Architecture -->
+            <section class="project-section-block" id="architecture">
+                <div class="section-header-row">
+                    <span class="section-num">[ 03 ]</span>
+                    <h2 class="section-heading">The <em>Architecture</em></h2>
+                </div>
+                <p class="prose-p">
+                    I wanted the graphics engine to be completely unaware of the hardware it eventually renders to. So
+                    Glyph is split into a series of independent layers.
+                </p>
+                <p class="prose-p">
+                    At the top is the <strong>Display</strong> abstraction, which brings the pieces together for an
+                    application. Underneath it are the <strong>Canvas</strong>, <strong>Framebuffer</strong>,
+                    <strong>Layout</strong>, <strong>Controller</strong>, and <strong>Transport</strong> layers.
+                </p>
 
-            <rect x="270" y="20" width="100" height="44" rx="5" class="dm-fill" />
-            <text x="320" y="42" text-anchor="middle" class="dm-text-ink" font-size="10">Framebuffer</text>
-            <text x="320" y="55" text-anchor="middle" class="dm-text" font-size="8">Layout Mapping</text>
+                <div class="diagram-box">
+                    <svg viewBox="0 0 680 200" role="img" aria-label="Glyph layered architecture diagram">
+                        <g transform="translate(10, 20)">
+                            <rect x="0" y="20" width="105" height="44" rx="5" class="dm-fill" />
+                            <text x="52" y="47" text-anchor="middle" class="dm-text-ink"
+                                font-size="10">Application</text>
 
-            <line x1="370" y1="42" x2="390" y2="42" class="dm-soft" />
+                            <line x1="105" y1="42" x2="125" y2="42" class="dm-soft" />
 
-            <rect x="390" y="20" width="115" height="44" rx="5" class="dm-fill" stroke="var(--olive)" stroke-width="1.5" />
-            <text x="447" y="42" text-anchor="middle" class="dm-text-ink" font-size="10">SSD1306 Controller</text>
-            <text x="447" y="55" text-anchor="middle" class="dm-text" font-size="8">Commands / Init</text>
+                            <rect x="125" y="20" width="125" height="44" rx="5" class="dm-fill" stroke="#ff5a1f"
+                                stroke-width="1.5" />
+                            <text x="187" y="42" text-anchor="middle" class="dm-text-ink" fill="#ff5a1f"
+                                font-size="10">Display / Canvas</text>
+                            <text x="187" y="55" text-anchor="middle" class="dm-text" font-size="8">Graphics
+                                Algorithms</text>
 
-            <line x1="505" y1="42" x2="525" y2="42" class="dm-clay dm-anim" />
+                            <line x1="250" y1="42" x2="270" y2="42" class="dm-clay dm-anim" />
 
-            <rect x="525" y="20" width="130" height="44" rx="5" class="dm-fill" />
-            <text x="590" y="42" text-anchor="middle" class="dm-text-ink" font-size="10">Transport &rarr; I²C</text>
-            <text x="590" y="55" text-anchor="middle" class="dm-text" font-size="8">RP2040 Hardware</text>
-          </g>
+                            <rect x="270" y="20" width="100" height="44" rx="5" class="dm-fill" />
+                            <text x="320" y="42" text-anchor="middle" class="dm-text-ink"
+                                font-size="10">Framebuffer</text>
+                            <text x="320" y="55" text-anchor="middle" class="dm-text" font-size="8">Layout
+                                Mapping</text>
 
-          <text x="340" y="130" text-anchor="middle" class="dm-text-ink" font-size="11" fill="var(--clay)">
-            Application → Display / Canvas → Graphics Algorithms → Framebuffer → Layout → Controller → Transport → Hardware
-          </text>
-          <text x="340" y="152" text-anchor="middle" class="dm-text" font-size="9">
-            Strict separation of concerns: core rendering engine is completely portable and reusable.
-          </text>
-        </svg>
-        <div class="diagram-caption">Figure 1: Modular layers of the Glyph graphics pipeline</div>
-      </div>
+                            <line x1="370" y1="42" x2="390" y2="42" class="dm-soft" />
 
-      <p class="prose-text">
-        Each layer has a relatively small responsibility:
-      </p>
-      <ul style="margin-left: 24px; margin-bottom: 24px; color: var(--ink-2); line-height: 1.8;">
-        <li>The graphics algorithms don't know what an SSD1306 is.</li>
-        <li>The framebuffer doesn't know how an I²C bus works.</li>
-        <li>The transport doesn't know anything about drawing lines.</li>
-      </ul>
-      <p class="prose-text">
-        That separation is what allows the core framework to remain portable.
-      </p>
-    </section>
+                            <rect x="390" y="20" width="115" height="44" rx="5" class="dm-fill" stroke="#ff723f"
+                                stroke-width="1.5" />
+                            <text x="447" y="42" text-anchor="middle" class="dm-text-ink" font-size="10">SSD1306
+                                Controller</text>
+                            <text x="447" y="55" text-anchor="middle" class="dm-text" font-size="8">Commands /
+                                Init</text>
 
-    <!-- Section 4: A Small Problem With a Big Consequence -->
-    <section class="project-block" id="clipping">
-      <div class="project-block-hd">
-        <span class="project-block-num">[ 04 ]</span>
-        <h2 class="project-block-title">A Small Problem With a <em>Big Consequence</em></h2>
-      </div>
-      <p class="prose-text">
-        One of the first algorithms I implemented was line clipping.
-      </p>
-      <p class="prose-text">
-        It sounds like a small detail. It isn't.
-      </p>
-      <p class="prose-text">
-        When drawing on a fixed framebuffer, geometry can easily extend beyond the visible area. A renderer that blindly writes those pixels risks writing outside the framebuffer.
-      </p>
-      <p class="prose-text">
-        Glyph uses the <strong>Liang–Barsky algorithm</strong> to clip lines against the active drawing region before rasterization. The resulting line is then rasterized using <strong>Bresenham's integer line algorithm</strong>.
-      </p>
+                            <line x1="505" y1="42" x2="525" y2="42" class="dm-clay dm-anim" />
 
-      <div class="callout-box">
-        <div class="callout-box-body" style="font-family: var(--serif); font-size: 1.15rem; color: var(--clay); font-style: italic;">
-          Line → Liang–Barsky → Bresenham → Pixel → Framebuffer
-        </div>
-      </div>
+                            <rect x="525" y="20" width="130" height="44" rx="5" class="dm-fill" />
+                            <text x="590" y="42" text-anchor="middle" class="dm-text-ink" font-size="10">Transport
+                                &rarr; I²C</text>
+                            <text x="590" y="55" text-anchor="middle" class="dm-text" font-size="8">RP2040
+                                Hardware</text>
+                        </g>
 
-      <p class="prose-text">
-        It's a small example of the philosophy behind Glyph: use well-defined algorithms and keep them independent from the hardware layer.
-      </p>
-    </section>
+                        <text x="340" y="130" text-anchor="middle" class="dm-text-ink" font-size="11" fill="#ff5a1f">
+                            Application → Display / Canvas → Graphics Algorithms → Framebuffer → Layout → Controller →
+                            Transport → Hardware
+                        </text>
+                        <text x="340" y="152" text-anchor="middle" class="dm-text" font-size="9">
+                            Strict separation of concerns: core rendering engine is completely portable and reusable.
+                        </text>
+                    </svg>
+                    <div class="diagram-label">Figure 1: Modular layers of the Glyph graphics pipeline</div>
+                </div>
 
-    <!-- Section 5: Keeping Memory Predictable -->
-    <section class="project-block" id="memory">
-      <div class="project-block-hd">
-        <span class="project-block-num">[ 05 ]</span>
-        <h2 class="project-block-title">Keeping Memory <em>Predictable</em></h2>
-      </div>
-      <p class="prose-text">
-        Another core decision was to avoid dynamic memory allocation.
-      </p>
-      <p class="prose-text">
-        Glyph uses statically composed framebuffer structures rather than relying on a heap. For the current 128×64 monochrome display, the framebuffer is only:
-      </p>
+                <p class="prose-p">
+                    Each layer has a relatively small responsibility:
+                </p>
+                <ul>
+                    <li>The graphics algorithms don't know what an SSD1306 is.</li>
+                    <li>The framebuffer doesn't know how an I²C bus works.</li>
+                    <li>The transport doesn't know anything about drawing lines.</li>
+                </ul>
+                <p class="prose-p">
+                    That separation is what allows the core framework to remain portable.
+                </p>
+            </section>
 
-      <div class="callout-box">
-        <div class="callout-box-body" style="font-family: var(--serif); font-size: 1.4rem; font-weight: 500; color: var(--ink);">
-          1024 Bytes
-        </div>
-      </div>
+            <!-- Section 4: Line Clipping -->
+            <section class="project-section-block" id="clipping">
+                <div class="section-header-row">
+                    <span class="section-num">[ 04 ]</span>
+                    <h2 class="section-heading">A Small Problem With a <em>Big Consequence</em></h2>
+                </div>
+                <p class="prose-p">
+                    One of the first algorithms I implemented was line clipping.
+                </p>
+                <p class="prose-p">
+                    It sounds like a small detail. It isn't.
+                </p>
+                <p class="prose-p">
+                    When drawing on a fixed framebuffer, geometry can easily extend beyond the visible area. A renderer
+                    that blindly writes those pixels risks writing outside the framebuffer memory boundary.
+                </p>
+                <p class="prose-p">
+                    Glyph uses the <strong>Liang–Barsky algorithm</strong> to clip lines against the active drawing
+                    region before rasterization. The resulting line is then rasterized using <strong>Bresenham's integer
+                        line algorithm</strong>.
+                </p>
 
-      <p class="prose-text">
-        That makes the memory requirements straightforward and predictable. It also fits naturally with the kind of systems Glyph targets: small microcontrollers where deterministic resource usage is more important than the flexibility provided by dynamic allocation.
-      </p>
-    </section>
+                <div class="bento-callout">
+                    <div class="callout-body" style="font-family: var(--font-mono); font-size: 1rem; color: #ff5a1f;">
+                        Line → Liang–Barsky → Bresenham → Pixel → Framebuffer
+                    </div>
+                </div>
 
-    <!-- Section 6: From Pixels to an OLED -->
-    <section class="project-block" id="oled">
-      <div class="project-block-hd">
-        <span class="project-block-num">[ 06 ]</span>
-        <h2 class="project-block-title">From Pixels to an <em>OLED</em></h2>
-      </div>
-      <p class="prose-text">
-        The first physical target for Glyph is an <strong>SSD1306 128×64 OLED</strong>.
-      </p>
-      <p class="prose-text">
-        The graphics code doesn't directly talk to the SSD1306:
-      </p>
-      <ul style="margin-left: 24px; margin-bottom: 24px; color: var(--ink-2); line-height: 1.8;">
-        <li>The <strong>framebuffer</strong> contains the pixels.</li>
-        <li>The <strong>layout</strong> determines how those pixels map into memory.</li>
-        <li>The <strong>SSD1306 controller layer</strong> understands the display.</li>
-        <li>And the <strong>transport layer</strong> handles communication with the hardware.</li>
-      </ul>
-      <p class="prose-text">
-        This keeps the graphics core independent from the actual display being used.
-      </p>
-    </section>
+                <p class="prose-p">
+                    It's a clear example of the philosophy behind Glyph: use well-defined algorithms and keep them
+                    independent from the hardware layer.
+                </p>
+            </section>
 
-    <!-- Section 7: The First Proof (Code Walkthrough) -->
-    <section class="project-block" id="first-proof">
-      <div class="project-block-hd">
-        <span class="project-block-num">[ 07 ]</span>
-        <h2 class="project-block-title">The First <em>Proof</em></h2>
-      </div>
-      <p class="prose-text">
-        The first hardware test was deliberately simple. I wanted something that exercised the framework without hiding it behind a large application. A few primitives were enough:
-      </p>
+            <!-- Section 5: Predictable Memory -->
+            <section class="project-section-block" id="memory">
+                <div class="section-header-row">
+                    <span class="section-num">[ 05 ]</span>
+                    <h2 class="section-heading">Keeping Memory <em>Predictable</em></h2>
+                </div>
+                <p class="prose-p">
+                    Another core decision was to avoid dynamic memory allocation.
+                </p>
+                <p class="prose-p">
+                    Glyph uses statically composed framebuffer structures rather than relying on a heap. For the current
+                    128×64 monochrome display, the entire framebuffer is only:
+                </p>
 
-      <div class="code-wrapper">
-        <div class="code-header">
-          <span class="code-lang-label">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 19.7778h20L12 2z"/></svg>
-            Ada (Glyph Hardware Test Example)
-          </span>
-          <button class="code-copy-btn" aria-label="Copy code to clipboard">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-            Copy
-          </button>
-        </div>
-        <pre class="code-block"><code><span class="type">OLED.Initialize</span>;
+                <div class="bento-callout">
+                    <div class="callout-body" style="font-size: 1.4rem; font-weight: 700; color: var(--text-primary);">
+                        1024 Bytes Static RAM Footprint
+                    </div>
+                </div>
+
+                <p class="prose-p">
+                    That makes the memory requirements straightforward and predictable. It also fits naturally with the
+                    kind of systems Glyph targets: small microcontrollers where deterministic resource usage is more
+                    important than the flexibility provided by dynamic allocation.
+                </p>
+            </section>
+
+            <!-- Section 6: From Pixels to an OLED -->
+            <section class="project-section-block" id="oled">
+                <div class="section-header-row">
+                    <span class="section-num">[ 06 ]</span>
+                    <h2 class="section-heading">From Pixels to an <em>OLED</em></h2>
+                </div>
+                <p class="prose-p">
+                    The first physical target for Glyph is an <strong>SSD1306 128×64 OLED</strong>.
+                </p>
+                <p class="prose-p">
+                    The graphics code doesn't directly talk to the SSD1306:
+                </p>
+                <ul>
+                    <li>The <strong>framebuffer</strong> contains the raw pixels.</li>
+                    <li>The <strong>layout</strong> determines how those pixels map into memory.</li>
+                    <li>The <strong>SSD1306 controller layer</strong> understands display command frames.</li>
+                    <li>And the <strong>transport layer</strong> handles physical communication with the hardware.</li>
+                </ul>
+                <p class="prose-p">
+                    This keeps the graphics core independent from the actual display hardware being used.
+                </p>
+            </section>
+
+            <!-- Section 7: The First Proof (Code Walkthrough) -->
+            <section class="project-section-block" id="first-proof">
+                <div class="section-header-row">
+                    <span class="section-num">[ 07 ]</span>
+                    <h2 class="section-heading">The First <em>Proof</em></h2>
+                </div>
+                <p class="prose-p">
+                    The first hardware test was deliberately simple. I wanted something that exercised the framework
+                    without hiding it behind a large application. A few primitives were enough:
+                </p>
+
+                <div class="code-card-wrap">
+                    <div class="code-card-header">
+                        <span class="code-lang-tag">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2L2 19.7778h20L12 2z" />
+                            </svg>
+                            Ada (Glyph Hardware Test Example)
+                        </span>
+                        <button type="button" class="code-copy-action" aria-label="Copy code snippet">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                            </svg>
+                            <span>Copy</span>
+                        </button>
+                    </div>
+                    <pre class="code-display"><code><span class="type">OLED.Initialize</span>;
 <span class="type">OLED.Canvas.Clear</span>;
 
 <span class="type">OLED.Canvas.Glow_Rectangle</span>
@@ -379,130 +443,135 @@
    <span class="type">On</span>);
 
 <span class="type">OLED.Render</span>;</code></pre>
-      </div>
+                </div>
 
-      <p class="prose-text">
-        That's essentially the interface I wanted to reach: initialize the display, draw to the canvas, and render. The RP2040-specific transport and hardware setup stays outside the graphics API.
-      </p>
-    </section>
+                <p class="prose-p">
+                    That's essentially the interface I wanted to reach: initialize the display, draw to the canvas, and
+                    render. The RP2040-specific transport and hardware setup stays outside the graphics API.
+                </p>
+            </section>
 
-    <!-- Section 8: What Exists Today -->
-    <section class="project-block" id="exists-today">
-      <div class="project-block-hd">
-        <span class="project-block-num">[ 08 ]</span>
-        <h2 class="project-block-title">What Exists <em>Today</em></h2>
-      </div>
-      <p class="prose-text">
-        Glyph already has the foundation of a small graphics stack:
-      </p>
+            <!-- Section 8: What Exists Today -->
+            <section class="project-section-block" id="exists-today">
+                <div class="section-header-row">
+                    <span class="section-num">[ 08 ]</span>
+                    <h2 class="section-heading">What Exists <em>Today</em></h2>
+                </div>
+                <p class="prose-p">
+                    Glyph already has the foundation of a small graphics stack:
+                </p>
 
-      <div class="feature-grid">
-        <div class="feature-card">
-          <h3 class="feature-card-title">Rendering Primitives</h3>
-          <p class="feature-card-desc">Pixel, line, rectangle, and filled-rectangle drawing routines.</p>
-        </div>
-        <div class="feature-card">
-          <h3 class="feature-card-title">Mathematical Line Clipping</h3>
-          <p class="feature-card-desc">Liang–Barsky line clipping against visible viewport boundaries.</p>
-        </div>
-        <div class="feature-card">
-          <h3 class="feature-card-title">Integer Rasterization</h3>
-          <p class="feature-card-desc">Bresenham line and rectangle rasterization algorithms.</p>
-        </div>
-        <div class="feature-card">
-          <h3 class="feature-card-title">Static Framebuffer</h3>
-          <p class="feature-card-desc">Zero-heap 1-bit packed memory structure (1024 bytes for 128×64).</p>
-        </div>
-        <div class="feature-card">
-          <h3 class="feature-card-title">Display Memory Layouts</h3>
-          <p class="feature-card-desc">Abstraction for horizontal, vertical, and page-oriented layouts.</p>
-        </div>
-        <div class="feature-card">
-          <h3 class="feature-card-title">SSD1306 Controller</h3>
-          <p class="feature-card-desc">Full initialization sequences and hardware controller support.</p>
-        </div>
-        <div class="feature-card">
-          <h3 class="feature-card-title">Transport Abstraction</h3>
-          <p class="feature-card-desc">Generic interfaces for I²C and SPI physical transmission.</p>
-        </div>
-        <div class="feature-card">
-          <h3 class="feature-card-title">Verified on Silicon</h3>
-          <p class="feature-card-desc">Reference application tested on physical Vicharak Shrike-Lite (RP2040).</p>
-        </div>
-      </div>
-    </section>
+                <div class="feature-cards-grid">
+                    <div class="feature-card">
+                        <h3 class="feature-title">Rendering Primitives</h3>
+                        <p class="feature-desc">Pixel, line, rectangle, and filled-rectangle drawing routines.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3 class="feature-title">Mathematical Line Clipping</h3>
+                        <p class="feature-desc">Liang–Barsky line clipping against visible viewport boundaries.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3 class="feature-title">Integer Rasterization</h3>
+                        <p class="feature-desc">Bresenham line and rectangle rasterization algorithms.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3 class="feature-title">Static Framebuffer</h3>
+                        <p class="feature-desc">Zero-heap 1-bit packed memory structure (1024 bytes for 128×64).</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3 class="feature-title">Display Memory Layouts</h3>
+                        <p class="feature-desc">Abstraction for horizontal, vertical, and page-oriented layouts.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3 class="feature-title">SSD1306 Controller</h3>
+                        <p class="feature-desc">Full initialization sequences and hardware controller support.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3 class="feature-title">Transport Abstraction</h3>
+                        <p class="feature-desc">Generic interfaces for I²C and SPI physical transmission.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3 class="feature-title">Verified on Silicon</h3>
+                        <p class="feature-desc">Reference application tested on physical Vicharak Shrike-Lite (RP2040).
+                        </p>
+                    </div>
+                </div>
+            </section>
 
-    <!-- Section 9: What's Next? -->
-    <section class="project-block" id="whats-next">
-      <div class="project-block-hd">
-        <span class="project-block-num">[ 09 ]</span>
-        <h2 class="project-block-title">What's <em>Next?</em></h2>
-      </div>
-      <p class="prose-text">
-        The roadmap is intentionally incremental:
-      </p>
+            <!-- Section 9: What's Next? -->
+            <section class="project-section-block" id="whats-next">
+                <div class="section-header-row">
+                    <span class="section-num">[ 09 ]</span>
+                    <h2 class="section-heading">What's <em>Next?</em></h2>
+                </div>
+                <p class="prose-p">
+                    The roadmap is intentionally incremental:
+                </p>
 
-      <div class="feature-grid">
-        <div class="feature-card">
-          <h3 class="feature-card-title">More Primitives</h3>
-          <p class="feature-card-desc">Circles, ellipses, and triangle rasterization.</p>
-        </div>
-        <div class="feature-card">
-          <h3 class="feature-card-title">Better Rendering</h3>
-          <p class="feature-card-desc">Partial updates, dirty regions, and more efficient framebuffer flushing.</p>
-        </div>
-        <div class="feature-card">
-          <h3 class="feature-card-title">More Hardware</h3>
-          <p class="feature-card-desc">Additional transports, display controllers, framebuffer layouts, and pixel formats.</p>
-        </div>
-        <div class="feature-card">
-          <h3 class="feature-card-title">Text &amp; UI</h3>
-          <p class="feature-card-desc">Bitmap fonts, image rendering, and eventually lightweight embedded UI components.</p>
-        </div>
-      </div>
-    </section>
+                <div class="feature-cards-grid">
+                    <div class="feature-card">
+                        <h3 class="feature-title">More Primitives</h3>
+                        <p class="feature-desc">Circles, ellipses, and triangle rasterization.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3 class="feature-title">Better Rendering</h3>
+                        <p class="feature-desc">Partial updates, dirty regions, and more efficient framebuffer flushing.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <h3 class="feature-title">More Hardware</h3>
+                        <p class="feature-desc">Additional transports, display controllers, framebuffer layouts, and
+                            pixel formats.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3 class="feature-title">Text &amp; UI</h3>
+                        <p class="feature-desc">Bitmap fonts, image rendering, and eventually lightweight embedded UI
+                            components.</p>
+                    </div>
+                </div>
+            </section>
 
-    <!-- Section 10: What Glyph Means to Me -->
-    <section class="project-block" id="means-to-me">
-      <div class="project-block-hd">
-        <span class="project-block-num">[ 10 ]</span>
-        <h2 class="project-block-title">What Glyph Means to <em>Me</em></h2>
-      </div>
-      <p class="prose-text">
-        Glyph is still a relatively small project, but that's part of what makes it interesting.
-      </p>
-      <p class="prose-text">
-        I'm not trying to build a full desktop-style graphics stack for a microcontroller. I'm trying to understand how far a carefully designed, portable and strongly typed Ada framework can go on very constrained hardware.
-      </p>
-      <p class="prose-text">
-        The project has given me a reason to work across several layers at once &mdash; from rasterization algorithms and memory layouts to display protocols and bare-metal architecture.
-      </p>
-      <p class="prose-text">
-        And perhaps most importantly, it is helping fill a gap I encountered firsthand:
-      </p>
-      <div class="callout-box">
-        <div class="callout-box-body" style="font-family: var(--serif); font-size: 1.15rem; font-style: italic; color: var(--clay);">
-          Building graphics for embedded systems in Ada shouldn't require leaving the Ada ecosystem whenever you want to put something on a screen.
-        </div>
-      </div>
-      <p class="prose-text">
-        Glyph is my attempt to make that a little easier.
-      </p>
-    </section>
-  </article>
-</div>
+            <!-- Section 10: What Glyph Means to Me -->
+            <section class="project-section-block" id="means-to-me">
+                <div class="section-header-row">
+                    <span class="section-num">[ 10 ]</span>
+                    <h2 class="section-heading">What Glyph Means to <em>Me</em></h2>
+                </div>
+                <p class="prose-p">
+                    Glyph is still a relatively small project, but that's part of what makes it interesting.
+                </p>
+                <p class="prose-p">
+                    I'm not trying to build a full desktop-style graphics stack for a microcontroller. I'm trying to
+                    understand how far a carefully designed, portable and strongly typed Ada framework can go on very
+                    constrained hardware.
+                </p>
+                <p class="prose-p">
+                    The project has given me a reason to work across several layers at once &mdash; from rasterization
+                    algorithms and memory layouts to display protocols and bare-metal architecture.
+                </p>
+                <p class="prose-p">
+                    And perhaps most importantly, it is helping fill a gap I encountered firsthand:
+                </p>
+                <div class="bento-callout">
+                    <div class="callout-body" style="font-size: 1.15rem; font-style: italic; color: #ff5a1f;">
+                        Building graphics for embedded systems in Ada shouldn't require leaving the Ada ecosystem
+                        whenever you want to put something on a screen.
+                    </div>
+                </div>
+                <p class="prose-p">
+                    Glyph is my attempt to make that a little easier.
+                </p>
+            </section>
+        </article>
+    </main>
 
-<!-- Project Navigation (Previous / Next) -->
-<section class="project-nav-section">
-  <div class="project-nav-wrap">
-    <a href="{{ url_for('project_radio_kit') }}" class="project-nav-card prev">
-      <span class="project-nav-label">&larr; Previous Project</span>
-      <span class="project-nav-title">∿ Radio_Kit Framework</span>
-    </a>
-    <a href="{{ url_for('project_esp32_mesh') }}" class="project-nav-card next">
-      <span class="project-nav-label">Next Project &rarr;</span>
-      <span class="project-nav-title">⚡ MeshOS Mesh Network</span>
-    </a>
-  </div>
-</section>
+    <!-- Previous / Next Project Pagination Footer -->
+    {% include 'partials/project_pagination.html' %}
+
+    <!-- Liquid Mercury Magnetic Cursor -->
+    <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
+    {% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('static', filename='project.js') }}"></script>
 {% endblock %}

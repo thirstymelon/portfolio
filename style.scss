@@ -1,0 +1,2135 @@
+$font-main: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+$font-mono: "JetBrains Mono", monospace;
+$font-display: "Space Grotesk", "Plus Jakarta Sans", sans-serif;
+
+// Constant Accent Color
+$luxury-orange: #ff5a1f;
+$card-radius: 25px;
+$transition-smooth: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+$btn-fill-transition: box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1), color 0.5s ease, border-color 0.5s ease;
+
+// CSS Variables for Light / Matte Black Theme Inversion
+:root {
+    --bg-outer: #e6e6ea;
+    --bg-card: #f8f8fa;
+    --bg-card-subtle: #eeeff2;
+    --bg-card-hover-white: #dfdfe6;
+    --bg-card-hover-subtle: #d4d4dc;
+    --text-primary: #0c0c0e;
+    --text-secondary: #222222;
+    --text-muted: #383840;
+    --text-subtle: #4e4e58;
+    --border-main: #0c0c0e;
+    --border-subtle: rgba(12, 12, 14, 0.08);
+    --btn-bg: #f8f8fa;
+    --btn-color: #0c0c0e;
+    --btn-hover-bg: #0c0c0e;
+    --btn-hover-color: #f8f8fa;
+    --chip-bg: rgba(0, 0, 0, 0.05);
+    --spotlight-core: transparent;
+    --spotlight-mid: transparent;
+    --spotlight-ambient: transparent;
+    --cursor-glow: none;
+    --cursor-glow-hover: none;
+    --glass-popover-bg: rgba(248, 248, 250, 0.92);
+    --glass-popover-border: rgba(12, 12, 14, 0.14);
+}
+
+// Rough Matte Black Dark Theme with High-Contrast Subtle Radiant Light Source
+[data-theme="dark"] {
+    --bg-outer: #0b0b0d;
+    --bg-card: #131316;
+    --bg-card-subtle: #19191e;
+    --bg-card-hover-white: #26262e;
+    --bg-card-hover-subtle: #2e2e38;
+    --text-primary: #f0f0f4;
+    --text-secondary: #d4d4d8;
+    --text-muted: #b4b4c2;
+    --text-subtle: #c4c4d0;
+    --border-main: #2a2a32;
+    --border-subtle: rgba(255, 255, 255, 0.08);
+    --btn-bg: #131316;
+    --btn-color: #f0f0f4;
+    --btn-hover-bg: #f0f0f4;
+    --btn-hover-color: #0b0b0d;
+    --chip-bg: rgba(255, 255, 255, 0.07);
+    --spotlight-core: rgba(255, 255, 255, 0.14);
+    --spotlight-mid: rgba(255, 90, 31, 0.09);
+    --spotlight-ambient: rgba(255, 90, 31, 0.02);
+    --cursor-glow: 0 0 14px 2px rgba(255, 255, 255, 0.35);
+    --cursor-glow-hover: 0 0 22px 5px rgba(255, 255, 255, 0.45);
+    --glass-popover-bg: rgba(19, 19, 24, 0.92);
+    --glass-popover-border: rgba(255, 255, 255, 0.16);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+// DUAL-LAYER LIQUID MERCURY MAGNETIC INVERTING CURSOR
+.cursor-ring {
+    position: fixed;
+    pointer-events: none;
+    top: 0;
+    left: 0;
+    // Size/shape come from the snap state, so JS never writes layout properties per frame
+    width: var(--ring-w, 38px);
+    height: var(--ring-h, 38px);
+    background-color: #ffffff;
+    border-radius: var(--ring-r, 50%);
+    z-index: 99999;
+    mix-blend-mode: difference;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // Position is driven purely by `transform`, so each frame is compositor-only work
+    will-change: transform, opacity;
+    transition: width 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+        height 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+        border-radius 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+        opacity 0.25s ease;
+
+    &.visible {
+        opacity: 1;
+    }
+
+    // Magnetic Snap State
+    &.is-snapped {
+        box-shadow: none;
+    }
+}
+
+// Shared "open" state for both popover cards. Used by the hover/focus/`.is-hovered`
+// selectors and by the JS toggle classes (`body.popover-*-active`).
+@mixin popover-open-state {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: scale(1) translateY(0);
+    backdrop-filter: blur(36px) saturate(200%);
+    -webkit-backdrop-filter: blur(36px) saturate(200%);
+
+    &::after {
+        pointer-events: auto;
+    }
+}
+
+// Smooth transitions for selective page blur on popover focus
+.bento-nav,
+.submain .top,
+.submain .bottom .right.card-connect,
+.skills-statement,
+.work-statement {
+    transition: filter 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+}
+
+// When Skills Popover is active: Blur background & other cards lightly, leaving the skills popover & button crisp
+body:has(.skills-popover-wrap:hover),
+body:has(.skills-popover-wrap:focus-within),
+body:has(.skill-popover-card:hover),
+body.popover-skills-active {
+
+    .bento-nav,
+    .submain .top,
+    .submain .bottom .middle.card-work,
+    .submain .bottom .right.card-connect,
+    .submain .bottom .left.card-skills .skills-statement {
+        filter: blur(2.5px);
+        opacity: 0.65;
+    }
+}
+
+// When Projects Popover is active: Blur background & other cards lightly, leaving the projects popover & button crisp
+body:has(.work-popover-wrap:hover),
+body:has(.work-popover-wrap:focus-within),
+body:has(.project-popover-card:hover),
+body.popover-work-active {
+
+    .bento-nav,
+    .submain .top,
+    .submain .bottom .left.card-skills,
+    .submain .bottom .right.card-connect,
+    .submain .bottom .middle.card-work .work-statement {
+        filter: blur(2.5px);
+        opacity: 0.65;
+    }
+}
+
+
+@media (hover: hover) and (pointer: fine) {
+    *,
+    *::before,
+    *::after {
+        cursor: none !important;
+    }
+}
+
+// Reusable Luxury Capsule Button with Diagonal Slices Animation
+.pill-btn,
+a.pill-btn,
+button.pill-btn {
+    appearance: none;
+    -webkit-appearance: none;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 0.82rem 2rem;
+    font-family: inherit;
+    font-size: 0.92rem;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: normal;
+    text-align: center;
+    color: var(--text-primary);
+    background-color: var(--bg-card);
+    border-radius: 50px;
+    text-decoration: none;
+    border: 1.5px solid $luxury-orange;
+    overflow: hidden;
+    outline: none;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    transition: color 0.9s ease, border-color 0.9s ease;
+
+    // Left diagonal slice
+    &::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -30%;
+        width: 0;
+        height: 200%;
+        background-color: $luxury-orange;
+        transform: skewX(-30deg);
+        transform-origin: top left;
+        transition: width 1.15s cubic-bezier(0.16, 1, 0.3, 1);
+        z-index: 1;
+    }
+
+    // Right diagonal slice
+    &::after {
+        content: "";
+        position: absolute;
+        top: -50%;
+        right: -30%;
+        width: 0;
+        height: 200%;
+        background-color: $luxury-orange;
+        transform: skewX(-30deg);
+        transform-origin: bottom right;
+        transition: width 1.15s cubic-bezier(0.16, 1, 0.3, 1);
+        z-index: 1;
+    }
+
+    span {
+        position: relative;
+        z-index: 2;
+        line-height: 1;
+        transition: color 0.85s ease;
+    }
+
+    svg {
+        position: relative;
+        z-index: 2;
+        display: inline-block;
+        vertical-align: middle;
+        flex-shrink: 0;
+        color: $luxury-orange;
+        stroke: $luxury-orange;
+        transition: color 0.85s ease, stroke 0.85s ease, transform 0.35s ease;
+    }
+
+    // Both left and right diagonal slices rush inward and fully overlap across the center
+    &:hover,
+    &.is-hovered {
+        border-color: $luxury-orange;
+        color: #ffffff;
+
+        &::before,
+        &::after {
+            width: 100%;
+        }
+
+        span {
+            color: #ffffff;
+        }
+
+        svg {
+            color: #ffffff;
+            stroke: #ffffff;
+            transform: translateY(-3px);
+        }
+    }
+}
+
+// Persistent active color fill on Explore buttons while their glass card popover is open
+.skills-popover-wrap:hover .skills-btn,
+.skills-popover-wrap.is-hovered .skills-btn,
+.skills-popover-wrap:focus-within .skills-btn,
+body.popover-skills-active .skills-btn,
+.work-popover-wrap:hover .work-btn,
+.work-popover-wrap.is-hovered .work-btn,
+.work-popover-wrap:focus-within .work-btn,
+body.popover-work-active .work-btn {
+    border-color: $luxury-orange;
+    color: #ffffff;
+
+    &::before,
+    &::after {
+        width: 100%;
+    }
+
+    span {
+        color: #ffffff;
+    }
+
+    svg {
+        color: #ffffff;
+        stroke: #ffffff;
+        transform: translateY(-3px);
+    }
+}
+
+html,
+body {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden; // Disable page scrolling on desktop
+    font-family: $font-main;
+    background-color: var(--bg-outer);
+    color: var(--text-primary);
+    -webkit-font-smoothing: antialiased;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.main {
+    height: 100vh;
+    max-height: 100vh;
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 1rem 2rem 1.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+
+    // Header Navbar
+    .bento-nav {
+        flex-shrink: 0;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.25rem 0.5rem 0.85rem 0.5rem;
+
+        .logo {
+            font-size: 1.35rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: var(--text-primary);
+
+            span {
+                color: $luxury-orange;
+            }
+        }
+
+        .nav-links {
+            .nav-tag {
+                font-family: $font-mono;
+                font-size: 0.72rem;
+                font-weight: 700;
+                letter-spacing: 0.1em;
+                color: var(--text-muted);
+            }
+        }
+
+        .nav-actions {
+
+            // Theme Changer Button with Inward Perimeter Fill Animation
+            .theme-toggle-btn {
+                width: 42px;
+                height: 42px;
+                border-radius: 50%;
+                background-color: var(--btn-bg);
+                color: var(--text-primary);
+                border: 1.5px solid var(--border-main);
+                padding: 0;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                position: relative;
+                box-shadow: inset 0 0 0 0 $luxury-orange;
+                transition: $btn-fill-transition;
+
+                .theme-icon {
+                    stroke: currentColor;
+                    position: relative;
+                    z-index: 2;
+                    transition: transform 0.3s ease, stroke 0.25s ease;
+                }
+
+                .sun-icon {
+                    display: none;
+                }
+
+                .moon-icon {
+                    display: block;
+                }
+
+                // Inward Color Filling Animation from all borders
+                &:hover,
+                &.is-hovered {
+                    box-shadow: inset 0 0 0 30px $luxury-orange;
+                    border-color: $luxury-orange;
+                    color: #ffffff;
+
+                    .theme-icon {
+                        stroke: #ffffff;
+                        transform: rotate(25deg);
+                    }
+                }
+            }
+        }
+    }
+
+    // Bento Master Container (Single Uniform 1.5px Outer Border)
+    .submain {
+        flex: 1;
+        height: calc(100vh - 90px);
+        min-height: 0;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        border: 1.5px solid var(--border-main);
+        border-radius: 20px;
+        background-color: transparent;
+        overflow: visible;
+        box-shadow: 0 16px 36px rgba(0, 0, 0, 0.15);
+
+        // Ambient Spotlight & Content Stacking for Bento Cards
+        .left.hero-box,
+        .right.poster-box,
+        .left.card-skills,
+        .middle.card-work,
+        .right.card-connect {
+            position: relative;
+
+            &::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                border-radius: inherit;
+                pointer-events: none;
+                background: radial-gradient(650px circle at var(--mouse-x, -999px) var(--mouse-y, -999px),
+                        var(--spotlight-core) 0%,
+                        var(--spotlight-mid) 28%,
+                        var(--spotlight-ambient) 55%,
+                        transparent 75%);
+                opacity: 0;
+                transition: opacity 0.4s ease;
+                z-index: 1;
+            }
+
+            &:hover::before {
+                opacity: 1;
+            }
+
+            .hero-content,
+            .poster-inner,
+            .skills-inner,
+            .work-inner,
+            .connect-inner {
+                position: relative;
+                z-index: 2;
+            }
+        }
+
+        // Thematic Background Patterns & Interactive Flow Layers
+        .card-pattern {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+            border-radius: inherit;
+            z-index: 1;
+
+            // Tactile Matte Micro-Grain Noise
+            .card-noise {
+                position: absolute;
+                inset: 0;
+                pointer-events: none;
+                opacity: 0.035;
+                mix-blend-mode: overlay;
+                background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+                z-index: 1;
+            }
+
+            .pattern-svg {
+                position: absolute;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+                pointer-events: none;
+
+                &.static-svg {
+                    opacity: 0.06;
+                    color: var(--text-primary);
+                    transition: opacity 0.35s ease;
+                    z-index: 2;
+                }
+
+                &.flow-svg {
+                    opacity: 0;
+                    color: $luxury-orange;
+                    mask-image: radial-gradient(320px circle at var(--mouse-x, -999px) var(--mouse-y, -999px), black 0%, rgba(0, 0, 0, 0.45) 45%, transparent 75%);
+                    -webkit-mask-image: radial-gradient(320px circle at var(--mouse-x, -999px) var(--mouse-y, -999px), black 0%, rgba(0, 0, 0, 0.45) 45%, transparent 75%);
+                    transition: opacity 0.35s ease;
+                    z-index: 3;
+                }
+            }
+
+            &.pattern-topography {
+                .pattern-svg.static-svg {
+                    color: $luxury-orange;
+                    opacity: 0.038;
+                }
+
+                .pattern-svg.flow-svg {
+                    color: $luxury-orange;
+                }
+            }
+        }
+
+        // On Card Hover: Illuminate and animate the flow layer under the cursor
+        .left.hero-box:hover .pattern-topography .pattern-svg.flow-svg {
+            opacity: 0.85;
+        }
+
+        .right.poster-box:hover .pattern-circles .pattern-svg.flow-svg,
+        .left.card-skills:hover .pattern-isometric .pattern-svg.flow-svg,
+        .middle.card-work:hover .pattern-waves .pattern-svg.flow-svg,
+        .right.card-connect:hover .pattern-signal .pattern-svg.flow-svg {
+            opacity: 0.95;
+        }
+
+        .left.hero-box:hover .pattern-topography .pattern-svg.static-svg {
+            opacity: 0.055;
+        }
+
+        .right.poster-box:hover .pattern-circles .pattern-svg.static-svg,
+        .left.card-skills:hover .pattern-isometric .pattern-svg.static-svg,
+        .middle.card-work:hover .pattern-waves .pattern-svg.static-svg,
+        .right.card-connect:hover .pattern-signal .pattern-svg.static-svg {
+            opacity: 0.085;
+        }
+
+        .left.hero-box,
+        .right.poster-box,
+        .right.card-connect {
+            overflow: hidden;
+        }
+
+        // TOP ROW: 2:1 RATIO
+        .top {
+            flex: 1.25;
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            border: none;
+            min-height: 0;
+            position: relative;
+            z-index: 1;
+
+            // TOP LEFT: HERO BOX (2/3 width)
+            .left.hero-box {
+                grid-column: span 2;
+                background-color: var(--bg-card);
+                border: none;
+                border-right: 1.5px solid var(--border-main);
+                border-bottom: 1.5px solid var(--border-main);
+                border-radius: 0;
+                border-top-left-radius: 19px;
+                position: relative;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                padding: 2.75rem 3.5rem 2.25rem 3.5rem;
+                transition: $transition-smooth;
+
+                .hero-content {
+                    position: relative;
+                    z-index: 2;
+                    height: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+
+                    .hero-body {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        gap: 2rem;
+                        width: 100%;
+
+                        .hero-title-wrap {
+                            flex-shrink: 0;
+                            max-width: 720px;
+
+                            .hero-greeting {
+                                font-family: $font-mono;
+                                font-size: 0.78rem;
+                                font-weight: 750;
+                                letter-spacing: 0.12em;
+                                color: $luxury-orange;
+                                text-transform: uppercase;
+                                display: block;
+                                margin-bottom: 0.5rem;
+                            }
+
+                            .hero-title {
+                                font-size: 3.4rem;
+                                font-weight: 900;
+                                line-height: 1.05;
+                                letter-spacing: -0.04em;
+                                color: var(--text-primary);
+                                margin: 0;
+
+                                .dot {
+                                    color: $luxury-orange;
+                                }
+                            }
+
+                            .hero-role {
+                                font-family: $font-mono;
+                                font-size: 0.92rem;
+                                font-weight: 750;
+                                letter-spacing: 0.04em;
+                                color: var(--text-primary);
+                                display: block;
+                                margin-top: 0.4rem;
+                            }
+
+                            .hero-description {
+                                font-size: 1.02rem;
+                                font-weight: 500;
+                                line-height: 1.55;
+                                color: var(--text-secondary);
+                                margin: 0.9rem 0 0 0;
+                                max-width: 680px;
+                                letter-spacing: -0.012em;
+                            }
+                        }
+                    }
+
+                    .hero-footer {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        padding-top: 1.5rem;
+
+                        .cta-cluster {
+                            display: flex;
+                            align-items: center;
+                            gap: 20px;
+
+                            // Diagonal Sideways Color Filling on "Get in touch"
+                            .pill-btn {
+                                padding: 0.82rem 2rem;
+                                font-size: 0.92rem;
+                            }
+
+                            // Minimal Circle Icon Buttons
+                            .circle-btn {
+                                width: 46px;
+                                height: 46px;
+                                border-radius: 50%;
+                                border: 1.5px solid var(--border-main);
+                                background-color: var(--btn-bg);
+                                color: var(--text-primary);
+                                display: inline-flex;
+                                align-items: center;
+                                justify-content: center;
+                                text-decoration: none;
+                                position: relative;
+                                transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease;
+
+                                svg {
+                                    position: relative;
+                                    z-index: 2;
+                                }
+
+                                &:hover,
+                                &.is-hovered {
+                                    transform: scale(1.25);
+                                    border-color: var(--text-primary);
+                                }
+
+                                &:active {
+                                    transform: scale(0.97);
+                                }
+                            }
+                        }
+
+                        .hero-note {
+                            font-family: $font-mono;
+                            font-size: 0.72rem;
+                            font-weight: 700;
+                            color: var(--text-muted);
+                            letter-spacing: 0.08em;
+                        }
+                    }
+                }
+
+                &:hover {
+                    background-color: var(--bg-card-hover-white);
+                }
+            }
+
+            // TOP RIGHT: STATEMENT POSTER CARD (1/3 width)
+            .right.poster-box {
+                grid-column: span 1;
+                background-color: var(--bg-card-subtle);
+                border: none;
+                border-bottom: 1.5px solid var(--border-main);
+                border-radius: 0;
+                border-top-right-radius: 19px;
+                position: relative;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                padding: 2.25rem 2.25rem 2rem 2.25rem;
+                transition: $transition-smooth;
+
+                .poster-inner,
+                .bio-inner {
+                    height: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+
+                    .bio-top-bar {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+
+                        .bio-status-tag {
+                            display: flex;
+                            align-items: center;
+                            gap: 7px;
+                            font-family: $font-mono;
+                            font-size: 0.68rem;
+                            font-weight: 700;
+                            letter-spacing: 0.08em;
+                            color: var(--text-primary);
+
+                            .status-pulse {
+                                width: 7px;
+                                height: 7px;
+                                border-radius: 50%;
+                                background-color: #10b981;
+                                box-shadow: 0 0 8px #10b981;
+                                animation: pulse-anim 2s infinite ease-in-out;
+                            }
+                        }
+
+                        .bio-location {
+                            font-family: $font-mono;
+                            font-size: 0.65rem;
+                            font-weight: 700;
+                            letter-spacing: 0.1em;
+                            color: var(--text-muted);
+                        }
+                    }
+
+                    .poster-statement-wrap {
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        margin: 1.25rem 0;
+
+                        .poster-statement {
+                            font-size: 2.35rem;
+                            font-weight: 900;
+                            line-height: 1.08;
+                            letter-spacing: -0.045em;
+                            color: var(--text-primary);
+                            margin: 0;
+
+                            .dot {
+                                color: $luxury-orange;
+                            }
+                        }
+                    }
+
+                    .bio-footer {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        padding-top: 0.75rem;
+                        border-top: 1px solid var(--border-subtle);
+
+                        .bio-tags {
+                            display: flex;
+                            align-items: center;
+                            gap: 6px;
+
+                            .bio-tag {
+                                font-family: $font-mono;
+                                font-size: 0.65rem;
+                                font-weight: 700;
+                                letter-spacing: 0.06em;
+                                padding: 2.5px 8px;
+                                border-radius: 4px;
+                                background-color: var(--chip-bg);
+                                color: var(--text-primary);
+                                border: 1px solid var(--border-subtle);
+                            }
+                        }
+
+                        .bio-handle {
+                            font-family: $font-mono;
+                            font-size: 0.68rem;
+                            font-weight: 700;
+                            letter-spacing: 0.06em;
+                            color: var(--text-muted);
+                            transition: color 0.2s ease;
+                        }
+                    }
+                }
+
+                &:hover {
+                    background-color: var(--bg-card-hover-subtle);
+
+                    .bio-handle {
+                        color: $luxury-orange;
+                    }
+                }
+            }
+        }
+
+        // BOTTOM ROW: 1:1:1 RATIO
+        .bottom {
+            flex: 1;
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            border: none;
+            min-height: 0;
+            position: relative;
+            z-index: 20;
+
+            // BOTTOM LEFT: SKILLS STATEMENT & POPPING GLASS CARD
+            .left.card-skills {
+                grid-column: span 1;
+                background-color: var(--bg-card);
+                border: none;
+                border-right: 1.5px solid var(--border-main);
+                border-radius: 0;
+                border-bottom-left-radius: 19px;
+                padding: 1.85rem 2.25rem;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                position: relative;
+                z-index: 20;
+                overflow: visible !important;
+                transition: $transition-smooth;
+
+                &:hover,
+                &:has(.skills-btn:hover),
+                &:has(.skill-popover-card:hover) {
+                    z-index: 3000 !important;
+                }
+
+                .skills-inner {
+                    height: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    align-items: flex-start;
+                    overflow: visible !important;
+
+                    .skills-statement {
+                        width: 100%;
+                        font-size: 1.15rem;
+                        font-weight: 800;
+                        line-height: 1.35;
+                        letter-spacing: -0.02em;
+                        color: var(--text-primary);
+                    }
+
+                    .skills-popover-wrap {
+                        position: relative;
+                        z-index: 4000;
+                        display: inline-flex;
+                        align-self: flex-start;
+                        width: fit-content;
+                        overflow: visible !important;
+
+                        .skills-btn {
+                            position: relative;
+                            z-index: 4002;
+                        }
+
+                        // Magnifying Popping Card (Apple Liquid Glass Clean Skills List)
+                        .skill-popover-card {
+                            position: absolute;
+                            bottom: calc(100% + 18px);
+                            left: 0;
+                            width: min(840px, calc(100vw - 48px));
+                            max-height: calc(100vh - 120px);
+                            overflow-y: auto;
+                            scrollbar-width: thin;
+                            scrollbar-color: rgba(255, 90, 31, 0.4) transparent;
+
+                            &::-webkit-scrollbar {
+                                width: 5px;
+                            }
+
+                            &::-webkit-scrollbar-track {
+                                background: transparent;
+                            }
+
+                            &::-webkit-scrollbar-thumb {
+                                background: rgba(255, 90, 31, 0.35);
+                                border-radius: 999px;
+                            }
+
+                            &::-webkit-scrollbar-thumb:hover {
+                                background: $luxury-orange;
+                            }
+
+                            background-color: var(--glass-popover-bg);
+                            border: 1px solid var(--glass-popover-border);
+                            border-radius: 20px;
+                            padding: 1.4rem 1.75rem;
+                            box-shadow: 0 20px 48px rgba(0, 0, 0, 0.45),
+                            0 4px 16px rgba(0, 0, 0, 0.25),
+                            inset 0 1px 1px rgba(255, 255, 255, 0.2);
+                            z-index: 9000;
+                            transform-origin: bottom left;
+                            transform: scale(0.96) translateY(-4px);
+                            opacity: 0;
+                            visibility: hidden;
+                            pointer-events: none;
+                            transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1),
+                            opacity 0.2s ease,
+                            visibility 0.2s ease;
+
+                            // Seamless invisible bridge spanning across the gap into the trigger button
+                            &::after {
+                                content: "";
+                                position: absolute;
+                                top: 100%;
+                                left: 0;
+                                width: 100%;
+                                height: 20px;
+                                pointer-events: none;
+                            }
+
+                            .popover-header {
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: center;
+                                padding-bottom: 0.75rem;
+                                margin-bottom: 0.85rem;
+                                border-bottom: 1px solid var(--border-subtle);
+
+                                .popover-title {
+                                    font-family: $font-mono;
+                                    font-size: 0.68rem;
+                                    font-weight: 800;
+                                    letter-spacing: 0.08em;
+                                    color: var(--text-muted);
+                                }
+
+                                .popover-badge {
+                                    font-family: $font-mono;
+                                    font-size: 0.62rem;
+                                    font-weight: 700;
+                                    padding: 2.5px 9px;
+                                    border-radius: 4px;
+                                    background-color: rgba(255, 90, 31, 0.15);
+                                    color: $luxury-orange;
+                                    letter-spacing: 0.05em;
+                                }
+                            }
+
+                            .popover-items {
+                                display: grid;
+                                grid-template-columns: repeat(3, 1fr);
+                                column-gap: 2rem;
+                                row-gap: 1.25rem;
+
+                                .skill-category {
+                                    display: flex;
+                                    flex-direction: column;
+                                    gap: 0.5rem;
+                                    padding: 0.4rem 0.2rem 0.75rem 0.2rem;
+                                    border-bottom: 1px solid var(--border-subtle);
+                                    transition: color 0.2s ease;
+
+                                    .category-heading {
+                                        font-family: $font-main;
+                                        font-size: 0.95rem;
+                                        font-weight: 700;
+                                        color: var(--text-primary);
+                                        letter-spacing: -0.01em;
+                                        margin: 0;
+                                        transition: color 0.15s ease;
+
+                                        &:hover {
+                                            color: $luxury-orange;
+                                        }
+                                    }
+
+                                    .skill-bullet-list {
+                                        display: flex;
+                                        flex-direction: column;
+                                        gap: 0.4rem;
+                                        list-style: none;
+                                        padding: 0;
+                                        margin: 0;
+
+                                        li {
+                                            position: relative;
+                                            font-size: 0.86rem;
+                                            font-weight: 500;
+                                            color: var(--text-secondary);
+                                            display: flex;
+                                            align-items: center;
+                                            gap: 7px;
+                                            transition: color 0.15s ease;
+
+                                            &::before {
+                                                content: "•";
+                                                color: $luxury-orange;
+                                                font-size: 1rem;
+                                                line-height: 1;
+                                                flex-shrink: 0;
+                                            }
+
+                                            &:hover {
+                                                color: var(--text-primary);
+                                            }
+                                        }
+                                    }
+
+                                    &:hover {
+                                        .category-heading {
+                                            color: $luxury-orange;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        // Popout triggers reliably on wrap hover, button hover, or card hover
+                        &:hover .skill-popover-card,
+                        &.is-hovered .skill-popover-card,
+                        &:focus-within .skill-popover-card,
+                        .skills-btn:hover~.skill-popover-card,
+                        .skills-btn.is-hovered~.skill-popover-card,
+                        .skills-btn:focus-visible~.skill-popover-card,
+                        .skill-popover-card:hover {
+                            @include popover-open-state;
+                        }
+
+                        // JS toggle state. Escaped out of the nesting because `body` can never be a
+                        // descendant of the wrap, while `&` keeps the full ancestor chain for specificity.
+                        @at-root body.popover-skills-active #{&} .skill-popover-card {
+                            @include popover-open-state;
+                        }
+                    }
+                }
+
+                &:hover {
+                    background-color: var(--bg-card-hover-subtle);
+                }
+            }
+
+            // BOTTOM MIDDLE: WORK STATEMENT & LINK
+            .middle.card-work {
+                grid-column: span 1;
+                background-color: var(--bg-card);
+                border: none;
+                border-right: 1.5px solid var(--border-main);
+                border-radius: 0;
+                padding: 1.85rem 2.25rem;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                position: relative;
+                z-index: 20;
+                overflow: visible !important;
+                transition: $transition-smooth;
+
+                &:hover,
+                &:has(.work-btn:hover),
+                &:has(.project-popover-card:hover) {
+                    z-index: 3000 !important;
+                }
+
+                .work-inner {
+                    height: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    align-items: flex-start;
+                    overflow: visible !important;
+
+                    .work-statement {
+                        width: 100%;
+                        font-size: 1.15rem;
+                        font-weight: 800;
+                        line-height: 1.35;
+                        letter-spacing: -0.02em;
+                        color: var(--text-primary);
+                    }
+
+                    .work-popover-wrap {
+                        position: relative;
+                        z-index: 4000;
+                        display: inline-flex;
+                        align-self: flex-start;
+                        width: fit-content;
+                        overflow: visible !important;
+
+                        .work-btn {
+                            position: relative;
+                            z-index: 4002;
+                        }
+
+                        // Magnifying Popping Card (Apple Liquid Glass Glassmorphism)
+                        .project-popover-card {
+                            position: absolute;
+                            bottom: calc(100% + 18px);
+                            left: 0;
+                            width: min(430px, calc(100vw - 48px));
+                            background-color: var(--glass-popover-bg);
+                            border: 1px solid var(--glass-popover-border);
+                            border-radius: 20px;
+                            padding: 1.45rem 1.65rem;
+                            box-shadow: 0 20px 48px rgba(0, 0, 0, 0.45), 0 4px 16px rgba(0, 0, 0, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+                            z-index: 9000;
+                            transform-origin: bottom left;
+                            transform: scale(0.96) translateY(-4px);
+                            opacity: 0;
+                            visibility: hidden;
+                            pointer-events: none;
+                            transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1),
+                                opacity 0.2s ease,
+                                visibility 0.2s ease;
+
+                            // Seamless invisible bridge spanning across the gap into the trigger button
+                            &::after {
+                                content: "";
+                                position: absolute;
+                                top: 100%;
+                                left: 0;
+                                width: 100%;
+                                height: 20px;
+                                pointer-events: none;
+                            }
+
+                            .popover-header {
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: center;
+                                padding-bottom: 0.8rem;
+                                margin-bottom: 0.75rem;
+                                border-bottom: 1px solid var(--border-subtle);
+
+                                .popover-title {
+                                    font-family: $font-mono;
+                                    font-size: 0.68rem;
+                                    font-weight: 800;
+                                    letter-spacing: 0.08em;
+                                    color: var(--text-muted);
+                                }
+
+                                .popover-badge {
+                                    font-family: $font-mono;
+                                    font-size: 0.62rem;
+                                    font-weight: 700;
+                                    padding: 2.5px 8px;
+                                    border-radius: 4px;
+                                    background-color: rgba(255, 90, 31, 0.15);
+                                    color: $luxury-orange;
+                                    letter-spacing: 0.04em;
+                                }
+                            }
+
+                            .popover-items {
+                                display: flex;
+                                flex-direction: column;
+                                gap: 8px;
+
+                                .proj-item {
+                                    position: relative;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: space-between;
+                                    padding: 0.95rem 1rem;
+                                    border-radius: 10px;
+                                    text-decoration: none;
+                                    background: transparent;
+                                    border: none;
+                                    border-bottom: 1px solid var(--border-subtle);
+                                    transform-origin: left center;
+                                    transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), color 0.18s ease;
+
+                                    // Crosshair Target-Locking Reticle Corners
+                                    &::before {
+                                        content: "";
+                                        position: absolute;
+                                        inset: 3px 0;
+                                        pointer-events: none;
+                                        opacity: 0;
+                                        transform: scale(1.04);
+                                        transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+                                        background:
+                                            linear-gradient(to right, $luxury-orange 12px, transparent 12px) 0 0 / 12px 1.5px no-repeat,
+                                            linear-gradient(to bottom, $luxury-orange 12px, transparent 12px) 0 0 / 1.5px 12px no-repeat,
+                                            linear-gradient(to left, $luxury-orange 12px, transparent 12px) 100% 0 / 12px 1.5px no-repeat,
+                                            linear-gradient(to bottom, $luxury-orange 12px, transparent 12px) 100% 0 / 1.5px 12px no-repeat,
+                                            linear-gradient(to right, $luxury-orange 12px, transparent 12px) 0 100% / 12px 1.5px no-repeat,
+                                            linear-gradient(to top, $luxury-orange 12px, transparent 12px) 0 100% / 1.5px 12px no-repeat,
+                                            linear-gradient(to left, $luxury-orange 12px, transparent 12px) 100% 100% / 12px 1.5px no-repeat,
+                                            linear-gradient(to top, $luxury-orange 12px, transparent 12px) 100% 100% / 1.5px 12px no-repeat;
+                                        z-index: 2;
+                                    }
+
+                                    &:last-child {
+                                        border-bottom: none;
+                                        padding-bottom: 0.65rem;
+                                    }
+
+                                    &:first-child {
+                                        padding-top: 0.75rem;
+                                    }
+
+                                    .proj-main {
+                                        display: flex;
+                                        flex-direction: column;
+                                        gap: 3px;
+
+                                        .proj-name {
+                                            font-size: 0.96rem;
+                                            font-weight: 800;
+                                            color: var(--text-primary);
+                                            letter-spacing: -0.01em;
+                                            transition: color 0.15s ease;
+                                        }
+
+                                        .proj-desc {
+                                            font-size: 0.74rem;
+                                            font-weight: 500;
+                                            line-height: 1.35;
+                                            color: var(--text-muted);
+                                            transition: color 0.15s ease;
+                                        }
+
+                                        .proj-tags {
+                                            display: flex;
+                                            align-items: center;
+                                            gap: 6px;
+                                            margin-top: 5px;
+
+                                            .proj-tag {
+                                                font-family: $font-mono;
+                                                font-size: 0.62rem;
+                                                font-weight: 600;
+                                                padding: 2px 7px;
+                                                border-radius: 4px;
+                                                background: rgba(255, 255, 255, 0.05);
+                                                color: var(--text-muted);
+                                                border: 1px solid var(--border-subtle);
+                                                letter-spacing: 0.03em;
+                                                transition: border-color 0.2s ease, color 0.2s ease;
+                                            }
+                                        }
+                                    }
+
+                                    .proj-arrow {
+                                        color: var(--text-muted);
+                                        transition: color 0.2s ease, transform 0.2s ease;
+                                        flex-shrink: 0;
+                                        margin-left: 1rem;
+                                    }
+
+                                    &:hover,
+                                    &.is-hovered {
+                                        background: transparent;
+
+                                        &::before {
+                                            opacity: 1;
+                                            transform: scale(1);
+                                        }
+
+                                        .proj-main {
+                                            .proj-name {
+                                                color: $luxury-orange;
+                                            }
+
+                                            .proj-desc {
+                                                color: var(--text-secondary);
+                                            }
+
+                                            .proj-tags .proj-tag {
+                                                border-color: rgba(255, 90, 31, 0.35);
+                                                color: var(--text-primary);
+                                                background: rgba(255, 90, 31, 0.08);
+                                            }
+                                        }
+
+                                        .proj-arrow {
+                                            color: $luxury-orange;
+                                            transform: translate(2px, -2px);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        // Popout triggers reliably on wrap hover, button hover, or card hover
+                        &:hover .project-popover-card,
+                        &.is-hovered .project-popover-card,
+                        &:focus-within .project-popover-card,
+                        .work-btn:hover~.project-popover-card,
+                        .work-btn.is-hovered~.project-popover-card,
+                        .work-btn:focus-visible~.project-popover-card,
+                        .project-popover-card:hover {
+                            @include popover-open-state;
+                        }
+
+                        // JS toggle state. Escaped out of the nesting because `body` can never be a
+                        // descendant of the wrap, while `&` keeps the full ancestor chain for specificity.
+                        @at-root body.popover-work-active #{&} .project-popover-card {
+                            @include popover-open-state;
+                        }
+                    }
+                }
+
+                &:hover {
+                    background-color: var(--bg-card-hover-white);
+                }
+            }
+
+            // BOTTOM RIGHT: CONTACT & CONNECT CARD
+            .right.card-connect {
+                grid-column: span 1;
+                background-color: var(--bg-card-subtle);
+                padding: 1.75rem 2rem;
+                border: none;
+                border-radius: 0;
+                border-bottom-right-radius: 19px;
+                position: relative;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                transition: $transition-smooth;
+
+                .connect-inner {
+                    height: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+
+                    .connect-head {
+                        .connect-title {
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            margin-bottom: 0.25rem;
+
+                            .connect-tag {
+                                font-family: $font-mono;
+                                font-size: 0.68rem;
+                                font-weight: 700;
+                                letter-spacing: 0.08em;
+                                color: var(--text-muted);
+                            }
+
+                            .connect-clock {
+                                font-family: $font-mono;
+                                font-size: 0.7rem;
+                                font-weight: 700;
+                                color: $luxury-orange;
+                                background-color: rgba(255, 90, 31, 0.12);
+                                padding: 2px 6px;
+                                border-radius: 4px;
+                            }
+                        }
+
+                        .connect-name {
+                            font-size: 2rem;
+                            font-weight: 900;
+                            line-height: 1;
+                            letter-spacing: -0.04em;
+                            color: var(--text-primary);
+
+                            .dot {
+                                color: $luxury-orange;
+                            }
+                        }
+                    }
+
+                    .connect-links {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 0.35rem;
+                        margin: 0.5rem 0;
+
+                        .spec-chip-item {
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            padding: 0.2rem 0;
+                            border-bottom: 1px solid var(--border-subtle);
+                            text-decoration: none;
+                            transition: color 0.15s ease, border-color 0.15s ease;
+
+                            .spec-chip-key {
+                                font-family: $font-mono;
+                                font-size: 0.66rem;
+                                font-weight: 700;
+                                color: var(--text-muted);
+                                letter-spacing: 0.05em;
+                                transition: color 0.15s ease;
+                            }
+
+                            .spec-chip-val {
+                                font-size: 0.8rem;
+                                font-weight: 600;
+                                color: var(--text-primary);
+                                transition: color 0.15s ease;
+                            }
+
+                            &:hover {
+                                .spec-chip-key {
+                                    color: $luxury-orange;
+                                }
+
+                                .spec-chip-val {
+                                    color: $luxury-orange;
+                                }
+                            }
+                        }
+                    }
+
+                    .connect-foot {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+
+                        .connect-status-text {
+                            font-family: $font-mono;
+                            font-size: 0.66rem;
+                            font-weight: 700;
+                            letter-spacing: 0.05em;
+                            color: #10b981;
+                            display: inline-flex;
+                            align-items: center;
+                            gap: 5px;
+
+                            .pulse-mini {
+                                width: 5px;
+                                height: 5px;
+                                border-radius: 50%;
+                                background-color: #10b981;
+                                animation: pulse-anim 1.8s infinite;
+                            }
+                        }
+
+                        .connect-icon {
+                            font-size: 1.1rem;
+                            color: $luxury-orange;
+                        }
+                    }
+                }
+
+                &:hover {
+                    background-color: var(--bg-card-hover-subtle);
+                }
+            }
+        }
+    }
+}
+
+// In Dark Mode: Show sun icon instead of moon
+[data-theme="dark"] {
+    .sun-icon {
+        display: block !important;
+    }
+
+    .moon-icon {
+        display: none !important;
+    }
+}
+
+// Keyframe Animations
+@keyframes pulse-anim {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.3;
+        transform: scale(0.85);
+    }
+}
+
+// Media Queries for Tablet & Mobile Displays
+@media (max-width: 1024px) {
+
+    html,
+    body {
+        overflow: auto;
+        height: auto;
+    }
+
+    .main {
+        height: auto;
+        max-height: none;
+        overflow: visible;
+        padding: 1.25rem;
+
+        .submain {
+            height: auto;
+            border: 1.5px solid var(--border-main);
+            border-radius: 20px;
+            background-color: transparent;
+
+            .top {
+                grid-template-columns: 1fr;
+                min-height: auto;
+                border: none;
+
+                .left.hero-box {
+                    grid-column: span 1;
+                    border: none;
+                    border-bottom: 1.5px solid var(--border-main);
+                    border-radius: 0;
+                    border-top-left-radius: 19px;
+                    border-top-right-radius: 19px;
+                    padding: 2.25rem 2rem;
+
+                    .hero-content {
+                        .hero-body {
+                            flex-direction: column;
+                            gap: 1.5rem;
+
+                            .hero-title-wrap .hero-title {
+                                font-size: 3.2rem;
+                            }
+                        }
+
+                        .hero-footer .cta-cluster {
+                            gap: 18px;
+                        }
+                    }
+                }
+
+                .right.poster-box {
+                    grid-column: span 1;
+                    border: none;
+                    border-bottom: 1.5px solid var(--border-main);
+                    border-radius: 0;
+                    min-height: auto;
+                    padding: 2rem;
+                }
+            }
+
+            .bottom {
+                grid-template-columns: 1fr;
+                min-height: auto;
+                border: none;
+
+                .left.card-skills,
+                .middle.card-work,
+                .right.card-connect {
+                    grid-column: span 1;
+                    border: none;
+                    border-bottom: 1.5px solid var(--border-main);
+                    border-radius: 0;
+                    padding: 2rem;
+                }
+
+                .right.card-connect {
+                    border-bottom: none;
+                    border-bottom-left-radius: 19px;
+                    border-bottom-right-radius: 19px;
+                }
+
+                .skill-popover-card {
+                    width: min(700px, calc(100vw - 48px));
+
+                    .popover-items {
+                        grid-template-columns: repeat(2, 1fr);
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Mobile Monolithic Single-Box Layout (< 640px)
+@media (max-width: 640px) {
+
+    html,
+    body {
+        overflow: auto;
+        height: auto;
+    }
+
+    .main {
+        padding: 0.75rem;
+        height: auto;
+        min-height: 100vh;
+        max-height: none;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+
+        .bento-nav {
+            padding: 0.4rem 0.2rem 0.75rem 0.2rem;
+
+            .nav-links {
+                display: none;
+            }
+        }
+
+        .submain {
+            height: auto;
+            border: 1.5px solid var(--border-main);
+            border-radius: 20px;
+            background-color: transparent;
+            overflow: visible;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+
+            .top {
+                display: flex;
+                flex-direction: column;
+                border: none;
+
+                .left.hero-box {
+                    border: none;
+                    border-bottom: 1.5px solid var(--border-main);
+                    border-radius: 0 !important;
+                    border-top-left-radius: 19px !important;
+                    border-top-right-radius: 19px !important;
+                    padding: 1.75rem 1.25rem 1.5rem 1.25rem;
+
+                    .hero-content {
+                        gap: 1.5rem;
+
+                        .hero-body {
+                            flex-direction: column;
+                            gap: 1.25rem;
+
+                            .hero-title-wrap .hero-title {
+                                font-size: 2.25rem;
+                                letter-spacing: -0.04em;
+                                line-height: 1.05;
+                            }
+
+                        }
+
+                        .hero-footer {
+                            padding-top: 0.5rem;
+                            flex-direction: column;
+                            align-items: flex-start;
+                            gap: 1rem;
+
+                            .cta-cluster {
+                                width: 100%;
+                                display: flex;
+                                align-items: center;
+                                gap: 14px;
+
+                                .pill-btn {
+                                    flex: 1;
+                                    padding: 0.75rem 1.25rem;
+                                    font-size: 0.88rem;
+                                    height: 42px;
+                                }
+
+                                .circle-btn {
+                                    width: 42px;
+                                    height: 42px;
+                                    flex-shrink: 0;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .right.poster-box {
+                    border: none;
+                    border-bottom: 1.5px solid var(--border-main);
+                    border-radius: 0 !important;
+                    padding: 1.5rem 1.25rem;
+                    min-height: auto;
+
+                    .poster-inner .poster-statement-wrap .poster-statement {
+                        font-size: 1.85rem;
+                        line-height: 1.1;
+                    }
+                }
+            }
+
+            .bottom {
+                display: flex;
+                flex-direction: column;
+                border: none;
+
+                .left.card-skills {
+                    border: none;
+                    border-bottom: 1.5px solid var(--border-main);
+                    border-radius: 0 !important;
+                    padding: 1.5rem 1.25rem;
+
+                    .skills-inner {
+                        gap: 1.25rem;
+
+                        .skills-statement {
+                            font-size: 1.05rem;
+                            line-height: 1.35;
+                            margin-bottom: 0;
+                        }
+
+                        .skills-popover-wrap {
+                            width: 100%;
+
+                            .skills-btn {
+                                width: 100%;
+                                height: 42px;
+                                justify-content: center;
+                            }
+                        }
+                    }
+                }
+
+                .middle.card-work {
+                    border: none;
+                    border-bottom: 1.5px solid var(--border-main);
+                    border-radius: 0 !important;
+                    padding: 1.5rem 1.25rem;
+
+                    .work-inner {
+                        gap: 1.25rem;
+
+                        .work-statement {
+                            font-size: 1.05rem;
+                            line-height: 1.35;
+                            margin-bottom: 0;
+                        }
+
+                        .work-popover-wrap {
+                            width: 100%;
+
+                            .work-btn {
+                                width: 100%;
+                                height: 42px;
+                                justify-content: center;
+                            }
+                        }
+                    }
+                }
+
+                .right.card-connect {
+                    border: none;
+                    border-radius: 0 !important;
+                    border-bottom-left-radius: 19px !important;
+                    border-bottom-right-radius: 19px !important;
+                    padding: 1.5rem 1.25rem;
+
+                    .connect-inner .connect-head .connect-name {
+                        font-size: 1.75rem;
+                    }
+                }
+
+                .skill-popover-card,
+                .project-popover-card {
+                    position: fixed !important;
+                    left: 12px !important;
+                    right: 12px !important;
+                    bottom: 16px !important;
+                    top: auto !important;
+                    width: calc(100vw - 24px) !important;
+                    max-width: none !important;
+                    max-height: 80vh !important;
+                    border-radius: 18px !important;
+                    padding: 1.25rem !important;
+                    z-index: 99999 !important;
+                    transform-origin: bottom center !important;
+                }
+
+                .skill-popover-card .popover-items {
+                    grid-template-columns: 1fr;
+                    row-gap: 1rem;
+                }
+            }
+        }
+    }
+}
+
+// ==========================================================================
+// 404 ERROR PAGE
+// Reuses the bento nav + master container so it matches the landing page.
+// Everything is scoped under `.error-page`, so the landing page is unaffected.
+// ==========================================================================
+
+.error-page {
+
+    // On this page the logo doubles as the "back home" link
+    .bento-nav .logo {
+        text-decoration: none;
+        transition: opacity 0.2s ease;
+
+        &:hover {
+            opacity: 0.75;
+        }
+    }
+
+    // Single full-bleed cell inside the master container.
+    // Two-column split: all copy on the left, random gif window on the right.
+    .error-box {
+        position: relative;
+        flex: 1;
+        min-height: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2.5rem 3rem;
+        border-radius: 18.5px;
+        background-color: var(--bg-card);
+        overflow: hidden;
+
+        // Ambient spotlight, mirroring the bento cards (driven by --mouse-x/--mouse-y)
+        &::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            pointer-events: none;
+            background: radial-gradient(650px circle at var(--mouse-x, -999px) var(--mouse-y, -999px),
+                    var(--spotlight-core) 0%,
+                    var(--spotlight-mid) 28%,
+                    var(--spotlight-ambient) 55%,
+                    transparent 75%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: 1;
+        }
+
+        &:hover::before {
+            opacity: 1;
+        }
+
+        // `.card-pattern` / `.card-noise` inside `.submain` are already styled above,
+        // so the grain layer needs no rules here.
+        // Text column left, gif window right, stretched across the whole panel.
+        .error-inner {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            align-items: center;
+            gap: clamp(2rem, 5vw, 4.5rem);
+            width: 100%;
+            max-width: 82rem;
+        }
+
+        // All copy: left-aligned stack on the left half.
+        .error-copy-side {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
+            gap: 1.25rem;
+            min-width: 0;
+        }
+
+        // Giant hollow-outlined 404 in the display face — the page's anchor graphic.
+        .error-code {
+            font-family: $font-display;
+            font-size: clamp(6.5rem, 17vw, 12.5rem);
+            font-weight: 700;
+            line-height: 0.9;
+            letter-spacing: -0.04em;
+            color: transparent;
+            -webkit-text-stroke: 2.5px $luxury-orange;
+        }
+
+        // Square window playing a random gif (picked server-side per request),
+        // parked on the right of the panel.
+        .error-gif-window {
+            width: clamp(280px, 36vw, 430px);
+            aspect-ratio: 1 / 1;
+            margin: 0;
+            border: 1.5px solid var(--border-subtle);
+            border-radius: 16px;
+            overflow: hidden;
+            background-color: var(--bg-card-subtle);
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
+
+            img {
+                display: block;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+
+        .error-title {
+            font-family: $font-display;
+            font-size: clamp(2.4rem, 4.5vw, 3.5rem);
+            font-weight: 700;
+            line-height: 1.05;
+            letter-spacing: -0.04em;
+            color: var(--text-primary);
+        }
+
+        .cta-cluster {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 18px;
+            margin-top: 1.25rem;
+        }
+
+        // Circle icon buttons (GitHub / Email): bordered disc with an orange fill
+        // that sweeps up from the bottom edge on hover, flipping the icon to contrast.
+        .circle-btn {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            border: 1.5px solid var(--border-main);
+            background-color: var(--btn-bg);
+            color: var(--text-primary);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            isolation: isolate;
+            transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease,
+                box-shadow 0.25s ease;
+
+            // Fill layer, revealed from the bottom on hover.
+            &::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background-color: $luxury-orange;
+                transform: translateY(101%);
+                transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+                z-index: 0;
+            }
+
+            svg {
+                position: relative;
+                z-index: 1;
+                transition: color 0.25s ease;
+                color: var(--text-primary);
+            }
+
+            &:hover,
+            &.is-hovered {
+                border-color: $luxury-orange;
+                transform: translateY(-2px);
+                box-shadow: 0 10px 24px rgba(255, 90, 31, 0.28);
+
+                &::before {
+                    transform: translateY(0);
+                }
+
+                svg {
+                    color: #fff;
+                }
+            }
+
+            &:active {
+                transform: translateY(0) scale(0.96);
+            }
+
+            &:focus-visible {
+                outline: 2px solid $luxury-orange;
+                outline-offset: 3px;
+            }
+        }
+    }
+
+    // Between 641px and 900px the two columns get cramped: stack and re-center.
+    @media (max-width: 900px) {
+        .error-inner {
+            grid-template-columns: minmax(0, 1fr);
+            justify-items: center;
+        }
+
+        .error-copy-side {
+            align-items: center;
+            text-align: center;
+        }
+
+        .error-gif-window {
+            width: clamp(220px, 56vw, 320px);
+        }
+    }
+
+    // Small screens: the master container stops stretching, so keep the panel tall enough
+    @media (max-width: 640px) {
+        .error-box {
+            min-height: 62vh;
+            padding: 2rem 1.25rem;
+
+            .cta-cluster {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 14px;
+                width: 100%;
+
+                .pill-btn {
+                    flex: 1;
+                    justify-content: center;
+                }
+            }
+        }
+    }
+}
+
+// ==========================================================================
+// Dynamic Interactive Flow Keyframe Animations for Active Patterns
+// ==========================================================================
+
+// Circles Pattern (Poster Card) Keyframe Animations
+.circle-ripple-1 {
+    animation: circle-pulse-anim 3.2s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+    transform-origin: 320px 110px;
+}
+
+.circle-ripple-2 {
+    animation: circle-pulse-anim 3.2s cubic-bezier(0.16, 1, 0.3, 1) infinite 1s;
+    transform-origin: 320px 110px;
+}
+
+.circle-ripple-3 {
+    animation: circle-pulse-anim 3.2s cubic-bezier(0.16, 1, 0.3, 1) infinite 2s;
+    transform-origin: 320px 110px;
+}
+
+@keyframes circle-pulse-anim {
+    0% {
+        transform: scale(0.7);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1.3);
+        opacity: 0.2;
+    }
+}
+
+.circle-spin-slow {
+    animation: circle-spin-anim 20s linear infinite;
+    transform-origin: 320px 110px;
+}
+
+.circle-spin-fast {
+    animation: circle-spin-anim 12s linear infinite reverse;
+    transform-origin: 320px 110px;
+}
+
+@keyframes circle-spin-anim {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+// Isometric Grid Pattern (Skills Card) Keyframe Animations
+.iso-line-flow-1 {
+    animation: iso-stream-anim 3s linear infinite;
+}
+
+.iso-line-flow-2 {
+    animation: iso-stream-anim 3.8s linear infinite reverse;
+}
+
+@keyframes iso-stream-anim {
+    from {
+        stroke-dashoffset: 168;
+    }
+
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+// Harmonic Wave Pattern (Work Card) Keyframe Animations
+.harmonic-wave-1 {
+    animation: harmonic-wave-anim 3.5s linear infinite;
+}
+
+.harmonic-wave-2 {
+    animation: harmonic-wave-anim 4.5s linear infinite reverse;
+}
+
+@keyframes harmonic-wave-anim {
+    from {
+        stroke-dashoffset: 200;
+    }
+
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+// Signal Pattern (Connect Card) Keyframe Animations
+.signal-ripple-1 {
+    animation: signal-pulse-anim 3.2s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+    transform-origin: 400px 400px;
+}
+
+.signal-ripple-2 {
+    animation: signal-pulse-anim 3.2s cubic-bezier(0.16, 1, 0.3, 1) infinite 1s;
+    transform-origin: 400px 400px;
+}
+
+.signal-ripple-3 {
+    animation: signal-pulse-anim 3.2s cubic-bezier(0.16, 1, 0.3, 1) infinite 2s;
+    transform-origin: 400px 400px;
+}
+
+@keyframes signal-pulse-anim {
+    0% {
+        transform: scale(0.7);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1.3);
+        opacity: 0.2;
+    }
+}
