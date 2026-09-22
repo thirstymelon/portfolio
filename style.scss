@@ -594,6 +594,17 @@ i {
                     color: $luxury-orange;
                 }
             }
+
+            &.pattern-circuit {
+                .pattern-svg.static-svg {
+                    color: var(--text-primary);
+                    opacity: 0.06;
+                }
+
+                .pattern-svg.flow-svg {
+                    color: $luxury-orange;
+                }
+            }
         }
 
         // On Card Hover: Top-left hero box remains subtle; other child boxes have vibrant, high-opacity photon flow illumination
@@ -2097,7 +2108,7 @@ i {
             min-width: 0;
         }
 
-        // Giant hollow-outlined 404 in the display face — the page's anchor graphic.
+        // Giant hollow-outlined 404 in the display face with luminous orange glow
         .error-code {
             font-family: $font-display;
             font-size: clamp(6.5rem, 17vw, 12.5rem);
@@ -2106,25 +2117,38 @@ i {
             letter-spacing: -0.04em;
             color: transparent;
             -webkit-text-stroke: 2.5px $luxury-orange;
+            filter: drop-shadow(0 8px 30px rgba(255, 90, 31, 0.32));
+            transition: filter 0.35s ease;
+
+            &:hover {
+                filter: drop-shadow(0 12px 42px rgba(255, 90, 31, 0.52));
+            }
         }
 
-        // Square window playing a random gif (picked server-side per request),
-        // parked on the right of the panel.
+        // Square window playing a random gif, parked on the right of the panel.
         .error-gif-window {
             width: clamp(280px, 36vw, 430px);
             aspect-ratio: 1 / 1;
             margin: 0;
             border: 1.5px solid var(--border-subtle);
-            border-radius: 16px;
+            border-radius: 20px;
             overflow: hidden;
             background-color: var(--bg-card-subtle);
-            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
+            box-shadow: 0 20px 48px rgba(0, 0, 0, 0.28);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+
+            &:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 24px 56px rgba(0, 0, 0, 0.35);
+                border-color: var(--border-hover);
+            }
 
             img {
                 display: block;
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
+                transition: opacity 0.22s ease, transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
             }
         }
 
@@ -2137,6 +2161,15 @@ i {
             color: var(--text-primary);
         }
 
+        .error-desc {
+            font-family: $font-main;
+            font-size: clamp(1rem, 1.4vw, 1.15rem);
+            line-height: 1.55;
+            color: var(--text-secondary);
+            max-width: 32rem;
+            margin: 0;
+        }
+
         .cta-cluster {
             display: flex;
             align-items: center;
@@ -2145,7 +2178,7 @@ i {
             margin-top: 1.25rem;
         }
 
-        // Circle icon buttons (GitHub / Email): bordered disc with an orange fill
+        // Circle icon buttons (GitHub / Email / Shuffle): bordered disc with an orange fill
         // that sweeps up from the bottom edge on hover, flipping the icon to contrast.
         .circle-btn {
             width: 52px;
@@ -2158,6 +2191,9 @@ i {
             align-items: center;
             justify-content: center;
             text-decoration: none;
+            cursor: pointer;
+            padding: 0;
+            font: inherit;
             position: relative;
             overflow: hidden;
             isolation: isolate;
