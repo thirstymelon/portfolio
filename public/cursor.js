@@ -19,6 +19,7 @@
         '.card-work',
         '.card-connect',
         '.error-box',
+        '.error-glass-card',
         '.bento-nav',
         '.project-hero',
         '.feature-card',
