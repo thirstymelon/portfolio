@@ -124,7 +124,7 @@ em, i {
     height: var(--ring-h, 38px);
     background-color: #ffffff;
     border-radius: var(--ring-r, 50%);
-    z-index: 99999;
+    z-index: 1000000;
     mix-blend-mode: difference;
     transform: translate(-50%, -50%);
     opacity: 0;
@@ -145,18 +145,19 @@ em, i {
         box-shadow: none;
     }
 
-    // Non-inverting cursor state for Index Card and Pagination cards (borderless on snap)
-    &.no-invert {
-        mix-blend-mode: normal;
-        background-color: transparent;
-        border: 1.5px solid $luxury-orange;
-        box-shadow: 0 0 10px rgba(255, 90, 31, 0.35);
+    // Non-inverting cursor state for Index Card and specific targets
+    &.no-invert,
+    &.snap-toc {
+        mix-blend-mode: normal !important;
+        background-color: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
 
         &.is-snapped {
-            opacity: 0 !important;
+            opacity: 1 !important;
+            background-color: transparent !important;
             border: none !important;
             box-shadow: none !important;
-            background: transparent !important;
         }
     }
 }
@@ -332,7 +333,7 @@ body:has(.bento-nav-wrap.nav-hidden) .page-scroll-progress {
                 box-shadow: inset 0 0 0 35px $luxury-orange, 0 4px 14px $luxury-orange-glow !important;
                 border-color: $luxury-orange !important;
                 color: #ffffff !important;
-                transform: translateY(-2px);
+                transform: none;
 
                 svg {
                     transform: translateX(-3px);
@@ -369,14 +370,14 @@ body:has(.bento-nav-wrap.nav-hidden) .page-scroll-progress {
             position: relative;
             overflow: hidden;
             box-shadow: inset 0 0 0 0 rgba(255, 255, 255, 0.15);
-            transition: box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease, transform 0.2s ease, background 0.25s ease;
+            transition: box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease, background 0.25s ease;
             white-space: nowrap;
 
             &:hover,
             &.is-hovered {
                 box-shadow: inset 0 0 0 35px rgba(255, 255, 255, 0.12);
                 color: #ffffff;
-                transform: translateY(-1px);
+                transform: none;
             }
 
             &.active {
@@ -411,8 +412,7 @@ body:has(.bento-nav-wrap.nav-hidden) .page-scroll-progress {
             transition: box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1),
                         background 0.3s ease,
                         border-color 0.3s ease,
-                        color 0.3s ease,
-                        transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+                        color 0.3s ease;
 
             svg {
                 width: 17px;
@@ -428,7 +428,7 @@ body:has(.bento-nav-wrap.nav-hidden) .page-scroll-progress {
                 box-shadow: inset 0 0 0 30px $luxury-orange, 0 4px 14px $luxury-orange-glow !important;
                 border-color: $luxury-orange !important;
                 color: #ffffff !important;
-                transform: translateY(-2px) scale(1.06);
+                transform: none;
 
                 svg {
                     stroke: #ffffff !important;
@@ -1202,20 +1202,22 @@ html.light-theme {
         text-decoration: none;
         padding: 8px 12px;
         border-radius: 8px;
-        transition: color 0.18s ease, background 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+        border: none !important;
+        outline: none;
+        transition: color 0.18s ease, background 0.18s ease, transform 0.18s ease;
         display: flex;
         align-items: center;
         gap: 8px;
 
-        // Crosshair Target-Locking Reticle Corners (Same as Projects Glass Card)
+        // Crosshair Corner Target-Locking Reticle (Corner brackets only, No border lines)
         &::before {
             content: "";
             position: absolute;
             inset: 0;
             pointer-events: none;
             opacity: 0;
-            transform: scale(1.06);
-            transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+            transform: scale(1.04);
+            transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.18s ease;
             background:
                 linear-gradient(to right, $luxury-orange 8px, transparent 8px) 0 0 / 8px 1.5px no-repeat,
                 linear-gradient(to bottom, $luxury-orange 8px, transparent 8px) 0 0 / 1.5px 8px no-repeat,
@@ -1232,7 +1234,7 @@ html.light-theme {
         &.is-hovered {
             color: $luxury-orange;
             background: rgba(255, 90, 31, 0.06);
-            transform: translateX(3px);
+            transform: none;
 
             &::before {
                 opacity: 1;
@@ -1702,27 +1704,6 @@ html.light-theme {
         overflow: hidden;
         transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, box-shadow 0.25s ease;
 
-        // Crosshair Target-Locking Reticle Corners (Same as Projects Glass Card)
-        &::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            pointer-events: none;
-            opacity: 0;
-            transform: scale(1.03);
-            transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
-            background:
-                linear-gradient(to right, $luxury-orange 16px, transparent 16px) 0 0 / 16px 1.5px no-repeat,
-                linear-gradient(to bottom, $luxury-orange 16px, transparent 16px) 0 0 / 1.5px 16px no-repeat,
-                linear-gradient(to left, $luxury-orange 16px, transparent 16px) 100% 0 / 16px 1.5px no-repeat,
-                linear-gradient(to bottom, $luxury-orange 16px, transparent 16px) 100% 0 / 1.5px 16px no-repeat,
-                linear-gradient(to right, $luxury-orange 16px, transparent 16px) 0 100% / 16px 1.5px no-repeat,
-                linear-gradient(to top, $luxury-orange 16px, transparent 16px) 0 100% / 1.5px 16px no-repeat,
-                linear-gradient(to left, $luxury-orange 16px, transparent 16px) 100% 100% / 16px 1.5px no-repeat,
-                linear-gradient(to top, $luxury-orange 16px, transparent 16px) 100% 100% / 1.5px 16px no-repeat;
-            z-index: 2;
-        }
-
         &.next {
             align-items: flex-end;
             text-align: right;
@@ -1736,13 +1717,8 @@ html.light-theme {
         &:hover,
         &.is-hovered {
             transform: translateY(-3px);
-            border-color: rgba(255, 90, 31, 0.4);
+            border-color: rgba(255, 255, 255, 0.16);
             box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
-
-            &::before {
-                opacity: 1;
-                transform: scale(1);
-            }
 
             .card-nav-title {
                 color: $luxury-orange;

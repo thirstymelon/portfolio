@@ -143,15 +143,46 @@ const fullOgImage = og_image.startsWith('http') ? og_image : `${baseUrl}${og_ima
     </div>
   </div>
 
+  <!-- GLOBAL TOAST FEEDBACK PILL -->
+  <div id="globalToast" class="global-toast-pill" role="status" aria-live="polite" transition:persist>
+    <span class="toast-icon">✉️</span>
+    <span class="toast-text" id="globalToastText">lokesh.panditi.29@gmail.com copied to clipboard!</span>
+  </div>
+
   <script is:inline src="/theme.js"></script>
   <script is:inline src="/cursor.js"></script>
   <script is:inline>
+    // Universal Email Direct Gmail Redirect Handler
+    (function() {
+      const GMAIL_COMPOSE_URL = 'https://mail.google.com/mail/?view=cm&fs=1&to=lokesh.panditi.29@gmail.com';
+
+      window.handleEmailClick = function(e) {
+        if (e) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+        window.open(GMAIL_COMPOSE_URL, '_blank', 'noopener,noreferrer');
+      };
+
+      // Global capture click listener for any email, mailto, or Cloudflare obfuscated links
+      window.addEventListener('click', function(e) {
+        const target = e.target && e.target.closest ? e.target.closest('a') : null;
+        if (!target) return;
+        const href = target.getAttribute('href') || '';
+        if (href.startsWith('mailto:') || href.includes('email-protection') || href.includes('mail.google.com') || target.hasAttribute('data-email')) {
+          e.preventDefault();
+          e.stopPropagation();
+          window.open(GMAIL_COMPOSE_URL, '_blank', 'noopener,noreferrer');
+        }
+      }, true);
+    })();
+
     // Browser Chrome Detection Notice
     (function() {
       try {
         if (sessionStorage.getItem('dismissed_chrome_notice') === '1') return;
         var ua = navigator.userAgent;
-        var vendor = navigator.vendor || '';
+        var vendor = navigator['vendor'] || '';
         var isChromium = /Chrome/.test(ua) && /Google Inc/.test(vendor);
         var isOther = /Edg|OPR|Brave|Vivaldi|YaBrowser|Firefox|FxiOS|Safari/.test(ua) && !isChromium;
         var isSafari = /Safari/.test(ua) && !/Chrome/.test(ua);

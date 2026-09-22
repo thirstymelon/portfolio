@@ -82,7 +82,7 @@ $btn-fill-transition: box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1), color 0.5s 
     height: var(--ring-h, 38px);
     background-color: #ffffff;
     border-radius: var(--ring-r, 50%);
-    z-index: 99999;
+    z-index: 1000000;
     mix-blend-mode: difference;
     transform: translate(-50%, -50%);
     opacity: 0;
@@ -104,18 +104,19 @@ $btn-fill-transition: box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1), color 0.5s 
         box-shadow: none;
     }
 
-    // Non-inverting cursor state for Index Card and Pagination cards (borderless on snap)
-    &.no-invert {
-        mix-blend-mode: normal;
-        background-color: transparent;
-        border: 1.5px solid $luxury-orange;
-        box-shadow: 0 0 10px rgba(255, 90, 31, 0.35);
+    // Non-inverting cursor state for Index Card and specific targets
+    &.no-invert,
+    &.snap-toc {
+        mix-blend-mode: normal !important;
+        background-color: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
 
         &.is-snapped {
-            opacity: 0 !important;
+            opacity: 1 !important;
+            background-color: transparent !important;
             border: none !important;
             box-shadow: none !important;
-            background: transparent !important;
         }
     }
 }
@@ -595,7 +596,7 @@ i {
             }
         }
 
-        // On Card Hover: Subtle, luminous ambient illumination that does not interfere with text
+        // On Card Hover: Top-left hero box remains subtle; other child boxes have vibrant, high-opacity photon flow illumination
         .left.hero-box:hover .pattern-topography .pattern-svg.flow-svg {
             opacity: 0.22;
         }
@@ -603,8 +604,10 @@ i {
         .right.poster-box:hover .pattern-circles .pattern-svg.flow-svg,
         .left.card-skills:hover .pattern-isometric .pattern-svg.flow-svg,
         .middle.card-work:hover .pattern-waves .pattern-svg.flow-svg,
-        .right.card-connect:hover .pattern-signal .pattern-svg.flow-svg {
-            opacity: 0.28;
+        .right.card-connect:hover .pattern-signal .pattern-svg.flow-svg,
+        .error-box:hover .pattern-circuit .pattern-svg.flow-svg,
+        .error-box:hover .card-pattern .pattern-svg.flow-svg {
+            opacity: 0.85;
         }
 
         .left.hero-box:hover .pattern-topography .pattern-svg.static-svg {
@@ -614,8 +617,10 @@ i {
         .right.poster-box:hover .pattern-circles .pattern-svg.static-svg,
         .left.card-skills:hover .pattern-isometric .pattern-svg.static-svg,
         .middle.card-work:hover .pattern-waves .pattern-svg.static-svg,
-        .right.card-connect:hover .pattern-signal .pattern-svg.static-svg {
-            opacity: 0.045;
+        .right.card-connect:hover .pattern-signal .pattern-svg.static-svg,
+        .error-box:hover .pattern-circuit .pattern-svg.static-svg,
+        .error-box:hover .card-pattern .pattern-svg.static-svg {
+            opacity: 0.12;
         }
 
         .left.hero-box,
@@ -779,6 +784,7 @@ i {
                                 svg {
                                     position: relative;
                                     z-index: 2;
+                                    pointer-events: none;
                                 }
 
                                 &:hover,
@@ -2016,8 +2022,59 @@ i {
             opacity: 1;
         }
 
-        // `.card-pattern` / `.card-noise` inside `.submain` are already styled above,
-        // so the grain layer needs no rules here.
+        .card-pattern {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+            border-radius: inherit;
+            z-index: 1;
+
+            .card-noise {
+                position: absolute;
+                inset: 0;
+                pointer-events: none;
+                opacity: 0.035;
+                background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+                background-repeat: repeat;
+                background-size: 140px 140px;
+                z-index: 1;
+                mix-blend-mode: overlay;
+            }
+
+            .pattern-svg {
+                position: absolute;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+                pointer-events: none;
+
+                &.static-svg {
+                    opacity: 0.035;
+                    color: var(--text-primary);
+                    transition: opacity 0.35s ease;
+                    z-index: 2;
+                }
+
+                &.flow-svg {
+                    opacity: 0;
+                    color: $luxury-orange;
+                    mask-image: radial-gradient(360px circle at var(--mouse-x, -999px) var(--mouse-y, -999px), black 0%, rgba(0, 0, 0, 0.3) 50%, transparent 80%);
+                    -webkit-mask-image: radial-gradient(360px circle at var(--mouse-x, -999px) var(--mouse-y, -999px), black 0%, rgba(0, 0, 0, 0.3) 50%, transparent 80%);
+                    transition: opacity 0.35s ease;
+                    z-index: 3;
+                }
+            }
+        }
+
+        &:hover .card-pattern .pattern-svg.flow-svg {
+            opacity: 0.85;
+        }
+
+        &:hover .card-pattern .pattern-svg.static-svg {
+            opacity: 0.12;
+        }
+
         // Text column left, gif window right, stretched across the whole panel.
         .error-inner {
             position: relative;

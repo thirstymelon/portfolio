@@ -3,10 +3,11 @@
   "type": "module",
   "version": "2.0.0",
   "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
+    "dev": "ASTRO_TELEMETRY_DISABLED=1 astro dev",
+    "start": "ASTRO_TELEMETRY_DISABLED=1 astro dev",
     "build": "ASTRO_TELEMETRY_DISABLED=1 astro build",
     "preview": "astro preview",
+    "serve": "node scripts/serve-dist.js",
     "check": "ASTRO_TELEMETRY_DISABLED=1 astro check",
     "astro": "astro"
   },

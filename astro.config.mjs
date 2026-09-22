@@ -6,5 +6,17 @@ export default defineConfig({
   output: 'static',
   build: {
     format: 'directory'
+  },
+  server: {
+    host: true,
+    port: 4321
+  },
+  vite: {
+    server: {
+      allowedHosts: ['.trycloudflare.com', 'asia-mar-explorer-tar.trycloudflare.com']
+    },
+    preview: {
+      allowedHosts: ['.trycloudflare.com', 'asia-mar-explorer-tar.trycloudflare.com']
+    }
   }
 });

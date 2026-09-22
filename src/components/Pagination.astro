@@ -12,11 +12,11 @@ const { pager } = Astro.props;
 ---
 <footer class="project-pagination-section">
   <div class="pagination-container">
-    <a href={`/projects/${pager.prev.slug}`} class="pagination-card prev">
+    <a href={`/projects/${pager.prev.slug}`} class="pagination-card prev" data-no-magnetic>
       <span class="card-nav-dir">&larr; Previous Project</span>
       <span class="card-nav-title">{pager.prev.card_label}</span>
     </a>
-    <a href={`/projects/${pager.next.slug}`} class="pagination-card next">
+    <a href={`/projects/${pager.next.slug}`} class="pagination-card next" data-no-magnetic>
       <span class="card-nav-dir">Next Project &rarr;</span>
       <span class="card-nav-title">{pager.next.card_label}</span>
     </a>

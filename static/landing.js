@@ -160,17 +160,10 @@
                 clearProjFocus();
                 if (workBtn) workBtn.focus();
             } else if (e.key === 'Enter' && currentProjIndex >= 0) {
-                // Enter activates the focused card the same way a click would: the link's own
-                // target decides, so internal project links stay in this tab (and we stop the
-                // browser's native activation from firing a second, duplicate navigation).
                 const activeItem = projItems[currentProjIndex];
-                if (activeItem && activeItem.href) {
+                if (activeItem) {
                     e.preventDefault();
-                    if (activeItem.target === '_blank') {
-                        window.open(activeItem.href, '_blank', 'noopener,noreferrer');
-                    } else {
-                        window.location.href = activeItem.href;
-                    }
+                    activeItem.click();
                 }
             }
         });
@@ -201,13 +194,12 @@
         }
     });
 
-    // Immediately clear lingering browser focus when clicking links or buttons via mouse
+    // Clear lingering browser focus after click when using mouse
     document.querySelectorAll('.proj-item, .skills-btn, .work-btn, .pill-btn, .circle-btn, .theme-toggle-btn').forEach(el => {
-        el.addEventListener('click', () => {
-            if (document.activeElement) document.activeElement.blur();
-        });
         el.addEventListener('mouseup', () => {
-            if (document.activeElement) document.activeElement.blur();
+            setTimeout(() => {
+                if (document.activeElement && document.activeElement.blur) document.activeElement.blur();
+            }, 50);
         });
     });
 
@@ -223,5 +215,8 @@
     }
 
     initLanding();
-    document.addEventListener('astro:page-load', initLanding);
+    if (!window.__landingJsListenerAttached) {
+        window.__landingJsListenerAttached = true;
+        document.addEventListener('astro:page-load', initLanding);
+    }
 })();

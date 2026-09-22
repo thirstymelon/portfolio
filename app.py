@@ -227,6 +227,8 @@ def site_webmanifest():
 
 
 @app.route("/LOKESH_PANDITI.pdf")
+@app.route("/resume.pdf")
+@app.route("/resume")
 def resume_pdf():
     return send_from_directory(app.static_folder, "LOKESH_PANDITI.pdf", mimetype="application/pdf")
 

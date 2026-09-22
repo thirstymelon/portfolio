@@ -166,6 +166,9 @@
     }
 
     initProject();
-    document.addEventListener('astro:page-load', initProject);
+    if (!window.__projectJsListenerAttached) {
+        window.__projectJsListenerAttached = true;
+        document.addEventListener('astro:page-load', initProject);
+    }
 })();
 
