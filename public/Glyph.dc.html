@@ -1,0 +1,544 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Glyph — Embedded Graphics Framework</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@500&amp;display=swap">
+<link rel="stylesheet" href="/responsive-fullwidth.css">
+<script src="./vendor/react.js"></script>
+<script src="./vendor/react-dom.js"></script>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@500&amp;display=swap">
+<link rel="stylesheet" href="./responsive-fullwidth.css">
+<style>
+body{margin:0;background:#0a0b0d;overflow-x:clip!important;overflow-y:visible!important}
+.pg{position:relative;overflow-x:clip!important;overflow-y:visible!important;color:#ecebe6;background:#0a0b0d;font-family:'Inter',system-ui,sans-serif;font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+.w{position:relative;max-width:1200px;margin:0 auto;padding:0 40px;box-sizing:border-box}
+.d{font-family:'Bricolage Grotesque','Inter',sans-serif;font-weight:700;letter-spacing:-.035em;line-height:.98}
+.mono{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#8d9097}
+.mut{color:#9a9ca3}.ac{color:#c8ff5a}
+.gl{position:absolute;inset:0;display:flex;pointer-events:none}.gl i{flex:1;border-left:1px solid #15171b}
+.rv{animation:up .9s cubic-bezier(.2,.7,.2,1) both}
+@keyframes up{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@supports (animation-timeline:view()){.sv{animation:up linear both;animation-timeline:view();animation-range:entry 0% entry 30%}}
+a{color:inherit;text-decoration:none}
+.u2{position:relative;display:inline-block}.u2::after{content:"";position:absolute;left:0;bottom:-3px;height:2px;width:0;background:#c8ff5a;transition:width .4s}.u2:hover::after{width:100%}
+.nav a{font-size:14px;color:#9a9ca3;transition:color .2s}.nav a:hover{color:#fff}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:16px 24px;border-radius:2px;font:500 13px 'JetBrains Mono',monospace;letter-spacing:.1em;text-transform:uppercase;background:#c8ff5a;color:#0a0b0d;border:1px solid #c8ff5a;box-shadow:inset 0 0 0 0 #0a0b0d;transition:box-shadow .55s cubic-bezier(.7,0,.2,1),color .45s,gap .45s}
+.btn:hover{box-shadow:inset 340px 0 0 0 #0a0b0d;color:#c8ff5a;gap:20px}
+.btn2{background:transparent;color:#ecebe6;border-color:#3a3d44;box-shadow:inset 0 0 0 0 #ecebe6}
+.btn2:hover{box-shadow:inset 0 -90px 0 0 #ecebe6;color:#0a0b0d;border-color:#ecebe6;gap:20px}
+.nav a.btn{font-size:12px;color:#ecebe6}.nav a.btn2:hover{color:#0a0b0d}
+.wv{animation:wv linear infinite;display:block}
+@keyframes wv{to{transform:translateX(-50%)}}
+.mq{display:flex;width:max-content;animation:wv 40s linear infinite}
+.mq span{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:44px;letter-spacing:-.02em;color:#3b3e45;padding:0 26px;white-space:nowrap}
+.mq b{color:#c8ff5a;font-weight:400}
+.pr{position:relative;display:flex;flex-wrap:wrap;gap:20px 36px;align-items:center;padding:36px 20px;border-top:1px solid #23262c;transition:background .4s}
+.pr:hover{background:#101216}
+.pr::before{content:"";position:absolute;left:0;top:0;width:3px;height:0;background:#c8ff5a;transition:height .55s cubic-bezier(.7,0,.2,1)}.pr:hover::before{height:100%}
+.pr .nm{-webkit-text-stroke:1.5px transparent;transition:letter-spacing .55s cubic-bezier(.2,.7,.2,1),color .4s,-webkit-text-stroke-color .4s}
+.pr:hover .nm{color:transparent;-webkit-text-stroke-color:#c8ff5a;letter-spacing:.012em}
+.pr .ar{display:inline-flex;align-items:center;justify-content:center;width:64px;height:64px;border:1px solid #3a3d44;border-radius:50%;color:#c8ff5a;font-size:26px;box-shadow:inset 0 0 0 0 #c8ff5a;transition:box-shadow .55s cubic-bezier(.7,0,.2,1),color .4s,border-color .4s}
+.pr:hover .ar{box-shadow:inset 0 0 0 40px #c8ff5a;color:#0a0b0d;border-color:#c8ff5a}
+.pr .vz{opacity:.6;transition:opacity .4s,border-color .4s}.pr:hover .vz{opacity:1;border-color:#c8ff5a}
+.vz{border:1px solid #23262c;border-radius:10px;background:#0d0f12;overflow:hidden}
+.cl{position:relative;background:#0a0b0d;padding:32px;transition:background .4s}.cl:hover{background:#101216}
+.cl::before{content:"";position:absolute;left:0;top:0;height:2px;width:0;background:#c8ff5a;transition:width .6s cubic-bezier(.7,0,.2,1)}.cl:hover::before{width:100%}
+.cl .d{transition:color .4s}.cl:hover>.d:not(.ac){color:#c8ff5a}
+.gd{display:flex;flex-wrap:wrap;gap:1px;background:#23262c;border:1px solid #23262c;border-radius:10px;overflow:hidden}.gd>*{flex:1 1 340px;min-width:0}
+.ph{border:1px dashed #3a3d44;border-radius:8px;padding:28px;color:#8d9097;font:500 13px 'JetBrains Mono',monospace;background:#0d0f12}
+.px{animation:px 2.4s ease-in-out infinite}@keyframes px{50%{opacity:.18}}
+.pu{transform-box:fill-box;transform-origin:center;animation:pu 2.6s ease-in-out infinite}@keyframes pu{50%{transform:scale(1.7)}}
+.ds{animation:ds 1.6s linear infinite}@keyframes ds{to{stroke-dashoffset:-20}}
+.tl{display:inline-block;margin:0 8px 8px 0;padding:9px 14px;border:1px solid #2a2d34;border-radius:2px;font:500 13px 'JetBrains Mono',monospace;color:#ecebe6;box-shadow:inset 0 0 0 0 #c8ff5a;transition:box-shadow .5s cubic-bezier(.7,0,.2,1),color .35s,border-color .35s}
+.tl:hover{box-shadow:inset 0 -120px 0 0 #c8ff5a;color:#0a0b0d;border-color:#c8ff5a}
+.tl.big{font-size:20px;padding:20px 30px}
+
+.lg{display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding:12px 0;border-top:1px solid #23262c}
+.lg .d{font-size:clamp(30px,4vw,48px);transition:color .4s,letter-spacing .5s cubic-bezier(.2,.7,.2,1)}.lg:hover .d{color:#c8ff5a;letter-spacing:.012em}
+.ct{position:relative;display:flex;align-items:center;gap:16px;padding:24px 26px;border-top:1px solid #23262c;transition:background .4s,padding .5s cubic-bezier(.2,.7,.2,1)}.ct:first-child{border-top:0}
+.ct:hover{background:#101216;padding-left:38px}
+.ct::before{content:"";position:absolute;left:0;top:0;width:3px;height:0;background:#c8ff5a;transition:height .5s cubic-bezier(.7,0,.2,1)}.ct:hover::before{height:100%}
+.ct .mono{flex:0 0 78px}.ct .vl{flex:1;min-width:0;overflow-wrap:anywhere;font-size:18px}
+.ct .ar2{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border:1px solid #3a3d44;border-radius:50%;color:#c8ff5a;box-shadow:inset 0 0 0 0 #c8ff5a;transition:box-shadow .5s cubic-bezier(.7,0,.2,1),color .4s,border-color .4s}
+.ct:hover .ar2{box-shadow:inset 0 0 0 30px #c8ff5a;color:#0a0a0d;border-color:#c8ff5a}
+.cr{animation:cr 1s steps(1) infinite}@keyframes cr{50%{opacity:0}}
+.gp{fill:#1a1d22;transition:fill 1.4s}.gp:hover{fill:#c8ff5a;transition:fill 0s}
+.gr{transition:fill 1.4s}.gr:hover{fill:#1a1d22;transition:fill 0s}
+.nav a.lg2{color:#fff}
+.lg2{display:flex;align-items:center;gap:12px}
+.lg2 .mk{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border:1px solid #2f333b;border-radius:3px;font:500 12px 'JetBrains Mono',monospace;color:#c8ff5a;box-shadow:inset 0 0 0 0 #c8ff5a;transition:box-shadow .5s cubic-bezier(.7,0,.2,1),color .4s,border-color .4s}
+.lg2:hover .mk{box-shadow:inset 40px 0 0 0 #c8ff5a;color:#0a0b0d;border-color:#c8ff5a}
+.lg2 b{display:block;font-weight:600;line-height:1.25}
+.lg2 small{display:block;font:500 11px 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:#8d9097}
+.nav a i{font:500 11px 'JetBrains Mono',monospace;color:#c8ff5a;margin-right:7px;font-style:normal}
+.nav a.nl{position:relative;padding:6px 0}
+.nav a.nl::after{content:"";position:absolute;left:0;bottom:0;height:1px;width:0;background:#c8ff5a;transition:width .4s}.nav a.nl:hover::after{width:100%}
+.pgb{position:absolute;left:0;bottom:-1px;height:2px;width:0;background:#c8ff5a}
+@supports (animation-timeline:scroll()){.pgb{animation:pgb linear both;animation-timeline:scroll(root block)}@keyframes pgb{to{width:100%}}}
+.fl a{position:relative;display:block;padding:6px 0;color:#9a9ca3;transition:color .3s,padding .4s cubic-bezier(.2,.7,.2,1)}
+.fl a::before{content:"→";position:absolute;left:0;color:#c8ff5a;opacity:0;transition:opacity .3s}
+.fl a:hover{color:#fff;padding-left:22px}.fl a:hover::before{opacity:1}
+.wm{color:#101216;-webkit-text-stroke:1px #23262c;transition:color .5s,-webkit-text-stroke-color .5s}
+.wm:hover{color:transparent;-webkit-text-stroke-color:#c8ff5a}
+html.cc .pg,html.cc .pg *{cursor:auto}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}.ms:has(.n0:hover) .e0{stroke:#c8ff5a;stroke-width:2.5;animation-duration:.4s}.ms:has(.n0:hover) .c0,.ms:has(.n0:hover) .a0{fill:#c8ff5a}.ms:has(.n1:hover) .e1{stroke:#c8ff5a;stroke-width:2.5;animation-duration:.4s}.ms:has(.n1:hover) .c1,.ms:has(.n1:hover) .a1{fill:#c8ff5a}.ms:has(.n2:hover) .e2{stroke:#c8ff5a;stroke-width:2.5;animation-duration:.4s}.ms:has(.n2:hover) .c2,.ms:has(.n2:hover) .a2{fill:#c8ff5a}.ms:has(.n3:hover) .e3{stroke:#c8ff5a;stroke-width:2.5;animation-duration:.4s}.ms:has(.n3:hover) .c3,.ms:has(.n3:hover) .a3{fill:#c8ff5a}.ms:has(.n4:hover) .e4{stroke:#c8ff5a;stroke-width:2.5;animation-duration:.4s}.ms:has(.n4:hover) .c4,.ms:has(.n4:hover) .a4{fill:#c8ff5a}.ms:has(.n5:hover) .e5{stroke:#c8ff5a;stroke-width:2.5;animation-duration:.4s}.ms:has(.n5:hover) .c5,.ms:has(.n5:hover) .a5{fill:#c8ff5a}.ms:has(.n6:hover) .e6{stroke:#c8ff5a;stroke-width:2.5;animation-duration:.4s}.ms:has(.n6:hover) .c6,.ms:has(.n6:hover) .a6{fill:#c8ff5a}
+</style>
+</helmet>
+<div class="pg"><div id="top" style="position:absolute;top:0;left:0;width:1px;height:1px;pointer-events:none;opacity:0;"></div><dc-import name="Trail" hint-size="0,0"></dc-import><div class="gl"><i></i><i></i><i></i><i style="border-right:1px solid #15171b"></i></div>
+<header id="site-header" class="site-header"><div class="w"><div class="nav-rail"><a class="nav-brand" href="Main.dc.html" aria-label="Lokesh Panditi - Home"><span class="nav-brand-badge">LP</span><span class="nav-brand-name"><span class="nav-pulse-led"></span>Lokesh Panditi</span></a><nav class="nav-floating-links" aria-label="Project Navigation"><a class="nav-float-link active" href="Glyph.dc.html">Glyph</a><a class="nav-float-link" href="Radio_Kit.dc.html">Radio_Kit</a><a class="nav-float-link" href="MeshOS.dc.html">MeshOS</a></nav><div class="nav-actions"><a class="nav-cta-btn" href="https://github.com/thirstymelon/glyph" target="_blank" rel="noopener"><span class="cta-dot"></span><span>Repository</span><span class="cta-arrow">↗</span></a></div></div></div><i class="pgb"></i></header><div class="w">
+<div class="project-hero">
+<div class="project-hero-text rv"><span class="mono ac">v1.1.0 Release</span>
+<h1 class="d" style="margin:16px 0 10px;font-size:clamp(48px,8vw,100px)">Glyph</h1>
+<div class="d ac" style="font-size:clamp(20px,2.4vw,28px);font-weight:600;letter-spacing:-.02em;margin-bottom:20px">Bare-Metal 2D Embedded Graphics Framework</div>
+<p class="mut" style="margin:0;font-size:18px;line-height:1.6">A zero-heap, deterministic 2D graphics framework written in Ada 2022 from the ground up for resource-constrained microcontrollers. Built on standard HAL buses with integer rasterization, Cohen–Sutherland line clipping, transparent tile streaming, and physical silicon validation.</p></div>
+<div class="project-hero-visual vz rv" style="animation-delay:.2s"><svg viewBox="0 0 366 184" width="100%" style="cursor:crosshair;display:block" role="img" aria-label="Interactive framebuffer pixel grid"><rect class="gp" x="0" y="0" width="18" height="18" rx="2"></rect><rect class="gp" x="23" y="0" width="18" height="18" rx="2"></rect><rect class="gp" x="46" y="0" width="18" height="18" rx="2"></rect><rect class="gp" x="69" y="0" width="18" height="18" rx="2"></rect><rect class="gr px" style="animation-delay:0.56s" x="92" y="0" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:0.70s" x="115" y="0" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:0.84s" x="138" y="0" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:0.98s" x="161" y="0" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:1.12s" x="184" y="0" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:1.26s" x="207" y="0" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:1.40s" x="230" y="0" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:1.54s" x="253" y="0" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gp" x="276" y="0" width="18" height="18" rx="2"></rect><rect class="gp" x="299" y="0" width="18" height="18" rx="2"></rect><rect class="gp" x="322" y="0" width="18" height="18" rx="2"></rect><rect class="gp" x="345" y="0" width="18" height="18" rx="2"></rect><rect class="gp" x="0" y="23" width="18" height="18" rx="2"></rect><rect class="gp" x="23" y="23" width="18" height="18" rx="2"></rect><rect class="gr px" style="animation-delay:0.28s" x="46" y="23" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:0.42s" x="69" y="23" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:0.56s" x="92" y="23" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:0.70s" x="115" y="23" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:0.84s" x="138" y="23" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:0.98s" x="161" y="23" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:1.12s" x="184" y="23" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:1.26s" x="207" y="23" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:1.40s" x="230" y="23" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:1.54s" x="253" y="23" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:1.68s" x="276" y="23" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:1.82s" x="299" y="23" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gp" x="322" y="23" width="18" height="18" rx="2"></rect><rect class="gp" x="345" y="23" width="18" height="18" rx="2"></rect><rect class="gp" x="0" y="46" width="18" height="18" rx="2"></rect><rect class="gr px" style="animation-delay:0.14s" x="23" y="46" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:0.28s" x="46" y="46" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:0.42s" x="69" y="46" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:0.56s" x="92" y="46" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gp" x="115" y="46" width="18" height="18" rx="2"></rect><rect class="gp" x="138" y="46" width="18" height="18" rx="2"></rect><rect class="gp" x="161" y="46" width="18" height="18" rx="2"></rect><rect class="gp" x="184" y="46" width="18" height="18" rx="2"></rect><rect class="gp" x="207" y="46" width="18" height="18" rx="2"></rect><rect class="gp" x="230" y="46" width="18" height="18" rx="2"></rect><rect class="gr px" style="animation-delay:1.54s" x="253" y="46" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:1.68s" x="276" y="46" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:1.82s" x="299" y="46" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:1.96s" x="322" y="46" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gp" x="345" y="46" width="18" height="18" rx="2"></rect><rect class="gr px" style="animation-delay:0.00s" x="0" y="69" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:0.14s" x="23" y="69" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:0.28s" x="46" y="69" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:0.42s" x="69" y="69" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gp" x="92" y="69" width="18" height="18" rx="2"></rect><rect class="gp" x="115" y="69" width="18" height="18" rx="2"></rect><rect class="gp" x="138" y="69" width="18" height="18" rx="2"></rect><rect class="gp" x="161" y="69" width="18" height="18" rx="2"></rect><rect class="gp" x="184" y="69" width="18" height="18" rx="2"></rect><rect class="gp" x="207" y="69" width="18" height="18" rx="2"></rect><rect class="gp" x="230" y="69" width="18" height="18" rx="2"></rect><rect class="gp" x="253" y="69" width="18" height="18" rx="2"></rect><rect class="gr px" style="animation-delay:1.68s" x="276" y="69" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:1.82s" x="299" y="69" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:1.96s" x="322" y="69" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:2.10s" x="345" y="69" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:0.00s" x="0" y="92" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:0.14s" x="23" y="92" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:0.28s" x="46" y="92" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:0.42s" x="69" y="92" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gp" x="92" y="92" width="18" height="18" rx="2"></rect><rect class="gp" x="115" y="92" width="18" height="18" rx="2"></rect><rect class="gp" x="138" y="92" width="18" height="18" rx="2"></rect><rect class="gp" x="161" y="92" width="18" height="18" rx="2"></rect><rect class="gp" x="184" y="92" width="18" height="18" rx="2"></rect><rect class="gp" x="207" y="92" width="18" height="18" rx="2"></rect><rect class="gp" x="230" y="92" width="18" height="18" rx="2"></rect><rect class="gp" x="253" y="92" width="18" height="18" rx="2"></rect><rect class="gr px" style="animation-delay:1.68s" x="276" y="92" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:1.82s" x="299" y="92" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:1.96s" x="322" y="92" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:2.10s" x="345" y="92" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gp" x="0" y="115" width="18" height="18" rx="2"></rect><rect class="gr px" style="animation-delay:0.14s" x="23" y="115" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:0.28s" x="46" y="115" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:0.42s" x="69" y="115" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:0.56s" x="92" y="115" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gp" x="115" y="115" width="18" height="18" rx="2"></rect><rect class="gp" x="138" y="115" width="18" height="18" rx="2"></rect><rect class="gp" x="161" y="115" width="18" height="18" rx="2"></rect><rect class="gp" x="184" y="115" width="18" height="18" rx="2"></rect><rect class="gp" x="207" y="115" width="18" height="18" rx="2"></rect><rect class="gp" x="230" y="115" width="18" height="18" rx="2"></rect><rect class="gr px" style="animation-delay:1.54s" x="253" y="115" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:1.68s" x="276" y="115" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:1.82s" x="299" y="115" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:1.96s" x="322" y="115" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gp" x="345" y="115" width="18" height="18" rx="2"></rect><rect class="gp" x="0" y="138" width="18" height="18" rx="2"></rect><rect class="gp" x="23" y="138" width="18" height="18" rx="2"></rect><rect class="gr px" style="animation-delay:0.28s" x="46" y="138" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:0.42s" x="69" y="138" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:0.56s" x="92" y="138" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:0.70s" x="115" y="138" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:0.84s" x="138" y="138" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:0.98s" x="161" y="138" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:1.12s" x="184" y="138" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:1.26s" x="207" y="138" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:1.40s" x="230" y="138" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:1.54s" x="253" y="138" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:1.68s" x="276" y="138" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:1.82s" x="299" y="138" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gp" x="322" y="138" width="18" height="18" rx="2"></rect><rect class="gp" x="345" y="138" width="18" height="18" rx="2"></rect><rect class="gp" x="0" y="161" width="18" height="18" rx="2"></rect><rect class="gp" x="23" y="161" width="18" height="18" rx="2"></rect><rect class="gp" x="46" y="161" width="18" height="18" rx="2"></rect><rect class="gp" x="69" y="161" width="18" height="18" rx="2"></rect><rect class="gr px" style="animation-delay:0.56s" x="92" y="161" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:0.70s" x="115" y="161" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:0.84s" x="138" y="161" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:0.98s" x="161" y="161" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:1.12s" x="184" y="161" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:1.26s" x="207" y="161" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:1.40s" x="230" y="161" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:1.54s" x="253" y="161" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gp" x="276" y="161" width="18" height="18" rx="2"></rect><rect class="gp" x="299" y="161" width="18" height="18" rx="2"></rect><rect class="gp" x="322" y="161" width="18" height="18" rx="2"></rect><rect class="gp" x="345" y="161" width="18" height="18" rx="2"></rect></svg></div></div>
+<div class="gd sv" style="margin-top:20px"><div class="cl" style="flex:2 1 420px"><div class="mono" style="margin-bottom:8px">Stack</div><div style="display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center"><span class="tl" style="margin:0;padding:6px 12px;font-size:12px;line-height:1.2">Ada 2022</span><span class="tl" style="margin:0;padding:6px 12px;font-size:12px;line-height:1.2">RP2040</span><span class="tl" style="margin:0;padding:6px 12px;font-size:12px;line-height:1.2">HAL.I2C &amp; SPI</span><span class="tl" style="margin:0;padding:6px 12px;font-size:12px;line-height:1.2">SSD1306</span><span class="tl" style="margin:0;padding:6px 12px;font-size:12px;line-height:1.2">ILI9341</span><span class="tl" style="margin:0;padding:6px 12px;font-size:12px;line-height:1.2">Zero Heap</span></div></div><div class="cl" style="flex:1 1 260px"><div class="mono" style="margin-bottom:8px">Repository</div><div><a class="u2" href="https://github.com/thirstymelon/glyph">github.com/thirstymelon/glyph ↗</a></div></div><div class="cl" style="flex:1 1 200px"><div class="mono" style="margin-bottom:8px">Version</div><div style="font-weight:600;color:#c8ff5a;font-size:16px">v1.1.0 Stable</div></div></div>
+<div style="padding:96px 0 0"><div class="section-wrap"><aside class="section-v-rail"><div class="section-v-sticky"><span class="section-v-num mono ac">01</span><span class="section-v-line"></span><span class="section-v-title d">Highlights</span></div></aside><div class="section-main"><div class="sv" style="margin-bottom:36px"><h2 class="d" style="margin:0;font-size:clamp(40px,6vw,72px)">What it does</h2></div><div class="sv" style="display:flex;flex-wrap:wrap;gap:12px 32px;padding:26px 0;border-top:1px solid #23262c"><span class="mono ac" style="flex:0 0 48px">01</span><p style="margin:0;flex:1 1 420px;font-size:20px;line-height:1.5">Engineered a bare-metal 2D graphics framework in Ada 2022 with zero heap allocation, deterministic timing, and generic static composition.</p></div><div class="sv" style="display:flex;flex-wrap:wrap;gap:12px 32px;padding:26px 0;border-top:1px solid #23262c"><span class="mono ac" style="flex:0 0 48px">02</span><p style="margin:0;flex:1 1 420px;font-size:20px;line-height:1.5">Implemented integer-only rasterizers: Cohen–Sutherland line clipping, Bresenham lines with orthogonal bypass, midpoint circles/arcs, and O(1) cross-product angular sector tests.</p></div><div class="sv" style="display:flex;flex-wrap:wrap;gap:12px 32px;padding:26px 0;border-top:1px solid #23262c"><span class="mono ac" style="flex:0 0 48px">03</span><p style="margin:0;flex:1 1 420px;font-size:20px;line-height:1.5">Solved the 153.6 KB color RAM barrier with transparent Tile_Stream (15 KB) and Direct_Stream (0 RAM), bit-exact verified against full framebuffers.</p></div><div class="sv" style="display:flex;flex-wrap:wrap;gap:12px 32px;padding:26px 0;border-top:1px solid #23262c"><span class="mono ac" style="flex:0 0 48px">04</span><p style="margin:0;flex:1 1 420px;font-size:20px;line-height:1.5">Built a headless desktop simulator with virtual I2C/SPI buses exporting sessions to GIF/MP4, and verified real-time UI animation on physical RP2040 silicon.</p></div></div></div></div>
+
+<div style="padding:64px 0 28px" class="sv">
+  <div class="mono ac" style="margin-bottom:8px">Deep Dive</div>
+  <h2 class="d" style="margin:0;font-size:clamp(40px,6vw,72px)">The full story</h2>
+</div>
+
+<!-- 01 Starting From Scratch -->
+<div class="section-wrap subtopic-wrap" style="padding:48px 0;border-top:1px solid #23262c">
+  <aside class="section-v-rail">
+    <div class="section-v-sticky">
+      <span class="section-v-num mono ac">01</span>
+      <span class="section-v-line"></span>
+      <span class="section-v-title d">Starting From Scratch</span>
+    </div>
+  </aside>
+  <div class="section-main">
+    <div class="sv">
+      <div class="d" style="font-size:clamp(26px,3vw,32px);margin:0 0 20px;line-height:1.15">Why I Built Glyph From Scratch</div>
+      <p style="margin:0 0 16px;color:#c0c3ca;font-size:17px;line-height:1.65">In the embedded C and C++ ecosystem, developers take display libraries for granted. If you want to light up an OLED or TFT, you grab u8g2, LovyanGFX, or LVGL, wire up a bus, and start drawing buttons. But in the bare-metal Ada world, that tooling simply didn't exist.</p>
+      <p style="margin:0 0 16px;color:#c0c3ca;font-size:17px;line-height:1.65">When I decided to put graphics on microcontrollers using Ada, I could have written a thin C binding to wrap an existing library. But that would defeat the whole purpose. I didn't just want pixels on glass—I wanted to understand every layer of how display architectures actually work.</p>
+      <p style="margin:0 0 16px;color:#c0c3ca;font-size:17px;line-height:1.65">So I decided to implement every layer myself: the rasterization algorithms, clipping mathematics, packed memory buffers, display controller command state machines, and hardware bus transports. That decision transformed Glyph from a routine driver into an in-depth systems journey across mathematics, hardware timing, and memory design.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:18px 0">
+        <div style="padding:14px 16px;background:#0d0f12;border:1px solid #1c1f24;border-radius:4px">
+          <div class="mono" style="color:#c8ff5a;font-size:12px;margin-bottom:4px">Integer Rasterization</div>
+          <div style="font-size:13px;color:#8d9097;line-height:1.5">Designing pixel-perfect geometry routines without floating point hardware.</div>
+        </div>
+        <div style="padding:14px 16px;background:#0d0f12;border:1px solid #1c1f24;border-radius:4px">
+          <div class="mono" style="color:#c8ff5a;font-size:12px;margin-bottom:4px">Clipping Mathematics</div>
+          <div style="font-size:13px;color:#8d9097;line-height:1.5">Enforcing rigorous boundary guarantees so off-screen coordinates never corrupt memory.</div>
+        </div>
+        <div style="padding:14px 16px;background:#0d0f12;border:1px solid #1c1f24;border-radius:4px">
+          <div class="mono" style="color:#c8ff5a;font-size:12px;margin-bottom:4px">Zero-Heap Allocations</div>
+          <div style="font-size:13px;color:#8d9097;line-height:1.5">Eliminating dynamic allocation entirely in favor of static composition with Ada generics.</div>
+        </div>
+        <div style="padding:14px 16px;background:#0d0f12;border:1px solid #1c1f24;border-radius:4px">
+          <div class="mono" style="color:#c8ff5a;font-size:12px;margin-bottom:4px">Silicon Bus Bridges</div>
+          <div style="font-size:13px;color:#8d9097;line-height:1.5">Directly integrating standard HAL.I2C and HAL.SPI without messy board glue code.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 02 Why Ada 2022? -->
+<div class="section-wrap subtopic-wrap" style="padding:48px 0;border-top:1px solid #23262c">
+  <aside class="section-v-rail">
+    <div class="section-v-sticky">
+      <span class="section-v-num mono ac">02</span>
+      <span class="section-v-line"></span>
+      <span class="section-v-title d">Why Ada 2022?</span>
+    </div>
+  </aside>
+  <div class="section-main">
+    <div class="sv">
+      <div class="d" style="font-size:clamp(26px,3vw,32px);margin:0 0 20px;line-height:1.15">Why Ada 2022 Fits Embedded Graphics</div>
+      <p style="margin:0 0 16px;color:#c0c3ca;font-size:17px;line-height:1.65">People often associate Ada with aerospace flight systems, railway signaling, and defense contracting. But those exact qualities—strong scalar typing, compile-time dimension validation, contract checks, and explicit resource lifetimes—make Ada phenomenal for bare-metal graphics.</p>
+      <p style="margin:0 0 16px;color:#c0c3ca;font-size:17px;line-height:1.65">In traditional C graphics code, a drawing function like <code>draw_line(int x1, int y1, int x2, int y2, uint16_t c)</code> has five naked integers. It is embarrassingly easy to invert arguments, pass negative dimensions, or trigger silent buffer overflows. In Ada 2022, coordinates, line bounds, and color types are distinct strong types. Passing an inverted axis or out-of-range integer is caught immediately at compile time.</p>
+      <div style="padding:16px 20px;background:#0d0f12;border:1px solid #23262c;border-left:3px solid #c8ff5a;border-radius:4px;margin-bottom:18px">
+        <div style="color:#ecebe6;font-size:15px;line-height:1.6">Ada gives me <b>zero dynamic allocation, deterministic frame times, and mathematically sound contracts</b> without needing an operating system or garbage collector.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 03 The Architecture -->
+<div class="section-wrap subtopic-wrap" style="padding:48px 0;border-top:1px solid #23262c">
+  <aside class="section-v-rail">
+    <div class="section-v-sticky">
+      <span class="section-v-num mono ac">03</span>
+      <span class="section-v-line"></span>
+      <span class="section-v-title d">The Architecture</span>
+    </div>
+  </aside>
+  <div class="section-main">
+    <div class="sv">
+      <div class="d" style="font-size:clamp(26px,3vw,32px);margin:0 0 20px;line-height:1.15">Decoupled Layered Architecture</div>
+      <p style="margin:0 0 16px;color:#c0c3ca;font-size:17px;line-height:1.65">One of my primary goals was preventing tight coupling between the graphics engine and physical controller silicon. A line-drawing algorithm should never know if it's talking to an I²C monochrome OLED or an SPI color TFT.</p>
+      <p style="margin:0 0 18px;color:#c0c3ca;font-size:17px;line-height:1.65">Glyph is structured into distinct, isolated layers using Ada generic packages:</p>
+      <div style="padding:16px 20px;background:#0d0f12;border:1px solid #23262c;border-radius:4px;margin-bottom:18px">
+        <div class="mono" style="color:#8d9097;font-size:11px;margin-bottom:8px">LAYERED PIPELINE TOPOLOGY</div>
+        <div class="mono" style="color:#c8ff5a;font-size:13px;line-height:1.8">Application → Display → Canvas → Algorithms → Framebuffer → Layout → Controller → Transport (HAL.I2C / HAL.SPI) → Physical Silicon</div>
+      </div>
+      <ul style="margin:0 0 16px 20px;padding:0;color:#9a9ca3;font-size:15px;line-height:1.8">
+        <li><b>Display:</b> Public-facing high-level API orchestrating initialization, canvas binding, and frame flushes.</li>
+        <li><b>Canvas:</b> Primitive drawing operations, state management, and coordinate translation.</li>
+        <li><b>Algorithms:</b> Pure mathematical algorithms (clipping, rasterization, sector inclusion) completely independent of hardware.</li>
+        <li><b>Framebuffer / Stream:</b> Packed static memory arrays or streaming row formatters.</li>
+        <li><b>Controllers:</b> Hardware command protocols for SSD1306 and ILI9341 display controllers.</li>
+        <li><b>Transport:</b> Universal HAL bridges that communicate directly over hardware I2C or SPI buses.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- 04 Mathematics & Rasterization -->
+<div class="section-wrap subtopic-wrap" style="padding:48px 0;border-top:1px solid #23262c">
+  <aside class="section-v-rail">
+    <div class="section-v-sticky">
+      <span class="section-v-num mono ac">04</span>
+      <span class="section-v-line"></span>
+      <span class="section-v-title d">Algorithms & Math</span>
+    </div>
+  </aside>
+  <div class="section-main">
+    <div class="sv">
+      <div class="d" style="font-size:clamp(26px,3vw,32px);margin:0 0 20px;line-height:1.15">Mathematics of Pure Integer Rasterization</div>
+      <p style="margin:0 0 16px;color:#c0c3ca;font-size:17px;line-height:1.65">Because bare-metal microcontrollers like the Cortex-M0+ lack hardware floating-point units, every single geometric computation in Glyph is implemented with pure integer mathematics.</p>
+      <p style="margin:0 0 16px;color:#c0c3ca;font-size:17px;line-height:1.65">Before any line is drawn, it passes through <b>Cohen–Sutherland line clipping</b>. By calculating 4-bit integer outcodes for each endpoint, lines entirely within the viewport are drawn immediately, lines entirely outside are rejected in $O(1)$ time, and boundary-crossing lines are clipped cleanly without risk of writing outside buffer boundaries.</p>
+      <p style="margin:0 0 16px;color:#c0c3ca;font-size:17px;line-height:1.65">For curves and sectors, I implemented <b>Midpoint Circle rasterization</b> and an <b>$O(1)$ 2D cross-product vector inclusion test</b>. This allows Glyph to paint arbitrary angular pie wedges, arcs, and half-circles with zero trigonometry calls per pixel during the rasterization loop.</p>
+      <div style="padding:14px 18px;background:#0d0f12;border:1px solid #23262c;border-left:3px solid #c8ff5a;border-radius:4px;margin-bottom:16px">
+        <div class="mono" style="color:#c8ff5a;font-size:13px">Line → Cohen–Sutherland Outcodes → Fast Orthogonal Bypass / Bresenham → Plot</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 05 Predictable Memory & Streaming Modes -->
+<div class="section-wrap subtopic-wrap" style="padding:48px 0;border-top:1px solid #23262c">
+  <aside class="section-v-rail">
+    <div class="section-v-sticky">
+      <span class="section-v-num mono ac">05</span>
+      <span class="section-v-line"></span>
+      <span class="section-v-title d">Memory & Streaming</span>
+    </div>
+  </aside>
+  <div class="section-main">
+    <div class="sv">
+      <div class="d" style="font-size:clamp(26px,3vw,32px);margin:0 0 20px;line-height:1.15">Breaking the 153.6 KB Color RAM Barrier</div>
+      <p style="margin:0 0 16px;color:#c0c3ca;font-size:17px;line-height:1.65">Monochrome OLEDs (128×64) are easy on memory: a 1-bit packed array takes exactly <b>1,024 bytes</b> of static RAM. But when I added support for the ILI9341 240×320 color TFT (16-bit RGB565), the math became daunting: $240 \times 320 \times 2 = 153.6\text{ KB}$ of RAM. That is larger than the entire internal SRAM of many microcontrollers!</p>
+      <p style="margin:0 0 18px;color:#c0c3ca;font-size:17px;line-height:1.65">To solve this, I designed three unified rendering modes behind a single API:</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:18px">
+        <div style="padding:14px 16px;background:#0d0f12;border:1px solid #23262c;border-radius:4px">
+          <div class="mono" style="color:#c8ff5a;font-size:12px;margin-bottom:4px">1. Full Framebuffer</div>
+          <div style="font-size:13px;color:#8d9097">153.6 KB RAM. Maximum rendering speed on boards with ample SRAM. Full arbitrary reads and writes.</div>
+        </div>
+        <div style="padding:14px 16px;background:#0d0f12;border:1px solid #23262c;border-radius:4px">
+          <div class="mono" style="color:#c8ff5a;font-size:12px;margin-bottom:4px">2. Tile_Stream (15 KB)</div>
+          <div style="font-size:13px;color:#8d9097">Renders in 10 horizontal bands of 32 scanlines. Coordinates are translated automatically—user code requires zero offset math!</div>
+        </div>
+        <div style="padding:14px 16px;background:#0d0f12;border:1px solid #23262c;border-radius:4px">
+          <div class="mono" style="color:#c8ff5a;font-size:12px;margin-bottom:4px">3. Direct_Stream (0 RAM)</div>
+          <div style="font-size:13px;color:#8d9097">Zero RAM framebuffer. Writes directly to the display controller window registers over high-speed SPI.</div>
+        </div>
+      </div>
+      <p style="margin:0;color:#c0c3ca;font-size:17px;line-height:1.65">Crucially, I ran bit-exact validation tests between <code>Tile_Stream</code> and <code>Direct_Stream</code> to guarantee that low-RAM rendering produces identical pixel output to a full-sized framebuffer.</p>
+    </div>
+  </div>
+</div>
+
+<!-- 06 From Pixels to Silicon -->
+<div class="section-wrap subtopic-wrap" style="padding:48px 0;border-top:1px solid #23262c">
+  <aside class="section-v-rail">
+    <div class="section-v-sticky">
+      <span class="section-v-num mono ac">06</span>
+      <span class="section-v-line"></span>
+      <span class="section-v-title d">Silicon Bus Bridges</span>
+    </div>
+  </aside>
+  <div class="section-main">
+    <div class="sv">
+      <div class="d" style="font-size:clamp(26px,3vw,32px);margin:0 0 20px;line-height:1.15">Standard HAL Bridges: Zero Custom Glue</div>
+      <p style="margin:0 0 16px;color:#c0c3ca;font-size:17px;line-height:1.65">Many embedded graphics libraries require writing cumbersome boilerplate to bridge the library to your board's physical I²C or SPI bus. In Glyph, I built directly on the standard <b>Ada HAL (`HAL.I2C` and `HAL.SPI`)</b> interfaces.</p>
+      <p style="margin:0 0 16px;color:#c0c3ca;font-size:17px;line-height:1.65">Because the transport layer accepts standard port pointers, Glyph works out-of-the-box across <b>ARM Cortex-M (STM32, RP2040, nRF52, SAMD) and RISC-V</b>. You configure your microcontroller pin muxing, initialize the hardware bus, and hand the port pointer directly to <code>OLED.Init</code> or <code>TFT.Init</code> without writing custom glue code.</p>
+    </div>
+  </div>
+</div>
+
+<!-- 07 Verified on Silicon -->
+<div class="section-wrap subtopic-wrap" style="padding:48px 0;border-top:1px solid #23262c">
+  <aside class="section-v-rail">
+    <div class="section-v-sticky">
+      <span class="section-v-num mono ac">07</span>
+      <span class="section-v-line"></span>
+      <span class="section-v-title d">Silicon Verification</span>
+    </div>
+  </aside>
+  <div class="section-main">
+    <div class="sv">
+      <div class="d" style="font-size:clamp(26px,3vw,32px);margin:0 0 20px;line-height:1.15">Running Real-Time Animation on Physical Silicon</div>
+      <p style="margin:0 0 16px;color:#c0c3ca;font-size:17px;line-height:1.65">A graphics framework is only theoretical until it runs smoothly on real hardware. I targeted the <b>Vicharak Shrike-Lite (Raspberry Pi RP2040)</b> paired with an SSD1306 monochrome OLED over I2C0 and an ILI9341 color display over SPI0.</p>
+      <p style="margin:0 0 18px;color:#c0c3ca;font-size:17px;line-height:1.65">To push the engine, I wrote a real-time animated music player interface featuring a prominent rotating vinyl record, a swinging tonearm, crisp track typography ("Sailor Song" by Gigi Perez), and an animated progress scrubber driven by the hardware timer:</p>
+      <div style="padding:18px;background:#0d0f12;border:1px solid #23262c;border-radius:6px;overflow-x:auto;margin-bottom:18px">
+        <div class="mono" style="color:#8d9097;font-size:11px;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid #1c1f24">Ada 2022 (example/src/example_main.adb)</div>
+        <pre style="margin:0;font-family:'JetBrains Mono',monospace;font-size:13px;color:#c8ff5a;line-height:1.55"><code>with RP.GPIO;
+with RP.I2C_Master;
+with RP.Device;
+with Glyph.Colors;
+with Glyph.Fonts;
+with Glyph.Display.SSD1306;
+
+procedure Example_Main is
+   -- Create static zero-heap OLED instance
+   OLED : Glyph.Display.SSD1306.Display_T :=
+     Glyph.Display.SSD1306.Create (Glyph.Display.SSD1306.Framebuffer);
+begin
+   -- Initialize RP2040 I2C0 directly via Ada HAL
+   OLED.Init (RP.Device.I2CM_0'Access);
+   OLED.Clear;
+
+   -- Draw animated geometry & typography
+   OLED.Paint_Rectangle (0, 0, 127, 63, Glyph.Colors.White);
+   OLED.Paint_Circle (64, 28, Radius => 14, Color => Glyph.Colors.White);
+   OLED.Paint_Text ("GLYPH ADA 2022", 14, 48, Glyph.Colors.White);
+   OLED.Flush;
+end Example_Main;</code></pre>
+      </div>
+      <p style="margin:0;color:#c0c3ca;font-size:17px;line-height:1.65">The animation ran fluidly at steady frame rates with zero jitter, zero dynamic memory churn, and rock-solid stability.</p>
+    </div>
+  </div>
+</div>
+
+<!-- 08 Headless Desktop Simulator -->
+<div class="section-wrap subtopic-wrap" style="padding:48px 0;border-top:1px solid #23262c">
+  <aside class="section-v-rail">
+    <div class="section-v-sticky">
+      <span class="section-v-num mono ac">08</span>
+      <span class="section-v-line"></span>
+      <span class="section-v-title d">Desktop Simulator</span>
+    </div>
+  </aside>
+  <div class="section-main">
+    <div class="sv">
+      <div class="d" style="font-size:clamp(26px,3vw,32px);margin:0 0 20px;line-height:1.15">Headless Simulator & Multi-Format Video Export</div>
+      <p style="margin:0 0 16px;color:#c0c3ca;font-size:17px;line-height:1.65">Flashing physical microcontrollers over SWD or USB every time you tweak a coordinate or font spacing is slow and tedious. To accelerate development, I engineered a <b>Headless Desktop Simulator</b> with virtual I²C and SPI buses.</p>
+      <p style="margin:0 0 16px;color:#c0c3ca;font-size:17px;line-height:1.65">The simulator runs natively on macOS and Linux, executing the exact same Ada drawing algorithms and memory layouts as physical hardware. Even better, I added a multi-frame session recorder (<code>Glyph.Simulator.Recorder</code>) that captures frames and exports them directly into:</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:18px">
+        <div style="padding:14px 16px;background:#0d0f12;border:1px solid #1c1f24;border-radius:4px">
+          <div class="mono" style="color:#c8ff5a;font-size:12px;margin-bottom:4px">24-Bit Lossless BMP</div>
+          <div style="font-size:13px;color:#8d9097">Pixel-accurate single-frame snapshots for regression testing.</div>
+        </div>
+        <div style="padding:14px 16px;background:#0d0f12;border:1px solid #1c1f24;border-radius:4px">
+          <div class="mono" style="color:#c8ff5a;font-size:12px;margin-bottom:4px">Palette-Optimized GIF</div>
+          <div style="font-size:13px;color:#8d9097">Compact animated previews perfect for documentation and GitHub pull requests.</div>
+        </div>
+        <div style="padding:14px 16px;background:#0d0f12;border:1px solid #1c1f24;border-radius:4px">
+          <div class="mono" style="color:#c8ff5a;font-size:12px;margin-bottom:4px">H.264 MP4 Video</div>
+          <div style="font-size:13px;color:#8d9097">High-framerate video recordings of complex UI interactions.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 09 What I Have Achieved Today -->
+<div class="section-wrap subtopic-wrap" style="padding:48px 0;border-top:1px solid #23262c">
+  <aside class="section-v-rail">
+    <div class="section-v-sticky">
+      <span class="section-v-num mono ac">09</span>
+      <span class="section-v-line"></span>
+      <span class="section-v-title d">What I Achieved</span>
+    </div>
+  </aside>
+  <div class="section-main">
+    <div class="sv">
+      <div class="d" style="font-size:clamp(26px,3vw,32px);margin:0 0 20px;line-height:1.15">What I Have Achieved Today</div>
+      <p style="margin:0 0 16px;color:#c0c3ca;font-size:17px;line-height:1.65">What started as an exploration of display protocols has grown into a robust, versatile embedded graphics framework:</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:18px">
+        <div style="padding:14px 16px;background:#0d0f12;border:1px solid #1c1f24;border-radius:4px">
+          <div class="mono" style="color:#c8ff5a;font-size:12px;margin-bottom:4px">Full Primitive Suite</div>
+          <div style="font-size:13px;color:#8d9097">Pixels, lines, rectangles, filled bounds, circles, arcs, sectors, and filled triangles.</div>
+        </div>
+        <div style="padding:14px 16px;background:#0d0f12;border:1px solid #1c1f24;border-radius:4px">
+          <div class="mono" style="color:#c8ff5a;font-size:12px;margin-bottom:4px">Bitmap Typography</div>
+          <div style="font-size:13px;color:#8d9097">Crisp 5x7 ASCII bitmap fonts with integer scaling and default font overrides.</div>
+        </div>
+        <div style="padding:14px 16px;background:#0d0f12;border:1px solid #1c1f24;border-radius:4px">
+          <div class="mono" style="color:#c8ff5a;font-size:12px;margin-bottom:4px">Dual Display Drivers</div>
+          <div style="font-size:13px;color:#8d9097">Production drivers for SSD1306 (I2C) and ILI9341 (SPI) with dirty region tracking.</div>
+        </div>
+        <div style="padding:14px 16px;background:#0d0f12;border:1px solid #1c1f24;border-radius:4px">
+          <div class="mono" style="color:#c8ff5a;font-size:12px;margin-bottom:4px">SPARK-Verified Color Math</div>
+          <div style="font-size:13px;color:#8d9097">Fixed-point Dim, Brighten, and Blend color utilities with `SPARK_Mode => On`.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 10 Meaning & Takeaway -->
+<div class="section-wrap subtopic-wrap" style="padding:48px 0;border-top:1px solid #23262c">
+  <aside class="section-v-rail">
+    <div class="section-v-sticky">
+      <span class="section-v-num mono ac">10</span>
+      <span class="section-v-line"></span>
+      <span class="section-v-title d">Meaning & Takeaway</span>
+    </div>
+  </aside>
+  <div class="section-main">
+    <div class="sv">
+      <div class="d" style="font-size:clamp(26px,3vw,32px);margin:0 0 20px;line-height:1.15">What Building Glyph Taught Me</div>
+      <p style="margin:0 0 16px;color:#c0c3ca;font-size:17px;line-height:1.65">Building Glyph convinced me that you never truly understand an embedded abstraction until you build it yourself without relying on someone else's library.</p>
+      <p style="margin:0 0 16px;color:#c0c3ca;font-size:17px;line-height:1.65">It forced me to think deeply about cache lines, bit manipulation, bus contention, and mathematical edge cases that high-level GUI libraries paper over. And it proved that modern Ada 2022 is an incredible, expressive tool for bare-metal systems when you need performance, deterministic memory, and safety.</p>
+      <div style="padding:16px 20px;background:#0d0f12;border:1px solid #23262c;border-left:3px solid #c8ff5a;border-radius:4px">
+        <div style="font-size:16px;font-style:italic;color:#c8ff5a;line-height:1.6">Putting graphics on an embedded screen in Ada shouldn't require abandoning the safety of the language. Glyph makes high-reliability graphics feel native.</div>
+      </div>
+      <div style="margin-top:20px;padding:18px 22px;background:#0d0f12;border:1px solid #23262c;border-left:3px solid #c8ff5a;border-radius:4px">
+        <div class="mono" style="color:#c8ff5a;font-size:12px;margin-bottom:6px">VIBE CODING &amp; BARE-METAL REALITY</div>
+        <p style="margin:0 0 10px;font-size:15px;line-height:1.65;color:#ecebe6">Throughout Glyph, I worked as a <b>vibe coder</b>—collaborating with AI tools (ChatGPT, AntiGravity, and Claude) to brainstorm rasterization approaches, explore trigonometric tradeoffs, and draft clear documentation.</p>
+        <p style="margin:0;font-size:14px;line-height:1.6;color:#c0c3ca">However, AI cannot debug hardware SPI bus timings or predict memory bus contention on a Cortex-M0+. The <b>architectural decisions, the zero-heap guarantee, the static tile streaming pipeline, and every line of Ada 2022 bitwise logic were conceived, architected, and implemented by me</b>. AI provided the brainstorming velocity; human engineering delivered the bare-metal reliability.</p>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<a class="pr sv" href="Radio_Kit.dc.html" style="margin-top:96px;border-bottom:1px solid #23262c"><span style="flex:1 1 360px"><span class="mono">Next project</span><span class="nm d" style="display:block;font-size:clamp(40px,6vw,76px);margin-top:8px">Radio_Kit</span></span><span class="ar">→</span></a>
+<div style="height:24px"></div><footer style="position:relative;margin-top:80px;border-top:1px solid #1c1f24;background:#0d0f12"><div class="w" style="padding-top:48px">
+<div class="footer-nav-grid" style="display:flex;flex-wrap:wrap;gap:48px 64px;justify-content:space-between">
+<div class="fl" style="flex:0 1 170px"><div class="mono" style="margin-bottom:14px">Navigate</div><a href="Main.dc.html#about">About</a><a href="Main.dc.html#work">Work</a><a href="Main.dc.html#skills">Skills</a><a href="Main.dc.html#contact">Contact</a></div><div class="fl" style="flex:0 1 170px"><div class="mono" style="margin-bottom:14px">Projects</div><a href="Glyph.dc.html">Glyph</a><a href="Radio_Kit.dc.html">Radio_Kit</a><a href="MeshOS.dc.html">MeshOS</a></div><div class="fl" style="flex:0 1 170px"><div class="mono" style="margin-bottom:14px">Connect</div><a href="https://mail.google.com/mail/?view=cm&fs=1&to=lokesh.panditi.29@gmail.com" target="_blank" rel="noopener noreferrer">Email ↗</a><a href="https://github.com/thirstymelon">GitHub ↗</a><a href="https://www.linkedin.com/in/lokeshpanditi">LinkedIn ↗</a></div></div>
+<div class="footer-thanks-line"><span class="thanks-intro">Special thanks to</span> <span class="thanks-ai"><img src="icons/chatgpt-icon.svg" class="thanks-ico" alt="" width="16" height="16" /><span class="thanks-chatgpt">ChatGPT</span></span><span class="thanks-sep">,</span> <span class="thanks-ai"><img src="icons/google-antigravity-icon.svg" class="thanks-ico" alt="" width="16" height="16" /><span class="thanks-ag">AntiGravity</span></span> <span class="thanks-sep">and</span> <span class="thanks-ai"><img src="icons/claude-ai-icon.svg" class="thanks-ico" alt="" width="16" height="16" /><span class="thanks-claude">Claude</span></span></div>
+<div class="mono" style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;margin-top:20px;padding:16px 0 16px;border-top:1px solid #1c1f24"><span>© 2026 Lokesh Panditi</span><span>Embedded · Firmware · High-Integrity Systems</span></div></div></footer>
+<a class="floating-back-to-top" id="floating-back-to-top" href="#top" aria-label="Back to top">Back to top <span class="btt-arrow">↑</span></a>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":2450}}'>
+class Component extends DCLogic {
+renderVals() { return {}; }
+}
+</script>
+<script>
+(function() {
+  function getHeader() {
+    return document.getElementById('site-header') ||
+           document.querySelector('header.site-header') ||
+           document.querySelector('header');
+  }
+
+  var lastScrollY = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+  var ticking = false;
+  var threshold = 6;
+
+  function updateNav() {
+    var header = getHeader();
+    var currentScrollY = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    if (header) {
+      if (currentScrollY <= 60) {
+        header.classList.remove('nav-hidden');
+        header.style.transform = 'translateY(0)';
+      } else if (currentScrollY > lastScrollY + threshold) {
+        header.classList.add('nav-hidden');
+        header.style.transform = 'translateY(calc(-100% + 3px))';
+      } else if (currentScrollY < lastScrollY - threshold) {
+        header.classList.remove('nav-hidden');
+        header.style.transform = 'translateY(0)';
+      }
+    }
+    lastScrollY = Math.max(0, currentScrollY);
+
+    var maxScroll = (document.documentElement.scrollHeight || document.body.scrollHeight) - window.innerHeight;
+    var pct = maxScroll > 0 ? (currentScrollY / maxScroll) * 100 : 0;
+    var pgbEls = document.querySelectorAll('.pgb');
+    for (var i = 0; i < pgbEls.length; i++) {
+      pgbEls[i].style.width = pct + '%';
+    }
+
+    var btt = document.getElementById('floating-back-to-top');
+    if (btt) {
+      if (currentScrollY > 300) {
+        btt.classList.add('is-visible');
+      } else {
+        btt.classList.remove('is-visible');
+      }
+    }
+
+    ticking = false;
+  }
+
+  function onScroll() {
+    if (!ticking) {
+      window.requestAnimationFrame(updateNav);
+      ticking = true;
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  document.addEventListener('scroll', onScroll, { passive: true });
+  updateNav();
+
+  // Delegated smooth scroll handler in capture phase
+  document.addEventListener('click', function(e) {
+    var anchor = e.target.closest('a[href^="#"]');
+    if (!anchor) return;
+    var href = anchor.getAttribute('href');
+    if (!href || href === '#') return;
+
+    var header = getHeader();
+    if (href === '#top') {
+      e.preventDefault();
+      if (header) {
+        header.classList.remove('nav-hidden');
+        header.style.transform = 'translateY(0)';
+      }
+      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+      document.documentElement.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+      document.body.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+      if (history.pushState) history.pushState(null, '', '#top');
+      return;
+    }
+
+    var targetEl = document.querySelector(href);
+    if (targetEl) {
+      e.preventDefault();
+      var headerOffset = 88;
+      var elementPosition = targetEl.getBoundingClientRect().top;
+      var offsetPosition = elementPosition + (window.pageYOffset || document.documentElement.scrollTop || 0) - headerOffset;
+      window.scrollTo({
+        top: Math.max(0, offsetPosition),
+        behavior: 'smooth'
+      });
+      if (history.pushState) history.pushState(null, '', href);
+    }
+  }, true);
+
+  // Universal Email Direct Gmail Redirect Handler (from previous working version 12d4cec)
+  var GMAIL_COMPOSE_URL = 'https://mail.google.com/mail/?view=cm&fs=1&to=lokesh.panditi.29@gmail.com';
+
+  window.handleEmailClick = function(e) {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    window.open(GMAIL_COMPOSE_URL, '_blank', 'noopener,noreferrer');
+  };
+
+  window.addEventListener('click', function(e) {
+    var target = e.target && e.target.closest ? e.target.closest('a') : null;
+    if (!target) return;
+    var href = target.getAttribute('href') || '';
+    if (href.startsWith('mailto:') || href.includes('mail.google.com') || href.includes('lokesh.panditi.29@gmail.com') || target.hasAttribute('data-email')) {
+      e.preventDefault();
+      e.stopPropagation();
+      window.open(GMAIL_COMPOSE_URL, '_blank', 'noopener,noreferrer');
+    }
+  }, true);
+
+
+})();
+</script>
+</body>
+</html>

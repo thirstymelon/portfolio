@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Lokesh Panditi — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@500&amp;display=swap">
+<link rel="stylesheet" href="/responsive-fullwidth.css">
+<script src="./vendor/react.js"></script>
+<script src="./vendor/react-dom.js"></script>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@500&amp;display=swap">
+<link rel="stylesheet" href="./responsive-fullwidth.css">
+<style>
+body{margin:0;background:#0a0b0d;width:100%;max-width:100vw;overflow-x:clip!important;overflow-y:visible!important}
+.pg{position:relative;overflow-x:clip!important;overflow-y:visible!important;color:#ecebe6;background:#0a0b0d;font-family:'Inter',system-ui,sans-serif;font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;min-height:100vh!important;min-height:100dvh!important;height:auto!important;width:100%!important;max-width:100vw!important;box-sizing:border-box!important}
+.w{position:relative;width:100%!important;max-width:100%!important;margin:0 auto!important;padding:0 clamp(20px,4.5vw,96px)!important;box-sizing:border-box!important}
+.d{font-family:'Bricolage Grotesque','Inter',sans-serif;font-weight:700;letter-spacing:-.035em;line-height:.98;overflow-wrap:break-word}
+.mono{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#8d9097}
+.mut{color:#9a9ca3}.ac{color:#c8ff5a}
+.gl{position:absolute;inset:0;display:flex;pointer-events:none;width:100%!important;max-width:100%!important;padding:0 clamp(20px,4.5vw,96px)!important;box-sizing:border-box!important;height:100%!important}.gl i{flex:1;border-left:1px solid #15171b}
+.rv{animation:up .9s cubic-bezier(.2,.7,.2,1) both}
+@keyframes up{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@supports (animation-timeline:view()){.sv{animation:up linear both;animation-timeline:view();animation-range:entry 0% entry 30%}}
+a{color:inherit;text-decoration:none}
+.u2{position:relative;display:inline-block}.u2::after{content:"";position:absolute;left:0;bottom:-3px;height:2px;width:0;background:#c8ff5a;transition:width .4s}.u2:hover::after{width:100%}
+.nav a{font-size:14px;color:#9a9ca3;transition:color .2s}.nav a:hover{color:#fff}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:16px 24px;border-radius:2px;font:500 13px 'JetBrains Mono',monospace;letter-spacing:.1em;text-transform:uppercase;background:#c8ff5a;color:#0a0b0d;border:1px solid #c8ff5a;box-shadow:inset 0 0 0 0 #0a0b0d;transition:box-shadow .55s cubic-bezier(.7,0,.2,1),color .45s,gap .45s}
+.btn:hover{box-shadow:inset 340px 0 0 0 #0a0b0d;color:#c8ff5a;gap:20px}
+.btn2{background:transparent;color:#ecebe6;border-color:#3a3d44;box-shadow:inset 0 0 0 0 #ecebe6}
+.btn2:hover{box-shadow:inset 0 -90px 0 0 #ecebe6;color:#0a0b0d;border-color:#ecebe6;gap:20px}
+.nav a.btn{font-size:12px;color:#ecebe6}.nav a.btn2:hover{color:#0a0b0d}
+.wv{animation:wv linear infinite;display:block}
+@keyframes wv{to{transform:translateX(-50%)}}
+.mq{display:flex;width:max-content;animation:wv 40s linear infinite}
+.mq span{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:44px;letter-spacing:-.02em;color:#3b3e45;padding:0 26px;white-space:nowrap}
+.mq b{color:#c8ff5a;font-weight:400}
+.pr{position:relative;display:flex;flex-wrap:wrap;gap:20px 36px;align-items:center;padding:36px 20px;border-top:1px solid #23262c;transition:background .4s}
+.pr:hover{background:#101216}
+.pr::before{content:"";position:absolute;left:0;top:0;width:3px;height:0;background:#c8ff5a;transition:height .55s cubic-bezier(.7,0,.2,1)}.pr:hover::before{height:100%}
+.pr .nm{-webkit-text-stroke:1.5px transparent;transition:letter-spacing .55s cubic-bezier(.2,.7,.2,1),color .4s,-webkit-text-stroke-color .4s}
+.pr:hover .nm{color:transparent;-webkit-text-stroke-color:#c8ff5a;letter-spacing:.012em}
+.pr .ar{display:inline-flex;align-items:center;justify-content:center;width:64px;height:64px;border:1px solid #3a3d44;border-radius:50%;color:#c8ff5a;font-size:26px;box-shadow:inset 0 0 0 0 #c8ff5a;transition:box-shadow .55s cubic-bezier(.7,0,.2,1),color .4s,border-color .4s}
+.pr:hover .ar{box-shadow:inset 0 0 0 40px #c8ff5a;color:#0a0b0d;border-color:#c8ff5a}
+.pr .vz{opacity:.6;transition:opacity .4s,border-color .4s}.pr:hover .vz{opacity:1;border-color:#c8ff5a}
+.vz{border:1px solid #23262c;border-radius:10px;background:#0d0f12;overflow:hidden}
+.cl{position:relative;background:#0a0b0d;padding:32px;transition:background .4s}.cl:hover{background:#101216}
+.cl::before{content:"";position:absolute;left:0;top:0;height:2px;width:0;background:#c8ff5a;transition:width .6s cubic-bezier(.7,0,.2,1)}.cl:hover::before{width:100%}
+.cl .d{transition:color .4s}.cl:hover>.d:not(.ac){color:#c8ff5a}
+.gd{display:flex;flex-wrap:wrap;gap:1px;background:#23262c;border:1px solid #23262c;border-radius:10px;overflow:hidden}.gd>*{flex:1 1 340px;min-width:0}
+.ph{border:1px dashed #3a3d44;border-radius:8px;padding:28px;color:#8d9097;font:500 13px 'JetBrains Mono',monospace;background:#0d0f12}
+.px{animation:px 2.4s ease-in-out infinite}@keyframes px{50%{opacity:.18}}
+.pu{transform-box:fill-box;transform-origin:center;animation:pu 2.6s ease-in-out infinite}@keyframes pu{50%{transform:scale(1.7)}}
+.ds{animation:ds 1.6s linear infinite}@keyframes ds{to{stroke-dashoffset:-20}}
+.tl{display:inline-block;margin:0 8px 8px 0;padding:9px 14px;border:1px solid #2a2d34;border-radius:2px;font:500 13px 'JetBrains Mono',monospace;color:#ecebe6;box-shadow:inset 0 0 0 0 #c8ff5a;transition:box-shadow .5s cubic-bezier(.7,0,.2,1),color .35s,border-color .35s}
+.tl:hover{box-shadow:inset 0 -120px 0 0 #c8ff5a;color:#0a0b0d;border-color:#c8ff5a}
+.tl.big{font-size:20px;padding:20px 30px}
+.platform-card{display:flex;flex-direction:column;min-height:430px;box-sizing:border-box;overflow:hidden}
+.platform-chip{cursor:pointer;background:transparent;outline:none;border:1px solid #2a2d34;font-family:'JetBrains Mono',monospace;transition:all .3s}
+.platform-chip.active,.platform-chip:hover{background:#c8ff5a!important;color:#0a0b0d!important;border-color:#c8ff5a!important}
+.platform-board-display{height:230px!important;min-height:230px!important;max-height:230px!important;background:#0d0f12;border:1px solid #23262c;border-radius:6px;overflow:hidden!important;position:relative!important;display:block!important;box-sizing:border-box!important;transition:border-color .3s}
+.board-pane{position:absolute!important;top:0!important;left:0!important;right:0!important;bottom:0!important;width:100%!important;height:100%!important;box-sizing:border-box!important;overflow:hidden!important}
+.board-pane.active{display:block!important}
+#pane-idle.board-pane{display:flex!important;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px}
+.platform-card:has(#chip-rp2040:hover) #pane-rp2040,.platform-card:has(#chip-rp2040.active) #pane-rp2040{display:block!important}
+.platform-card:has(#chip-rp2040:hover) #pane-idle,.platform-card:has(#chip-rp2040.active) #pane-idle{display:none!important}
+.platform-card:has(#chip-rp2040:hover) #pane-esp32,.platform-card:has(#chip-rp2040.active) #pane-esp32{display:none!important}
+.platform-card:has(#chip-rp2040:hover) #chip-rp2040,.platform-card:has(#chip-rp2040.active) #chip-rp2040{background:#c8ff5a!important;color:#0a0b0d!important;border-color:#c8ff5a!important}
+.platform-card:has(#chip-esp32:hover) #pane-esp32,.platform-card:has(#chip-esp32.active) #pane-esp32{display:block!important}
+.platform-card:has(#chip-esp32:hover) #pane-idle,.platform-card:has(#chip-esp32.active) #pane-idle{display:none!important}
+.platform-card:has(#chip-esp32:hover) #pane-rp2040,.platform-card:has(#chip-esp32.active) #pane-rp2040{display:none!important}
+.platform-card:has(#chip-esp32:hover) #chip-esp32,.platform-card:has(#chip-esp32.active) #chip-esp32{background:#c8ff5a!important;color:#0a0b0d!important;border-color:#c8ff5a!important}
+.platform-card:has(#chip-rp2040:hover) #platform-board-display,.platform-card:has(#chip-esp32:hover) #platform-board-display{border-color:#3a404c!important}
+
+
+.lg{display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding:12px 0;border-top:1px solid #23262c}
+.lg .d{font-size:clamp(30px,4vw,48px);transition:color .4s,letter-spacing .5s cubic-bezier(.2,.7,.2,1)}.lg:hover .d{color:#c8ff5a;letter-spacing:.012em}
+.ct{position:relative;display:flex;align-items:center;gap:16px;padding:24px 26px;border-top:1px solid #23262c;transition:background .4s,padding .5s cubic-bezier(.2,.7,.2,1)}.ct:first-child{border-top:0}
+.ct:hover{background:#101216;padding-left:38px}
+.ct::before{content:"";position:absolute;left:0;top:0;width:3px;height:0;background:#c8ff5a;transition:height .5s cubic-bezier(.7,0,.2,1)}.ct:hover::before{height:100%}
+.ct .mono{flex:0 0 78px}.ct .vl{flex:1;min-width:0;overflow-wrap:anywhere;font-size:18px}
+.ct .ar2{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border:1px solid #3a3d44;border-radius:50%;color:#c8ff5a;box-shadow:inset 0 0 0 0 #c8ff5a;transition:box-shadow .5s cubic-bezier(.7,0,.2,1),color .4s,border-color .4s}
+.ct:hover .ar2{box-shadow:inset 0 0 0 30px #c8ff5a;color:#0a0a0d;border-color:#c8ff5a}
+.cr{animation:cr 1s steps(1) infinite}@keyframes cr{50%{opacity:0}}
+.gp{fill:#1a1d22;transition:fill 1.4s}.gp:hover{fill:#c8ff5a;transition:fill 0s}
+.gr{transition:fill 1.4s}.gr:hover{fill:#1a1d22;transition:fill 0s}
+.nav a.lg2{color:#fff}
+.lg2{display:flex;align-items:center;gap:12px}
+.lg2 .mk{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border:1px solid #2f333b;border-radius:3px;font:500 12px 'JetBrains Mono',monospace;color:#c8ff5a;box-shadow:inset 0 0 0 0 #c8ff5a;transition:box-shadow .5s cubic-bezier(.7,0,.2,1),color .4s,border-color .4s}
+.lg2:hover .mk{box-shadow:inset 40px 0 0 0 #c8ff5a;color:#0a0b0d;border-color:#c8ff5a}
+.lg2 b{display:block;font-weight:600;line-height:1.25}
+.lg2 small{display:block;font:500 11px 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:#8d9097}
+.nav a i{font:500 11px 'JetBrains Mono',monospace;color:#c8ff5a;margin-right:7px;font-style:normal}
+.nav a.nl{position:relative;padding:6px 0}
+.nav a.nl::after{content:"";position:absolute;left:0;bottom:0;height:1px;width:0;background:#c8ff5a;transition:width .4s}.nav a.nl:hover::after{width:100%}
+.pgb{position:absolute;left:0;bottom:-1px;height:2px;width:0;background:#c8ff5a}
+@supports (animation-timeline:scroll()){.pgb{animation:pgb linear both;animation-timeline:scroll(root block)}@keyframes pgb{to{width:100%}}}
+.fl a{position:relative;display:block;padding:6px 0;color:#9a9ca3;transition:color .3s,padding .4s cubic-bezier(.2,.7,.2,1)}
+.fl a::before{content:"→";position:absolute;left:0;color:#c8ff5a;opacity:0;transition:opacity .3s}
+.fl a:hover{color:#fff;padding-left:22px}.fl a:hover::before{opacity:1}
+.wm{color:#101216;-webkit-text-stroke:1px #23262c;transition:color .5s,-webkit-text-stroke-color .5s}
+.wm:hover{color:transparent;-webkit-text-stroke-color:#c8ff5a}
+html.cc .pg,html.cc .pg *{cursor:auto}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}.ms:has(.n0:hover) .e0{stroke:#c8ff5a;stroke-width:2.5;animation-duration:.4s}.ms:has(.n0:hover) .c0,.ms:has(.n0:hover) .a0{fill:#c8ff5a}.ms:has(.n1:hover) .e1{stroke:#c8ff5a;stroke-width:2.5;animation-duration:.4s}.ms:has(.n1:hover) .c1,.ms:has(.n1:hover) .a1{fill:#c8ff5a}.ms:has(.n2:hover) .e2{stroke:#c8ff5a;stroke-width:2.5;animation-duration:.4s}.ms:has(.n2:hover) .c2,.ms:has(.n2:hover) .a2{fill:#c8ff5a}.ms:has(.n3:hover) .e3{stroke:#c8ff5a;stroke-width:2.5;animation-duration:.4s}.ms:has(.n3:hover) .c3,.ms:has(.n3:hover) .a3{fill:#c8ff5a}.ms:has(.n4:hover) .e4{stroke:#c8ff5a;stroke-width:2.5;animation-duration:.4s}.ms:has(.n4:hover) .c4,.ms:has(.n4:hover) .a4{fill:#c8ff5a}.ms:has(.n5:hover) .e5{stroke:#c8ff5a;stroke-width:2.5;animation-duration:.4s}.ms:has(.n5:hover) .c5,.ms:has(.n5:hover) .a5{fill:#c8ff5a}.ms:has(.n6:hover) .e6{stroke:#c8ff5a;stroke-width:2.5;animation-duration:.4s}.ms:has(.n6:hover) .c6,.ms:has(.n6:hover) .a6{fill:#c8ff5a}
+</style>
+</helmet>
+<div class="pg"><div id="top" style="position:absolute;top:0;left:0;width:1px;height:1px;pointer-events:none;opacity:0;"></div><dc-import name="Trail" hint-size="0,0"></dc-import><div class="gl"><i></i><i></i><i></i><i style="border-right:1px solid #15171b"></i></div>
+<header id="site-header" class="site-header"><div class="w"><div class="nav-rail"><a class="nav-brand" href="#top" aria-label="Lokesh Panditi - Home"><span class="nav-brand-badge">LP</span><span class="nav-brand-name"><span class="nav-pulse-led"></span>Lokesh Panditi</span></a><nav class="nav-floating-links" aria-label="Primary Navigation"><a class="nav-float-link" href="#about" data-target="about">About</a><a class="nav-float-link" href="#work" data-target="work">Work</a><a class="nav-float-link" href="#skills" data-target="skills">Skills</a><a class="nav-float-link" href="#milestones" data-target="milestones">Milestones</a></nav><div class="nav-actions"><a class="nav-cta-btn" href="#contact"><span class="cta-dot"></span><span>Contact</span><span class="cta-arrow">→</span></a></div></div></div><i class="pgb"></i></header><div class="w">
+<div class="hero-container" style="min-height:calc(100vh - 88px);min-height:calc(100dvh - 88px);display:flex;flex-direction:column;justify-content:center;padding:clamp(48px, 8vh, 100px) 0;box-sizing:border-box">
+<div class="rv mono" style="margin-bottom:clamp(18px, 2.8vh, 32px)"><span class="ac">●</span>&nbsp; Embedded Systems &amp; Firmware Developer · Safety-Critical &amp; Aerospace Focus · Vibe Coder</div>
+<h1 class="rv d" style="margin:0 0 clamp(20px, 3.2vh, 36px);font-size:clamp(52px,8.8vw,116px);line-height:0.95;animation-delay:.1s">Firmware,<br>built close<br>to the <span class="ac">metal.</span></h1>
+<p class="rv mut" style="margin:0 0 clamp(28px, 4.2vh, 48px);max-width:720px;font-size:clamp(17px, 1.4vw, 21px);line-height:1.62;animation-delay:.25s">I engineer bare-metal, safety-critical firmware across RP2040 and ESP32 for aerospace, avionics, and defense systems. As a vibe coder, I accelerate ideation with AI while hand-crafting every critical line of code myself.</p>
+<div class="rv" style="display:flex;flex-wrap:wrap;gap:16px;animation-delay:.35s"><a class="btn" href="#work">View selected work <span>→</span></a><a class="btn btn2" href="https://mail.google.com/mail/?view=cm&fs=1&to=lokesh.panditi.29@gmail.com" target="_blank" rel="noopener noreferrer">Email me <span>↗</span></a></div></div></div>
+<div class="rv" style="position:relative;animation-delay:.5s;margin-top:24px"><div style="overflow:hidden;height:280px;border-top:1px solid #23262c;border-bottom:1px solid #23262c"><dc-import name="Waves" hint-size="100%,280px"></dc-import></div></div>
+<div style="overflow:hidden;padding:36px 0"><div class="mq"><span>Ada</span><span><b>●</b></span><span>C</span><span><b>●</b></span><span>Python</span><span><b>●</b></span><span>AArch64</span><span><b>●</b></span><span>RP2040</span><span><b>●</b></span><span>ESP32</span><span><b>●</b></span><span>ESP-NOW</span><span><b>●</b></span><span>NimBLE</span><span><b>●</b></span><span>ESP-IDF</span><span><b>●</b></span><span>Alire</span><span><b>●</b></span><span>HAL</span><span><b>●</b></span><span>Ada</span><span><b>●</b></span><span>C</span><span><b>●</b></span><span>Python</span><span><b>●</b></span><span>AArch64</span><span><b>●</b></span><span>RP2040</span><span><b>●</b></span><span>ESP32</span><span><b>●</b></span><span>ESP-NOW</span><span><b>●</b></span><span>NimBLE</span><span><b>●</b></span><span>ESP-IDF</span><span><b>●</b></span><span>Alire</span><span><b>●</b></span><span>HAL</span><span><b>●</b></span></div></div>
+<div class="w" id="about"><div class="section-wrap"><aside class="section-v-rail"><div class="section-v-sticky"><span class="section-v-num mono ac">01</span><span class="section-v-line"></span><span class="section-v-title d">About</span></div></aside><div class="section-main"><div style="display:flex;flex-wrap:wrap;gap:40px 72px"><div class="sv" style="flex:1 1 500px"><p class="d" style="margin:0;font-size:clamp(26px,3.3vw,40px);line-height:1.18;font-weight:600;letter-spacing:-.02em">Focused on bare-metal programming, deterministic control software, and high-integrity embedded systems—with long-term dedication to <span class="ac">safety-critical aerospace, avionics, and defense hardware</span> where failure is never an option.</p></div><div class="sv" style="flex:1 1 280px;display:flex;flex-direction:column;gap:26px"><p class="mut" style="margin:0">Passionate about DO-178C style software rigor, hardware abstraction, and fault-tolerant firmware for unmanned aerial vehicles, jets, and guided defense electronics.</p><div><div class="mono" style="margin-bottom:6px">Education</div><div>B.Tech in Computer Science</div><div class="mut">Parul University · 2023–2027</div></div><div><div class="mono" style="margin-bottom:6px">Aspiration &amp; Focus</div><div>Aerospace &amp; Defense Avionics</div></div></div></div><div class="sv" style="margin-top:32px;padding:22px 26px;background:#0d0f12;border:1px solid #23262c;border-left:3px solid #c8ff5a;border-radius:6px"><div class="mono" style="color:#c8ff5a;font-size:12px;margin-bottom:8px">THE VIBE CODING PHILOSOPHY</div><div style="font-size:16px;line-height:1.7;color:#ecebe6;margin-bottom:10px">I build as a <b>vibe coder</b>. I actively use AI tools—including ChatGPT, AntiGravity, and Claude—throughout every project building phase to accelerate creative brainstorming, explore design alternatives, and craft exhaustive documentation.</div><div style="font-size:15px;line-height:1.7;color:#c0c3ca">However, <b>all architectural decisions, low-level register manipulations, memory layouts, and critical parts of the projects were conceived and implemented by me</b>. AI is my sparring partner for brainstorming and documentation; the bare-metal engineering is 100% human-directed.</div></div></div></div></div>
+<div class="w hex-stream-wrap" aria-hidden="true"><div class="hex-stream"><div class="hex-stream-track"><span class="hex-seq">0x7E 0x00 0x1F <span class="h-g">0xC8</span> 0xAA 0x55 <span class="h-g">0x06</span> 0xFF 0x3D <span class="h-s">0xA4</span> 0x88 0x01 <span class="h-g">0x2A</span> 0x9B 0x4E 0x14 <span class="h-s">0x7A</span> 0xD3 0x0F <span class="h-g">0xE2</span> 0x5A 0x8C 0xB1 <span class="h-s">0x94</span> 0x2D 0x6E 0x3B <span class="h-g">0xF0</span> 0x11 0x82 0xC5 <span class="h-s">0x47</span> 0x9D 0x33 0xA0 <span class="h-g">0x76</span> 0x5C 0xEB 0x1A <span class="h-s">0x68</span> 0x8F 0x02 0xD9 <span class="h-g">0x43</span> 0x24 0xB8 0x5F <span class="h-s">0x90</span> 0x0C 0x73 0xAE <span class="h-g">0x31</span> 0xC0 0x66 0xFA <span class="h-s">0x29</span> 0x84 0x1D 0x57 <span class="h-g">0xEE</span> 0x08 0x3A 0x96 <span class="h-s">0x4F</span> 0x25 0xD1 0x78 <span class="h-g">0x1B</span> 0x8E 0x60 0xB4 <span class="h-s">0x07</span> 0x52 0x99 0x4A <span class="h-g">0x2F</span> 0xC3 0x15 0x89 <span class="h-s">0x6D</span> 0x04 0x36 0x71 <span class="h-g">0xDF</span> 0x22 0x8B 0x58 <span class="h-s">0x9C</span> 0x0A 0x4D 0x27 <span class="h-g">0x63</span> 0xFE 0x18 0x81 <span class="h-s">0x53</span> 0x3F 0x7F</span><span class="hex-seq" aria-hidden="true">0x7E 0x00 0x1F <span class="h-g">0xC8</span> 0xAA 0x55 <span class="h-g">0x06</span> 0xFF 0x3D <span class="h-s">0xA4</span> 0x88 0x01 <span class="h-g">0x2A</span> 0x9B 0x4E 0x14 <span class="h-s">0x7A</span> 0xD3 0x0F <span class="h-g">0xE2</span> 0x5A 0x8C 0xB1 <span class="h-s">0x94</span> 0x2D 0x6E 0x3B <span class="h-g">0xF0</span> 0x11 0x82 0xC5 <span class="h-s">0x47</span> 0x9D 0x33 0xA0 <span class="h-g">0x76</span> 0x5C 0xEB 0x1A <span class="h-s">0x68</span> 0x8F 0x02 0xD9 <span class="h-g">0x43</span> 0x24 0xB8 0x5F <span class="h-s">0x90</span> 0x0C 0x73 0xAE <span class="h-g">0x31</span> 0xC0 0x66 0xFA <span class="h-s">0x29</span> 0x84 0x1D 0x57 <span class="h-g">0xEE</span> 0x08 0x3A 0x96 <span class="h-s">0x4F</span> 0x25 0xD1 0x78 <span class="h-g">0x1B</span> 0x8E 0x60 0xB4 <span class="h-s">0x07</span> 0x52 0x99 0x4A <span class="h-g">0x2F</span> 0xC3 0x15 0x89 <span class="h-s">0x6D</span> 0x04 0x36 0x71 <span class="h-g">0xDF</span> 0x22 0x8B 0x58 <span class="h-s">0x9C</span> 0x0A 0x4D 0x27 <span class="h-g">0x63</span> 0xFE 0x18 0x81 <span class="h-s">0x53</span> 0x3F 0x7F</span></div></div></div>
+<div class="w" id="work"><div class="section-wrap"><aside class="section-v-rail"><div class="section-v-sticky"><span class="section-v-num mono ac">02</span><span class="section-v-line"></span><span class="section-v-title d">Selected Work</span></div></aside><div class="section-main"><div class="sv" style="margin-bottom:36px"><h2 class="d" style="margin:0;font-size:clamp(40px,6vw,72px)">Projects</h2></div><div><a class="pr sv" href="Glyph.dc.html"><span class="mono" style="flex:0 0 44px">01</span><span style="flex:1 1 380px"><span class="nm d" style="display:block;font-size:clamp(44px,6.5vw,88px)">Glyph</span><span style="display:block;font-size:19px;margin:8px 0 14px" class="ac">Embedded Graphics Framework</span><span class="mut" style="display:block;max-width:520px">Developed a portable, framebuffer-based graphics framework in Ada for resource-constrained microcontrollers.</span><span class="mono" style="display:block;margin-top:16px">Ada 2022 · RP2040 · SSD1306 · ILI9341 · v1.1.0</span></span><span class="vz" style="flex:0 1 320px;padding:18px;display:block"><svg viewBox="0 0 366 184" width="100%" style="cursor:crosshair;display:block" role="img" aria-label="Interactive framebuffer pixel grid"><rect class="gp" x="0" y="0" width="18" height="18" rx="2"></rect><rect class="gp" x="23" y="0" width="18" height="18" rx="2"></rect><rect class="gp" x="46" y="0" width="18" height="18" rx="2"></rect><rect class="gp" x="69" y="0" width="18" height="18" rx="2"></rect><rect class="gr px" style="animation-delay:0.56s" x="92" y="0" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:0.70s" x="115" y="0" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:0.84s" x="138" y="0" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:0.98s" x="161" y="0" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:1.12s" x="184" y="0" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:1.26s" x="207" y="0" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:1.40s" x="230" y="0" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:1.54s" x="253" y="0" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gp" x="276" y="0" width="18" height="18" rx="2"></rect><rect class="gp" x="299" y="0" width="18" height="18" rx="2"></rect><rect class="gp" x="322" y="0" width="18" height="18" rx="2"></rect><rect class="gp" x="345" y="0" width="18" height="18" rx="2"></rect><rect class="gp" x="0" y="23" width="18" height="18" rx="2"></rect><rect class="gp" x="23" y="23" width="18" height="18" rx="2"></rect><rect class="gr px" style="animation-delay:0.28s" x="46" y="23" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:0.42s" x="69" y="23" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:0.56s" x="92" y="23" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:0.70s" x="115" y="23" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:0.84s" x="138" y="23" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:0.98s" x="161" y="23" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:1.12s" x="184" y="23" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:1.26s" x="207" y="23" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:1.40s" x="230" y="23" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:1.54s" x="253" y="23" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:1.68s" x="276" y="23" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:1.82s" x="299" y="23" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gp" x="322" y="23" width="18" height="18" rx="2"></rect><rect class="gp" x="345" y="23" width="18" height="18" rx="2"></rect><rect class="gp" x="0" y="46" width="18" height="18" rx="2"></rect><rect class="gr px" style="animation-delay:0.14s" x="23" y="46" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:0.28s" x="46" y="46" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:0.42s" x="69" y="46" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:0.56s" x="92" y="46" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gp" x="115" y="46" width="18" height="18" rx="2"></rect><rect class="gp" x="138" y="46" width="18" height="18" rx="2"></rect><rect class="gp" x="161" y="46" width="18" height="18" rx="2"></rect><rect class="gp" x="184" y="46" width="18" height="18" rx="2"></rect><rect class="gp" x="207" y="46" width="18" height="18" rx="2"></rect><rect class="gp" x="230" y="46" width="18" height="18" rx="2"></rect><rect class="gr px" style="animation-delay:1.54s" x="253" y="46" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:1.68s" x="276" y="46" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:1.82s" x="299" y="46" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:1.96s" x="322" y="46" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gp" x="345" y="46" width="18" height="18" rx="2"></rect><rect class="gr px" style="animation-delay:0.00s" x="0" y="69" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:0.14s" x="23" y="69" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:0.28s" x="46" y="69" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:0.42s" x="69" y="69" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gp" x="92" y="69" width="18" height="18" rx="2"></rect><rect class="gp" x="115" y="69" width="18" height="18" rx="2"></rect><rect class="gp" x="138" y="69" width="18" height="18" rx="2"></rect><rect class="gp" x="161" y="69" width="18" height="18" rx="2"></rect><rect class="gp" x="184" y="69" width="18" height="18" rx="2"></rect><rect class="gp" x="207" y="69" width="18" height="18" rx="2"></rect><rect class="gp" x="230" y="69" width="18" height="18" rx="2"></rect><rect class="gp" x="253" y="69" width="18" height="18" rx="2"></rect><rect class="gr px" style="animation-delay:1.68s" x="276" y="69" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:1.82s" x="299" y="69" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:1.96s" x="322" y="69" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:2.10s" x="345" y="69" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:0.00s" x="0" y="92" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:0.14s" x="23" y="92" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:0.28s" x="46" y="92" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:0.42s" x="69" y="92" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gp" x="92" y="92" width="18" height="18" rx="2"></rect><rect class="gp" x="115" y="92" width="18" height="18" rx="2"></rect><rect class="gp" x="138" y="92" width="18" height="18" rx="2"></rect><rect class="gp" x="161" y="92" width="18" height="18" rx="2"></rect><rect class="gp" x="184" y="92" width="18" height="18" rx="2"></rect><rect class="gp" x="207" y="92" width="18" height="18" rx="2"></rect><rect class="gp" x="230" y="92" width="18" height="18" rx="2"></rect><rect class="gp" x="253" y="92" width="18" height="18" rx="2"></rect><rect class="gr px" style="animation-delay:1.68s" x="276" y="92" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:1.82s" x="299" y="92" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:1.96s" x="322" y="92" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:2.10s" x="345" y="92" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gp" x="0" y="115" width="18" height="18" rx="2"></rect><rect class="gr px" style="animation-delay:0.14s" x="23" y="115" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:0.28s" x="46" y="115" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:0.42s" x="69" y="115" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:0.56s" x="92" y="115" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gp" x="115" y="115" width="18" height="18" rx="2"></rect><rect class="gp" x="138" y="115" width="18" height="18" rx="2"></rect><rect class="gp" x="161" y="115" width="18" height="18" rx="2"></rect><rect class="gp" x="184" y="115" width="18" height="18" rx="2"></rect><rect class="gp" x="207" y="115" width="18" height="18" rx="2"></rect><rect class="gp" x="230" y="115" width="18" height="18" rx="2"></rect><rect class="gr px" style="animation-delay:1.54s" x="253" y="115" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:1.68s" x="276" y="115" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:1.82s" x="299" y="115" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:1.96s" x="322" y="115" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gp" x="345" y="115" width="18" height="18" rx="2"></rect><rect class="gp" x="0" y="138" width="18" height="18" rx="2"></rect><rect class="gp" x="23" y="138" width="18" height="18" rx="2"></rect><rect class="gr px" style="animation-delay:0.28s" x="46" y="138" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:0.42s" x="69" y="138" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:0.56s" x="92" y="138" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:0.70s" x="115" y="138" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:0.84s" x="138" y="138" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:0.98s" x="161" y="138" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:1.12s" x="184" y="138" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:1.26s" x="207" y="138" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:1.40s" x="230" y="138" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:1.54s" x="253" y="138" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:1.68s" x="276" y="138" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:1.82s" x="299" y="138" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gp" x="322" y="138" width="18" height="18" rx="2"></rect><rect class="gp" x="345" y="138" width="18" height="18" rx="2"></rect><rect class="gp" x="0" y="161" width="18" height="18" rx="2"></rect><rect class="gp" x="23" y="161" width="18" height="18" rx="2"></rect><rect class="gp" x="46" y="161" width="18" height="18" rx="2"></rect><rect class="gp" x="69" y="161" width="18" height="18" rx="2"></rect><rect class="gr px" style="animation-delay:0.56s" x="92" y="161" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:0.70s" x="115" y="161" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:0.84s" x="138" y="161" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:0.98s" x="161" y="161" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:1.12s" x="184" y="161" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:1.26s" x="207" y="161" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:1.40s" x="230" y="161" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gr px" style="animation-delay:1.54s" x="253" y="161" width="18" height="18" rx="2" fill="#c8ff5a"></rect><rect class="gp" x="276" y="161" width="18" height="18" rx="2"></rect><rect class="gp" x="299" y="161" width="18" height="18" rx="2"></rect><rect class="gp" x="322" y="161" width="18" height="18" rx="2"></rect><rect class="gp" x="345" y="161" width="18" height="18" rx="2"></rect></svg></span><span class="ar">→</span></a><a class="pr sv" href="Radio_Kit.dc.html"><span class="mono" style="flex:0 0 44px">02</span><span style="flex:1 1 380px"><span class="nm d" style="display:block;font-size:clamp(44px,6.5vw,88px)">Radio_Kit</span><span style="display:block;font-size:19px;margin:8px 0 14px" class="ac">RF Signal Generation Framework</span><span class="mut" style="display:block;max-width:520px">Building a bare-metal Ada framework for programmable carrier generation using RP2040 clock-generation hardware.</span><span class="mono" style="display:block;margin-top:16px">Ada 2022 · RP2040 · Dual-Core AMP · ChaCha20 · v1.0.0</span></span><span class="vz" style="flex:0 1 320px;padding:18px;display:block"><dc-import name="Carrier" hint-size="100%,184px"></dc-import></span><span class="ar">→</span></a><a class="pr sv" href="MeshOS.dc.html"><span class="mono" style="flex:0 0 44px">03</span><span style="flex:1 1 380px"><span class="nm d" style="display:block;font-size:clamp(44px,6.5vw,88px)">MeshOS</span><span style="display:block;font-size:19px;margin:8px 0 14px" class="ac">ESP32 Mesh Network</span><span class="mut" style="display:block;max-width:520px">Developing a lightweight mesh networking system for ESP32 devices using ESP-NOW and NimBLE clients.</span><span class="mono" style="display:block;margin-top:16px">C · FreeRTOS · ESP-NOW · PSA Crypto · SwiftUI · Compose · v1.0.0</span></span><span class="vz" style="flex:0 1 320px;padding:18px;display:block"><svg class="ms" viewBox="0 0 368 184" width="100%" style="display:block" role="img" aria-label="Interactive mesh network"><line class="ds e0 e1" x1="30" y1="150" x2="95" y2="60" stroke="#3b3e45" stroke-width="1.5" stroke-dasharray="4 6"></line><line class="ds e1 e2" x1="95" y1="60" x2="180" y2="125" stroke="#c8ff5a" stroke-width="1.5" stroke-dasharray="4 6"></line><line class="ds e1 e3" x1="95" y1="60" x2="150" y2="28" stroke="#3b3e45" stroke-width="1.5" stroke-dasharray="4 6"></line><line class="ds e2 e4" x1="180" y1="125" x2="260" y2="75" stroke="#c8ff5a" stroke-width="1.5" stroke-dasharray="4 6"></line><line class="ds e3 e4" x1="150" y1="28" x2="260" y2="75" stroke="#3b3e45" stroke-width="1.5" stroke-dasharray="4 6"></line><line class="ds e4 e5" x1="260" y1="75" x2="332" y2="145" stroke="#3b3e45" stroke-width="1.5" stroke-dasharray="4 6"></line><line class="ds e4 e6" x1="260" y1="75" x2="310" y2="26" stroke="#c8ff5a" stroke-width="1.5" stroke-dasharray="4 6"></line><line class="ds e2 e5" x1="180" y1="125" x2="332" y2="145" stroke="#3b3e45" stroke-width="1.5" stroke-dasharray="4 6"></line><g class="nd n0" style="cursor:pointer"><circle cx="30" cy="150" r="20" fill="transparent"></circle><circle class="pu c0 a1" style="animation-delay:0.00s" cx="30" cy="150" r="7" fill="#0a0b0d" stroke="#c8ff5a" stroke-width="2"></circle></g><g class="nd n1" style="cursor:pointer"><circle cx="95" cy="60" r="20" fill="transparent"></circle><circle class="pu c1 a0 a2 a3" style="animation-delay:0.37s" cx="95" cy="60" r="7" fill="#0a0b0d" stroke="#c8ff5a" stroke-width="2"></circle></g><g class="nd n2" style="cursor:pointer"><circle cx="180" cy="125" r="20" fill="transparent"></circle><circle class="pu c2 a1 a4 a5" style="animation-delay:0.74s" cx="180" cy="125" r="7" fill="#0a0b0d" stroke="#c8ff5a" stroke-width="2"></circle></g><g class="nd n3" style="cursor:pointer"><circle cx="150" cy="28" r="20" fill="transparent"></circle><circle class="pu c3 a1 a4" style="animation-delay:1.11s" cx="150" cy="28" r="7" fill="#0a0b0d" stroke="#c8ff5a" stroke-width="2"></circle></g><g class="nd n4" style="cursor:pointer"><circle cx="260" cy="75" r="20" fill="transparent"></circle><circle class="pu c4 a2 a3 a5 a6" style="animation-delay:1.48s" cx="260" cy="75" r="7" fill="#0a0b0d" stroke="#c8ff5a" stroke-width="2"></circle></g><g class="nd n5" style="cursor:pointer"><circle cx="332" cy="145" r="20" fill="transparent"></circle><circle class="pu c5 a4 a2" style="animation-delay:1.85s" cx="332" cy="145" r="7" fill="#0a0b0d" stroke="#c8ff5a" stroke-width="2"></circle></g><g class="nd n6" style="cursor:pointer"><circle cx="310" cy="26" r="20" fill="transparent"></circle><circle class="pu c6 a4" style="animation-delay:2.22s" cx="310" cy="26" r="7" fill="#0a0b0d" stroke="#c8ff5a" stroke-width="2"></circle></g></svg></span><span class="ar">→</span></a><div style="border-top:1px solid #23262c"></div></div></div></div></div>
+<div class="w hex-stream-wrap" aria-hidden="true"><div class="hex-stream"><div class="hex-stream-track"><span class="hex-seq">0x7E 0x00 0x1F <span class="h-g">0xC8</span> 0xAA 0x55 <span class="h-g">0x06</span> 0xFF 0x3D <span class="h-s">0xA4</span> 0x88 0x01 <span class="h-g">0x2A</span> 0x9B 0x4E 0x14 <span class="h-s">0x7A</span> 0xD3 0x0F <span class="h-g">0xE2</span> 0x5A 0x8C 0xB1 <span class="h-s">0x94</span> 0x2D 0x6E 0x3B <span class="h-g">0xF0</span> 0x11 0x82 0xC5 <span class="h-s">0x47</span> 0x9D 0x33 0xA0 <span class="h-g">0x76</span> 0x5C 0xEB 0x1A <span class="h-s">0x68</span> 0x8F 0x02 0xD9 <span class="h-g">0x43</span> 0x24 0xB8 0x5F <span class="h-s">0x90</span> 0x0C 0x73 0xAE <span class="h-g">0x31</span> 0xC0 0x66 0xFA <span class="h-s">0x29</span> 0x84 0x1D 0x57 <span class="h-g">0xEE</span> 0x08 0x3A 0x96 <span class="h-s">0x4F</span> 0x25 0xD1 0x78 <span class="h-g">0x1B</span> 0x8E 0x60 0xB4 <span class="h-s">0x07</span> 0x52 0x99 0x4A <span class="h-g">0x2F</span> 0xC3 0x15 0x89 <span class="h-s">0x6D</span> 0x04 0x36 0x71 <span class="h-g">0xDF</span> 0x22 0x8B 0x58 <span class="h-s">0x9C</span> 0x0A 0x4D 0x27 <span class="h-g">0x63</span> 0xFE 0x18 0x81 <span class="h-s">0x53</span> 0x3F 0x7F</span><span class="hex-seq" aria-hidden="true">0x7E 0x00 0x1F <span class="h-g">0xC8</span> 0xAA 0x55 <span class="h-g">0x06</span> 0xFF 0x3D <span class="h-s">0xA4</span> 0x88 0x01 <span class="h-g">0x2A</span> 0x9B 0x4E 0x14 <span class="h-s">0x7A</span> 0xD3 0x0F <span class="h-g">0xE2</span> 0x5A 0x8C 0xB1 <span class="h-s">0x94</span> 0x2D 0x6E 0x3B <span class="h-g">0xF0</span> 0x11 0x82 0xC5 <span class="h-s">0x47</span> 0x9D 0x33 0xA0 <span class="h-g">0x76</span> 0x5C 0xEB 0x1A <span class="h-s">0x68</span> 0x8F 0x02 0xD9 <span class="h-g">0x43</span> 0x24 0xB8 0x5F <span class="h-s">0x90</span> 0x0C 0x73 0xAE <span class="h-g">0x31</span> 0xC0 0x66 0xFA <span class="h-s">0x29</span> 0x84 0x1D 0x57 <span class="h-g">0xEE</span> 0x08 0x3A 0x96 <span class="h-s">0x4F</span> 0x25 0xD1 0x78 <span class="h-g">0x1B</span> 0x8E 0x60 0xB4 <span class="h-s">0x07</span> 0x52 0x99 0x4A <span class="h-g">0x2F</span> 0xC3 0x15 0x89 <span class="h-s">0x6D</span> 0x04 0x36 0x71 <span class="h-g">0xDF</span> 0x22 0x8B 0x58 <span class="h-s">0x9C</span> 0x0A 0x4D 0x27 <span class="h-g">0x63</span> 0xFE 0x18 0x81 <span class="h-s">0x53</span> 0x3F 0x7F</span></div></div></div>
+<div class="w" id="skills"><div class="section-wrap"><aside class="section-v-rail"><div class="section-v-sticky"><span class="section-v-num mono ac">03</span><span class="section-v-line"></span><span class="section-v-title d">Capabilities</span></div></aside><div class="section-main"><div class="sv" style="margin-bottom:36px"><h2 class="d" style="margin:0;font-size:clamp(40px,6vw,72px)">Skills</h2></div><div class="gd sv"><div class="cl" style="flex:2 1 520px"><div class="mono ac" style="margin-bottom:14px">01</div><div class="d" style="font-size:26px;margin-bottom:20px;line-height:1.1">Languages</div><div class="lg"><span class="d">C</span><span class="mono" style="color:#c8ff5a;font-weight:600">Advanced</span></div><div class="lg"><span class="d">Ada</span><span class="mono">Intermediate</span></div><div class="lg"><span class="d">Python</span><span class="mono">Intermediate</span></div><div class="lg"><span class="d">AArch64 Assembly</span><span class="mono">Beginner</span></div></div><div class="cl platform-card" id="platform-card" style="flex:1 1 320px;display:flex;flex-direction:column"><div class="mono ac" style="margin-bottom:14px">02</div><div class="d" style="font-size:26px;margin-bottom:16px;line-height:1.1">Embedded platforms</div><div class="platform-triggers" style="display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap"><button type="button" class="tl big platform-chip" id="chip-rp2040" data-board="rp2040">RP2040</button><button type="button" class="tl big platform-chip" id="chip-esp32" data-board="esp32">ESP32</button></div><div class="platform-board-display" id="platform-board-display" style="height:230px;min-height:230px;max-height:230px;background:#0d0f12;border:1px solid #23262c;border-radius:6px;overflow:hidden;position:relative;box-sizing:border-box;transition:border-color .3s"><div class="board-pane active" id="pane-idle" style="position:absolute;inset:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px;box-sizing:border-box;overflow:hidden"><svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#3a404c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:12px;opacity:0.85"><rect x="4" y="4" width="16" height="16" rx="2"></rect><rect x="9" y="9" width="6" height="6"></rect><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"></path></svg><div class="mono" style="font-size:12px;color:#6b7280;letter-spacing:.04em">Hover a platform name above to preview board schematic</div></div><div class="board-pane" id="pane-rp2040" style="position:absolute;inset:0;width:100%;height:100%;display:none;box-sizing:border-box;overflow:hidden"><svg viewBox="0 0 320 220" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display:block;width:100%;height:100%" role="img" aria-label="Raspberry Pi Pico RP2040 Schematic Outline"><defs><pattern id="pcb-grid-pico" width="16" height="16" patternUnits="userSpaceOnUse"><path d="M 16 0 L 0 0 0 16" fill="none" stroke="#161a22" stroke-width="0.8"/></pattern></defs><rect width="100%" height="100%" fill="#0a0c10"/><rect width="100%" height="100%" fill="url(#pcb-grid-pico)"/><rect x="36" y="55" width="248" height="110" rx="8" fill="#0d1117" stroke="#3a404c" stroke-width="1.8"/><rect x="40" y="59" width="240" height="102" rx="5" fill="none" stroke="#1c212b" stroke-width="1"/><circle cx="50" cy="69" r="4.5" fill="#0a0c10" stroke="#3a404c" stroke-width="1.2"/><circle cx="50" cy="151" r="4.5" fill="#0a0c10" stroke="#3a404c" stroke-width="1.2"/><circle cx="270" cy="69" r="4.5" fill="#0a0c10" stroke="#3a404c" stroke-width="1.2"/><circle cx="270" cy="151" r="4.5" fill="#0a0c10" stroke="#3a404c" stroke-width="1.2"/><g fill="#1f242e" stroke="#c8ff5a" stroke-width="1"><rect x="62" y="52" width="6" height="10" rx="1.5"/><rect x="72" y="52" width="6" height="10" rx="1.5"/><rect x="82" y="52" width="6" height="10" rx="1.5"/><rect x="92" y="52" width="6" height="10" rx="1.5"/><rect x="102" y="52" width="6" height="10" rx="1.5"/><rect x="112" y="52" width="6" height="10" rx="1.5"/><rect x="122" y="52" width="6" height="10" rx="1.5"/><rect x="132" y="52" width="6" height="10" rx="1.5"/><rect x="142" y="52" width="6" height="10" rx="1.5"/><rect x="152" y="52" width="6" height="10" rx="1.5"/><rect x="162" y="52" width="6" height="10" rx="1.5"/><rect x="172" y="52" width="6" height="10" rx="1.5"/><rect x="182" y="52" width="6" height="10" rx="1.5"/><rect x="192" y="52" width="6" height="10" rx="1.5"/><rect x="202" y="52" width="6" height="10" rx="1.5"/><rect x="212" y="52" width="6" height="10" rx="1.5"/><rect x="222" y="52" width="6" height="10" rx="1.5"/><rect x="232" y="52" width="6" height="10" rx="1.5"/><rect x="242" y="52" width="6" height="10" rx="1.5"/><rect x="252" y="52" width="6" height="10" rx="1.5"/></g><g fill="#1f242e" stroke="#c8ff5a" stroke-width="1"><rect x="62" y="158" width="6" height="10" rx="1.5"/><rect x="72" y="158" width="6" height="10" rx="1.5"/><rect x="82" y="158" width="6" height="10" rx="1.5"/><rect x="92" y="158" width="6" height="10" rx="1.5"/><rect x="102" y="158" width="6" height="10" rx="1.5"/><rect x="112" y="158" width="6" height="10" rx="1.5"/><rect x="122" y="158" width="6" height="10" rx="1.5"/><rect x="132" y="158" width="6" height="10" rx="1.5"/><rect x="142" y="158" width="6" height="10" rx="1.5"/><rect x="152" y="158" width="6" height="10" rx="1.5"/><rect x="162" y="158" width="6" height="10" rx="1.5"/><rect x="172" y="158" width="6" height="10" rx="1.5"/><rect x="182" y="158" width="6" height="10" rx="1.5"/><rect x="192" y="158" width="6" height="10" rx="1.5"/><rect x="202" y="158" width="6" height="10" rx="1.5"/><rect x="212" y="158" width="6" height="10" rx="1.5"/><rect x="222" y="158" width="6" height="10" rx="1.5"/><rect x="232" y="158" width="6" height="10" rx="1.5"/><rect x="242" y="158" width="6" height="10" rx="1.5"/><rect x="252" y="158" width="6" height="10" rx="1.5"/></g><rect x="24" y="94" width="22" height="32" rx="3" fill="#13171f" stroke="#c8ff5a" stroke-width="1.6"/><rect x="20" y="100" width="6" height="20" rx="1" fill="#c8ff5a" opacity="0.6"/><rect x="30" y="102" width="10" height="16" rx="1" fill="none" stroke="#3a404c" stroke-width="1"/><rect x="142" y="92" width="36" height="36" rx="3" fill="#151a22" stroke="#c8ff5a" stroke-width="1.8"/><circle cx="149" cy="99" r="2" fill="#c8ff5a"/><text x="160" y="112" font-family="'JetBrains Mono', monospace" font-size="8" fill="#c8ff5a" text-anchor="middle" font-weight="700">RP2040</text><text x="160" y="121" font-family="'JetBrains Mono', monospace" font-size="5" fill="#8d9097" text-anchor="middle">ARM M0+</text><rect x="98" y="94" width="24" height="32" rx="2" fill="#12161e" stroke="#5a606d" stroke-width="1.2"/><text x="110" y="112" font-family="'JetBrains Mono', monospace" font-size="6" fill="#8d9097" text-anchor="middle">FLASH</text><rect x="194" y="100" width="18" height="20" rx="4" fill="#151921" stroke="#8d9097" stroke-width="1.2"/><text x="203" y="112" font-family="'JetBrains Mono', monospace" font-size="5.5" fill="#8d9097" text-anchor="middle">12M</text><rect x="100" y="67" width="20" height="14" rx="2" fill="#161b24" stroke="#c8ff5a" stroke-width="1.2"/><circle cx="110" cy="74" r="3.5" fill="#c8ff5a" opacity="0.5"/><text x="110" y="64" font-family="'JetBrains Mono', monospace" font-size="5" fill="#8d9097" text-anchor="middle">BOOTSEL</text><rect x="68" y="68" width="6" height="10" rx="1" fill="#12161e" stroke="#c8ff5a" stroke-width="1"/><circle cx="71" cy="73" r="2" fill="#c8ff5a"/><text x="71" y="64" font-family="'JetBrains Mono', monospace" font-size="5" fill="#8d9097" text-anchor="middle">LED</text><g fill="none" stroke="#8d9097" stroke-width="1.2"><circle cx="266" cy="100" r="3"/><circle cx="266" cy="110" r="3"/><circle cx="266" cy="120" r="3"/></g><text x="266" y="92" font-family="'JetBrains Mono', monospace" font-size="5" fill="#8d9097" text-anchor="middle">SWD</text><text x="160" y="145" font-family="'JetBrains Mono', monospace" font-size="7.5" fill="#ecebe6" text-anchor="middle" font-weight="600" letter-spacing="1.5">RASPBERRY PI PICO</text></svg><div style="position:absolute;bottom:8px;left:10px;background:rgba(10,11,13,0.85);backdrop-filter:blur(6px);padding:3px 8px;border-radius:3px;border:1px solid #2a2d34" class="mono"><span class="ac">●</span> RP2040 Schematic Outline</div></div><div class="board-pane" id="pane-esp32" style="position:absolute;inset:0;width:100%;height:100%;display:none;box-sizing:border-box;overflow:hidden"><svg viewBox="0 0 320 220" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display:block;width:100%;height:100%" role="img" aria-label="ESP32 Development Board Schematic Outline"><defs><pattern id="pcb-grid-esp" width="16" height="16" patternUnits="userSpaceOnUse"><path d="M 16 0 L 0 0 0 16" fill="none" stroke="#161a22" stroke-width="0.8"/></pattern></defs><rect width="100%" height="100%" fill="#0a0c10"/><rect width="100%" height="100%" fill="url(#pcb-grid-esp)"/><rect x="42" y="42" width="236" height="136" rx="8" fill="#0d1117" stroke="#3a404c" stroke-width="1.8"/><rect x="46" y="46" width="228" height="128" rx="5" fill="none" stroke="#1c212b" stroke-width="1"/><g fill="#1f242e" stroke="#c8ff5a" stroke-width="1"><rect x="70" y="38" width="7" height="9" rx="1.5"/><rect x="82" y="38" width="7" height="9" rx="1.5"/><rect x="94" y="38" width="7" height="9" rx="1.5"/><rect x="106" y="38" width="7" height="9" rx="1.5"/><rect x="118" y="38" width="7" height="9" rx="1.5"/><rect x="130" y="38" width="7" height="9" rx="1.5"/><rect x="142" y="38" width="7" height="9" rx="1.5"/><rect x="154" y="38" width="7" height="9" rx="1.5"/><rect x="166" y="38" width="7" height="9" rx="1.5"/><rect x="178" y="38" width="7" height="9" rx="1.5"/><rect x="190" y="38" width="7" height="9" rx="1.5"/><rect x="202" y="38" width="7" height="9" rx="1.5"/><rect x="214" y="38" width="7" height="9" rx="1.5"/><rect x="226" y="38" width="7" height="9" rx="1.5"/><rect x="238" y="38" width="7" height="9" rx="1.5"/></g><g fill="#1f242e" stroke="#c8ff5a" stroke-width="1"><rect x="70" y="173" width="7" height="9" rx="1.5"/><rect x="82" y="173" width="7" height="9" rx="1.5"/><rect x="94" y="173" width="7" height="9" rx="1.5"/><rect x="106" y="173" width="7" height="9" rx="1.5"/><rect x="118" y="173" width="7" height="9" rx="1.5"/><rect x="130" y="173" width="7" height="9" rx="1.5"/><rect x="142" y="173" width="7" height="9" rx="1.5"/><rect x="154" y="173" width="7" height="9" rx="1.5"/><rect x="166" y="173" width="7" height="9" rx="1.5"/><rect x="178" y="173" width="7" height="9" rx="1.5"/><rect x="190" y="173" width="7" height="9" rx="1.5"/><rect x="202" y="173" width="7" height="9" rx="1.5"/><rect x="214" y="173" width="7" height="9" rx="1.5"/><rect x="226" y="173" width="7" height="9" rx="1.5"/><rect x="238" y="173" width="7" height="9" rx="1.5"/></g><rect x="54" y="56" width="104" height="108" rx="4" fill="#12161f" stroke="#3a404c" stroke-width="1.4"/><rect x="58" y="60" width="22" height="100" rx="2" fill="#0d1017" stroke="#252b38" stroke-width="1"/><path d="M 64 68 L 74 68 L 74 80 L 66 80 L 66 92 L 74 92 L 74 104 L 66 104 L 66 116 L 74 116 L 74 128 L 66 128 L 66 140 L 74 140 L 74 152" fill="none" stroke="#c8ff5a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><rect x="84" y="60" width="70" height="100" rx="3" fill="#161b24" stroke="#c8ff5a" stroke-width="1.6"/><g fill="#3a404c"><circle cx="88" cy="64" r="1.5"/><circle cx="150" cy="64" r="1.5"/><circle cx="88" cy="156" r="1.5"/><circle cx="150" cy="156" r="1.5"/></g><text x="119" y="96" font-family="'JetBrains Mono', monospace" font-size="11" fill="#fff" text-anchor="middle" font-weight="700">ESP32</text><text x="119" y="110" font-family="'JetBrains Mono', monospace" font-size="6.5" fill="#c8ff5a" text-anchor="middle">WROOM-32</text><text x="119" y="122" font-family="'JetBrains Mono', monospace" font-size="5" fill="#8d9097" text-anchor="middle">Wi-Fi + BLE SoC</text><text x="119" y="138" font-family="'JetBrains Mono', monospace" font-size="4.5" fill="#5a606d" text-anchor="middle">240 MHz · 520KB SRAM</text><rect x="254" y="92" width="28" height="36" rx="3" fill="#13171f" stroke="#c8ff5a" stroke-width="1.6"/><rect x="250" y="98" width="6" height="24" rx="1" fill="#c8ff5a" opacity="0.6"/><rect x="258" y="100" width="12" height="20" rx="1" fill="none" stroke="#3a404c" stroke-width="1"/><rect x="214" y="94" width="28" height="32" rx="2" fill="#151a22" stroke="#8d9097" stroke-width="1.2"/><text x="228" y="112" font-family="'JetBrains Mono', monospace" font-size="6" fill="#8d9097" text-anchor="middle">CP2102</text><rect x="174" y="66" width="24" height="18" rx="2" fill="#12161e" stroke="#5a606d" stroke-width="1.2"/><rect x="178" y="62" width="16" height="5" rx="1" fill="#3a404c"/><text x="186" y="78" font-family="'JetBrains Mono', monospace" font-size="5" fill="#8d9097" text-anchor="middle">3.3V</text><rect x="172" y="134" width="16" height="14" rx="2" fill="#161b24" stroke="#8d9097" stroke-width="1.2"/><circle cx="180" cy="141" r="3" fill="#8d9097" opacity="0.5"/><text x="180" y="158" font-family="'JetBrains Mono', monospace" font-size="5" fill="#8d9097" text-anchor="middle">EN</text><rect x="218" y="134" width="16" height="14" rx="2" fill="#161b24" stroke="#c8ff5a" stroke-width="1.2"/><circle cx="226" cy="141" r="3" fill="#c8ff5a" opacity="0.6"/><text x="226" y="158" font-family="'JetBrains Mono', monospace" font-size="5" fill="#c8ff5a" text-anchor="middle">BOOT</text><circle cx="180" cy="102" r="2.5" fill="#c8ff5a"/><circle cx="180" cy="114" r="2.5" fill="#3a404c"/><text x="192" y="104" font-family="'JetBrains Mono', monospace" font-size="4.5" fill="#8d9097">PWR</text><text x="192" y="116" font-family="'JetBrains Mono', monospace" font-size="4.5" fill="#5a606d">IO2</text></svg><div style="position:absolute;bottom:8px;left:10px;background:rgba(10,11,13,0.85);backdrop-filter:blur(6px);padding:3px 8px;border-radius:3px;border:1px solid #2a2d34" class="mono"><span class="ac">●</span> ESP32 Schematic Outline</div></div></div></div><div class="cl" style="flex:1 1 380px"><div class="mono ac" style="margin-bottom:14px">03</div><div class="d" style="font-size:26px;margin-bottom:20px;line-height:1.1">Firmware and low-level</div><span class="tl ">Bare-metal programming</span><span class="tl ">Firmware architecture</span><span class="tl ">Driver development</span><span class="tl ">Hardware abstraction layers (HAL)</span></div><div class="cl" style="flex:1 1 340px"><div class="mono ac" style="margin-bottom:14px">04</div><div class="d" style="font-size:26px;margin-bottom:20px;line-height:1.1">Interfaces and protocols</div><span class="tl ">UART</span><span class="tl ">SPI</span><span class="tl ">I²C</span><span class="tl ">CAN</span><span class="tl ">ESP-NOW</span><span class="tl ">BLE/NimBLE</span></div><div class="cl" style="flex:1 1 340px"><div class="mono ac" style="margin-bottom:14px">05</div><div class="d" style="font-size:26px;margin-bottom:20px;line-height:1.1">Tools and build systems</div><span class="tl ">Git</span><span class="tl ">GitHub</span><span class="tl ">PlatformIO</span><span class="tl ">ESP-IDF</span><span class="tl ">Alire</span><span class="tl ">gprbuild</span><span class="tl ">VS Code</span><span class="tl ">XCode</span><span class="tl ">AI Vibe Coding (ChatGPT · AntiGravity · Claude)</span></div></div></div></div></div>
+<div class="w hex-stream-wrap" aria-hidden="true"><div class="hex-stream"><div class="hex-stream-track"><span class="hex-seq">0x7E 0x00 0x1F <span class="h-g">0xC8</span> 0xAA 0x55 <span class="h-g">0x06</span> 0xFF 0x3D <span class="h-s">0xA4</span> 0x88 0x01 <span class="h-g">0x2A</span> 0x9B 0x4E 0x14 <span class="h-s">0x7A</span> 0xD3 0x0F <span class="h-g">0xE2</span> 0x5A 0x8C 0xB1 <span class="h-s">0x94</span> 0x2D 0x6E 0x3B <span class="h-g">0xF0</span> 0x11 0x82 0xC5 <span class="h-s">0x47</span> 0x9D 0x33 0xA0 <span class="h-g">0x76</span> 0x5C 0xEB 0x1A <span class="h-s">0x68</span> 0x8F 0x02 0xD9 <span class="h-g">0x43</span> 0x24 0xB8 0x5F <span class="h-s">0x90</span> 0x0C 0x73 0xAE <span class="h-g">0x31</span> 0xC0 0x66 0xFA <span class="h-s">0x29</span> 0x84 0x1D 0x57 <span class="h-g">0xEE</span> 0x08 0x3A 0x96 <span class="h-s">0x4F</span> 0x25 0xD1 0x78 <span class="h-g">0x1B</span> 0x8E 0x60 0xB4 <span class="h-s">0x07</span> 0x52 0x99 0x4A <span class="h-g">0x2F</span> 0xC3 0x15 0x89 <span class="h-s">0x6D</span> 0x04 0x36 0x71 <span class="h-g">0xDF</span> 0x22 0x8B 0x58 <span class="h-s">0x9C</span> 0x0A 0x4D 0x27 <span class="h-g">0x63</span> 0xFE 0x18 0x81 <span class="h-s">0x53</span> 0x3F 0x7F</span><span class="hex-seq" aria-hidden="true">0x7E 0x00 0x1F <span class="h-g">0xC8</span> 0xAA 0x55 <span class="h-g">0x06</span> 0xFF 0x3D <span class="h-s">0xA4</span> 0x88 0x01 <span class="h-g">0x2A</span> 0x9B 0x4E 0x14 <span class="h-s">0x7A</span> 0xD3 0x0F <span class="h-g">0xE2</span> 0x5A 0x8C 0xB1 <span class="h-s">0x94</span> 0x2D 0x6E 0x3B <span class="h-g">0xF0</span> 0x11 0x82 0xC5 <span class="h-s">0x47</span> 0x9D 0x33 0xA0 <span class="h-g">0x76</span> 0x5C 0xEB 0x1A <span class="h-s">0x68</span> 0x8F 0x02 0xD9 <span class="h-g">0x43</span> 0x24 0xB8 0x5F <span class="h-s">0x90</span> 0x0C 0x73 0xAE <span class="h-g">0x31</span> 0xC0 0x66 0xFA <span class="h-s">0x29</span> 0x84 0x1D 0x57 <span class="h-g">0xEE</span> 0x08 0x3A 0x96 <span class="h-s">0x4F</span> 0x25 0xD1 0x78 <span class="h-g">0x1B</span> 0x8E 0x60 0xB4 <span class="h-s">0x07</span> 0x52 0x99 0x4A <span class="h-g">0x2F</span> 0xC3 0x15 0x89 <span class="h-s">0x6D</span> 0x04 0x36 0x71 <span class="h-g">0xDF</span> 0x22 0x8B 0x58 <span class="h-s">0x9C</span> 0x0A 0x4D 0x27 <span class="h-g">0x63</span> 0xFE 0x18 0x81 <span class="h-s">0x53</span> 0x3F 0x7F</span></div></div></div>
+<div class="w" id="milestones"><div class="section-wrap"><aside class="section-v-rail"><div class="section-v-sticky"><span class="section-v-num mono ac">04</span><span class="section-v-line"></span><span class="section-v-title d">Milestones</span></div></aside><div class="section-main"><div class="sv" style="margin-bottom:36px"><h2 class="d" style="margin:0;font-size:clamp(40px,6vw,72px)">Achievements</h2></div><div class="gd"><div class="cl sv"><div class="d ac" style="font-size:64px;margin-bottom:14px">01</div><div style="font-size:18px">Published four Ada libraries to the Alire package ecosystem.</div></div><div class="cl sv"><div class="d ac" style="font-size:64px;margin-bottom:14px">02</div><div style="font-size:18px">Developed reusable embedded software focused on portable APIs and hardware abstraction.</div></div><div class="cl sv"><div class="d ac" style="font-size:64px;margin-bottom:14px">03</div><div style="font-size:18px">Explored RP2040 clock-generation hardware for programmable carrier generation with a 6 Hz–45 MHz target range.</div></div></div></div></div></div>
+<div class="w hex-stream-wrap" aria-hidden="true"><div class="hex-stream"><div class="hex-stream-track"><span class="hex-seq">0x7E 0x00 0x1F <span class="h-g">0xC8</span> 0xAA 0x55 <span class="h-g">0x06</span> 0xFF 0x3D <span class="h-s">0xA4</span> 0x88 0x01 <span class="h-g">0x2A</span> 0x9B 0x4E 0x14 <span class="h-s">0x7A</span> 0xD3 0x0F <span class="h-g">0xE2</span> 0x5A 0x8C 0xB1 <span class="h-s">0x94</span> 0x2D 0x6E 0x3B <span class="h-g">0xF0</span> 0x11 0x82 0xC5 <span class="h-s">0x47</span> 0x9D 0x33 0xA0 <span class="h-g">0x76</span> 0x5C 0xEB 0x1A <span class="h-s">0x68</span> 0x8F 0x02 0xD9 <span class="h-g">0x43</span> 0x24 0xB8 0x5F <span class="h-s">0x90</span> 0x0C 0x73 0xAE <span class="h-g">0x31</span> 0xC0 0x66 0xFA <span class="h-s">0x29</span> 0x84 0x1D 0x57 <span class="h-g">0xEE</span> 0x08 0x3A 0x96 <span class="h-s">0x4F</span> 0x25 0xD1 0x78 <span class="h-g">0x1B</span> 0x8E 0x60 0xB4 <span class="h-s">0x07</span> 0x52 0x99 0x4A <span class="h-g">0x2F</span> 0xC3 0x15 0x89 <span class="h-s">0x6D</span> 0x04 0x36 0x71 <span class="h-g">0xDF</span> 0x22 0x8B 0x58 <span class="h-s">0x9C</span> 0x0A 0x4D 0x27 <span class="h-g">0x63</span> 0xFE 0x18 0x81 <span class="h-s">0x53</span> 0x3F 0x7F</span><span class="hex-seq" aria-hidden="true">0x7E 0x00 0x1F <span class="h-g">0xC8</span> 0xAA 0x55 <span class="h-g">0x06</span> 0xFF 0x3D <span class="h-s">0xA4</span> 0x88 0x01 <span class="h-g">0x2A</span> 0x9B 0x4E 0x14 <span class="h-s">0x7A</span> 0xD3 0x0F <span class="h-g">0xE2</span> 0x5A 0x8C 0xB1 <span class="h-s">0x94</span> 0x2D 0x6E 0x3B <span class="h-g">0xF0</span> 0x11 0x82 0xC5 <span class="h-s">0x47</span> 0x9D 0x33 0xA0 <span class="h-g">0x76</span> 0x5C 0xEB 0x1A <span class="h-s">0x68</span> 0x8F 0x02 0xD9 <span class="h-g">0x43</span> 0x24 0xB8 0x5F <span class="h-s">0x90</span> 0x0C 0x73 0xAE <span class="h-g">0x31</span> 0xC0 0x66 0xFA <span class="h-s">0x29</span> 0x84 0x1D 0x57 <span class="h-g">0xEE</span> 0x08 0x3A 0x96 <span class="h-s">0x4F</span> 0x25 0xD1 0x78 <span class="h-g">0x1B</span> 0x8E 0x60 0xB4 <span class="h-s">0x07</span> 0x52 0x99 0x4A <span class="h-g">0x2F</span> 0xC3 0x15 0x89 <span class="h-s">0x6D</span> 0x04 0x36 0x71 <span class="h-g">0xDF</span> 0x22 0x8B 0x58 <span class="h-s">0x9C</span> 0x0A 0x4D 0x27 <span class="h-g">0x63</span> 0xFE 0x18 0x81 <span class="h-s">0x53</span> 0x3F 0x7F</span></div></div></div>
+<div class="w" id="contact"><div class="section-wrap"><aside class="section-v-rail"><div class="section-v-sticky"><span class="section-v-num mono ac">05</span><span class="section-v-line"></span><span class="section-v-title d">Contact</span></div></aside><div class="section-main"><div class="sv" style="display:flex;flex-wrap:wrap;gap:56px 64px;align-items:flex-end;justify-content:space-between"><div style="flex:1 1 500px"><h2 class="d" style="margin:0 0 28px;font-size:clamp(48px,8vw,110px);line-height:1">Let's build<br>something <span class="ac">low-level</span><span class="cr ac">_</span></h2><p class="mut" style="margin:0 0 32px;max-width:480px;font-size:19px">Have a firmware, embedded or low-level project in mind? Send a message and let's talk.</p><a class="btn" href="https://mail.google.com/mail/?view=cm&fs=1&to=lokesh.panditi.29@gmail.com" target="_blank" rel="noopener noreferrer">Send an email <span>→</span></a></div><div class="vz" style="flex:1 1 360px;max-width:540px;background:#0d0f12"><a class="ct" href="https://mail.google.com/mail/?view=cm&fs=1&to=lokesh.panditi.29@gmail.com" target="_blank" rel="noopener noreferrer"><span class="mono">Email</span><span class="vl">lokesh.panditi.29@gmail.com</span><span class="ar2">↗</span></a><a class="ct" href="https://github.com/thirstymelon"><span class="mono">GitHub</span><span class="vl">github.com/thirstymelon</span><span class="ar2">↗</span></a><a class="ct" href="https://www.linkedin.com/in/lokeshpanditi"><span class="mono">LinkedIn</span><span class="vl">linkedin.com/in/lokeshpanditi</span><span class="ar2">↗</span></a></div></div></div></div></div>
+<footer style="position:relative;margin-top:80px;border-top:1px solid #1c1f24;background:#0d0f12"><div class="w" style="padding-top:48px">
+<div class="footer-nav-grid" style="display:flex;flex-wrap:wrap;gap:48px 64px;justify-content:space-between">
+<div class="fl" style="flex:0 1 170px"><div class="mono" style="margin-bottom:14px">Navigate</div><a href="#about">About</a><a href="#work">Work</a><a href="#skills">Skills</a><a href="#contact">Contact</a></div><div class="fl" style="flex:0 1 170px"><div class="mono" style="margin-bottom:14px">Projects</div><a href="Glyph.dc.html">Glyph</a><a href="Radio_Kit.dc.html">Radio_Kit</a><a href="MeshOS.dc.html">MeshOS</a></div><div class="fl" style="flex:0 1 170px"><div class="mono" style="margin-bottom:14px">Connect</div><a href="https://mail.google.com/mail/?view=cm&fs=1&to=lokesh.panditi.29@gmail.com" target="_blank" rel="noopener noreferrer">Email ↗</a><a href="https://github.com/thirstymelon">GitHub ↗</a><a href="https://www.linkedin.com/in/lokeshpanditi">LinkedIn ↗</a></div></div>
+<div class="footer-thanks-line"><span class="thanks-intro">Special thanks to</span> <span class="thanks-ai"><img src="icons/chatgpt-icon.svg" class="thanks-ico" alt="" width="16" height="16" /><span class="thanks-chatgpt">ChatGPT</span></span><span class="thanks-sep">,</span> <span class="thanks-ai"><img src="icons/google-antigravity-icon.svg" class="thanks-ico" alt="" width="16" height="16" /><span class="thanks-ag">AntiGravity</span></span> <span class="thanks-sep">and</span> <span class="thanks-ai"><img src="icons/claude-ai-icon.svg" class="thanks-ico" alt="" width="16" height="16" /><span class="thanks-claude">Claude</span></span></div>
+<div class="mono" style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;margin-top:20px;padding:16px 0 16px;border-top:1px solid #1c1f24"><span>© 2026 Lokesh Panditi</span><span>Embedded · Firmware · High-Integrity Systems</span></div></div></footer>
+<a class="floating-back-to-top" id="floating-back-to-top" href="#top" aria-label="Back to top">Back to top <span class="btt-arrow">↑</span></a>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":4400}}'>
+class Component extends DCLogic {
+renderVals() { return {}; }
+}
+</script>
+<script>
+(function() {
+  function getHeader() {
+    return document.getElementById('site-header') ||
+           document.querySelector('header.site-header') ||
+           document.querySelector('header');
+  }
+
+  var lastScrollY = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+  var ticking = false;
+  var threshold = 6;
+
+  function updateNav() {
+    var header = getHeader();
+    var currentScrollY = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    if (header) {
+      if (currentScrollY <= 60) {
+        header.classList.remove('nav-hidden');
+        header.style.transform = 'translateY(0)';
+      } else if (currentScrollY > lastScrollY + threshold) {
+        header.classList.add('nav-hidden');
+        header.style.transform = 'translateY(calc(-100% + 3px))';
+      } else if (currentScrollY < lastScrollY - threshold) {
+        header.classList.remove('nav-hidden');
+        header.style.transform = 'translateY(0)';
+      }
+    }
+    lastScrollY = Math.max(0, currentScrollY);
+
+    var maxScroll = (document.documentElement.scrollHeight || document.body.scrollHeight) - window.innerHeight;
+    var pct = maxScroll > 0 ? (currentScrollY / maxScroll) * 100 : 0;
+    var pgbEls = document.querySelectorAll('.pgb');
+    for (var i = 0; i < pgbEls.length; i++) {
+      pgbEls[i].style.width = pct + '%';
+    }
+
+    var btt = document.getElementById('floating-back-to-top');
+    if (btt) {
+      if (currentScrollY > 300) {
+        btt.classList.add('is-visible');
+      } else {
+        btt.classList.remove('is-visible');
+      }
+    }
+
+    ticking = false;
+  }
+
+  function onScroll() {
+    if (!ticking) {
+      window.requestAnimationFrame(updateNav);
+      ticking = true;
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  document.addEventListener('scroll', onScroll, { passive: true });
+  updateNav();
+
+  // Delegated smooth scroll handler in capture phase
+  document.addEventListener('click', function(e) {
+    var anchor = e.target.closest('a[href^="#"]');
+    if (!anchor) return;
+    var href = anchor.getAttribute('href');
+    if (!href || href === '#') return;
+
+    var header = getHeader();
+    if (href === '#top') {
+      e.preventDefault();
+      if (header) {
+        header.classList.remove('nav-hidden');
+        header.style.transform = 'translateY(0)';
+      }
+      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+      document.documentElement.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+      document.body.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+      if (history.pushState) history.pushState(null, '', '#top');
+      return;
+    }
+
+    var targetEl = document.querySelector(href);
+    if (targetEl) {
+      e.preventDefault();
+      var headerOffset = 88;
+      var elementPosition = targetEl.getBoundingClientRect().top;
+      var offsetPosition = elementPosition + (window.pageYOffset || document.documentElement.scrollTop || 0) - headerOffset;
+      window.scrollTo({
+        top: Math.max(0, offsetPosition),
+        behavior: 'smooth'
+      });
+      if (history.pushState) history.pushState(null, '', href);
+    }
+  }, true);
+
+  // Active section scrollspy for Floating Links
+  var navFloatLinks = document.querySelectorAll('.nav-float-link');
+  var sectionIds = ['about', 'work', 'skills', 'milestones'];
+  var sectionEls = sectionIds.map(function(id) { return document.getElementById(id); }).filter(Boolean);
+  
+  if (navFloatLinks.length && sectionEls.length && 'IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          navFloatLinks.forEach(function(tab) {
+            tab.classList.toggle('active', tab.getAttribute('data-target') === entry.target.id);
+          });
+        }
+      });
+    }, { rootMargin: '-20% 0px -60% 0px', threshold: 0 });
+
+    sectionEls.forEach(function(el) { observer.observe(el); });
+  }
+
+  // Platform Board Schematic Outline Hover Switcher (delegated to document for React compatibility)
+  function setPlatform(board) {
+    var cRp = document.getElementById('chip-rp2040');
+    var cEsp = document.getElementById('chip-esp32');
+    var pIdle = document.getElementById('pane-idle');
+    var pRp = document.getElementById('pane-rp2040');
+    var pEsp = document.getElementById('pane-esp32');
+    var bDisp = document.getElementById('platform-board-display');
+
+    if (board === 'rp2040') {
+      if (cRp) {
+        cRp.classList.add('active');
+        cRp.style.background = '#c8ff5a';
+        cRp.style.color = '#0a0b0d';
+        cRp.style.borderColor = '#c8ff5a';
+      }
+      if (cEsp) {
+        cEsp.classList.remove('active');
+        cEsp.style.background = 'transparent';
+        cEsp.style.color = '#ecebe6';
+        cEsp.style.borderColor = '#2a2d34';
+      }
+      if (pIdle) pIdle.style.display = 'none';
+      if (pRp) pRp.style.display = 'block';
+      if (pEsp) pEsp.style.display = 'none';
+      if (bDisp) bDisp.style.borderColor = '#3a404c';
+    } else if (board === 'esp32') {
+      if (cEsp) {
+        cEsp.classList.add('active');
+        cEsp.style.background = '#c8ff5a';
+        cEsp.style.color = '#0a0b0d';
+        cEsp.style.borderColor = '#c8ff5a';
+      }
+      if (cRp) {
+        cRp.classList.remove('active');
+        cRp.style.background = 'transparent';
+        cRp.style.color = '#ecebe6';
+        cRp.style.borderColor = '#2a2d34';
+      }
+      if (pIdle) pIdle.style.display = 'none';
+      if (pEsp) pEsp.style.display = 'block';
+      if (pRp) pRp.style.display = 'none';
+      if (bDisp) bDisp.style.borderColor = '#3a404c';
+    } else {
+      if (cRp) {
+        cRp.classList.remove('active');
+        cRp.style.background = 'transparent';
+        cRp.style.color = '#ecebe6';
+        cRp.style.borderColor = '#2a2d34';
+      }
+      if (cEsp) {
+        cEsp.classList.remove('active');
+        cEsp.style.background = 'transparent';
+        cEsp.style.color = '#ecebe6';
+        cEsp.style.borderColor = '#2a2d34';
+      }
+      if (pRp) pRp.style.display = 'none';
+      if (pEsp) pEsp.style.display = 'none';
+      if (pIdle) pIdle.style.display = 'flex';
+      if (bDisp) bDisp.style.borderColor = '#23262c';
+    }
+  }
+
+  // Delegated mouseover/mouseout listeners for board names
+  document.addEventListener('mouseover', function(e) {
+    var chip = e.target.closest('#chip-rp2040, #chip-esp32, [data-board]');
+    if (chip) {
+      var board = chip.getAttribute('data-board') || (chip.id === 'chip-rp2040' ? 'rp2040' : 'esp32');
+      setPlatform(board);
+    }
+  });
+
+  document.addEventListener('mouseout', function(e) {
+    var chip = e.target.closest('#chip-rp2040, #chip-esp32, [data-board]');
+    if (chip) {
+      var rel = e.relatedTarget;
+      if (!rel || !chip.contains(rel)) {
+        setPlatform('idle');
+      }
+    }
+  });
+
+  // Delegated click on chips to toggle
+  document.addEventListener('click', function(e) {
+    var chip = e.target.closest('#chip-rp2040, #chip-esp32, [data-board]');
+    if (chip) {
+      e.preventDefault();
+      var board = chip.getAttribute('data-board') || (chip.id === 'chip-rp2040' ? 'rp2040' : 'esp32');
+      var pTarget = document.getElementById('pane-' + board);
+      if (pTarget && pTarget.style.display === 'block') {
+        setPlatform('idle');
+      } else {
+        setPlatform(board);
+      }
+    }
+  });
+
+  // Universal Email Direct Gmail Redirect Handler (from previous working version 12d4cec)
+  var GMAIL_COMPOSE_URL = 'https://mail.google.com/mail/?view=cm&fs=1&to=lokesh.panditi.29@gmail.com';
+
+  window.handleEmailClick = function(e) {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    window.open(GMAIL_COMPOSE_URL, '_blank', 'noopener,noreferrer');
+  };
+
+  // Global capture click listener for any email, mailto, or Gmail compose links
+  window.addEventListener('click', function(e) {
+    var target = e.target && e.target.closest ? e.target.closest('a') : null;
+    if (!target) return;
+    var href = target.getAttribute('href') || '';
+    if (href.startsWith('mailto:') || href.includes('mail.google.com') || href.includes('lokesh.panditi.29@gmail.com') || target.hasAttribute('data-email')) {
+      e.preventDefault();
+      e.stopPropagation();
+      window.open(GMAIL_COMPOSE_URL, '_blank', 'noopener,noreferrer');
+    }
+  }, true);
+
+
+})();
+</script>
+</body>
+</html>

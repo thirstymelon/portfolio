@@ -20,5 +20,17 @@
       "destination": "/projects/:slug",
       "permanent": true
     }
+  ],
+  "rewrites": [
+    { "source": "/glyph", "destination": "/Glyph.dc.html" },
+    { "source": "/projects/glyph", "destination": "/Glyph.dc.html" },
+    { "source": "/meshos", "destination": "/MeshOS.dc.html" },
+    { "source": "/projects/meshos", "destination": "/MeshOS.dc.html" },
+    { "source": "/radiokit", "destination": "/Radio_Kit.dc.html" },
+    { "source": "/radio_kit", "destination": "/Radio_Kit.dc.html" },
+    { "source": "/projects/radiokit", "destination": "/Radio_Kit.dc.html" },
+    { "source": "/projects/radio-kit", "destination": "/Radio_Kit.dc.html" },
+    { "source": "/home", "destination": "/Main.dc.html" },
+    { "source": "/main", "destination": "/Main.dc.html" }
   ]
 }

@@ -1,0 +1,555 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MeshOS — ESP32 Mesh Network</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@500&amp;display=swap">
+<link rel="stylesheet" href="/responsive-fullwidth.css">
+<script src="./vendor/react.js"></script>
+<script src="./vendor/react-dom.js"></script>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@500&amp;display=swap">
+<link rel="stylesheet" href="./responsive-fullwidth.css">
+<style>
+body{margin:0;background:#0a0b0d;overflow-x:clip!important;overflow-y:visible!important}
+.pg{position:relative;overflow-x:clip!important;overflow-y:visible!important;color:#ecebe6;background:#0a0b0d;font-family:'Inter',system-ui,sans-serif;font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+.w{position:relative;max-width:1200px;margin:0 auto;padding:0 40px;box-sizing:border-box}
+.d{font-family:'Bricolage Grotesque','Inter',sans-serif;font-weight:700;letter-spacing:-.035em;line-height:.98}
+.mono{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#8d9097}
+.mut{color:#9a9ca3}.ac{color:#c8ff5a}
+.gl{position:absolute;inset:0;display:flex;pointer-events:none}.gl i{flex:1;border-left:1px solid #15171b}
+.rv{animation:up .9s cubic-bezier(.2,.7,.2,1) both}
+@keyframes up{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@supports (animation-timeline:view()){.sv{animation:up linear both;animation-timeline:view();animation-range:entry 0% entry 30%}}
+a{color:inherit;text-decoration:none}
+.u2{position:relative;display:inline-block}.u2::after{content:"";position:absolute;left:0;bottom:-3px;height:2px;width:0;background:#c8ff5a;transition:width .4s}.u2:hover::after{width:100%}
+.nav a{font-size:14px;color:#9a9ca3;transition:color .2s}.nav a:hover{color:#fff}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:16px 24px;border-radius:2px;font:500 13px 'JetBrains Mono',monospace;letter-spacing:.1em;text-transform:uppercase;background:#c8ff5a;color:#0a0b0d;border:1px solid #c8ff5a;box-shadow:inset 0 0 0 0 #0a0b0d;transition:box-shadow .55s cubic-bezier(.7,0,.2,1),color .45s,gap .45s}
+.btn:hover{box-shadow:inset 340px 0 0 0 #0a0b0d;color:#c8ff5a;gap:20px}
+.btn2{background:transparent;color:#ecebe6;border-color:#3a3d44;box-shadow:inset 0 0 0 0 #ecebe6}
+.btn2:hover{box-shadow:inset 0 -90px 0 0 #ecebe6;color:#0a0b0d;border-color:#ecebe6;gap:20px}
+.nav a.btn{font-size:12px;color:#ecebe6}.nav a.btn2:hover{color:#0a0b0d}
+.wv{animation:wv linear infinite;display:block}
+@keyframes wv{to{transform:translateX(-50%)}}
+.mq{display:flex;width:max-content;animation:wv 40s linear infinite}
+.mq span{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:44px;letter-spacing:-.02em;color:#3b3e45;padding:0 26px;white-space:nowrap}
+.mq b{color:#c8ff5a;font-weight:400}
+.pr{position:relative;display:flex;flex-wrap:wrap;gap:20px 36px;align-items:center;padding:36px 20px;border-top:1px solid #23262c;transition:background .4s}
+.pr:hover{background:#101216}
+.pr::before{content:"";position:absolute;left:0;top:0;width:3px;height:0;background:#c8ff5a;transition:height .55s cubic-bezier(.7,0,.2,1)}.pr:hover::before{height:100%}
+.pr .nm{-webkit-text-stroke:1.5px transparent;transition:letter-spacing .55s cubic-bezier(.2,.7,.2,1),color .4s,-webkit-text-stroke-color .4s}
+.pr:hover .nm{color:transparent;-webkit-text-stroke-color:#c8ff5a;letter-spacing:.012em}
+.pr .ar{display:inline-flex;align-items:center;justify-content:center;width:64px;height:64px;border:1px solid #3a3d44;border-radius:50%;color:#c8ff5a;font-size:26px;box-shadow:inset 0 0 0 0 #c8ff5a;transition:box-shadow .55s cubic-bezier(.7,0,.2,1),color .4s,border-color .4s}
+.pr:hover .ar{box-shadow:inset 0 0 0 40px #c8ff5a;color:#0a0b0d;border-color:#c8ff5a}
+.pr .vz{opacity:.6;transition:opacity .4s,border-color .4s}.pr:hover .vz{opacity:1;border-color:#c8ff5a}
+.vz{border:1px solid #23262c;border-radius:10px;background:#0d0f12;overflow:hidden}
+.cl{position:relative;background:#0a0b0d;padding:32px;transition:background .4s}.cl:hover{background:#101216}
+.cl::before{content:"";position:absolute;left:0;top:0;height:2px;width:0;background:#c8ff5a;transition:width .6s cubic-bezier(.7,0,.2,1)}.cl:hover::before{width:100%}
+.cl .d{transition:color .4s}.cl:hover>.d:not(.ac){color:#c8ff5a}
+.gd{display:flex;flex-wrap:wrap;gap:1px;background:#23262c;border:1px solid #23262c;border-radius:10px;overflow:hidden}.gd>*{flex:1 1 340px;min-width:0}
+.ph{border:1px dashed #3a3d44;border-radius:8px;padding:28px;color:#8d9097;font:500 13px 'JetBrains Mono',monospace;background:#0d0f12}
+.px{animation:px 2.4s ease-in-out infinite}@keyframes px{50%{opacity:.18}}
+.pu{transform-box:fill-box;transform-origin:center;animation:pu 2.6s ease-in-out infinite}@keyframes pu{50%{transform:scale(1.7)}}
+.ds{animation:ds 1.6s linear infinite}@keyframes ds{to{stroke-dashoffset:-20}}
+.tl{display:inline-block;margin:0 8px 8px 0;padding:9px 14px;border:1px solid #2a2d34;border-radius:2px;font:500 13px 'JetBrains Mono',monospace;color:#ecebe6;box-shadow:inset 0 0 0 0 #c8ff5a;transition:box-shadow .5s cubic-bezier(.7,0,.2,1),color .35s,border-color .35s}
+.tl:hover{box-shadow:inset 0 -120px 0 0 #c8ff5a;color:#0a0b0d;border-color:#c8ff5a}
+.tl.big{font-size:20px;padding:20px 30px}
+
+.lg{display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding:12px 0;border-top:1px solid #23262c}
+.lg .d{font-size:clamp(30px,4vw,48px);transition:color .4s,letter-spacing .5s cubic-bezier(.2,.7,.2,1)}.lg:hover .d{color:#c8ff5a;letter-spacing:.012em}
+.ct{position:relative;display:flex;align-items:center;gap:16px;padding:24px 26px;border-top:1px solid #23262c;transition:background .4s,padding .5s cubic-bezier(.2,.7,.2,1)}.ct:first-child{border-top:0}
+.ct:hover{background:#101216;padding-left:38px}
+.ct::before{content:"";position:absolute;left:0;top:0;width:3px;height:0;background:#c8ff5a;transition:height .5s cubic-bezier(.7,0,.2,1)}.ct:hover::before{height:100%}
+.ct .mono{flex:0 0 78px}.ct .vl{flex:1;min-width:0;overflow-wrap:anywhere;font-size:18px}
+.ct .ar2{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border:1px solid #3a3d44;border-radius:50%;color:#c8ff5a;box-shadow:inset 0 0 0 0 #c8ff5a;transition:box-shadow .5s cubic-bezier(.7,0,.2,1),color .4s,border-color .4s}
+.ct:hover .ar2{box-shadow:inset 0 0 0 30px #c8ff5a;color:#0a0a0d;border-color:#c8ff5a}
+.cr{animation:cr 1s steps(1) infinite}@keyframes cr{50%{opacity:0}}
+.gp{fill:#1a1d22;transition:fill 1.4s}.gp:hover{fill:#c8ff5a;transition:fill 0s}
+.gr{transition:fill 1.4s}.gr:hover{fill:#1a1d22;transition:fill 0s}
+.nav a.lg2{color:#fff}
+.lg2{display:flex;align-items:center;gap:12px}
+.lg2 .mk{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border:1px solid #2f333b;border-radius:3px;font:500 12px 'JetBrains Mono',monospace;color:#c8ff5a;box-shadow:inset 0 0 0 0 #c8ff5a;transition:box-shadow .5s cubic-bezier(.7,0,.2,1),color .4s,border-color .4s}
+.lg2:hover .mk{box-shadow:inset 40px 0 0 0 #c8ff5a;color:#0a0b0d;border-color:#c8ff5a}
+.lg2 b{display:block;font-weight:600;line-height:1.25}
+.lg2 small{display:block;font:500 11px 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:#8d9097}
+.nav a i{font:500 11px 'JetBrains Mono',monospace;color:#c8ff5a;margin-right:7px;font-style:normal}
+.nav a.nl{position:relative;padding:6px 0}
+.nav a.nl::after{content:"";position:absolute;left:0;bottom:0;height:1px;width:0;background:#c8ff5a;transition:width .4s}.nav a.nl:hover::after{width:100%}
+.pgb{position:absolute;left:0;bottom:-1px;height:2px;width:0;background:#c8ff5a}
+@supports (animation-timeline:scroll()){.pgb{animation:pgb linear both;animation-timeline:scroll(root block)}@keyframes pgb{to{width:100%}}}
+.fl a{position:relative;display:block;padding:6px 0;color:#9a9ca3;transition:color .3s,padding .4s cubic-bezier(.2,.7,.2,1)}
+.fl a::before{content:"→";position:absolute;left:0;color:#c8ff5a;opacity:0;transition:opacity .3s}
+.fl a:hover{color:#fff;padding-left:22px}.fl a:hover::before{opacity:1}
+.wm{color:#101216;-webkit-text-stroke:1px #23262c;transition:color .5s,-webkit-text-stroke-color .5s}
+.wm:hover{color:transparent;-webkit-text-stroke-color:#c8ff5a}
+html.cc .pg,html.cc .pg *{cursor:auto}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}.ms:has(.n0:hover) .e0{stroke:#c8ff5a;stroke-width:2.5;animation-duration:.4s}.ms:has(.n0:hover) .c0,.ms:has(.n0:hover) .a0{fill:#c8ff5a}.ms:has(.n1:hover) .e1{stroke:#c8ff5a;stroke-width:2.5;animation-duration:.4s}.ms:has(.n1:hover) .c1,.ms:has(.n1:hover) .a1{fill:#c8ff5a}.ms:has(.n2:hover) .e2{stroke:#c8ff5a;stroke-width:2.5;animation-duration:.4s}.ms:has(.n2:hover) .c2,.ms:has(.n2:hover) .a2{fill:#c8ff5a}.ms:has(.n3:hover) .e3{stroke:#c8ff5a;stroke-width:2.5;animation-duration:.4s}.ms:has(.n3:hover) .c3,.ms:has(.n3:hover) .a3{fill:#c8ff5a}.ms:has(.n4:hover) .e4{stroke:#c8ff5a;stroke-width:2.5;animation-duration:.4s}.ms:has(.n4:hover) .c4,.ms:has(.n4:hover) .a4{fill:#c8ff5a}.ms:has(.n5:hover) .e5{stroke:#c8ff5a;stroke-width:2.5;animation-duration:.4s}.ms:has(.n5:hover) .c5,.ms:has(.n5:hover) .a5{fill:#c8ff5a}.ms:has(.n6:hover) .e6{stroke:#c8ff5a;stroke-width:2.5;animation-duration:.4s}.ms:has(.n6:hover) .c6,.ms:has(.n6:hover) .a6{fill:#c8ff5a}
+</style>
+</helmet>
+<div class="pg"><div id="top" style="position:absolute;top:0;left:0;width:1px;height:1px;pointer-events:none;opacity:0;"></div><dc-import name="Trail" hint-size="0,0"></dc-import><div class="gl"><i></i><i></i><i></i><i style="border-right:1px solid #15171b"></i></div>
+<header id="site-header" class="site-header"><div class="w"><div class="nav-rail"><a class="nav-brand" href="Main.dc.html" aria-label="Lokesh Panditi - Home"><span class="nav-brand-badge">LP</span><span class="nav-brand-name"><span class="nav-pulse-led"></span>Lokesh Panditi</span></a><nav class="nav-floating-links" aria-label="Project Navigation"><a class="nav-float-link" href="Glyph.dc.html">Glyph</a><a class="nav-float-link" href="Radio_Kit.dc.html">Radio_Kit</a><a class="nav-float-link active" href="MeshOS.dc.html">MeshOS</a></nav><div class="nav-actions"><a class="nav-cta-btn" href="https://github.com/thirstymelon/esp32mesh" target="_blank" rel="noopener"><span class="cta-dot"></span><span>Repository</span><span class="cta-arrow">↗</span></a></div></div></div><i class="pgb"></i></header><div class="w">
+<div class="project-hero">
+<div class="project-hero-text rv"><span class="mono ac">v1.0.0 Release</span>
+<h1 class="d" style="margin:16px 0 10px;font-size:clamp(48px,8vw,100px)">MeshOS</h1>
+<div class="d ac" style="font-size:clamp(20px,2.4vw,28px);font-weight:600;letter-spacing:-.02em;margin-bottom:20px">Decentralized Multi-Hop Mesh Network &amp; Mobile Ecosystem</div>
+<p class="mut" style="margin:0;font-size:18px;line-height:1.6">How I built an autonomous, off-grid communication platform using ESP32 nodes, FreeRTOS dual-core task scheduling, ESP-NOW multi-hop routing, hardware AES-128-GCM encryption, and native companion apps for iOS, macOS, and Android.</p></div>
+<div class="project-hero-visual vz rv" style="animation-delay:.2s"><svg class="ms" viewBox="0 0 368 184" width="100%" style="display:block" role="img" aria-label="Interactive mesh network"><line class="ds e0 e1" x1="30" y1="150" x2="95" y2="60" stroke="#3b3e45" stroke-width="1.5" stroke-dasharray="4 6"></line><line class="ds e1 e2" x1="95" y1="60" x2="180" y2="125" stroke="#c8ff5a" stroke-width="1.5" stroke-dasharray="4 6"></line><line class="ds e1 e3" x1="95" y1="60" x2="150" y2="28" stroke="#3b3e45" stroke-width="1.5" stroke-dasharray="4 6"></line><line class="ds e2 e4" x1="180" y1="125" x2="260" y2="75" stroke="#c8ff5a" stroke-width="1.5" stroke-dasharray="4 6"></line><line class="ds e3 e4" x1="150" y1="28" x2="260" y2="75" stroke="#3b3e45" stroke-width="1.5" stroke-dasharray="4 6"></line><line class="ds e4 e5" x1="260" y1="75" x2="332" y2="145" stroke="#3b3e45" stroke-width="1.5" stroke-dasharray="4 6"></line><line class="ds e4 e6" x1="260" y1="75" x2="310" y2="26" stroke="#c8ff5a" stroke-width="1.5" stroke-dasharray="4 6"></line><line class="ds e2 e5" x1="180" y1="125" x2="332" y2="145" stroke="#3b3e45" stroke-width="1.5" stroke-dasharray="4 6"></line><g class="nd n0" style="cursor:pointer"><circle cx="30" cy="150" r="20" fill="transparent"></circle><circle class="pu c0 a1" style="animation-delay:0.00s" cx="30" cy="150" r="7" fill="#0a0b0d" stroke="#c8ff5a" stroke-width="2"></circle></g><g class="nd n1" style="cursor:pointer"><circle cx="95" cy="60" r="20" fill="transparent"></circle><circle class="pu c1 a0 a2 a3" style="animation-delay:0.37s" cx="95" cy="60" r="7" fill="#0a0b0d" stroke="#c8ff5a" stroke-width="2"></circle></g><g class="nd n2" style="cursor:pointer"><circle cx="180" cy="125" r="20" fill="transparent"></circle><circle class="pu c2 a1 a4 a5" style="animation-delay:0.74s" cx="180" cy="125" r="7" fill="#0a0b0d" stroke="#c8ff5a" stroke-width="2"></circle></g><g class="nd n3" style="cursor:pointer"><circle cx="150" cy="28" r="20" fill="transparent"></circle><circle class="pu c3 a1 a4" style="animation-delay:1.11s" cx="150" cy="28" r="7" fill="#0a0b0d" stroke="#c8ff5a" stroke-width="2"></circle></g><g class="nd n4" style="cursor:pointer"><circle cx="260" cy="75" r="20" fill="transparent"></circle><circle class="pu c4 a2 a3 a5 a6" style="animation-delay:1.48s" cx="260" cy="75" r="7" fill="#0a0b0d" stroke="#c8ff5a" stroke-width="2"></circle></g><g class="nd n5" style="cursor:pointer"><circle cx="332" cy="145" r="20" fill="transparent"></circle><circle class="pu c5 a4 a2" style="animation-delay:1.85s" cx="332" cy="145" r="7" fill="#0a0b0d" stroke="#c8ff5a" stroke-width="2"></circle></g><g class="nd n6" style="cursor:pointer"><circle cx="310" cy="26" r="20" fill="transparent"></circle><circle class="pu c6 a4" style="animation-delay:2.22s" cx="310" cy="26" r="7" fill="#0a0b0d" stroke="#c8ff5a" stroke-width="2"></circle></g></svg></div></div>
+<div class="gd sv" style="margin-top:20px"><div class="cl" style="flex:2 1 420px"><div class="mono" style="margin-bottom:8px">Stack</div><div style="display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center"><span class="tl" style="margin:0;padding:6px 12px;font-size:12px;line-height:1.2">C</span><span class="tl" style="margin:0;padding:6px 12px;font-size:12px;line-height:1.2">ESP32</span><span class="tl" style="margin:0;padding:6px 12px;font-size:12px;line-height:1.2">FreeRTOS</span><span class="tl" style="margin:0;padding:6px 12px;font-size:12px;line-height:1.2">ESP-NOW</span><span class="tl" style="margin:0;padding:6px 12px;font-size:12px;line-height:1.2">NimBLE</span><span class="tl" style="margin:0;padding:6px 12px;font-size:12px;line-height:1.2">PSA Crypto</span><span class="tl" style="margin:0;padding:6px 12px;font-size:12px;line-height:1.2">SwiftUI</span><span class="tl" style="margin:0;padding:6px 12px;font-size:12px;line-height:1.2">Compose</span></div></div><div class="cl" style="flex:1 1 260px"><div class="mono" style="margin-bottom:8px">Repository</div><div><a class="u2" href="https://github.com/thirstymelon/esp32mesh">github.com/thirstymelon/esp32mesh ↗</a></div></div><div class="cl" style="flex:1 1 200px"><div class="mono" style="margin-bottom:8px">Version</div><div style="font-weight:600;color:#c8ff5a;font-size:16px">v1.0.0 Active</div></div></div>
+<div style="padding:96px 0 0"><div class="section-wrap"><aside class="section-v-rail"><div class="section-v-sticky"><span class="section-v-num mono ac">01</span><span class="section-v-line"></span><span class="section-v-title d">Highlights</span></div></aside><div class="section-main"><div class="sv" style="margin-bottom:36px"><h2 class="d" style="margin:0;font-size:clamp(40px,6vw,72px)">What it does</h2></div><div class="sv" style="display:flex;flex-wrap:wrap;gap:12px 32px;padding:26px 0;border-top:1px solid #23262c"><span class="mono ac" style="flex:0 0 48px">01</span><p style="margin:0;flex:1 1 420px;font-size:20px;line-height:1.5">Forms a self-healing 2.4 GHz ad-hoc mesh network across ESP32 nodes without cellular towers, Wi-Fi routers, or internet infrastructure.</p></div><div class="sv" style="display:flex;flex-wrap:wrap;gap:12px 32px;padding:26px 0;border-top:1px solid #23262c"><span class="mono ac" style="flex:0 0 48px">02</span><p style="margin:0;flex:1 1 420px;font-size:20px;line-height:1.5">Dual-core FreeRTOS architecture separates high-priority radio routing on Core 0 from NimBLE GATT smartphone bridging on Core 1.</p></div><div class="sv" style="display:flex;flex-wrap:wrap;gap:12px 32px;padding:26px 0;border-top:1px solid #23262c"><span class="mono ac" style="flex:0 0 48px">03</span><p style="margin:0;flex:1 1 420px;font-size:20px;line-height:1.5">Secures all communications with PSA Crypto hardware-accelerated AES-128-GCM, 12-byte random nonces, and 16-byte authentication tags.</p></div><div class="sv" style="display:flex;flex-wrap:wrap;gap:12px 32px;padding:26px 0;border-top:1px solid #23262c"><span class="mono ac" style="flex:0 0 48px">04</span><p style="margin:0;flex:1 1 420px;font-size:20px;line-height:1.5">Delivers complete companion apps in SwiftUI (iOS/macOS) with Metal graph visualization and Jetpack Compose (Android), supporting chat, voice notes, and chunked files.</p></div></div></div></div>
+
+<div style="padding:64px 0 28px" class="sv">
+  <div class="mono ac" style="margin-bottom:8px">Developer Story</div>
+  <h2 class="d" style="margin:0;font-size:clamp(40px,6vw,72px)">Building MeshOS</h2>
+</div>
+
+<!-- 01 The Spark -->
+<div class="section-wrap subtopic-wrap" style="padding:48px 0;border-top:1px solid #23262c">
+  <aside class="section-v-rail">
+    <div class="section-v-sticky">
+      <span class="section-v-num mono ac">01</span>
+      <span class="section-v-line"></span>
+      <span class="section-v-title d">The Spark</span>
+    </div>
+  </aside>
+  <div class="section-main">
+    <div class="sv">
+      <div class="d" style="font-size:clamp(26px,3vw,32px);margin:0 0 20px;line-height:1.15">The Spark: When the Infrastructure Dies</div>
+      <p style="margin:0 0 16px;color:#c0c3ca;font-size:17px;line-height:1.65">Modern mobile communication rests on a fragile assumption: that an unbroken chain of cellular base stations, fiber backhauls, DNS servers, and cloud datacenters will always be standing between you and the person next to you.</p>
+      <p style="margin:0 0 16px;color:#c0c3ca;font-size:17px;line-height:1.65">During severe weather, grid outages, outdoor expeditions, or natural disasters, that assumption instantly collapses. Your smartphone becomes a glass brick unable to transmit a single byte even to someone just 200 meters down the street.</p>
+      <div style="padding:16px 20px;background:#0d0f12;border:1px solid #23262c;border-left:3px solid #c8ff5a;border-radius:4px;margin-bottom:18px">
+        <div style="font-size:16px;font-style:italic;color:#c8ff5a;line-height:1.6">"What if a handful of $3 ESP32 boards could form their own decentralized, encrypted cellular-independent network and let standard smartphones talk to each other anywhere on Earth?"</div>
+      </div>
+      <p style="margin:0;color:#c0c3ca;font-size:17px;line-height:1.65">That question sparked <b>MeshOS</b>. I set out to build an end-to-end communication system starting from bare-metal 2.4 GHz radio framing on the ESP32 and climbing all the way to native companion applications on iOS, macOS, and Android.</p>
+    </div>
+  </div>
+</div>
+
+<!-- 02 From ESP-NOW to Multi-Hop Mesh -->
+<div class="section-wrap subtopic-wrap" style="padding:48px 0;border-top:1px solid #23262c">
+  <aside class="section-v-rail">
+    <div class="section-v-sticky">
+      <span class="section-v-num mono ac">02</span>
+      <span class="section-v-line"></span>
+      <span class="section-v-title d">Multi-Hop Routing</span>
+    </div>
+  </aside>
+  <div class="section-main">
+    <div class="sv">
+      <div class="d" style="font-size:clamp(26px,3vw,32px);margin:0 0 20px;line-height:1.15">From ESP-NOW to a Self-Healing Multi-Hop Mesh</div>
+      <p style="margin:0 0 16px;color:#c0c3ca;font-size:17px;line-height:1.65">Espressif provides <b>ESP-NOW</b>, a connectionless Wi-Fi vendor action frame protocol. It is fast and low-power, but it is strictly single-hop: Node A can only talk to Node B if they are in direct line-of-sight radio range. It is not a mesh network.</p>
+      <p style="margin:0 0 16px;color:#c0c3ca;font-size:17px;line-height:1.65">To turn ESP-NOW into a resilient multi-hop mesh, I designed a bounded-flooding routing layer with strict loop prevention:</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:18px">
+        <div style="padding:14px 16px;background:#0d0f12;border:1px solid #1c1f24;border-radius:4px">
+          <div class="mono" style="color:#c8ff5a;font-size:12px;margin-bottom:4px">Bounded TTL (Max 7)</div>
+          <div style="font-size:13px;color:#8d9097">Every frame carries a Time-To-Live. Intermediate nodes decrement TTL and drop expired packets to prevent endless propagation.</div>
+        </div>
+        <div style="padding:14px 16px;background:#0d0f12;border:1px solid #1c1f24;border-radius:4px">
+          <div class="mono" style="color:#c8ff5a;font-size:12px;margin-bottom:4px">64-Entry LRU Cache</div>
+          <div style="font-size:13px;color:#8d9097">Nodes maintain a rolling ring buffer of <code>(origin_node_id, sequence_number)</code> pairs. Duplicate frames are dropped in microsecond time.</div>
+        </div>
+        <div style="padding:14px 16px;background:#0d0f12;border:1px solid #1c1f24;border-radius:4px">
+          <div class="mono" style="color:#c8ff5a;font-size:12px;margin-bottom:4px">Randomized Jitter</div>
+          <div style="font-size:13px;color:#8d9097">Forwarding adds 10-50ms of random backoff to desynchronize relay nodes and eliminate catastrophic RF packet collisions.</div>
+        </div>
+        <div style="padding:14px 16px;background:#0d0f12;border:1px solid #1c1f24;border-radius:4px">
+          <div class="mono" style="color:#c8ff5a;font-size:12px;margin-bottom:4px">Persistent Node IDs</div>
+          <div style="font-size:13px;color:#8d9097">Each node generates a cryptographically random 32-bit Node ID stored in Non-Volatile Storage (NVS) across reboots.</div>
+        </div>
+      </div>
+      <p style="margin:0;color:#c0c3ca;font-size:17px;line-height:1.65">If Node B drops out, the packet naturally routes around the failure through Node C. The mesh self-heals dynamically with zero manual routing configuration.</p>
+    </div>
+  </div>
+</div>
+
+<!-- 03 Dual-Core FreeRTOS Firmware Engine -->
+<div class="section-wrap subtopic-wrap" style="padding:48px 0;border-top:1px solid #23262c">
+  <aside class="section-v-rail">
+    <div class="section-v-sticky">
+      <span class="section-v-num mono ac">03</span>
+      <span class="section-v-line"></span>
+      <span class="section-v-title d">Dual-Core FreeRTOS</span>
+    </div>
+  </aside>
+  <div class="section-main">
+    <div class="sv">
+      <div class="d" style="font-size:clamp(26px,3vw,32px);margin:0 0 20px;line-height:1.15">Firmware Architecture: Dual-Core FreeRTOS</div>
+      <p style="margin:0 0 16px;color:#c0c3ca;font-size:17px;line-height:1.65">An ESP32 node must juggle two time-critical wireless protocols simultaneously: forwarding high-speed 2.4 GHz ESP-NOW frames and maintaining an active Bluetooth Low Energy connection with a user's phone.</p>
+      <p style="margin:0 0 16px;color:#c0c3ca;font-size:17px;line-height:1.65">Running both on a single core resulted in dropped BLE packets and radio buffer overflows. I architected the firmware around <b>FreeRTOS task affinity</b> pinned cleanly across both Xtensa LX6 cores:</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-bottom:18px">
+        <div style="padding:18px;background:#0d0f12;border:1px solid #23262c;border-left:3px solid #c8ff5a;border-radius:4px">
+          <div class="mono" style="color:#c8ff5a;font-size:13px;margin-bottom:8px">Core 0: Mesh Router &amp; Radio Stack</div>
+          <div style="font-size:14px;color:#c0c3ca;line-height:1.6">Runs <code>mesh_router_task</code> at priority 10. Pulls raw packets from ESP-NOW callbacks, checks duplicate caches, decrypts headers, handles route forwarding, and schedules periodic neighbor beacons at priority 3.</div>
+        </div>
+        <div style="padding:18px;background:#0d0f12;border:1px solid #23262c;border-left:3px solid #79b8ff;border-radius:4px">
+          <div class="mono" style="color:#79b8ff;font-size:13px;margin-bottom:8px">Core 1: NimBLE GATT Companion Host</div>
+          <div style="font-size:14px;color:#c0c3ca;line-height:1.6">Runs the lightweight Apache NimBLE stack at priority 9. Manages GATT connections, 512-byte MTU negotiations, client indications, and smartphone notifications without ever stalling radio routing.</div>
+        </div>
+      </div>
+      <p style="margin:0;color:#c0c3ca;font-size:17px;line-height:1.65">Data flows between cores through thread-safe FreeRTOS queues (<code>mesh_tx_queue</code>, <code>ble_rx_queue</code>, <code>ble_tx_queue</code>) protected by mutexes, ensuring rock-solid stability under heavy network traffic.</p>
+    </div>
+  </div>
+</div>
+
+<!-- 04 Zero-Cloud Security: PSA Crypto & AES-128-GCM -->
+<div class="section-wrap subtopic-wrap" style="padding:48px 0;border-top:1px solid #23262c">
+  <aside class="section-v-rail">
+    <div class="section-v-sticky">
+      <span class="section-v-num mono ac">04</span>
+      <span class="section-v-line"></span>
+      <span class="section-v-title d">Silicon Security</span>
+    </div>
+  </aside>
+  <div class="section-main">
+    <div class="sv">
+      <div class="d" style="font-size:clamp(26px,3vw,32px);margin:0 0 20px;line-height:1.15">Zero-Cloud Security: Hardware AES-128-GCM</div>
+      <p style="margin:0 0 16px;color:#c0c3ca;font-size:17px;line-height:1.65">In an open-air broadcast mesh, anyone with an SDR or a Wi-Fi card can inspect packet bytes. Because MeshOS has no internet connection, it cannot rely on central authentication servers, AWS KMS, or certificate authorities.</p>
+      <p style="margin:0 0 16px;color:#c0c3ca;font-size:17px;line-height:1.65">I implemented end-to-end security directly in firmware using the ARM PSA Crypto API and the ESP32’s onboard cryptographic hardware engine:</p>
+      <div style="padding:16px 20px;background:#0d0f12;border:1px solid #23262c;border-radius:4px;margin-bottom:18px">
+        <div class="mono" style="color:#8d9097;font-size:11px;margin-bottom:8px">PSA CRYPTO AEAD ENCRYPTION PIPELINE</div>
+        <div class="mono" style="color:#c8ff5a;font-size:13px;line-height:1.8">Raw Payload → Hardware TRNG (12-byte Nonce) → PSA AES-128-GCM → Ciphertext + 16-byte Auth Tag</div>
+      </div>
+      <p style="margin:0 0 16px;color:#c0c3ca;font-size:17px;line-height:1.65">Each packet is encrypted with a unique 12-byte nonce generated by the ESP32 hardware True Random Number Generator (TRNG). The 16-byte authentication tag guarantees that packets cannot be tampered with or modified in transit.</p>
+      <p style="margin:0;color:#c0c3ca;font-size:17px;line-height:1.65">Intermediate relay nodes route encrypted frames by inspecting unencrypted header metadata without ever possessing the channel keys needed to decrypt message contents.</p>
+    </div>
+  </div>
+</div>
+
+<!-- 05 Delivery Guarantees & Offline Mailbox -->
+<div class="section-wrap subtopic-wrap" style="padding:48px 0;border-top:1px solid #23262c">
+  <aside class="section-v-rail">
+    <div class="section-v-sticky">
+      <span class="section-v-num mono ac">05</span>
+      <span class="section-v-line"></span>
+      <span class="section-v-title d">Reliable Transport</span>
+    </div>
+  </aside>
+  <div class="section-main">
+    <div class="sv">
+      <div class="d" style="font-size:clamp(26px,3vw,32px);margin:0 0 20px;line-height:1.15">Delivery Guarantees &amp; NVS Offline Mailbox</div>
+      <p style="margin:0 0 16px;color:#c0c3ca;font-size:17px;line-height:1.65">2.4 GHz RF is inherently noisy. Walls, foliage, and distance cause dropped packets. To provide a chat experience that feels as reliable as Signal or iMessage, I engineered a robust delivery and store-and-forward system:</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:18px">
+        <div style="padding:14px 16px;background:#0d0f12;border:1px solid #1c1f24;border-radius:4px">
+          <div class="mono" style="color:#c8ff5a;font-size:12px;margin-bottom:4px">End-to-End ACKs</div>
+          <div style="font-size:13px;color:#8d9097">Unicast messages require an explicit cryptographic ACK from the destination node routed back to the sender.</div>
+        </div>
+        <div style="padding:14px 16px;background:#0d0f12;border:1px solid #1c1f24;border-radius:4px">
+          <div class="mono" style="color:#c8ff5a;font-size:12px;margin-bottom:4px">Exponential Backoff</div>
+          <div style="font-size:13px;color:#8d9097">Unacknowledged packets retry up to 3 times with exponential backoff (500ms initial timeout) before reporting failure.</div>
+        </div>
+        <div style="padding:14px 16px;background:#0d0f12;border:1px solid #1c1f24;border-radius:4px">
+          <div class="mono" style="color:#c8ff5a;font-size:12px;margin-bottom:4px">NVS Offline Mailbox</div>
+          <div style="font-size:13px;color:#8d9097">Stores up to 16 packets in flash for temporarily unreachable nodes, holding them for up to 30 minutes until the node re-appears.</div>
+        </div>
+        <div style="padding:14px 16px;background:#0d0f12;border:1px solid #1c1f24;border-radius:4px">
+          <div class="mono" style="color:#c8ff5a;font-size:12px;margin-bottom:4px">64-Message History</div>
+          <div style="font-size:13px;color:#8d9097">RAM ring buffer caches recent channel history so phone apps receive instant message catch-up upon BLE reconnection.</div>
+        </div>
+      </div>
+      <p style="margin:0;color:#c0c3ca;font-size:17px;line-height:1.65">Users see real-time checkmarks in the mobile interface: single check for mesh transmission, double check for verified delivery.</p>
+    </div>
+  </div>
+</div>
+
+<!-- 06 Bridging Silicon to Smartphones -->
+<div class="section-wrap subtopic-wrap" style="padding:48px 0;border-top:1px solid #23262c">
+  <aside class="section-v-rail">
+    <div class="section-v-sticky">
+      <span class="section-v-num mono ac">06</span>
+      <span class="section-v-line"></span>
+      <span class="section-v-title d">Mobile Companion</span>
+    </div>
+  </aside>
+  <div class="section-main">
+    <div class="sv">
+      <div class="d" style="font-size:clamp(26px,3vw,32px);margin:0 0 20px;line-height:1.15">Bridging Silicon to Smartphones: iOS, macOS &amp; Android</div>
+      <p style="margin:0 0 16px;color:#c0c3ca;font-size:17px;line-height:1.65">I didn't want MeshOS to be a project that lived exclusively in a serial terminal or UART console. If a communication tool isn't convenient on a real phone, nobody will use it in a real emergency.</p>
+      <p style="margin:0 0 16px;color:#c0c3ca;font-size:17px;line-height:1.65">I wrote native companion applications for both major mobile platforms:</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-bottom:18px">
+        <div style="padding:18px;background:#0d0f12;border:1px solid #23262c;border-left:3px solid #c8ff5a;border-radius:4px">
+          <div class="mono" style="color:#c8ff5a;font-size:13px;margin-bottom:8px">Apple Ecosystem: SwiftUI &amp; Metal</div>
+          <div style="font-size:14px;color:#c0c3ca;line-height:1.6">Universal app for iOS and macOS built with Swift and CoreBluetooth. Features an interactive force-directed mesh topology visualizer rendered on the GPU using Apple Metal shaders.</div>
+        </div>
+        <div style="padding:18px;background:#0d0f12;border:1px solid #23262c;border-left:3px solid #79b8ff;border-radius:4px">
+          <div class="mono" style="color:#79b8ff;font-size:13px;margin-bottom:8px">Android: Jetpack Compose &amp; Coroutines</div>
+          <div style="font-size:14px;color:#c0c3ca;line-height:1.6">Modern Android client built with Kotlin, Jetpack Compose, and Material You design. Runs a foreground Bluetooth service to maintain continuous background message reception.</div>
+        </div>
+      </div>
+      <p style="margin:0;color:#c0c3ca;font-size:17px;line-height:1.65">The ESP32 advertises a custom BLE GATT service (<code>DECAFBAD-CAFE-4BEE-B00B-000000000000</code>). When you tap send on your iPhone, the message streams over BLE with 512-byte MTU buffers, enters the ESP32 mesh router, hops over 2.4 GHz radio, and pops up as a native notification on the recipient's phone.</p>
+    </div>
+  </div>
+</div>
+
+<!-- 07 Rich Media: Chunked Files & Voice Notes -->
+<div class="section-wrap subtopic-wrap" style="padding:48px 0;border-top:1px solid #23262c">
+  <aside class="section-v-rail">
+    <div class="section-v-sticky">
+      <span class="section-v-num mono ac">07</span>
+      <span class="section-v-line"></span>
+      <span class="section-v-title d">Voice &amp; Files</span>
+    </div>
+  </aside>
+  <div class="section-main">
+    <div class="sv">
+      <div class="d" style="font-size:clamp(26px,3vw,32px);margin:0 0 20px;line-height:1.15">Chunked Files, Voice Notes &amp; Live Telemetry</div>
+      <p style="margin:0 0 16px;color:#c0c3ca;font-size:17px;line-height:1.65">Text is essential, but voice and situational imagery save lives. ESP-NOW has a hard payload limit of 250 bytes per frame, so sending binary media required building an application-layer segmentation and reassembly protocol:</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:18px">
+        <div style="padding:14px 16px;background:#0d0f12;border:1px solid #1c1f24;border-radius:4px">
+          <div class="mono" style="color:#c8ff5a;font-size:12px;margin-bottom:4px">Chunked File Transfer</div>
+          <div style="font-size:13px;color:#8d9097">Splits files up to 4KB into 200-byte chunks. Includes a selective retransmission bitmap so only dropped chunks are re-sent.</div>
+        </div>
+        <div style="padding:14px 16px;background:#0d0f12;border:1px solid #1c1f24;border-radius:4px">
+          <div class="mono" style="color:#c8ff5a;font-size:12px;margin-bottom:4px">3-Second Voice Notes</div>
+          <div style="font-size:13px;color:#8d9097">Compresses short voice recordings into lightweight audio frames transmitted across hops and played back inside the companion app.</div>
+        </div>
+        <div style="padding:14px 16px;background:#0d0f12;border:1px solid #1c1f24;border-radius:4px">
+          <div class="mono" style="color:#c8ff5a;font-size:12px;margin-bottom:4px">Live RSSI &amp; Ping RTT</div>
+          <div style="font-size:13px;color:#8d9097">Calculates real-time link quality indicators (RSSI dBm) and measures round-trip time across active routing paths.</div>
+        </div>
+        <div style="padding:14px 16px;background:#0d0f12;border:1px solid #1c1f24;border-radius:4px">
+          <div class="mono" style="color:#c8ff5a;font-size:12px;margin-bottom:4px">Battery Telemetry</div>
+          <div style="font-size:13px;color:#8d9097">Nodes append LiPo battery percentage, heap memory stats, and uptime into periodic heartbeat discovery frames.</div>
+        </div>
+      </div>
+      <p style="margin:0;color:#c0c3ca;font-size:17px;line-height:1.65">The topology graph in the app tints node badges green, yellow, or red based on live battery levels and radio signal strength, making node placement in the field effortless.</p>
+    </div>
+  </div>
+</div>
+
+<!-- 08 Distributed Time Sync & BLE OTA Updates -->
+<div class="section-wrap subtopic-wrap" style="padding:48px 0;border-top:1px solid #23262c">
+  <aside class="section-v-rail">
+    <div class="section-v-sticky">
+      <span class="section-v-num mono ac">08</span>
+      <span class="section-v-line"></span>
+      <span class="section-v-title d">Time Sync &amp; OTA</span>
+    </div>
+  </aside>
+  <div class="section-main">
+    <div class="sv">
+      <div class="d" style="font-size:clamp(26px,3vw,32px);margin:0 0 20px;line-height:1.15">Distributed Mesh Clock Sync &amp; BLE OTA Updates</div>
+      <p style="margin:0 0 16px;color:#c0c3ca;font-size:17px;line-height:1.65">Without internet or GPS, nodes have no access to Network Time Protocol (NTP) servers. However, cryptographic nonces, message timestamps, and offline mailbox expiries require synchronized clocks.</p>
+      <p style="margin:0 0 16px;color:#c0c3ca;font-size:17px;line-height:1.65">I built a <b>distributed stratum-based time synchronization algorithm</b>: nodes announce their clock stratum and uptime during heartbeat beacons. When a node connects to a smartphone over BLE, it absorbs real-world epoch time and propagates it across the entire mesh, aligning node clocks within ±50 milliseconds.</p>
+      <div style="padding:16px 20px;background:#0d0f12;border:1px solid #23262c;border-left:3px solid #c8ff5a;border-radius:4px;margin-bottom:18px">
+        <div class="mono" style="color:#c8ff5a;font-size:13px;margin-bottom:6px">WIRELESS BLE FIRMWARE UPGRADES</div>
+        <div style="font-size:14px;color:#c0c3ca;line-height:1.6">Upgrading nodes sealed in weatherproof enclosures is handled through dual-partition OTA (<code>ota_0</code> and <code>ota_1</code>). The companion app streams signed binary chunks over BLE GATT with SHA-256 verification and automatic rollback protection.</div>
+      </div>
+      <p style="margin:0;color:#c0c3ca;font-size:17px;line-height:1.65">If a flashed firmware image crashes during its first boot, the ESP-IDF bootloader detects the panic and reverts instantly to the previous valid partition.</p>
+    </div>
+  </div>
+</div>
+
+<!-- 09 What Exists Today -->
+<div class="section-wrap subtopic-wrap" style="padding:48px 0;border-top:1px solid #23262c">
+  <aside class="section-v-rail">
+    <div class="section-v-sticky">
+      <span class="section-v-num mono ac">09</span>
+      <span class="section-v-line"></span>
+      <span class="section-v-title d">Current State</span>
+    </div>
+  </aside>
+  <div class="section-main">
+    <div class="sv">
+      <div class="d" style="font-size:clamp(26px,3vw,32px);margin:0 0 20px;line-height:1.15">What I Have Achieved Today</div>
+      <p style="margin:0 0 16px;color:#c0c3ca;font-size:17px;line-height:1.65">MeshOS has grown from a raw ESP-NOW experiment into a battle-tested, fully functional communication suite:</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:18px">
+        <div style="padding:14px 16px;background:#0d0f12;border:1px solid #1c1f24;border-radius:4px">
+          <div class="mono" style="color:#c8ff5a;font-size:12px;margin-bottom:4px">Multi-Hop Mesh</div>
+          <div style="font-size:13px;color:#8d9097">Bounded TTL=7 flooding with LRU duplicate suppression and randomized jitter.</div>
+        </div>
+        <div style="padding:14px 16px;background:#0d0f12;border:1px solid #1c1f24;border-radius:4px">
+          <div class="mono" style="color:#c8ff5a;font-size:12px;margin-bottom:4px">PSA Crypto AES-GCM</div>
+          <div style="font-size:13px;color:#8d9097">Hardware-accelerated AEAD encryption with random nonces and 16-byte auth tags.</div>
+        </div>
+        <div style="padding:14px 16px;background:#0d0f12;border:1px solid #1c1f24;border-radius:4px">
+          <div class="mono" style="color:#c8ff5a;font-size:12px;margin-bottom:4px">Delivery Guarantees</div>
+          <div style="font-size:13px;color:#8d9097">Direct delivery ACKs, exponential backoff retries, and NVS offline mailbox.</div>
+        </div>
+        <div style="padding:14px 16px;background:#0d0f12;border:1px solid #1c1f24;border-radius:4px">
+          <div class="mono" style="color:#c8ff5a;font-size:12px;margin-bottom:4px">Native iOS &amp; macOS</div>
+          <div style="font-size:13px;color:#8d9097">SwiftUI app with Metal GPU-accelerated interactive live network topology graph.</div>
+        </div>
+        <div style="padding:14px 16px;background:#0d0f12;border:1px solid #1c1f24;border-radius:4px">
+          <div class="mono" style="color:#c8ff5a;font-size:12px;margin-bottom:4px">Native Android App</div>
+          <div style="font-size:13px;color:#8d9097">Jetpack Compose app with Material You UI and background BLE service.</div>
+        </div>
+        <div style="padding:14px 16px;background:#0d0f12;border:1px solid #1c1f24;border-radius:4px">
+          <div class="mono" style="color:#c8ff5a;font-size:12px;margin-bottom:4px">Rich Media &amp; OTA</div>
+          <div style="font-size:13px;color:#8d9097">Chunked 4KB file and 3-second voice note transfers plus wireless BLE OTA updates.</div>
+        </div>
+      </div>
+      <div style="padding:16px 20px;background:#0d0f12;border:1px solid #23262c;border-left:3px solid #c8ff5a;border-radius:4px">
+        <div style="color:#ecebe6;font-style:italic;font-size:15px;line-height:1.6">The entire platform operates without a single cloud server, router, cellular subscription, or centralized database.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 10 Reflections & Meaning -->
+<div class="section-wrap subtopic-wrap" style="padding:48px 0;border-top:1px solid #23262c">
+  <aside class="section-v-rail">
+    <div class="section-v-sticky">
+      <span class="section-v-num mono ac">10</span>
+      <span class="section-v-line"></span>
+      <span class="section-v-title d">Reflections</span>
+    </div>
+  </aside>
+  <div class="section-main">
+    <div class="sv">
+      <div class="d" style="font-size:clamp(26px,3vw,32px);margin:0 0 20px;line-height:1.15">What Building MeshOS Taught Me</div>
+      <p style="margin:0 0 16px;color:#c0c3ca;font-size:17px;line-height:1.65">Building MeshOS was one of the most demanding engineering projects I've tackled because it refused to stay inside a single discipline.</p>
+      <p style="margin:0 0 16px;color:#c0c3ca;font-size:17px;line-height:1.65">In the morning, I would be debugging bit-level radio frame collisions and FreeRTOS task starvation with an oscilloscope and logic analyzer. By the afternoon, I was writing SwiftUI animations, tuning Metal shaders for force-directed graph physics, and handling Android Bluetooth lifecycle edge cases.</p>
+      <div style="padding:18px 22px;background:#0d0f12;border:1px solid #23262c;border-left:3px solid #c8ff5a;border-radius:4px;margin-bottom:18px">
+        <div style="font-size:16px;font-weight:700;color:#c8ff5a;line-height:1.6">No central server. No cell tower. No monthly bill. Just nodes communicating with nodes.</div>
+      </div>
+      <p style="margin:0;color:#c0c3ca;font-size:17px;line-height:1.65">It proved to me that we don't have to surrender our autonomy to massive cloud providers to stay connected. With thoughtful firmware architecture, hardware cryptography, and clean native software, a few pieces of inexpensive silicon can form an unbreakable communication lifeline.</p>
+      <div style="margin-top:20px;padding:18px 22px;background:#0d0f12;border:1px solid #23262c;border-left:3px solid #c8ff5a;border-radius:4px">
+        <div class="mono" style="color:#c8ff5a;font-size:12px;margin-bottom:6px">VIBE CODING ACROSS FOUR PLATFORMS</div>
+        <p style="margin:0 0 10px;font-size:15px;line-height:1.65;color:#ecebe6">Developing MeshOS spanned four disparate stacks: C/FreeRTOS firmware, SwiftUI on iOS/macOS, Jetpack Compose on Android, and PSA Crypto. I leveraged AI tools as a true <b>vibe coder</b> to rapidly brainstorm UI layouts, translate concepts across languages, and structure multi-platform documentation.</p>
+        <p style="margin:0;font-size:14px;line-height:1.6;color:#c0c3ca">Crucially, <b>the core network architecture—bounded TTL flooding, the 64-entry LRU ring buffer, inter-core FreeRTOS queue dispatching, AES-128-GCM hardware crypto, and Metal GPU shaders—was engineered and written by me</b>. AI helped supercharge my brainstorming and documentation, but the system architecture and critical code were built by hand.</p>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<a class="pr sv" href="Glyph.dc.html" style="margin-top:96px;border-bottom:1px solid #23262c"><span style="flex:1 1 360px"><span class="mono">Next project</span><span class="nm d" style="display:block;font-size:clamp(40px,6vw,76px);margin-top:8px">Glyph</span></span><span class="ar">→</span></a>
+<div style="height:24px"></div><footer style="position:relative;margin-top:80px;border-top:1px solid #1c1f24;background:#0d0f12"><div class="w" style="padding-top:48px">
+<div class="footer-nav-grid" style="display:flex;flex-wrap:wrap;gap:48px 64px;justify-content:space-between">
+<div class="fl" style="flex:0 1 170px"><div class="mono" style="margin-bottom:14px">Navigate</div><a href="Main.dc.html#about">About</a><a href="Main.dc.html#work">Work</a><a href="Main.dc.html#skills">Skills</a><a href="Main.dc.html#contact">Contact</a></div><div class="fl" style="flex:0 1 170px"><div class="mono" style="margin-bottom:14px">Projects</div><a href="Glyph.dc.html">Glyph</a><a href="Radio_Kit.dc.html">Radio_Kit</a><a href="MeshOS.dc.html">MeshOS</a></div><div class="fl" style="flex:0 1 170px"><div class="mono" style="margin-bottom:14px">Connect</div><a href="https://mail.google.com/mail/?view=cm&fs=1&to=lokesh.panditi.29@gmail.com" target="_blank" rel="noopener noreferrer">Email ↗</a><a href="https://github.com/thirstymelon">GitHub ↗</a><a href="https://www.linkedin.com/in/lokeshpanditi">LinkedIn ↗</a></div></div>
+<div class="footer-thanks-line"><span class="thanks-intro">Special thanks to</span> <span class="thanks-ai"><img src="icons/chatgpt-icon.svg" class="thanks-ico" alt="" width="16" height="16" /><span class="thanks-chatgpt">ChatGPT</span></span><span class="thanks-sep">,</span> <span class="thanks-ai"><img src="icons/google-antigravity-icon.svg" class="thanks-ico" alt="" width="16" height="16" /><span class="thanks-ag">AntiGravity</span></span> <span class="thanks-sep">and</span> <span class="thanks-ai"><img src="icons/claude-ai-icon.svg" class="thanks-ico" alt="" width="16" height="16" /><span class="thanks-claude">Claude</span></span></div>
+<div class="mono" style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;margin-top:20px;padding:16px 0 16px;border-top:1px solid #1c1f24"><span>© 2026 Lokesh Panditi</span><span>Embedded · Firmware · High-Integrity Systems</span></div></div></footer>
+<a class="floating-back-to-top" id="floating-back-to-top" href="#top" aria-label="Back to top">Back to top <span class="btt-arrow">↑</span></a>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":2450}}'>
+class Component extends DCLogic {
+renderVals() { return {}; }
+}
+</script>
+<script>
+(function() {
+  function getHeader() {
+    return document.getElementById('site-header') ||
+           document.querySelector('header.site-header') ||
+           document.querySelector('header');
+  }
+
+  var lastScrollY = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+  var ticking = false;
+  var threshold = 6;
+
+  function updateNav() {
+    var header = getHeader();
+    var currentScrollY = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    if (header) {
+      if (currentScrollY <= 60) {
+        header.classList.remove('nav-hidden');
+        header.style.transform = 'translateY(0)';
+      } else if (currentScrollY > lastScrollY + threshold) {
+        header.classList.add('nav-hidden');
+        header.style.transform = 'translateY(calc(-100% + 3px))';
+      } else if (currentScrollY < lastScrollY - threshold) {
+        header.classList.remove('nav-hidden');
+        header.style.transform = 'translateY(0)';
+      }
+    }
+    lastScrollY = Math.max(0, currentScrollY);
+
+    var maxScroll = (document.documentElement.scrollHeight || document.body.scrollHeight) - window.innerHeight;
+    var pct = maxScroll > 0 ? (currentScrollY / maxScroll) * 100 : 0;
+    var pgbEls = document.querySelectorAll('.pgb');
+    for (var i = 0; i < pgbEls.length; i++) {
+      pgbEls[i].style.width = pct + '%';
+    }
+
+    var btt = document.getElementById('floating-back-to-top');
+    if (btt) {
+      if (currentScrollY > 300) {
+        btt.classList.add('is-visible');
+      } else {
+        btt.classList.remove('is-visible');
+      }
+    }
+
+    ticking = false;
+  }
+
+  function onScroll() {
+    if (!ticking) {
+      window.requestAnimationFrame(updateNav);
+      ticking = true;
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  document.addEventListener('scroll', onScroll, { passive: true });
+  updateNav();
+
+  // Delegated smooth scroll handler in capture phase
+  document.addEventListener('click', function(e) {
+    var anchor = e.target.closest('a[href^="#"]');
+    if (!anchor) return;
+    var href = anchor.getAttribute('href');
+    if (!href || href === '#') return;
+
+    var header = getHeader();
+    if (href === '#top') {
+      e.preventDefault();
+      if (header) {
+        header.classList.remove('nav-hidden');
+        header.style.transform = 'translateY(0)';
+      }
+      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+      document.documentElement.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+      document.body.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+      if (history.pushState) history.pushState(null, '', '#top');
+      return;
+    }
+
+    var targetEl = document.querySelector(href);
+    if (targetEl) {
+      e.preventDefault();
+      var headerOffset = 88;
+      var elementPosition = targetEl.getBoundingClientRect().top;
+      var offsetPosition = elementPosition + (window.pageYOffset || document.documentElement.scrollTop || 0) - headerOffset;
+      window.scrollTo({
+        top: Math.max(0, offsetPosition),
+        behavior: 'smooth'
+      });
+      if (history.pushState) history.pushState(null, '', href);
+    }
+  }, true);
+
+  // Universal Email Direct Gmail Redirect Handler (from previous working version 12d4cec)
+  var GMAIL_COMPOSE_URL = 'https://mail.google.com/mail/?view=cm&fs=1&to=lokesh.panditi.29@gmail.com';
+
+  window.handleEmailClick = function(e) {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    window.open(GMAIL_COMPOSE_URL, '_blank', 'noopener,noreferrer');
+  };
+
+  window.addEventListener('click', function(e) {
+    var target = e.target && e.target.closest ? e.target.closest('a') : null;
+    if (!target) return;
+    var href = target.getAttribute('href') || '';
+    if (href.startsWith('mailto:') || href.includes('mail.google.com') || href.includes('lokesh.panditi.29@gmail.com') || target.hasAttribute('data-email')) {
+      e.preventDefault();
+      e.stopPropagation();
+      window.open(GMAIL_COMPOSE_URL, '_blank', 'noopener,noreferrer');
+    }
+  }, true);
+
+
+})();
+</script>
+</body>
+</html>

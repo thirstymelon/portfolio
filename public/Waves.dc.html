@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Signal waves</title>
+<script src="./vendor/react.js"></script>
+<script src="./vendor/react-dom.js"></script>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&amp;display=swap">
+<style>
+body{margin:0}
+.mono{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#8d9097}
+</style>
+</helmet>
+<div onMouseMove="{{ mm }}" onMouseLeave="{{ ml }}" style="position:relative;width:100%;height:280px;overflow:hidden;cursor:crosshair;background:#0a0b0d">
+<svg width="100%" height="280" viewBox="0 0 1440 280" preserveAspectRatio="none" style="display:block;pointer-events:none" aria-hidden="true">
+<path d="{{d4}}" fill="none" stroke="#ecebe6" stroke-opacity=".2" stroke-width="1" vector-effect="non-scaling-stroke"></path>
+<path d="{{d3}}" fill="none" stroke="#ecebe6" stroke-opacity=".25" stroke-width="1.2" vector-effect="non-scaling-stroke"></path>
+<path d="{{d2}}" fill="none" stroke="#ecebe6" stroke-opacity=".35" stroke-width="1.2" vector-effect="non-scaling-stroke"></path>
+<path d="{{d1}}" fill="none" stroke="#ecebe6" stroke-opacity=".5" stroke-width="1.2" vector-effect="non-scaling-stroke"></path>
+<path d="{{d0}}" fill="none" stroke="#c8ff5a" stroke-opacity=".95" stroke-width="2" vector-effect="non-scaling-stroke"></path>
+</svg>
+<div style="{{probe}}"></div>
+<div class="mono" style="{{readStyle}}">{{read}}</div>
+<div class="mono" style="position:absolute;left:40px;bottom:12px">6 Hz</div>
+<div class="mono" style="position:absolute;right:40px;bottom:12px">45 MHz</div>
+<div class="mono" style="{{hintStyle}}">Move your cursor through the signal</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":280}}'>
+class Component extends DCLogic {
+componentDidMount() {
+this.base = [50, 100, 150, 200, 250];
+this.amp = [24, 19, 15, 11, 8];
+this.per = [480, 240, 120, 60, 30];
+this.spd = [55, 42, 65, 90, 144];
+this.m = { x: 0, y: 0, sx: 0, sy: 0, lx: 0, ly: 0, on: 0, tg: 0, k: 0 };
+this.t0 = performance.now();
+this.time = 0;
+this.reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+this.mm = (e) => {
+const r = e.currentTarget.getBoundingClientRect();
+const x = (e.clientX - r.left) / r.width * 1440;
+const y = (e.clientY - r.top) / r.height * 280;
+const m = this.m;
+m.k = Math.min(30, m.k + Math.hypot(x - m.lx, y - m.ly) * 0.25);
+m.lx = x; m.ly = y; m.x = x; m.y = y; m.tg = 1;
+if (m.on < 0.02) { m.sx = x; m.sy = y; }
+};
+this.ml = () => { this.m.tg = 0; };
+this.loop = (now) => {
+const m = this.m;
+this.time = (now - this.t0) / 1000;
+m.on += (m.tg - m.on) * 0.08;
+m.sx += (m.x - m.sx) * 0.2;
+m.sy += (m.y - m.sy) * 0.2;
+m.k *= 0.93;
+this.setState({ t: now });
+this.raf = requestAnimationFrame(this.loop);
+};
+if (!this.reduce) this.raf = requestAnimationFrame(this.loop);
+}
+componentWillUnmount() { cancelAnimationFrame(this.raf); }
+fmt(f) {
+if (f < 1e3) return f.toFixed(f < 100 ? 1 : 0) + ' Hz';
+if (f < 1e6) return (f / 1e3).toFixed(1) + ' kHz';
+return (f / 1e6).toFixed(2) + ' MHz';
+}
+renderVals() {
+const m = this.m || { sx: 0, sy: 0, on: 0, k: 0 };
+const t = this.time || 0;
+const out = {};
+for (let i = 0; i < 5; i++) {
+const b = this.base ? this.base[i] : 50 + i * 50;
+const a = this.amp ? this.amp[i] : 20;
+const p = this.per ? this.per[i] : 240;
+const sp = this.spd ? this.spd[i] : 50;
+const wv = Math.exp(-((m.sy - b) * (m.sy - b)) / (2 * 90 * 90));
+let d = '';
+for (let x = 0; x <= 1440; x += 8) {
+let y = b + a * Math.sin(2 * Math.PI * (x + sp * t) / p);
+const dx = x - m.sx;
+const g = Math.exp(-(dx * dx) / (2 * 110 * 110)) * m.on;
+y += (m.sy - y) * g * wv * 0.7;
+y += Math.sin(dx * 0.07 - t * 9) * g * (5 + m.k) * (0.6 + i * 0.15);
+d += (x === 0 ? 'M' : ' L') + x + ',' + y.toFixed(1);
+}
+out['d' + i] = d;
+}
+const pct = (m.sx / 1440 * 100);
+const f = 6 * Math.pow(45e6 / 6, Math.min(1, Math.max(0, m.sx / 1440)));
+out.probe = 'position:absolute;top:0;bottom:0;width:1px;background:#c8ff5a;left:' + pct.toFixed(2) + '%;opacity:' + (m.on * 0.45).toFixed(2);
+out.read = this.fmt ? this.fmt(f) : '';
+out.readStyle = 'position:absolute;top:12px;color:#c8ff5a;white-space:nowrap;opacity:' + m.on.toFixed(2) + ';' + (pct > 85 ? 'right:calc(' + (100 - pct).toFixed(2) + '% + 10px)' : 'left:calc(' + pct.toFixed(2) + '% + 10px)');
+out.hintStyle = 'position:absolute;left:0;right:0;bottom:12px;text-align:center;opacity:' + (1 - m.on).toFixed(2);
+out.mm = this.mm; out.ml = this.ml;
+return out;
+}
+}
+</script>
+</body>
+</html>

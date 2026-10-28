@@ -1,0 +1,565 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Radio_Kit — RF Signal Generation Framework</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@500&amp;display=swap">
+<link rel="stylesheet" href="/responsive-fullwidth.css">
+<script src="./vendor/react.js"></script>
+<script src="./vendor/react-dom.js"></script>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@500&amp;display=swap">
+<link rel="stylesheet" href="./responsive-fullwidth.css">
+<style>
+body{margin:0;background:#0a0b0d;overflow-x:clip!important;overflow-y:visible!important}
+.pg{position:relative;overflow-x:clip!important;overflow-y:visible!important;color:#ecebe6;background:#0a0b0d;font-family:'Inter',system-ui,sans-serif;font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+.w{position:relative;max-width:1200px;margin:0 auto;padding:0 40px;box-sizing:border-box}
+.d{font-family:'Bricolage Grotesque','Inter',sans-serif;font-weight:700;letter-spacing:-.035em;line-height:.98}
+.mono{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#8d9097}
+.mut{color:#9a9ca3}.ac{color:#c8ff5a}
+.gl{position:absolute;inset:0;display:flex;pointer-events:none}.gl i{flex:1;border-left:1px solid #15171b}
+.rv{animation:up .9s cubic-bezier(.2,.7,.2,1) both}
+@keyframes up{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@supports (animation-timeline:view()){.sv{animation:up linear both;animation-timeline:view();animation-range:entry 0% entry 30%}}
+a{color:inherit;text-decoration:none}
+.u2{position:relative;display:inline-block}.u2::after{content:"";position:absolute;left:0;bottom:-3px;height:2px;width:0;background:#c8ff5a;transition:width .4s}.u2:hover::after{width:100%}
+.nav a{font-size:14px;color:#9a9ca3;transition:color .2s}.nav a:hover{color:#fff}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:16px 24px;border-radius:2px;font:500 13px 'JetBrains Mono',monospace;letter-spacing:.1em;text-transform:uppercase;background:#c8ff5a;color:#0a0b0d;border:1px solid #c8ff5a;box-shadow:inset 0 0 0 0 #0a0b0d;transition:box-shadow .55s cubic-bezier(.7,0,.2,1),color .45s,gap .45s}
+.btn:hover{box-shadow:inset 340px 0 0 0 #0a0b0d;color:#c8ff5a;gap:20px}
+.btn2{background:transparent;color:#ecebe6;border-color:#3a3d44;box-shadow:inset 0 0 0 0 #ecebe6}
+.btn2:hover{box-shadow:inset 0 -90px 0 0 #ecebe6;color:#0a0b0d;border-color:#ecebe6;gap:20px}
+.nav a.btn{font-size:12px;color:#ecebe6}.nav a.btn2:hover{color:#0a0b0d}
+.wv{animation:wv linear infinite;display:block}
+@keyframes wv{to{transform:translateX(-50%)}}
+.mq{display:flex;width:max-content;animation:wv 40s linear infinite}
+.mq span{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:44px;letter-spacing:-.02em;color:#3b3e45;padding:0 26px;white-space:nowrap}
+.mq b{color:#c8ff5a;font-weight:400}
+.pr{position:relative;display:flex;flex-wrap:wrap;gap:20px 36px;align-items:center;padding:36px 20px;border-top:1px solid #23262c;transition:background .4s}
+.pr:hover{background:#101216}
+.pr::before{content:"";position:absolute;left:0;top:0;width:3px;height:0;background:#c8ff5a;transition:height .55s cubic-bezier(.7,0,.2,1)}.pr:hover::before{height:100%}
+.pr .nm{-webkit-text-stroke:1.5px transparent;transition:letter-spacing .55s cubic-bezier(.2,.7,.2,1),color .4s,-webkit-text-stroke-color .4s}
+.pr:hover .nm{color:transparent;-webkit-text-stroke-color:#c8ff5a;letter-spacing:.012em}
+.pr .ar{display:inline-flex;align-items:center;justify-content:center;width:64px;height:64px;border:1px solid #3a3d44;border-radius:50%;color:#c8ff5a;font-size:26px;box-shadow:inset 0 0 0 0 #c8ff5a;transition:box-shadow .55s cubic-bezier(.7,0,.2,1),color .4s,border-color .4s}
+.pr:hover .ar{box-shadow:inset 0 0 0 40px #c8ff5a;color:#0a0b0d;border-color:#c8ff5a}
+.pr .vz{opacity:.6;transition:opacity .4s,border-color .4s}.pr:hover .vz{opacity:1;border-color:#c8ff5a}
+.vz{border:1px solid #23262c;border-radius:10px;background:#0d0f12;overflow:hidden}
+.cl{position:relative;background:#0a0b0d;padding:32px;transition:background .4s}.cl:hover{background:#101216}
+.cl::before{content:"";position:absolute;left:0;top:0;height:2px;width:0;background:#c8ff5a;transition:width .6s cubic-bezier(.7,0,.2,1)}.cl:hover::before{width:100%}
+.cl .d{transition:color .4s}.cl:hover>.d:not(.ac){color:#c8ff5a}
+.gd{display:flex;flex-wrap:wrap;gap:1px;background:#23262c;border:1px solid #23262c;border-radius:10px;overflow:hidden}.gd>*{flex:1 1 340px;min-width:0}
+.ph{border:1px dashed #3a3d44;border-radius:8px;padding:28px;color:#8d9097;font:500 13px 'JetBrains Mono',monospace;background:#0d0f12}
+.px{animation:px 2.4s ease-in-out infinite}@keyframes px{50%{opacity:.18}}
+.pu{transform-box:fill-box;transform-origin:center;animation:pu 2.6s ease-in-out infinite}@keyframes pu{50%{transform:scale(1.7)}}
+.ds{animation:ds 1.6s linear infinite}@keyframes ds{to{stroke-dashoffset:-20}}
+.tl{display:inline-block;margin:0 8px 8px 0;padding:9px 14px;border:1px solid #2a2d34;border-radius:2px;font:500 13px 'JetBrains Mono',monospace;color:#ecebe6;box-shadow:inset 0 0 0 0 #c8ff5a;transition:box-shadow .5s cubic-bezier(.7,0,.2,1),color .35s,border-color .35s}
+.tl:hover{box-shadow:inset 0 -120px 0 0 #c8ff5a;color:#0a0b0d;border-color:#c8ff5a}
+.tl.big{font-size:20px;padding:20px 30px}
+
+.lg{display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding:12px 0;border-top:1px solid #23262c}
+.lg .d{font-size:clamp(30px,4vw,48px);transition:color .4s,letter-spacing .5s cubic-bezier(.2,.7,.2,1)}.lg:hover .d{color:#c8ff5a;letter-spacing:.012em}
+.ct{position:relative;display:flex;align-items:center;gap:16px;padding:24px 26px;border-top:1px solid #23262c;transition:background .4s,padding .5s cubic-bezier(.2,.7,.2,1)}.ct:first-child{border-top:0}
+.ct:hover{background:#101216;padding-left:38px}
+.ct::before{content:"";position:absolute;left:0;top:0;width:3px;height:0;background:#c8ff5a;transition:height .5s cubic-bezier(.7,0,.2,1)}.ct:hover::before{height:100%}
+.ct .mono{flex:0 0 78px}.ct .vl{flex:1;min-width:0;overflow-wrap:anywhere;font-size:18px}
+.ct .ar2{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border:1px solid #3a3d44;border-radius:50%;color:#c8ff5a;box-shadow:inset 0 0 0 0 #c8ff5a;transition:box-shadow .5s cubic-bezier(.7,0,.2,1),color .4s,border-color .4s}
+.ct:hover .ar2{box-shadow:inset 0 0 0 30px #c8ff5a;color:#0a0a0d;border-color:#c8ff5a}
+.cr{animation:cr 1s steps(1) infinite}@keyframes cr{50%{opacity:0}}
+.gp{fill:#1a1d22;transition:fill 1.4s}.gp:hover{fill:#c8ff5a;transition:fill 0s}
+.gr{transition:fill 1.4s}.gr:hover{fill:#1a1d22;transition:fill 0s}
+.nav a.lg2{color:#fff}
+.lg2{display:flex;align-items:center;gap:12px}
+.lg2 .mk{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border:1px solid #2f333b;border-radius:3px;font:500 12px 'JetBrains Mono',monospace;color:#c8ff5a;box-shadow:inset 0 0 0 0 #c8ff5a;transition:box-shadow .5s cubic-bezier(.7,0,.2,1),color .4s,border-color .4s}
+.lg2:hover .mk{box-shadow:inset 40px 0 0 0 #c8ff5a;color:#0a0b0d;border-color:#c8ff5a}
+.lg2 b{display:block;font-weight:600;line-height:1.25}
+.lg2 small{display:block;font:500 11px 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:#8d9097}
+.nav a i{font:500 11px 'JetBrains Mono',monospace;color:#c8ff5a;margin-right:7px;font-style:normal}
+.nav a.nl{position:relative;padding:6px 0}
+.nav a.nl::after{content:"";position:absolute;left:0;bottom:0;height:1px;width:0;background:#c8ff5a;transition:width .4s}.nav a.nl:hover::after{width:100%}
+.pgb{position:absolute;left:0;bottom:-1px;height:2px;width:0;background:#c8ff5a}
+@supports (animation-timeline:scroll()){.pgb{animation:pgb linear both;animation-timeline:scroll(root block)}@keyframes pgb{to{width:100%}}}
+.fl a{position:relative;display:block;padding:6px 0;color:#9a9ca3;transition:color .3s,padding .4s cubic-bezier(.2,.7,.2,1)}
+.fl a::before{content:"→";position:absolute;left:0;color:#c8ff5a;opacity:0;transition:opacity .3s}
+.fl a:hover{color:#fff;padding-left:22px}.fl a:hover::before{opacity:1}
+.wm{color:#101216;-webkit-text-stroke:1px #23262c;transition:color .5s,-webkit-text-stroke-color .5s}
+.wm:hover{color:transparent;-webkit-text-stroke-color:#c8ff5a}
+html.cc .pg,html.cc .pg *{cursor:auto}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}.ms:has(.n0:hover) .e0{stroke:#c8ff5a;stroke-width:2.5;animation-duration:.4s}.ms:has(.n0:hover) .c0,.ms:has(.n0:hover) .a0{fill:#c8ff5a}.ms:has(.n1:hover) .e1{stroke:#c8ff5a;stroke-width:2.5;animation-duration:.4s}.ms:has(.n1:hover) .c1,.ms:has(.n1:hover) .a1{fill:#c8ff5a}.ms:has(.n2:hover) .e2{stroke:#c8ff5a;stroke-width:2.5;animation-duration:.4s}.ms:has(.n2:hover) .c2,.ms:has(.n2:hover) .a2{fill:#c8ff5a}.ms:has(.n3:hover) .e3{stroke:#c8ff5a;stroke-width:2.5;animation-duration:.4s}.ms:has(.n3:hover) .c3,.ms:has(.n3:hover) .a3{fill:#c8ff5a}.ms:has(.n4:hover) .e4{stroke:#c8ff5a;stroke-width:2.5;animation-duration:.4s}.ms:has(.n4:hover) .c4,.ms:has(.n4:hover) .a4{fill:#c8ff5a}.ms:has(.n5:hover) .e5{stroke:#c8ff5a;stroke-width:2.5;animation-duration:.4s}.ms:has(.n5:hover) .c5,.ms:has(.n5:hover) .a5{fill:#c8ff5a}.ms:has(.n6:hover) .e6{stroke:#c8ff5a;stroke-width:2.5;animation-duration:.4s}.ms:has(.n6:hover) .c6,.ms:has(.n6:hover) .a6{fill:#c8ff5a}
+</style>
+</helmet>
+<div class="pg"><div id="top" style="position:absolute;top:0;left:0;width:1px;height:1px;pointer-events:none;opacity:0;"></div><dc-import name="Trail" hint-size="0,0"></dc-import><div class="gl"><i></i><i></i><i></i><i style="border-right:1px solid #15171b"></i></div>
+<header id="site-header" class="site-header"><div class="w"><div class="nav-rail"><a class="nav-brand" href="Main.dc.html" aria-label="Lokesh Panditi - Home"><span class="nav-brand-badge">LP</span><span class="nav-brand-name"><span class="nav-pulse-led"></span>Lokesh Panditi</span></a><nav class="nav-floating-links" aria-label="Project Navigation"><a class="nav-float-link" href="Glyph.dc.html">Glyph</a><a class="nav-float-link active" href="Radio_Kit.dc.html">Radio_Kit</a><a class="nav-float-link" href="MeshOS.dc.html">MeshOS</a></nav><div class="nav-actions"><a class="nav-cta-btn" href="https://github.com/thirstymelon/Radio_Kit" target="_blank" rel="noopener"><span class="cta-dot"></span><span>Repository</span><span class="cta-arrow">↗</span></a></div></div></div><i class="pgb"></i></header><div class="w">
+<div class="project-hero">
+<div class="project-hero-text rv"><span class="mono ac">v1.0.0 Release</span>
+<h1 class="d" style="margin:16px 0 10px;font-size:clamp(48px,8vw,100px)">Radio_Kit</h1>
+<div class="d ac" style="font-size:clamp(20px,2.4vw,28px);font-weight:600;letter-spacing:-.02em;margin-bottom:20px">Autonomous Bare-Metal RF Signal Generation Engine</div>
+<p class="mut" style="margin:0;font-size:18px;line-height:1.6">How I transformed the Raspberry Pi RP2040’s native clock generators, dual-core AMP architecture, and fractional dividers into a production-grade 1.374 kHz to 45 MHz RF transmission appliance in bare-metal Ada 2022.</p></div>
+<div class="project-hero-visual vz rv" style="animation-delay:.2s"><dc-import name="Carrier" hint-size="100%,184px"></dc-import></div>
+</div>
+<div class="gd sv" style="margin-top:20px"><div class="cl" style="flex:2 1 420px"><div class="mono" style="margin-bottom:8px">Stack</div><div style="display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center"><span class="tl" style="margin:0;padding:6px 12px;font-size:12px;line-height:1.2">Ada 2022</span><span class="tl" style="margin:0;padding:6px 12px;font-size:12px;line-height:1.2">RP2040</span><span class="tl" style="margin:0;padding:6px 12px;font-size:12px;line-height:1.2">Dual-Core AMP</span><span class="tl" style="margin:0;padding:6px 12px;font-size:12px;line-height:1.2">ChaCha20</span><span class="tl" style="margin:0;padding:6px 12px;font-size:12px;line-height:1.2">2-FSK</span><span class="tl" style="margin:0;padding:6px 12px;font-size:12px;line-height:1.2">Bare-Metal</span></div></div><div class="cl" style="flex:1 1 260px"><div class="mono" style="margin-bottom:8px">Repository</div><div><a class="u2" href="https://github.com/thirstymelon/Radio_Kit">github.com/thirstymelon/Radio_Kit ↗</a></div></div><div class="cl" style="flex:1 1 200px"><div class="mono" style="margin-bottom:8px">Version</div><div style="font-weight:600;color:#c8ff5a;font-size:16px">v1.0.0 Production</div></div></div>
+<div style="padding:96px 0 0"><div class="section-wrap"><aside class="section-v-rail"><div class="section-v-sticky"><span class="section-v-num mono ac">01</span><span class="section-v-line"></span><span class="section-v-title d">Highlights</span></div></aside><div class="section-main"><div class="sv" style="margin-bottom:36px"><h2 class="d" style="margin:0;font-size:clamp(40px,6vw,72px)">What it does</h2></div><div class="sv" style="display:flex;flex-wrap:wrap;gap:12px 32px;padding:26px 0;border-top:1px solid #23262c"><span class="mono ac" style="flex:0 0 48px">01</span><p style="margin:0;flex:1 1 420px;font-size:20px;line-height:1.5">Synthesizes stable RF carriers from 1.374 kHz up to 45 MHz directly from the RP2040 clock tree with zero external radio ICs.</p></div><div class="sv" style="display:flex;flex-wrap:wrap;gap:12px 32px;padding:26px 0;border-top:1px solid #23262c"><span class="mono ac" style="flex:0 0 48px">02</span><p style="margin:0;flex:1 1 420px;font-size:20px;line-height:1.5">Executes an Asymmetric Multiprocessing (AMP) architecture: Core 0 supervises while Core 1 runs a dedicated lock-free waveform synthesis engine over hardware SIO FIFOs.</p></div><div class="sv" style="display:flex;flex-wrap:wrap;gap:12px 32px;padding:26px 0;border-top:1px solid #23262c"><span class="mono ac" style="flex:0 0 48px">03</span><p style="margin:0;flex:1 1 420px;font-size:20px;line-height:1.5">Delivers a full modulation suite: continuous-phase 2-FSK at 1200 baud, real-time analog FM voice/audio, and 20 WPM PARIS CW Morse beacons.</p></div><div class="sv" style="display:flex;flex-wrap:wrap;gap:12px 32px;padding:26px 0;border-top:1px solid #23262c"><span class="mono ac" style="flex:0 0 48px">04</span><p style="margin:0;flex:1 1 420px;font-size:20px;line-height:1.5">Secures transmissions with 256-bit ChaCha20 encryption, anti-replay sequence windows, table-driven CRC-16 framing, and internal ADC thermal throttling.</p></div></div></div></div>
+
+<div style="padding:64px 0 28px" class="sv">
+  <div class="mono ac" style="margin-bottom:8px">Developer Story</div>
+  <h2 class="d" style="margin:0;font-size:clamp(40px,6vw,72px)">Building Radio_Kit v1.0.0</h2>
+</div>
+
+<!-- 01 The Idea -->
+<div class="section-wrap subtopic-wrap" style="padding:48px 0;border-top:1px solid #23262c">
+  <aside class="section-v-rail">
+    <div class="section-v-sticky">
+      <span class="section-v-num mono ac">01</span>
+      <span class="section-v-line"></span>
+      <span class="section-v-title d">The Spark</span>
+    </div>
+  </aside>
+  <div class="section-main">
+    <div class="sv">
+      <div class="d" style="font-size:clamp(26px,3vw,32px);margin:0 0 20px;line-height:1.15">The Spark: Radio Without an RF Chip</div>
+      <p style="margin:0 0 16px;color:#c0c3ca;font-size:17px;line-height:1.65">Nearly every embedded wireless project follows an identical playbook: you pick an external RF transceiver like an SX1262 LoRa module or CC1101, wire it over SPI, configure registers, and treat RF synthesis as an opaque black box.</p>
+      <p style="margin:0 0 16px;color:#c0c3ca;font-size:17px;line-height:1.65">One evening while reading the RP2040 datasheet, I stopped at the clock generator block diagram. Microcontrollers spend millions of clock cycles synchronizing internal buses, but the RP2040 includes auxiliary clock outputs capable of routing fractional clock dividers directly to physical pins. That made me ask an unconventional question:</p>
+      <div style="padding:16px 20px;background:#0d0f12;border:1px solid #23262c;border-left:3px solid #c8ff5a;border-radius:4px;margin-bottom:18px">
+        <div style="font-size:16px;font-style:italic;color:#c8ff5a;line-height:1.6">"Can I turn the microcontroller's raw silicon clock tree into an autonomous, encrypted RF transmitter with zero external radio silicon?"</div>
+      </div>
+      <p style="margin:0;color:#c0c3ca;font-size:17px;line-height:1.65">What started as a rough experiment to see if an oscilloscope could detect a square wave on GPIO21 grew into <b>Radio_Kit v1.0.0</b>: a production-grade, dual-core bare-metal Ada framework capable of continuous-phase 2-FSK telemetry, FM voice transmission, automated CW beacons, ChaCha20 encryption, and hardware watchdog crash diagnostics.</p>
+    </div>
+  </div>
+</div>
+
+<!-- 02 Synthesizing RF from Silicon -->
+<div class="section-wrap subtopic-wrap" style="padding:48px 0;border-top:1px solid #23262c">
+  <aside class="section-v-rail">
+    <div class="section-v-sticky">
+      <span class="section-v-num mono ac">02</span>
+      <span class="section-v-line"></span>
+      <span class="section-v-title d">Clock Synthesis</span>
+    </div>
+  </aside>
+  <div class="section-main">
+    <div class="sv">
+      <div class="d" style="font-size:clamp(26px,3vw,32px);margin:0 0 20px;line-height:1.15">Synthesizing RF from the RP2040 Clock Tree</div>
+      <p style="margin:0 0 16px;color:#c0c3ca;font-size:17px;line-height:1.65">To create an RF carrier without an analog oscillator, you have to manipulate the RP2040's phase-locked loops and clock multiplexers. The RP2040 features four auxiliary General Purpose Clock Outputs (<code>GPOUT0</code> through <code>GPOUT3</code>) mapped directly to silicon pads:</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:18px">
+        <div style="padding:14px 16px;background:#0d0f12;border:1px solid #1c1f24;border-radius:4px">
+          <div class="mono" style="color:#c8ff5a;font-size:12px;margin-bottom:4px">GPIO21 → GPOUT0</div>
+          <div style="font-size:13px;color:#8d9097">Independent clock generator with 16-bit integer and 8-bit fractional divider.</div>
+        </div>
+        <div style="padding:14px 16px;background:#0d0f12;border:1px solid #1c1f24;border-radius:4px">
+          <div class="mono" style="color:#c8ff5a;font-size:12px;margin-bottom:4px">GPIO23 → GPOUT1</div>
+          <div style="font-size:13px;color:#8d9097">Secondary carrier or reference channel for dual-channel operations.</div>
+        </div>
+        <div style="padding:14px 16px;background:#0d0f12;border:1px solid #1c1f24;border-radius:4px">
+          <div class="mono" style="color:#c8ff5a;font-size:12px;margin-bottom:4px">GPIO24 → GPOUT2</div>
+          <div style="font-size:13px;color:#8d9097">Direct silicon clock generator channel.</div>
+        </div>
+        <div style="padding:14px 16px;background:#0d0f12;border:1px solid #1c1f24;border-radius:4px">
+          <div class="mono" style="color:#c8ff5a;font-size:12px;margin-bottom:4px">GPIO25 → GPOUT3</div>
+          <div style="font-size:13px;color:#8d9097">Fourth GPOUT generator output, co-located with user LED circuit.</div>
+        </div>
+      </div>
+      <p style="margin:0 0 16px;color:#c0c3ca;font-size:17px;line-height:1.65">I lock <code>PLL_SYS</code> to a clean 90 MHz reference derived from the 12 MHz external crystal oscillator. Feeding this 90 MHz source into the GPOUT clock divider gives me fine-grained control over the output carrier:</p>
+      <div style="padding:16px 20px;background:#0d0f12;border:1px solid #23262c;border-radius:4px;margin-bottom:18px">
+        <div class="mono" style="color:#8d9097;font-size:11px;margin-bottom:8px">MATHEMATICAL SYNTHESIS PIPELINE</div>
+        <div class="mono" style="color:#c8ff5a;font-size:13px;line-height:1.8">12 MHz XOSC → PLL_SYS (90 MHz) → [INT: 16-bit + FRAC: 8-bit / 256] → GPIO Pad</div>
+        <div class="mono" style="color:#ecebe6;font-size:14px;margin-top:10px;padding-top:10px;border-top:1px solid #1c1f24">F_carrier = 90,000,000 / (Integer_Div + Fractional_Div / 256.0)</div>
+      </div>
+      <p style="margin:0;color:#c0c3ca;font-size:17px;line-height:1.65">By dynamically recalculating and updating these divider registers in real time, I can synthesize frequencies from <b>1.374 kHz all the way to 45 MHz</b> with sub-kilohertz resolution.</p>
+    </div>
+  </div>
+</div>
+
+<!-- 03 Dual-Core AMP Architecture -->
+<div class="section-wrap subtopic-wrap" style="padding:48px 0;border-top:1px solid #23262c">
+  <aside class="section-v-rail">
+    <div class="section-v-sticky">
+      <span class="section-v-num mono ac">03</span>
+      <span class="section-v-line"></span>
+      <span class="section-v-title d">Dual-Core AMP</span>
+    </div>
+  </aside>
+  <div class="section-main">
+    <div class="sv">
+      <div class="d" style="font-size:clamp(26px,3vw,32px);margin:0 0 20px;line-height:1.15">The Dual-Core AMP Engine</div>
+      <p style="margin:0 0 16px;color:#c0c3ca;font-size:17px;line-height:1.65">In early prototypes, I tried running everything on a single ARM Cortex-M0+ core. It was a disaster: whenever the CPU handled sensor polling, ADC sampling, or packet formatting, the modulation loop suffered microsecond-level jitter, causing RF spectral broadening and packet corruption.</p>
+      <p style="margin:0 0 16px;color:#c0c3ca;font-size:17px;line-height:1.65">To solve this, I redesigned Radio_Kit into a true <b>Asymmetric Multiprocessing (AMP)</b> engine utilizing both RP2040 cores:</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-bottom:18px">
+        <div style="padding:18px;background:#0d0f12;border:1px solid #23262c;border-left:3px solid #c8ff5a;border-radius:4px">
+          <div class="mono" style="color:#c8ff5a;font-size:13px;margin-bottom:8px">Core 0: Appliance Supervisor</div>
+          <div style="font-size:14px;color:#c0c3ca;line-height:1.6">Handles ADC temperature and battery voltage sampling, cryptographic encryption, framing, watchdog maintenance, and state sequencing. It feeds transmission commands to Core 1 via hardware FIFOs.</div>
+        </div>
+        <div style="padding:18px;background:#0d0f12;border:1px solid #23262c;border-left:3px solid #79b8ff;border-radius:4px">
+          <div class="mono" style="color:#79b8ff;font-size:13px;margin-bottom:8px">Core 1: Dedicated Waveform Synthesizer</div>
+          <div style="font-size:14px;color:#c0c3ca;line-height:1.6">Runs in a zero-overhead, interrupt-free cycle with cycle-accurate timing. It reads commands from SIO FIFO, drives GPOUT fractional dividers, and modulates phase continuously with zero jitter.</div>
+        </div>
+      </div>
+      <p style="margin:0;color:#c0c3ca;font-size:17px;line-height:1.65">Communication between cores happens across the RP2040's hardware <code>SIO.FIFO</code> with lock-free, zero-copy atomic message passing. Even during heavy cryptographic encryption on Core 0, Core 1 never drops a single RF clock cycle.</p>
+    </div>
+  </div>
+</div>
+
+<!-- 04 Continuous-Phase Modulation -->
+<div class="section-wrap subtopic-wrap" style="padding:48px 0;border-top:1px solid #23262c">
+  <aside class="section-v-rail">
+    <div class="section-v-sticky">
+      <span class="section-v-num mono ac">04</span>
+      <span class="section-v-line"></span>
+      <span class="section-v-title d">Modulation Suite</span>
+    </div>
+  </aside>
+  <div class="section-main">
+    <div class="sv">
+      <div class="d" style="font-size:clamp(26px,3vw,32px);margin:0 0 20px;line-height:1.15">Continuous-Phase 2-FSK, FM Audio &amp; CW Beacon</div>
+      <p style="margin:0 0 16px;color:#c0c3ca;font-size:17px;line-height:1.65">An unmodulated carrier is just a spike on a spectrum analyzer. To make Radio_Kit transmit actual data, voice, and telemetry, I implemented three distinct modulation engines in Ada:</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:18px">
+        <div style="padding:14px 16px;background:#0d0f12;border:1px solid #1c1f24;border-radius:4px">
+          <div class="mono" style="color:#c8ff5a;font-size:12px;margin-bottom:4px">2-FSK at 1200 Baud</div>
+          <div style="font-size:13px;color:#8d9097">Frequency shift keying between Mark (e.g. 27.120 MHz) and Space (27.125 MHz) frequencies with phase continuity to prevent spectral splatter.</div>
+        </div>
+        <div style="padding:14px 16px;background:#0d0f12;border:1px solid #1c1f24;border-radius:4px">
+          <div class="mono" style="color:#c8ff5a;font-size:12px;margin-bottom:4px">Real-Time FM Voice/Audio</div>
+          <div style="font-size:13px;color:#8d9097">Direct frequency modulation from ADC audio samples at 8 kHz, modulating clock dividers proportional to voice amplitudes.</div>
+        </div>
+        <div style="padding:14px 16px;background:#0d0f12;border:1px solid #1c1f24;border-radius:4px">
+          <div class="mono" style="color:#c8ff5a;font-size:12px;margin-bottom:4px">20 WPM PARIS Morse Beacon</div>
+          <div style="font-size:13px;color:#8d9097">Automated continuous wave (CW) on-off keying adhering to standard amateur radio PARIS timing standards (60ms dit element).</div>
+        </div>
+      </div>
+      <p style="margin:0 0 16px;color:#c0c3ca;font-size:17px;line-height:1.65">The 2-FSK engine uses precomputed divider lookups to transition between Mark and Space frequencies without pausing the clock generator, preserving phase continuity across bit boundaries.</p>
+    </div>
+  </div>
+</div>
+
+<!-- 05 Framing, CRC-16 & ChaCha20 -->
+<div class="section-wrap subtopic-wrap" style="padding:48px 0;border-top:1px solid #23262c">
+  <aside class="section-v-rail">
+    <div class="section-v-sticky">
+      <span class="section-v-num mono ac">05</span>
+      <span class="section-v-line"></span>
+      <span class="section-v-title d">Security &amp; Framing</span>
+    </div>
+  </aside>
+  <div class="section-main">
+    <div class="sv">
+      <div class="d" style="font-size:clamp(26px,3vw,32px);margin:0 0 20px;line-height:1.15">Protocol Framing, Table-Driven CRC-16 &amp; ChaCha20</div>
+      <p style="margin:0 0 16px;color:#c0c3ca;font-size:17px;line-height:1.65">Transmitting over the air means dealing with noise, false triggers, and security. I designed a structured packet framing layer to guarantee data integrity and confidentiality:</p>
+      <div style="padding:16px 20px;background:#0d0f12;border:1px solid #23262c;border-radius:4px;margin-bottom:18px">
+        <div class="mono" style="color:#8d9097;font-size:11px;margin-bottom:8px">RADIO_KIT ON-AIR PACKET STRUCTURE</div>
+        <div class="mono" style="color:#c8ff5a;font-size:13px;line-height:1.8">[0xAA 0xAA Preamble] → [0xD391 Sync Word] → [Seq_ID: 16-bit] → [Len] → [ChaCha20 Encrypted Payload] → [CRC-16-CCITT]</div>
+      </div>
+      <p style="margin:0 0 16px;color:#c0c3ca;font-size:17px;line-height:1.65">The integrity of each frame is verified using a <b>table-driven CRC-16-CCITT</b> (polynomial <code>0x1021</code>), precalculated into flash memory to save CPU cycles.</p>
+      <p style="margin:0;color:#c0c3ca;font-size:17px;line-height:1.65">For security, I implemented a pure Ada bare-metal port of the <b>256-bit ChaCha20 stream cipher</b>. Nonces are dynamically generated from rolling packet sequence counters, and receivers maintain an anti-replay sliding window to reject replayed or injected packets.</p>
+    </div>
+  </div>
+</div>
+
+<!-- 06 Hardware Health Guardian -->
+<div class="section-wrap subtopic-wrap" style="padding:48px 0;border-top:1px solid #23262c">
+  <aside class="section-v-rail">
+    <div class="section-v-sticky">
+      <span class="section-v-num mono ac">06</span>
+      <span class="section-v-line"></span>
+      <span class="section-v-title d">Hardware Health</span>
+    </div>
+  </aside>
+  <div class="section-main">
+    <div class="sv">
+      <div class="d" style="font-size:clamp(26px,3vw,32px);margin:0 0 20px;line-height:1.15">Die Temperature, Voltage &amp; Crash Telemetry</div>
+      <p style="margin:0 0 16px;color:#c0c3ca;font-size:17px;line-height:1.65">Because driving clock generators at maximum slew rate and current draws noticeable power, I built an integrated <b>Hardware Health Guardian</b> directly into the runtime:</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:18px">
+        <div style="padding:14px 16px;background:#0d0f12;border:1px solid #1c1f24;border-radius:4px">
+          <div class="mono" style="color:#c8ff5a;font-size:12px;margin-bottom:4px">Die Temp Monitoring</div>
+          <div style="font-size:13px;color:#8d9097">Samples the RP2040 internal silicon temperature sensor via ADC Channel 4. Automatically throttles RF duty cycle if die exceeds 65°C.</div>
+        </div>
+        <div style="padding:14px 16px;background:#0d0f12;border:1px solid #1c1f24;border-radius:4px">
+          <div class="mono" style="color:#c8ff5a;font-size:12px;margin-bottom:4px">Vsys Brownout Detection</div>
+          <div style="font-size:13px;color:#8d9097">Samples system supply rail via ADC Channel 3 to detect battery sag or brownout risks before transmission begins.</div>
+        </div>
+        <div style="padding:14px 16px;background:#0d0f12;border:1px solid #1c1f24;border-radius:4px">
+          <div class="mono" style="color:#c8ff5a;font-size:12px;margin-bottom:4px">Scratchpad Post-Mortem</div>
+          <div style="font-size:13px;color:#8d9097">Preserves crash reason, fault address, and watchdog state across warm reboots in hardware registers <code>SCRATCH0..SCRATCH3</code>.</div>
+        </div>
+        <div style="padding:14px 16px;background:#0d0f12;border:1px solid #1c1f24;border-radius:4px">
+          <div class="mono" style="color:#c8ff5a;font-size:12px;margin-bottom:4px">RF Time-Out Timer (TOT)</div>
+          <div style="font-size:13px;color:#8d9097">Hard hardware safety interlock that unconditionally kills carrier generation if any transmission exceeds 15 seconds.</div>
+        </div>
+      </div>
+      <p style="margin:0;color:#c0c3ca;font-size:17px;line-height:1.65">Every telemetry burst includes real-time die temperature, system voltage, and transmission counters, allowing ground stations to track physical silicon health continuously.</p>
+    </div>
+  </div>
+</div>
+
+<!-- 07 Digital Harmonics & Drive Strength -->
+<div class="section-wrap subtopic-wrap" style="padding:48px 0;border-top:1px solid #23262c">
+  <aside class="section-v-rail">
+    <div class="section-v-sticky">
+      <span class="section-v-num mono ac">07</span>
+      <span class="section-v-line"></span>
+      <span class="section-v-title d">Harmonics &amp; RF</span>
+    </div>
+  </aside>
+  <div class="section-main">
+    <div class="sv">
+      <div class="d" style="font-size:clamp(26px,3vw,32px);margin:0 0 20px;line-height:1.15">Managing Digital Harmonics &amp; Drive Strengths</div>
+      <p style="margin:0 0 16px;color:#c0c3ca;font-size:17px;line-height:1.65">Because the RP2040 outputs a digital square wave rather than a pure analog sine wave, the signal naturally contains energy at odd harmonics (3f, 5f, 7f, ...). Transmitting unfiltered square waves directly into an antenna is bad engineering and violates spectrum regulations.</p>
+      <p style="margin:0 0 16px;color:#c0c3ca;font-size:17px;line-height:1.65">To address this, Radio_Kit provides direct low-level control over the RP2040 pad electrical characteristics:</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:18px">
+        <div style="padding:14px 16px;background:#0d0f12;border:1px solid #1c1f24;border-radius:4px">
+          <div class="mono" style="color:#c8ff5a;font-size:12px;margin-bottom:4px">Programmable Drive</div>
+          <div style="font-size:13px;color:#8d9097">Configure output current to 2mA, 4mA, 8mA, or 12mA to match load impedance and reduce harmonic radiation.</div>
+        </div>
+        <div style="padding:14px 16px;background:#0d0f12;border:1px solid #1c1f24;border-radius:4px">
+          <div class="mono" style="color:#c8ff5a;font-size:12px;margin-bottom:4px">Slew Rate Limiting</div>
+          <div style="font-size:13px;color:#8d9097">Toggle between Fast and Slow slew rates to soften square edges and suppress high-frequency harmonic spurs.</div>
+        </div>
+        <div style="padding:14px 16px;background:#0d0f12;border:1px solid #1c1f24;border-radius:4px">
+          <div class="mono" style="color:#c8ff5a;font-size:12px;margin-bottom:4px">Dummy Load Testing</div>
+          <div style="font-size:13px;color:#8d9097">All bench testing is conducted into a 50-ohm terminator and low-pass Pi filter to verify RF emissions safely.</div>
+        </div>
+      </div>
+      <p style="margin:0;color:#c0c3ca;font-size:17px;line-height:1.65">Combining pad slew control with a simple external low-pass filter converts the digital clock into a clean, compliant RF carrier.</p>
+    </div>
+  </div>
+</div>
+
+<!-- 08 The 24/7 Master Appliance Demo -->
+<div class="section-wrap subtopic-wrap" style="padding:48px 0;border-top:1px solid #23262c">
+  <aside class="section-v-rail">
+    <div class="section-v-sticky">
+      <span class="section-v-num mono ac">08</span>
+      <span class="section-v-line"></span>
+      <span class="section-v-title d">Master Appliance</span>
+    </div>
+  </aside>
+  <div class="section-main">
+    <div class="sv">
+      <div class="d" style="font-size:clamp(26px,3vw,32px);margin:0 0 20px;line-height:1.15">The 24/7 Master Demonstration Appliance</div>
+      <p style="margin:0 0 16px;color:#c0c3ca;font-size:17px;line-height:1.65">To prove the rock-solid reliability of the architecture, I built a complete autonomous radio beacon application in <code>examples/radio_kit_demo/src/radio_kit_demo.adb</code>. When powered on, the RP2040 boots into an autonomous 24/7 transmission cycle:</p>
+      <div style="padding:18px;background:#0d0f12;border:1px solid #23262c;border-radius:6px;overflow-x:auto;margin-bottom:18px">
+        <div class="mono" style="color:#8d9097;font-size:11px;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid #1c1f24">Ada (examples/radio_kit_demo/src/radio_kit_demo.adb)</div>
+        <pre style="margin:0;font-family:'JetBrains Mono',monospace;font-size:13px;color:#c8ff5a;line-height:1.55"><code>procedure Radio_Kit_Demo is
+   -- Core 0: Initialize hardware health, ADC, crypto keys, and launch Core 1
+   Health.Initialize;
+   Dual_Core.Launch_Core1;
+
+   loop
+      -- 1. Read on-chip die temperature and system supply voltage
+      Health.Sample_Sensors (Die_Temp, Vsys_Volts);
+
+      -- 2. Transmit 20 WPM PARIS CW Morse Beacon on 27.120 MHz
+      Waveform.Transmit_CW (Callsign => "LP-RP2040", Speed_WPM => 20);
+
+      -- 3. Transmit ChaCha20-encrypted 2-FSK telemetry packet at 1200 baud
+      Telemetry_Payload := Format_Telemetry (Die_Temp, Vsys_Volts, Packet_Seq);
+      Crypto.Encrypt (Telemetry_Payload, Nonce, Encrypted_Payload);
+      Waveform.Transmit_2FSK (Encrypted_Payload);
+
+      -- 4. Kick hardware watchdog and sleep until next interval
+      RP.Watchdog.Feed;
+      Sleep_Until_Next_Cycle;
+   end loop;
+end Radio_Kit_Demo;</code></pre>
+      </div>
+      <p style="margin:0;color:#c0c3ca;font-size:17px;line-height:1.65">This demo has run continuously on physical hardware for days without a single memory leak, dropped packet, or watchdog reset.</p>
+    </div>
+  </div>
+</div>
+
+<!-- 09 Why Ada on Cortex-M0+ -->
+<div class="section-wrap subtopic-wrap" style="padding:48px 0;border-top:1px solid #23262c">
+  <aside class="section-v-rail">
+    <div class="section-v-sticky">
+      <span class="section-v-num mono ac">09</span>
+      <span class="section-v-line"></span>
+      <span class="section-v-title d">Why Ada?</span>
+    </div>
+  </aside>
+  <div class="section-main">
+    <div class="sv">
+      <div class="d" style="font-size:clamp(26px,3vw,32px);margin:0 0 20px;line-height:1.15">Why Ada 2022 on the Cortex-M0+?</div>
+      <p style="margin:0 0 16px;color:#c0c3ca;font-size:17px;line-height:1.65">People often ask why I wrote Radio_Kit in Ada instead of C or Rust. The answer comes down to <b>domain modeling and spatial predictability</b>.</p>
+      <p style="margin:0 0 16px;color:#c0c3ca;font-size:17px;line-height:1.65">In C, frequencies and clock dividers are passed around as raw <code>uint32_t</code> values. A typo or integer overflow can silently write an out-of-range divider into clock hardware, instantly freezing the RP2040 system bus. In Ada, I define strong scalar types:</p>
+      <div style="padding:16px 20px;background:#0d0f12;border:1px solid #23262c;border-left:3px solid #c8ff5a;border-radius:4px;margin-bottom:18px">
+        <div class="mono" style="font-size:13px;line-height:1.7;color:#ecebe6">
+          <span style="color:#79b8ff">type</span> Frequency_Hz <span style="color:#79b8ff">is range</span> 1_374 .. 45_000_000;<br>
+          <span style="color:#79b8ff">type</span> Integer_Divider <span style="color:#79b8ff">is range</span> 1 .. 65_535;<br>
+          <span style="color:#79b8ff">type</span> Fractional_Divider <span style="color:#79b8ff">is range</span> 0 .. 255;
+        </div>
+      </div>
+      <p style="margin:0;color:#c0c3ca;font-size:17px;line-height:1.65">The compiler mathematically enforces these constraints at compile time under the <code>light-cortex-m0p</code> runtime profile. There are zero dynamic memory allocations, zero hidden heap calls, and zero compiler warnings.</p>
+    </div>
+  </div>
+</div>
+
+<!-- 10 Reflections & Meaning -->
+<div class="section-wrap subtopic-wrap" style="padding:48px 0;border-top:1px solid #23262c">
+  <aside class="section-v-rail">
+    <div class="section-v-sticky">
+      <span class="section-v-num mono ac">10</span>
+      <span class="section-v-line"></span>
+      <span class="section-v-title d">Reflections</span>
+    </div>
+  </aside>
+  <div class="section-main">
+    <div class="sv">
+      <div class="d" style="font-size:clamp(26px,3vw,32px);margin:0 0 20px;line-height:1.15">What Building Radio_Kit Taught Me</div>
+      <p style="margin:0 0 16px;color:#c0c3ca;font-size:17px;line-height:1.65">Radio_Kit taught me that modern microcontrollers are far more capable than standard developer documentation suggests. When we limit ourselves to the generic vendor peripheral libraries, we treat silicon as an off-the-shelf appliance.</p>
+      <p style="margin:0 0 18px;color:#c0c3ca;font-size:17px;line-height:1.65">When you look closer at the underlying silicon blocks:</p>
+      <div style="padding:18px 22px;background:#0d0f12;border:1px solid #23262c;border-left:3px solid #c8ff5a;border-radius:4px;margin-bottom:18px">
+        <div style="font-size:15px;line-height:1.9;color:#ecebe6">
+          A PLL becomes a programmable frequency source.<br>
+          A fractional divider becomes an RF synthesizer.<br>
+          A dual-core inter-core FIFO becomes a zero-jitter modulation pipeline.<br>
+          And Ada 2022 turns that silicon into an impenetrable, memory-safe transmission engine.
+        </div>
+      </div>
+      <p style="margin:0;color:#c0c3ca;font-size:17px;line-height:1.65">That is what engineering close to the metal means to me: understanding silicon so deeply that you can build reliable technology out of resources that others overlook.</p>
+      <div style="margin-top:20px;padding:18px 22px;background:#0d0f12;border:1px solid #23262c;border-left:3px solid #c8ff5a;border-radius:4px">
+        <div class="mono" style="color:#c8ff5a;font-size:12px;margin-bottom:6px">VIBE CODING IN SILICON: ARCHITECTURE VS. AI ACCELERATION</div>
+        <p style="margin:0 0 10px;font-size:15px;line-height:1.65;color:#ecebe6">Building Radio_Kit was a masterclass in modern <b>vibe coding</b>. I used AI as an intellectual sparring partner to brainstorm fractional clock divider formulas, format Morse code timing tables, and generate technical documentation.</p>
+        <p style="margin:0;font-size:14px;line-height:1.6;color:#c0c3ca">Yet, the <b>foundational architectural decisions—the dual-core AMP split, lock-free SIO FIFO IPC, continuous-phase 2-FSK divider updates, ChaCha20 crypto engine, and hardware watchdog crash telemetry—were entirely designed and implemented by me</b>. The AI helped brainstorm and document; the physical silicon mastery and mission-critical code are mine.</p>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<a class="pr sv" href="MeshOS.dc.html" style="margin-top:96px;border-bottom:1px solid #23262c"><span style="flex:1 1 360px"><span class="mono">Next project</span><span class="nm d" style="display:block;font-size:clamp(40px,6vw,76px);margin-top:8px">MeshOS</span></span><span class="ar">→</span></a>
+<div style="height:24px"></div><footer style="position:relative;margin-top:80px;border-top:1px solid #1c1f24;background:#0d0f12"><div class="w" style="padding-top:48px">
+<div class="footer-nav-grid" style="display:flex;flex-wrap:wrap;gap:48px 64px;justify-content:space-between">
+<div class="fl" style="flex:0 1 170px"><div class="mono" style="margin-bottom:14px">Navigate</div><a href="Main.dc.html#about">About</a><a href="Main.dc.html#work">Work</a><a href="Main.dc.html#skills">Skills</a><a href="Main.dc.html#contact">Contact</a></div><div class="fl" style="flex:0 1 170px"><div class="mono" style="margin-bottom:14px">Projects</div><a href="Glyph.dc.html">Glyph</a><a href="Radio_Kit.dc.html">Radio_Kit</a><a href="MeshOS.dc.html">MeshOS</a></div><div class="fl" style="flex:0 1 170px"><div class="mono" style="margin-bottom:14px">Connect</div><a href="https://mail.google.com/mail/?view=cm&fs=1&to=lokesh.panditi.29@gmail.com" target="_blank" rel="noopener noreferrer">Email ↗</a><a href="https://github.com/thirstymelon">GitHub ↗</a><a href="https://www.linkedin.com/in/lokeshpanditi">LinkedIn ↗</a></div></div>
+<div class="footer-thanks-line"><span class="thanks-intro">Special thanks to</span> <span class="thanks-ai"><img src="icons/chatgpt-icon.svg" class="thanks-ico" alt="" width="16" height="16" /><span class="thanks-chatgpt">ChatGPT</span></span><span class="thanks-sep">,</span> <span class="thanks-ai"><img src="icons/google-antigravity-icon.svg" class="thanks-ico" alt="" width="16" height="16" /><span class="thanks-ag">AntiGravity</span></span> <span class="thanks-sep">and</span> <span class="thanks-ai"><img src="icons/claude-ai-icon.svg" class="thanks-ico" alt="" width="16" height="16" /><span class="thanks-claude">Claude</span></span></div>
+<div class="mono" style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;margin-top:20px;padding:16px 0 16px;border-top:1px solid #1c1f24"><span>© 2026 Lokesh Panditi</span><span>Embedded · Firmware · High-Integrity Systems</span></div></div></footer>
+<a class="floating-back-to-top" id="floating-back-to-top" href="#top" aria-label="Back to top">Back to top <span class="btt-arrow">↑</span></a>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":2450}}'>
+class Component extends DCLogic {
+renderVals() { return {}; }
+}
+</script>
+<script>
+(function() {
+  function getHeader() {
+    return document.getElementById('site-header') ||
+           document.querySelector('header.site-header') ||
+           document.querySelector('header');
+  }
+
+  var lastScrollY = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+  var ticking = false;
+  var threshold = 6;
+
+  function updateNav() {
+    var header = getHeader();
+    var currentScrollY = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    if (header) {
+      if (currentScrollY <= 60) {
+        header.classList.remove('nav-hidden');
+        header.style.transform = 'translateY(0)';
+      } else if (currentScrollY > lastScrollY + threshold) {
+        header.classList.add('nav-hidden');
+        header.style.transform = 'translateY(calc(-100% + 3px))';
+      } else if (currentScrollY < lastScrollY - threshold) {
+        header.classList.remove('nav-hidden');
+        header.style.transform = 'translateY(0)';
+      }
+    }
+    lastScrollY = Math.max(0, currentScrollY);
+
+    var maxScroll = (document.documentElement.scrollHeight || document.body.scrollHeight) - window.innerHeight;
+    var pct = maxScroll > 0 ? (currentScrollY / maxScroll) * 100 : 0;
+    var pgbEls = document.querySelectorAll('.pgb');
+    for (var i = 0; i < pgbEls.length; i++) {
+      pgbEls[i].style.width = pct + '%';
+    }
+
+    var btt = document.getElementById('floating-back-to-top');
+    if (btt) {
+      if (currentScrollY > 300) {
+        btt.classList.add('is-visible');
+      } else {
+        btt.classList.remove('is-visible');
+      }
+    }
+
+    ticking = false;
+  }
+
+  function onScroll() {
+    if (!ticking) {
+      window.requestAnimationFrame(updateNav);
+      ticking = true;
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  document.addEventListener('scroll', onScroll, { passive: true });
+  updateNav();
+
+  // Delegated smooth scroll handler in capture phase
+  document.addEventListener('click', function(e) {
+    var anchor = e.target.closest('a[href^="#"]');
+    if (!anchor) return;
+    var href = anchor.getAttribute('href');
+    if (!href || href === '#') return;
+
+    var header = getHeader();
+    if (href === '#top') {
+      e.preventDefault();
+      if (header) {
+        header.classList.remove('nav-hidden');
+        header.style.transform = 'translateY(0)';
+      }
+      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+      document.documentElement.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+      document.body.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+      if (history.pushState) history.pushState(null, '', '#top');
+      return;
+    }
+
+    var targetEl = document.querySelector(href);
+    if (targetEl) {
+      e.preventDefault();
+      var headerOffset = 88;
+      var elementPosition = targetEl.getBoundingClientRect().top;
+      var offsetPosition = elementPosition + (window.pageYOffset || document.documentElement.scrollTop || 0) - headerOffset;
+      window.scrollTo({
+        top: Math.max(0, offsetPosition),
+        behavior: 'smooth'
+      });
+      if (history.pushState) history.pushState(null, '', href);
+    }
+  }, true);
+
+  // Universal Email Direct Gmail Redirect Handler (from previous working version 12d4cec)
+  var GMAIL_COMPOSE_URL = 'https://mail.google.com/mail/?view=cm&fs=1&to=lokesh.panditi.29@gmail.com';
+
+  window.handleEmailClick = function(e) {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    window.open(GMAIL_COMPOSE_URL, '_blank', 'noopener,noreferrer');
+  };
+
+  window.addEventListener('click', function(e) {
+    var target = e.target && e.target.closest ? e.target.closest('a') : null;
+    if (!target) return;
+    var href = target.getAttribute('href') || '';
+    if (href.startsWith('mailto:') || href.includes('mail.google.com') || href.includes('lokesh.panditi.29@gmail.com') || target.hasAttribute('data-email')) {
+      e.preventDefault();
+      e.stopPropagation();
+      window.open(GMAIL_COMPOSE_URL, '_blank', 'noopener,noreferrer');
+    }
+  }, true);
+
+
+})();
+</script>
+</body>
+</html>

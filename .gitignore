@@ -1,29 +1,56 @@
-# macOS filesystem metadata
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Production build outputs
+dist/
+dist-ssr/
+*.map
+
+# Vercel deployment
+.vercel/
+
+# Vite / bundler caches
+.vite/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Editor & IDE artifacts
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.sublime-workspace
+*.sublime-project
+
+# OS metadata & temporary files
 .DS_Store
-.AppleDouble
-.LSOverride
+.DS_Store?
 ._*
 .Spotlight-V100
 .Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
 
-# Editors / IDEs
-.vscode/
-.idea/
-*.swp
-
-# Logs
-*.log
-
-# Dependencies & Build Output
-node_modules/
-dist/
-.astro/
-*.map
-
-# Python / Flask / Testing
-.venv/
-venv/
-__pycache__/
-*.py[cod]
-.pytest_cache/
-.freebuff/
+# Scratch & temporary
+scratch/
+*.tmp
+*.bak

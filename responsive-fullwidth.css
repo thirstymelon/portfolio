@@ -1,0 +1,1277 @@
+/* Responsive Full Width Stylesheet for Lokesh Panditi Portfolio */
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap');
+
+/* ==========================================================================
+   Operating System Native Cursor (Default System Pointer & Cursors)
+   ========================================================================== */
+html,
+body,
+.pg,
+* {
+    cursor: auto;
+}
+
+a,
+button,
+[role="button"],
+input[type="submit"],
+input[type="button"],
+.btn,
+.btn2,
+.tl,
+.pr,
+.ct,
+.ar,
+.ar2,
+.nd {
+    cursor: pointer !important;
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+    cursor: text !important;
+}
+
+html.cc .pg,
+html.cc .pg * {
+    cursor: auto !important;
+}
+
+html.cc a,
+html.cc button,
+html.cc [role="button"],
+html.cc .pr,
+html.cc .ct,
+html.cc .tl,
+html.cc .btn,
+html.cc .ar {
+    cursor: pointer !important;
+}
+
+html {
+    scroll-behavior: smooth !important;
+    scroll-padding-top: 88px !important;
+}
+
+html,
+body {
+    width: 100% !important;
+    max-width: 100vw !important;
+    overflow-x: clip !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+}
+
+/* Page container spans 100% of viewport width without artificial height limits */
+.pg {
+    position: relative;
+    overflow-x: clip !important;
+    overflow-y: visible !important;
+    color: #ecebe6;
+    background: #0a0b0d;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh !important;
+    min-height: 100dvh !important;
+    height: auto !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+    box-sizing: border-box !important;
+}
+
+/* Remove hardcoded container width and expand across the entire screen horizontally */
+.w {
+    position: relative;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    padding-left: clamp(20px, 4.5vw, 96px) !important;
+    padding-right: clamp(20px, 4.5vw, 96px) !important;
+    box-sizing: border-box !important;
+}
+
+/* Background vertical grid lines dynamically fill full width */
+.gl {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    pointer-events: none;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-left: clamp(20px, 4.5vw, 96px) !important;
+    padding-right: clamp(20px, 4.5vw, 96px) !important;
+    box-sizing: border-box !important;
+    height: 100% !important;
+}
+
+.gl i {
+    flex: 1;
+    border-left: 1px solid #15171b;
+}
+
+/* Header & navigation spans full width gracefully with scroll hide/reveal */
+header#site-header,
+header#top,
+header.site-header,
+header {
+    position: -webkit-sticky !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 100 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    background: rgba(22, 26, 33, 0.78) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+    backdrop-filter: blur(20px) saturate(180%) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.45) !important;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    will-change: transform;
+}
+
+header#site-header.nav-hidden,
+header#top.nav-hidden,
+header.site-header.nav-hidden,
+header.nav-hidden {
+    transform: translateY(calc(-100% + 3px)) !important;
+}
+
+/* Single reading progress bar on the navbar (remains pinned at top:0 when navbar hides) */
+.pgb {
+    position: absolute !important;
+    left: 0 !important;
+    bottom: 0 !important;
+    height: 3px !important;
+    width: 0;
+    background: #c8ff5a !important;
+    z-index: 1001 !important;
+    box-shadow: 0 0 10px rgba(200, 255, 90, 0.6) !important;
+    pointer-events: none !important;
+}
+
+/* Hide duplicate global progress bar to prevent two progress bars */
+.pgb-global {
+    display: none !important;
+}
+
+@supports (animation-timeline: scroll()) {
+    .pgb {
+        animation: pgb linear both !important;
+        animation-timeline: scroll(root block) !important;
+    }
+
+    @keyframes pgb {
+        to {
+            width: 100%;
+        }
+    }
+}
+
+.nav {
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* ==========================================================================
+/* ==========================================================================
+   Modern Floating Navbar (No Capsule, Clean Floating Options)
+   ========================================================================== */
+.nav-rail {
+    position: relative !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 16px 24px !important;
+    padding: 12px 0 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* 1. Brand Identity */
+.nav-brand {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    text-decoration: none !important;
+    color: #ffffff !important;
+    flex-shrink: 0 !important;
+}
+
+.nav-brand-badge {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 8px !important;
+    background: rgba(255, 255, 255, 0.04) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    font-family: 'JetBrains Mono', monospace !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    color: #c8ff5a !important;
+    letter-spacing: 0.05em !important;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.nav-brand:hover .nav-brand-badge {
+    background: #c8ff5a !important;
+    color: #0a0b0d !important;
+    border-color: #c8ff5a !important;
+    box-shadow: 0 0 18px rgba(200, 255, 90, 0.45) !important;
+    transform: scale(1.04) !important;
+}
+
+.nav-brand-name {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    line-height: 1.25 !important;
+    color: #ffffff !important;
+    letter-spacing: -0.01em !important;
+}
+
+.nav-pulse-led {
+    display: inline-block !important;
+    width: 6px !important;
+    height: 6px !important;
+    border-radius: 50% !important;
+    background: #c8ff5a !important;
+    box-shadow: 0 0 8px #c8ff5a !important;
+    animation: ledPulse 2s ease-in-out infinite !important;
+}
+
+@keyframes ledPulse {
+    0%, 100% {
+        opacity: 0.35;
+        transform: scale(0.9);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+}
+
+/* 2. Center: Floating Nav Options (No Capsule, Clean Floating Links) */
+.nav-floating-links {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: clamp(16px, 2.8vw, 36px) !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+}
+
+.nav-float-link {
+    position: relative !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    text-decoration: none !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    color: #8b92a0 !important;
+    padding: 8px 12px !important;
+    border-radius: 6px !important;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    white-space: nowrap !important;
+}
+
+.nav-float-link:hover {
+    color: #ffffff !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+}
+
+.nav-float-link.active {
+    color: #ffffff !important;
+    font-weight: 600 !important;
+}
+
+.nav-float-link.active::after {
+    content: "" !important;
+    position: absolute !important;
+    bottom: -2px !important;
+    left: 12px !important;
+    right: 12px !important;
+    height: 2px !important;
+    background: #c8ff5a !important;
+    border-radius: 2px !important;
+    box-shadow: 0 0 8px rgba(200, 255, 90, 0.6) !important;
+}
+
+/* 3. Right: Quick Actions & Contact CTA */
+.nav-actions {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    flex-shrink: 0 !important;
+}
+
+.nav-cta-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    padding: 7px 18px !important;
+    border-radius: 9999px !important;
+    background: linear-gradient(135deg, rgba(200, 255, 90, 0.12) 0%, rgba(200, 255, 90, 0.04) 100%) !important;
+    border: 1px solid rgba(200, 255, 90, 0.35) !important;
+    font-family: 'JetBrains Mono', monospace !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    color: #c8ff5a !important;
+    letter-spacing: 0.04em !important;
+    text-decoration: none !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.nav-cta-btn .cta-dot {
+    width: 5px !important;
+    height: 5px !important;
+    border-radius: 50% !important;
+    background: #c8ff5a !important;
+    transition: background 0.3s ease !important;
+}
+
+.nav-cta-btn .cta-arrow {
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.nav-cta-btn:hover {
+    background: #c8ff5a !important;
+    color: #0a0b0d !important;
+    border-color: #c8ff5a !important;
+    box-shadow: 0 0 20px rgba(200, 255, 90, 0.45) !important;
+    transform: translateY(-1px) !important;
+}
+
+.nav-cta-btn:hover .cta-dot {
+    background: #0a0b0d !important;
+}
+
+.nav-cta-btn:hover .cta-arrow {
+    transform: translateX(2px) !important;
+}
+
+/* Responsive adjustment for floating links */
+@media (max-width: 860px) {
+    .nav-rail {
+        flex-wrap: wrap !important;
+        gap: 12px 16px !important;
+    }
+    .nav-floating-links {
+        order: 3 !important;
+        width: 100% !important;
+        justify-content: space-around !important;
+        overflow-x: auto !important;
+        scrollbar-width: none !important;
+        gap: 8px !important;
+    }
+    .nav-floating-links::-webkit-scrollbar {
+        display: none !important;
+    }
+    .nav-float-link {
+        padding: 6px 10px !important;
+        font-size: 13px !important;
+    }
+}
+
+/* Typography wraps and scales smoothly */
+.d {
+    overflow-wrap: break-word !important;
+    word-break: break-word !important;
+}
+
+/* Project cards expand to full screen width with rock-solid layout & zero height shift */
+.pr {
+    width: 100% !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 24px 48px !important;
+    align-items: center !important;
+    padding: 36px 20px !important;
+    border-top: 1px solid #23262c !important;
+    border-radius: 4px;
+    transition: background 0.3s ease, border-color 0.3s ease !important;
+}
+
+.pr:hover {
+    /* Constant padding: identical in normal and hover states to guarantee zero height jump */
+    padding: 36px 20px !important;
+    background: #101216 !important;
+}
+
+.pr .vz {
+    flex: 1 1 320px !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* Visualizer SVGs and component hosts scale cleanly */
+.vz svg,
+.vz svg.ms,
+.vz .sc-host,
+.vz .sc-host > div,
+.vz dc-import {
+    max-width: 100% !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    height: auto !important;
+}
+
+/* ==========================================================================
+   Persistent Vertical Section Headings (Outside Content Boxes, Facing L-to-R)
+   ========================================================================== */
+.section-wrap {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: stretch !important;
+    gap: clamp(24px, 3.5vw, 48px) !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    position: relative !important;
+}
+
+/* Slim left vertical rail outside the content boxes with top and bottom boundary thresholds */
+.section-v-rail {
+    flex: 0 0 clamp(42px, 3.8vw, 54px) !important;
+    width: clamp(42px, 3.8vw, 54px) !important;
+    min-width: 0 !important;
+    position: relative !important;
+    box-sizing: border-box !important;
+    align-self: stretch !important;
+    height: auto !important;
+    padding-top: clamp(24px, 3vw, 44px) !important;
+    padding-bottom: clamp(64px, 8vw, 120px) !important;
+}
+
+/* Persistent sticky element starting below the top threshold, bounded before the bottom threshold */
+.section-v-sticky {
+    position: -webkit-sticky !important;
+    position: sticky !important;
+    top: clamp(84px, 9vh, 104px) !important;
+    transform: none !important;
+    align-self: flex-start !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 16px !important;
+    z-index: 10 !important;
+    box-sizing: border-box !important;
+    user-select: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.section-v-num {
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.14em !important;
+    color: #c8ff5a !important;
+    line-height: 1 !important;
+    display: block !important;
+}
+
+.section-v-line {
+    width: 1px !important;
+    height: 36px !important;
+    background: #2a2e36 !important;
+    display: block !important;
+    transition: background 0.3s ease, height 0.3s ease !important;
+}
+
+.section-wrap:hover .section-v-line {
+    background: #c8ff5a !important;
+    height: 48px !important;
+}
+
+/* Vertical text facing from left to right rotated 180 degrees */
+.section-v-title {
+    -webkit-writing-mode: vertical-lr !important;
+    writing-mode: vertical-lr !important;
+    text-orientation: mixed !important;
+    transform: rotate(180deg) !important;
+    font-family: 'Inter', system-ui, sans-serif !important;
+    font-size: clamp(18px, 1.7vw, 24px) !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.22em !important;
+    text-transform: uppercase !important;
+    color: #ecebe6 !important;
+    white-space: nowrap !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: block !important;
+    transition: color 0.3s ease, letter-spacing 0.3s ease !important;
+}
+
+.section-wrap:hover .section-v-title {
+    color: #c8ff5a !important;
+    transform: rotate(180deg) !important;
+}
+
+/* Subtopic section rail & title adjustments for project deep dive stories */
+.subtopic-wrap {
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.subtopic-wrap .section-v-rail {
+    padding-top: clamp(16px, 2vw, 28px) !important;
+    padding-bottom: clamp(36px, 4vw, 64px) !important;
+}
+
+.subtopic-wrap .section-v-title {
+    font-size: clamp(14px, 1.35vw, 18px) !important;
+    letter-spacing: 0.16em !important;
+}
+
+/* Main section content takes full remaining width */
+.section-main {
+    flex: 1 1 0 !important;
+    min-width: 0 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* On tablets, mobile landscape, and small screens (<= 1024px), stack rail cleanly above content */
+@media (max-width: 1024px) {
+    .section-wrap {
+        flex-direction: column !important;
+        gap: 16px !important;
+    }
+
+    .section-v-rail {
+        flex: 0 0 auto !important;
+        width: 100% !important;
+    }
+
+    .section-v-sticky {
+        position: relative !important;
+        top: 0 !important;
+        transform: none !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        gap: 10px !important;
+    }
+
+    .section-v-line {
+        width: 24px !important;
+        height: 1px !important;
+    }
+
+    .section-v-title,
+    .section-wrap:hover .section-v-title {
+        -webkit-writing-mode: horizontal-tb !important;
+        writing-mode: horizontal-tb !important;
+        transform: none !important;
+        letter-spacing: 0.15em !important;
+        font-size: 15px !important;
+    }
+
+    /* Projects stack into full-width cards on tablets and landscape phones */
+    .pr {
+        flex-direction: column !important;
+        flex-wrap: nowrap !important;
+        align-items: stretch !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        padding: clamp(24px, 3.5vw, 36px) clamp(16px, 2.5vw, 24px) !important;
+        gap: 18px !important;
+    }
+
+    .pr:hover {
+        padding: clamp(24px, 3.5vw, 36px) clamp(16px, 2.5vw, 24px) !important;
+        background: #101216 !important;
+    }
+
+    .pr > span:not(.ar):not(.mono) {
+        flex: 0 0 auto !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        display: block !important;
+    }
+
+    .pr .mut {
+        max-width: 100% !important;
+    }
+
+    .pr .vz {
+        width: 100% !important;
+        max-width: 100% !important;
+        flex: 0 0 auto !important;
+        box-sizing: border-box !important;
+        display: block !important;
+        padding: clamp(14px, 2vw, 18px) !important;
+    }
+
+    .pr .vz svg,
+    .pr .vz svg.ms,
+    .pr .vz .sc-host,
+    .pr .vz .sc-host > div,
+    .pr .vz dc-import {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        display: block !important;
+    }
+
+    .pr .ar {
+        width: 64px !important;
+        height: 64px !important;
+        border-radius: 50% !important;
+        flex: 0 0 64px !important;
+        align-self: flex-end !important;
+        margin-top: 4px !important;
+    }
+}
+
+/* ==========================================================================
+   Dotted Section Divider & Breathing Space Between Sections
+   ========================================================================== */
+.w[id] {
+    scroll-margin-top: 80px !important;
+}
+
+#about {
+    padding-top: clamp(64px, 7vw, 100px) !important;
+    padding-bottom: clamp(56px, 6vw, 88px) !important;
+}
+
+#work,
+#skills,
+#milestones,
+#contact {
+    padding-top: clamp(56px, 6vw, 88px) !important;
+    padding-bottom: clamp(56px, 6vw, 88px) !important;
+}
+
+/* Continuous Raw Hex Stream Divider (Moving Left to Right) */
+.hex-stream-wrap,
+.section-divider-wrap {
+    width: 100% !important;
+    position: relative !important;
+    box-sizing: border-box !important;
+    padding-top: clamp(72px, 8.5vw, 120px) !important;
+    padding-bottom: clamp(72px, 8.5vw, 120px) !important;
+    overflow: hidden !important;
+    pointer-events: none !important;
+    user-select: none !important;
+}
+
+.hex-stream {
+    width: 100% !important;
+    overflow: hidden !important;
+    display: flex !important;
+    align-items: center !important;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%) !important;
+    mask-image: linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%) !important;
+}
+
+.hex-stream-track {
+    display: flex !important;
+    width: max-content !important;
+    will-change: transform !important;
+    animation: hexStreamFlowRight 40s linear infinite !important;
+}
+
+@keyframes hexStreamFlowRight {
+    from {
+        transform: translate3d(-50%, 0, 0);
+    }
+
+    to {
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+.hex-seq {
+    display: inline-block !important;
+    white-space: nowrap !important;
+    font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', monospace !important;
+    font-size: clamp(11px, 1.1vw, 13px) !important;
+    letter-spacing: 0.18em !important;
+    line-height: 1 !important;
+    color: #3b414d !important;
+    padding-right: 0.85em !important;
+}
+
+.hex-seq .h-g {
+    color: #c8ff5a !important;
+    font-weight: 500 !important;
+}
+
+.hex-seq .h-s {
+    color: #798190 !important;
+}
+
+.section-divider {
+    display: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hex-stream-track {
+        animation: none !important;
+        transform: none !important;
+    }
+}
+
+/* Grid containers (Toolbox, Milestones, Stack, Deep Dive) expand fluidly */
+.gd {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 1px !important;
+    background: #23262c !important;
+    border: 1px solid #23262c !important;
+    border-radius: 10px !important;
+    overflow: hidden !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.gd>* {
+    flex: 1 1 320px !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+}
+
+/* Marquee full width */
+.mq {
+    display: flex !important;
+    width: max-content !important;
+}
+
+/* Footer Section Head Space & Compact Bottom Spacing */
+footer {
+    position: relative !important;
+    margin-top: clamp(60px, 8vw, 100px) !important;
+    padding-top: clamp(40px, 5vw, 64px) !important;
+    padding-bottom: 0 !important;
+    border-top: 1px solid #1c1f24 !important;
+    background: #0d0f12 !important;
+    color: #ecebe6 !important;
+    font-family: 'Inter', system-ui, sans-serif !important;
+    font-size: 16px !important;
+    line-height: 1.65 !important;
+    -webkit-font-smoothing: antialiased !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+footer * {
+    -webkit-font-smoothing: antialiased !important;
+}
+
+footer .w {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+/* Explicit footer text styling for project pages & main page */
+footer .d {
+    font-family: 'Bricolage Grotesque', 'Inter', sans-serif !important;
+    font-weight: 600 !important;
+    color: #ffffff !important;
+    letter-spacing: -0.02em !important;
+    line-height: 1.1 !important;
+}
+
+footer .d .ac {
+    color: #c8ff5a !important;
+}
+
+footer p.mut {
+    font-family: 'Inter', system-ui, sans-serif !important;
+    font-size: 16px !important;
+    line-height: 1.65 !important;
+    color: #9a9ca3 !important;
+}
+
+footer .mono {
+    font-family: 'JetBrains Mono', monospace !important;
+    font-size: 12px !important;
+    letter-spacing: 0.08em !important;
+    text-transform: uppercase !important;
+    color: #8d9097 !important;
+}
+
+footer .fl {
+    flex: 0 1 170px !important;
+}
+
+footer .fl .mono {
+    margin-bottom: 14px !important;
+    font-family: 'JetBrains Mono', monospace !important;
+    font-size: 12px !important;
+    letter-spacing: 0.08em !important;
+    text-transform: uppercase !important;
+    color: #8d9097 !important;
+}
+
+footer .fl a {
+    position: relative !important;
+    display: block !important;
+    padding: 6px 0 !important;
+    font-family: 'Inter', system-ui, sans-serif !important;
+    font-size: 16px !important;
+    line-height: 1.65 !important;
+    color: #9a9ca3 !important;
+    text-decoration: none !important;
+    transition: color 0.3s, padding 0.4s cubic-bezier(0.2, 0.7, 0.2, 1) !important;
+}
+
+footer .fl a::before {
+    content: "→" !important;
+    position: absolute !important;
+    left: 0 !important;
+    color: #c8ff5a !important;
+    opacity: 0 !important;
+    transition: opacity 0.3s !important;
+}
+
+footer .fl a:hover {
+    color: #ffffff !important;
+    padding-left: 22px !important;
+}
+
+footer .fl a:hover::before {
+    opacity: 1 !important;
+}
+
+/* ==========================================================================
+   Footer Special Thanks Recognition (Clean Text Line, No Capsules, No Neon)
+   ========================================================================== */
+.footer-thanks-line {
+    margin-top: clamp(36px, 4.5vw, 56px) !important;
+    margin-bottom: 6px !important;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+    font-size: clamp(18px, 1.9vw, 24px) !important;
+    color: #a1a7b5 !important;
+    line-height: 1.5 !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    gap: 8px 10px !important;
+}
+
+.thanks-intro {
+    color: #a1a7b5 !important;
+    font-weight: 500 !important;
+}
+
+.thanks-ai {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    vertical-align: middle !important;
+    text-decoration: none !important;
+}
+
+.thanks-ico {
+    display: inline-block !important;
+    width: clamp(20px, 2.1vw, 26px) !important;
+    height: clamp(20px, 2.1vw, 26px) !important;
+    border-radius: 5px !important;
+    vertical-align: middle !important;
+    flex-shrink: 0 !important;
+    object-fit: contain !important;
+}
+
+/* ChatGPT: Black & White */
+.thanks-chatgpt {
+    color: #ffffff !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.01em !important;
+}
+
+/* AntiGravity: Google's Color Gradient */
+.thanks-ag {
+    font-weight: 700 !important;
+    letter-spacing: -0.01em !important;
+    background: linear-gradient(90deg, #4285F4 0%, #9b72cb 25%, #EA4335 50%, #FBBC05 75%, #34A853 100%) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+    display: inline-block !important;
+}
+
+/* Claude: Claude's Terracotta / Warm Orange */
+.thanks-claude {
+    color: #D97757 !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.01em !important;
+}
+
+.thanks-sep {
+    color: #a1a7b5 !important;
+}
+
+footer .wm {
+    display: none !important;
+}
+
+footer .mono:last-child,
+footer .w>.mono:last-of-type,
+footer .w>.mono:last-child {
+    margin-top: clamp(16px, 2.5vw, 24px) !important;
+    padding-top: clamp(14px, 2vw, 18px) !important;
+    padding-bottom: clamp(14px, 2vw, 18px) !important;
+    font-family: 'JetBrains Mono', monospace !important;
+    font-size: 12px !important;
+}
+
+/* Project Hero Side-by-Side Layout */
+.project-hero {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 36px 48px !important;
+    padding: clamp(40px, 5vw, 64px) 0 clamp(20px, 3vw, 36px) !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.project-hero-text {
+    flex: 1 1 440px !important;
+    min-width: 0 !important;
+    max-width: 640px !important;
+}
+
+.project-hero-visual {
+    flex: 0 1 420px !important;
+    width: 100% !important;
+    max-width: 440px !important;
+    min-width: 260px !important;
+    padding: 20px !important;
+    box-sizing: border-box !important;
+    border-radius: 10px !important;
+}
+
+@media (max-width: 900px) {
+    .project-hero {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 28px !important;
+    }
+
+    .project-hero-text {
+        flex: 1 1 auto !important;
+        max-width: 100% !important;
+    }
+
+    .project-hero-visual {
+        flex: 1 1 auto !important;
+        max-width: 100% !important;
+        padding: 18px !important;
+    }
+}
+
+
+/* Mobile & Small Screens (< 768px) */
+@media (max-width: 768px) {
+    .w {
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+    }
+
+    .gl {
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+    }
+
+    .nav {
+        padding: 14px 0 !important;
+        gap: 14px 20px !important;
+    }
+
+    .pr {
+        flex-direction: column !important;
+        flex-wrap: nowrap !important;
+        align-items: stretch !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        padding: 24px 16px !important;
+        gap: 16px !important;
+    }
+
+    .pr:hover {
+        /* Exact same padding as resting state - ZERO vertical height change, zero layout shift */
+        padding: 24px 16px !important;
+        background: #101216 !important;
+    }
+
+    .pr .nm,
+    .pr:hover .nm {
+        letter-spacing: normal !important;
+        /* Prevent text letter-spacing change from triggering unexpected line breaks */
+    }
+
+    .pr > span:not(.ar):not(.mono) {
+        flex: 0 0 auto !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        display: block !important;
+    }
+
+    .pr .mut {
+        max-width: 100% !important;
+    }
+
+    .pr .vz {
+        width: 100% !important;
+        max-width: 100% !important;
+        flex: 0 0 auto !important;
+        box-sizing: border-box !important;
+        display: block !important;
+        padding: 14px 16px !important;
+    }
+
+    .pr .vz svg,
+    .pr .vz svg.ms,
+    .pr .vz .sc-host,
+    .pr .vz .sc-host > div,
+    .pr .vz dc-import {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        display: block !important;
+    }
+
+    .pr .ar {
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: auto !important;
+        min-width: 58px !important;
+        height: 36px !important;
+        padding: 0 18px !important;
+        border-radius: 9999px !important;
+        border: 1px solid #3a3d44 !important;
+        color: #c8ff5a !important;
+        font-size: 18px !important;
+        line-height: 1 !important;
+        align-self: flex-end !important;
+        flex: 0 0 auto !important;
+        max-width: fit-content !important;
+        box-sizing: border-box !important;
+        margin-top: 6px !important;
+        box-shadow: inset 0 0 0 0 #c8ff5a !important;
+        transition: box-shadow 0.4s cubic-bezier(0.7, 0, 0.2, 1), color 0.3s ease, border-color 0.3s ease !important;
+    }
+
+    .pr:hover .ar {
+        box-shadow: inset 0 0 0 36px #c8ff5a !important;
+        color: #0a0b0d !important;
+        border-color: #c8ff5a !important;
+    }
+
+    .cl {
+        padding: 24px 20px !important;
+    }
+
+    .ct {
+        padding: 18px 20px !important;
+    }
+
+    .ct:hover {
+        padding: 18px 20px !important;
+        background: #101216 !important;
+    }
+
+    .ct .vl {
+        font-size: 15px !important;
+    }
+
+    .ct .mono {
+        flex: 0 0 55px !important;
+    }
+
+    footer {
+        margin-top: 48px !important;
+        padding-top: 36px !important;
+        padding-bottom: 0 !important;
+    }
+}
+
+/* Extra Small Phones (< 480px) */
+@media (max-width: 480px) {
+    .pr {
+        padding: 20px 14px !important;
+        gap: 14px !important;
+    }
+
+    .pr:hover {
+        padding: 20px 14px !important;
+        background: #101216 !important;
+    }
+
+    .pr .vz {
+        padding: 12px 14px !important;
+    }
+
+    .pr .ar {
+        height: 34px !important;
+        min-width: 52px !important;
+        padding: 0 16px !important;
+        font-size: 17px !important;
+    }
+}
+
+/* Touch devices: eliminate sticky hovers that distort cards */
+@media (hover: none) {
+    .pr:hover {
+        background: transparent !important;
+    }
+
+    .pr:active {
+        background: #101216 !important;
+    }
+
+    .ct:hover {
+        background: transparent !important;
+    }
+
+    .ct:active {
+        background: #101216 !important;
+    }
+}
+
+/* Ultra-wide Displays & 4K TVs (> 1920px) */
+@media (min-width: 1920px) {
+    .w {
+        padding-left: clamp(64px, 6vw, 160px) !important;
+        padding-right: clamp(64px, 6vw, 160px) !important;
+    }
+
+    .gl {
+        padding-left: clamp(64px, 6vw, 160px) !important;
+        padding-right: clamp(64px, 6vw, 160px) !important;
+    }
+
+    .gd>* {
+        flex: 1 1 380px !important;
+    }
+
+    .pr {
+        gap: 32px 64px !important;
+        padding: 56px 0 !important;
+    }
+
+    footer {
+        padding-top: 80px !important;
+        padding-bottom: 0 !important;
+    }
+}
+
+/* ==========================================================================
+   Desktop / Tablet Arrow Button Rules (Strict circular 64x64, no stretch)
+   ========================================================================== */
+@media (min-width: 769px) {
+    .pr .ar {
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 64px !important;
+        height: 64px !important;
+        min-width: 64px !important;
+        max-width: 64px !important;
+        flex: 0 0 64px !important;
+        border-radius: 50% !important;
+        border: 1px solid #3a3d44 !important;
+        color: #c8ff5a !important;
+        font-size: 26px !important;
+        box-sizing: border-box !important;
+    }
+}
+
+/* ==========================================================================
+   Footer Nav Grid Alignment
+   ========================================================================== */
+footer .footer-nav-grid {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: clamp(32px, 6vw, 96px) !important;
+    justify-content: flex-start !important;
+    align-items: flex-start !important;
+}
+
+/* ==========================================================================
+   Floating Back to Top Button (Right-aligned, sleek floating pill)
+   ========================================================================== */
+.floating-back-to-top {
+    position: fixed !important;
+    bottom: clamp(20px, 3vw, 36px) !important;
+    right: clamp(20px, 3vw, 36px) !important;
+    z-index: 9999 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    padding: 10px 18px !important;
+    border-radius: 9999px !important;
+    background: rgba(16, 18, 22, 0.88) !important;
+    backdrop-filter: blur(14px) !important;
+    -webkit-backdrop-filter: blur(14px) !important;
+    border: 1px solid #3a3d44 !important;
+    color: #ecebe6 !important;
+    font-family: 'JetBrains Mono', monospace !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.08em !important;
+    text-transform: uppercase !important;
+    text-decoration: none !important;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.04) !important;
+    transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease !important;
+    cursor: pointer !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transform: translateY(14px) !important;
+}
+
+.floating-back-to-top.is-visible {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transform: translateY(0) !important;
+}
+
+.floating-back-to-top:hover {
+    border-color: #c8ff5a !important;
+    color: #c8ff5a !important;
+    box-shadow: 0 8px 30px rgba(200, 255, 90, 0.25), 0 0 0 1px #c8ff5a !important;
+    transform: translateY(-2px) !important;
+}
+
+.floating-back-to-top .btt-arrow {
+    display: inline-block !important;
+    color: #c8ff5a !important;
+    font-size: 14px !important;
+    line-height: 1 !important;
+    transition: transform 0.25s ease !important;
+}
+
+.floating-back-to-top:hover .btt-arrow {
+    transform: translateY(-2px) !important;
+}
+
+@media (max-width: 600px) {
+    .floating-back-to-top {
+        bottom: 18px !important;
+        right: 18px !important;
+        padding: 8px 14px !important;
+        font-size: 11px !important;
+        gap: 6px !important;
+    }
+}
