@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@500&amp;display=swap">
-<link rel="stylesheet" href="/responsive-fullwidth.css">
+<link rel="stylesheet" href="/responsive-fullwidth.css?v=20261029c">
 <script src="./vendor/react.js"></script>
 <script src="./vendor/react-dom.js"></script>
 <script src="./support.js"></script>
@@ -16,7 +16,7 @@
 <x-dc>
 <helmet>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@500&amp;display=swap">
-<link rel="stylesheet" href="./responsive-fullwidth.css">
+<link rel="stylesheet" href="./responsive-fullwidth.css?v=20261029c">
 <style>
 body{margin:0;background:#0a0b0d;overflow-x:clip!important;overflow-y:visible!important}
 .pg{position:relative;overflow-x:clip!important;overflow-y:visible!important;color:#ecebe6;background:#0a0b0d;font-family:'Inter',system-ui,sans-serif;font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
@@ -91,6 +91,128 @@ a{color:inherit;text-decoration:none}
 .wm:hover{color:transparent;-webkit-text-stroke-color:#c8ff5a}
 html.cc .pg,html.cc .pg *{cursor:auto}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}.ms:has(.n0:hover) .e0{stroke:#c8ff5a;stroke-width:2.5;animation-duration:.4s}.ms:has(.n0:hover) .c0,.ms:has(.n0:hover) .a0{fill:#c8ff5a}.ms:has(.n1:hover) .e1{stroke:#c8ff5a;stroke-width:2.5;animation-duration:.4s}.ms:has(.n1:hover) .c1,.ms:has(.n1:hover) .a1{fill:#c8ff5a}.ms:has(.n2:hover) .e2{stroke:#c8ff5a;stroke-width:2.5;animation-duration:.4s}.ms:has(.n2:hover) .c2,.ms:has(.n2:hover) .a2{fill:#c8ff5a}.ms:has(.n3:hover) .e3{stroke:#c8ff5a;stroke-width:2.5;animation-duration:.4s}.ms:has(.n3:hover) .c3,.ms:has(.n3:hover) .a3{fill:#c8ff5a}.ms:has(.n4:hover) .e4{stroke:#c8ff5a;stroke-width:2.5;animation-duration:.4s}.ms:has(.n4:hover) .c4,.ms:has(.n4:hover) .a4{fill:#c8ff5a}.ms:has(.n5:hover) .e5{stroke:#c8ff5a;stroke-width:2.5;animation-duration:.4s}.ms:has(.n5:hover) .c5,.ms:has(.n5:hover) .a5{fill:#c8ff5a}.ms:has(.n6:hover) .e6{stroke:#c8ff5a;stroke-width:2.5;animation-duration:.4s}.ms:has(.n6:hover) .c6,.ms:has(.n6:hover) .a6{fill:#c8ff5a}
+
+/* Code Editor Window Presentation (IDE Styling) */
+.code-editor-window {
+    background: #0d1117 !important;
+    border: 1px solid #23262c !important;
+    border-radius: 8px !important;
+    overflow: hidden !important;
+    margin-bottom: 22px !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.04) inset !important;
+}
+.code-editor-header {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    height: 38px !important;
+    padding: 0 16px !important;
+    background: #13171f !important;
+    border-bottom: 1px solid #21262d !important;
+}
+.code-editor-dots {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 7px !important;
+    flex: 0 0 54px !important;
+}
+.code-editor-dots .dot {
+    width: 11px !important;
+    height: 11px !important;
+    border-radius: 50% !important;
+    display: inline-block !important;
+}
+.code-editor-dots .dot-red { background: #ff5f56 !important; box-shadow: 0 0 6px rgba(255, 95, 86, 0.4) !important; }
+.code-editor-dots .dot-yellow { background: #ffbd2e !important; box-shadow: 0 0 6px rgba(255, 189, 46, 0.4) !important; }
+.code-editor-dots .dot-green { background: #27c93f !important; box-shadow: 0 0 6px rgba(39, 201, 63, 0.4) !important; }
+.code-editor-title {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    font-family: 'JetBrains Mono', monospace !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    color: #e6edf3 !important;
+    letter-spacing: 0.02em !important;
+}
+.code-editor-title svg { width: 14px !important; height: 14px !important; opacity: 0.8 !important; }
+.code-editor-lang {
+    font-family: 'JetBrains Mono', monospace !important;
+    font-size: 11px !important;
+    font-weight: 500 !important;
+    color: #8b949e !important;
+    letter-spacing: 0.06em !important;
+    text-transform: uppercase !important;
+    flex: 0 0 auto !important;
+}
+.code-editor-body {
+    padding: 14px 0 !important;
+    overflow-x: auto !important;
+    background: #0d1117 !important;
+    -webkit-overflow-scrolling: touch !important;
+}
+.code-table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    font-family: 'JetBrains Mono', monospace !important;
+    font-size: 13.5px !important;
+    line-height: 1.65 !important;
+}
+.code-table tr { transition: background 0.15s ease !important; }
+.code-table tr:hover { background: rgba(255, 255, 255, 0.035) !important; }
+.code-table td { padding: 1px 0 !important; vertical-align: top !important; white-space: pre !important; }
+.code-table td.ln {
+    width: 44px !important;
+    min-width: 44px !important;
+    padding-left: 18px !important;
+    padding-right: 18px !important;
+    text-align: right !important;
+    color: #484f58 !important;
+    font-size: 12px !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    border-right: 1px solid #21262d !important;
+}
+.code-table td.code-line {
+    padding-left: 20px !important;
+    padding-right: 24px !important;
+    color: #e6edf3 !important;
+}
+.syn-k { color: #ff7b72 !important; font-weight: 500 !important; }
+.syn-t { color: #79c0ff !important; }
+.syn-f { color: #d2a8ff !important; }
+.syn-v { color: #e6edf3 !important; }
+.syn-s { color: #a5d6ff !important; }
+.syn-n { color: #ffa657 !important; }
+.syn-c { color: #8b949e !important; font-style: italic !important; }
+.syn-a { color: #7ee787 !important; }
+.syn-o { color: #c9d1d9 !important; }
+@media (max-width: 480px) {
+    .code-editor-header { padding: 0 12px !important; }
+    .code-editor-dots { gap: 5px !important; flex: 0 0 42px !important; }
+    .code-editor-dots .dot { width: 9px !important; height: 9px !important; }
+    .code-editor-title { font-size: 11px !important; }
+    .code-editor-lang { display: none !important; }
+    .code-table td.ln { width: 32px !important; min-width: 32px !important; padding-left: 8px !important; padding-right: 8px !important; font-size: 11px !important; }
+    .code-table td.code-line { padding-left: 12px !important; padding-right: 14px !important; font-size: 12px !important; }
+}
+
+/* Footer Navigation Centering */
+footer .footer-nav-grid {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: clamp(32px, 6vw, 80px) !important;
+    justify-content: center !important;
+    margin: 0 auto !important;
+    max-width: 880px !important;
+}
+@media (max-width: 768px) {
+    footer .footer-nav-grid {
+        justify-content: center !important;
+        margin: 0 auto !important;
+        gap: 32px 48px !important;
+    }
+}
 </style>
 </helmet>
 <div class="pg"><div id="top" style="position:absolute;top:0;left:0;width:1px;height:1px;pointer-events:none;opacity:0;"></div><dc-import name="Trail" hint-size="0,0"></dc-import><div class="gl"><i></i><i></i><i></i><i style="border-right:1px solid #15171b"></i></div>
@@ -458,7 +580,7 @@ html.cc .pg,html.cc .pg *{cursor:auto}
 
 <a class="pr sv" href="Glyph.dc.html" style="margin-top:96px;border-bottom:1px solid #23262c"><span style="flex:1 1 360px"><span class="mono">Next project</span><span class="nm d" style="display:block;font-size:clamp(40px,6vw,76px);margin-top:8px">Glyph</span></span><span class="ar">→</span></a>
 <div style="height:24px"></div><footer style="position:relative;margin-top:80px;border-top:1px solid #1c1f24;background:#0d0f12"><div class="w" style="padding-top:48px">
-<div class="footer-nav-grid" style="display:flex;flex-wrap:wrap;gap:48px 64px;justify-content:space-between">
+<div class="footer-nav-grid" style="display:flex;flex-wrap:wrap;gap:clamp(32px,5vw,64px);justify-content:center;margin:0 auto;max-width:880px">
 <div class="fl" style="flex:0 1 170px"><div class="mono" style="margin-bottom:14px">Navigate</div><a href="Main.dc.html#about">About</a><a href="Main.dc.html#work">Work</a><a href="Main.dc.html#skills">Skills</a><a href="Main.dc.html#contact">Contact</a></div><div class="fl" style="flex:0 1 170px"><div class="mono" style="margin-bottom:14px">Projects</div><a href="Glyph.dc.html">Glyph</a><a href="Radio_Kit.dc.html">Radio_Kit</a><a href="MeshOS.dc.html">MeshOS</a></div><div class="fl" style="flex:0 1 170px"><div class="mono" style="margin-bottom:14px">Connect</div><!--email_off--><a href="https://mail.google.com/mail/?view=cm&fs=1&to=lokesh.panditi.29@gmail.com" target="_blank" rel="noopener noreferrer">Email ↗</a><!--/email_off--><a href="https://github.com/thirstymelon">GitHub ↗</a><a href="https://www.linkedin.com/in/lokeshpanditi">LinkedIn ↗</a></div></div>
 <div class="footer-thanks-line"><span class="thanks-intro">Special thanks to</span> <span class="thanks-ai"><img src="icons/chatgpt-icon.svg" class="thanks-ico" alt="" width="16" height="16" /><span class="thanks-chatgpt">ChatGPT</span></span><span class="thanks-sep">,</span> <span class="thanks-ai"><img src="icons/google-antigravity-icon.svg" class="thanks-ico" alt="" width="16" height="16" /><span class="thanks-ag">AntiGravity</span></span> <span class="thanks-sep">and</span> <span class="thanks-ai"><img src="icons/claude-ai-icon.svg" class="thanks-ico" alt="" width="16" height="16" /><span class="thanks-claude">Claude</span></span></div>
 <div class="mono" style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;margin-top:20px;padding:16px 0 16px;border-top:1px solid #1c1f24"><span>© 2026 Lokesh Panditi</span><span>Embedded · Firmware · High-Integrity Systems</span></div></div></footer>
