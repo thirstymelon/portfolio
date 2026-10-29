@@ -340,30 +340,47 @@ html.cc .pg,html.cc .pg *{cursor:auto}
     <div class="sv">
       <div class="d" style="font-size:clamp(26px,3vw,32px);margin:0 0 20px;line-height:1.15">The 24/7 Master Demonstration Appliance</div>
       <p style="margin:0 0 16px;color:#c0c3ca;font-size:17px;line-height:1.65">To prove the rock-solid reliability of the architecture, I built a complete autonomous radio beacon application in <code>examples/radio_kit_demo/src/radio_kit_demo.adb</code>. When powered on, the RP2040 boots into an autonomous 24/7 transmission cycle:</p>
-      <div style="padding:18px;background:#0d0f12;border:1px solid #23262c;border-radius:6px;overflow-x:auto;margin-bottom:18px">
-        <div class="mono" style="color:#8d9097;font-size:11px;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid #1c1f24">Ada (examples/radio_kit_demo/src/radio_kit_demo.adb)</div>
-        <pre style="margin:0;font-family:'JetBrains Mono',monospace;font-size:13px;color:#c8ff5a;line-height:1.55"><code>procedure Radio_Kit_Demo is
-   -- Core 0: Initialize hardware health, ADC, crypto keys, and launch Core 1
-   Health.Initialize;
-   Dual_Core.Launch_Core1;
-
-   loop
-      -- 1. Read on-chip die temperature and system supply voltage
-      Health.Sample_Sensors (Die_Temp, Vsys_Volts);
-
-      -- 2. Transmit 20 WPM PARIS CW Morse Beacon on 27.120 MHz
-      Waveform.Transmit_CW (Callsign => "LP-RP2040", Speed_WPM => 20);
-
-      -- 3. Transmit ChaCha20-encrypted 2-FSK telemetry packet at 1200 baud
-      Telemetry_Payload := Format_Telemetry (Die_Temp, Vsys_Volts, Packet_Seq);
-      Crypto.Encrypt (Telemetry_Payload, Nonce, Encrypted_Payload);
-      Waveform.Transmit_2FSK (Encrypted_Payload);
-
-      -- 4. Kick hardware watchdog and sleep until next interval
-      RP.Watchdog.Feed;
-      Sleep_Until_Next_Cycle;
-   end loop;
-end Radio_Kit_Demo;</code></pre>
+      <div class="code-editor-window">
+        <div class="code-editor-header">
+          <div class="code-editor-dots">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+          </div>
+          <div class="code-editor-title">
+            <svg viewBox="0 0 16 16" fill="none" stroke="#79c0ff" stroke-width="1.5"><path d="M9 1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V5L9 1z"/><path d="M9 1v4h4"/></svg>
+            <span>radio_kit_demo.adb</span>
+          </div>
+          <div class="code-editor-lang">Ada 2022</div>
+        </div>
+        <div class="code-editor-body">
+          <table class="code-table">
+            <tbody>
+              <tr><td class="ln">01</td><td class="code-line"><span class="syn-k">procedure</span> <span class="syn-f">Radio_Kit_Demo</span> <span class="syn-k">is</span></td></tr>
+              <tr><td class="ln">02</td><td class="code-line">   <span class="syn-c">-- Core 0: Initialize hardware health, ADC, crypto keys, and launch Core 1</span></td></tr>
+              <tr><td class="ln">03</td><td class="code-line">   <span class="syn-t">Health</span>.<span class="syn-f">Initialize</span>;</td></tr>
+              <tr><td class="ln">04</td><td class="code-line">   <span class="syn-t">Dual_Core</span>.<span class="syn-f">Launch_Core1</span>;</td></tr>
+              <tr><td class="ln">05</td><td class="code-line"></td></tr>
+              <tr><td class="ln">06</td><td class="code-line">   <span class="syn-k">loop</span></td></tr>
+              <tr><td class="ln">07</td><td class="code-line">      <span class="syn-c">-- 1. Read on-chip die temperature and system supply voltage</span></td></tr>
+              <tr><td class="ln">08</td><td class="code-line">      <span class="syn-t">Health</span>.<span class="syn-f">Sample_Sensors</span> (<span class="syn-v">Die_Temp</span>, <span class="syn-v">Vsys_Volts</span>);</td></tr>
+              <tr><td class="ln">09</td><td class="code-line"></td></tr>
+              <tr><td class="ln">10</td><td class="code-line">      <span class="syn-c">-- 2. Transmit 20 WPM PARIS CW Morse Beacon on 27.120 MHz</span></td></tr>
+              <tr><td class="ln">11</td><td class="code-line">      <span class="syn-t">Waveform</span>.<span class="syn-f">Transmit_CW</span> (<span class="syn-a">Callsign</span> <span class="syn-k">=&gt;</span> <span class="syn-s">"LP-RP2040"</span>, <span class="syn-a">Speed_WPM</span> <span class="syn-k">=&gt;</span> <span class="syn-n">20</span>);</td></tr>
+              <tr><td class="ln">12</td><td class="code-line"></td></tr>
+              <tr><td class="ln">13</td><td class="code-line">      <span class="syn-c">-- 3. Transmit ChaCha20-encrypted 2-FSK telemetry packet at 1200 baud</span></td></tr>
+              <tr><td class="ln">14</td><td class="code-line">      <span class="syn-v">Telemetry_Payload</span> <span class="syn-k">:=</span> <span class="syn-f">Format_Telemetry</span> (<span class="syn-v">Die_Temp</span>, <span class="syn-v">Vsys_Volts</span>, <span class="syn-v">Packet_Seq</span>);</td></tr>
+              <tr><td class="ln">15</td><td class="code-line">      <span class="syn-t">Crypto</span>.<span class="syn-f">Encrypt</span> (<span class="syn-v">Telemetry_Payload</span>, <span class="syn-v">Nonce</span>, <span class="syn-v">Encrypted_Payload</span>);</td></tr>
+              <tr><td class="ln">16</td><td class="code-line">      <span class="syn-t">Waveform</span>.<span class="syn-f">Transmit_2FSK</span> (<span class="syn-v">Encrypted_Payload</span>);</td></tr>
+              <tr><td class="ln">17</td><td class="code-line"></td></tr>
+              <tr><td class="ln">18</td><td class="code-line">      <span class="syn-c">-- 4. Kick hardware watchdog and sleep until next interval</span></td></tr>
+              <tr><td class="ln">19</td><td class="code-line">      <span class="syn-t">RP.Watchdog</span>.<span class="syn-f">Feed</span>;</td></tr>
+              <tr><td class="ln">20</td><td class="code-line">      <span class="syn-f">Sleep_Until_Next_Cycle</span>;</td></tr>
+              <tr><td class="ln">21</td><td class="code-line">   <span class="syn-k">end loop</span>;</td></tr>
+              <tr><td class="ln">22</td><td class="code-line"><span class="syn-k">end</span> <span class="syn-f">Radio_Kit_Demo</span>;</td></tr>
+            </tbody>
+          </table>
+        </div>
       </div>
       <p style="margin:0;color:#c0c3ca;font-size:17px;line-height:1.65">This demo has run continuously on physical hardware for days without a single memory leak, dropped packet, or watchdog reset.</p>
     </div>
@@ -384,11 +401,27 @@ end Radio_Kit_Demo;</code></pre>
       <div class="d" style="font-size:clamp(26px,3vw,32px);margin:0 0 20px;line-height:1.15">Why Ada 2022 on the Cortex-M0+?</div>
       <p style="margin:0 0 16px;color:#c0c3ca;font-size:17px;line-height:1.65">People often ask why I wrote Radio_Kit in Ada instead of C or Rust. The answer comes down to <b>domain modeling and spatial predictability</b>.</p>
       <p style="margin:0 0 16px;color:#c0c3ca;font-size:17px;line-height:1.65">In C, frequencies and clock dividers are passed around as raw <code>uint32_t</code> values. A typo or integer overflow can silently write an out-of-range divider into clock hardware, instantly freezing the RP2040 system bus. In Ada, I define strong scalar types:</p>
-      <div style="padding:16px 20px;background:#0d0f12;border:1px solid #23262c;border-left:3px solid #c8ff5a;border-radius:4px;margin-bottom:18px">
-        <div class="mono" style="font-size:13px;line-height:1.7;color:#ecebe6">
-          <span style="color:#79b8ff">type</span> Frequency_Hz <span style="color:#79b8ff">is range</span> 1_374 .. 45_000_000;<br>
-          <span style="color:#79b8ff">type</span> Integer_Divider <span style="color:#79b8ff">is range</span> 1 .. 65_535;<br>
-          <span style="color:#79b8ff">type</span> Fractional_Divider <span style="color:#79b8ff">is range</span> 0 .. 255;
+      <div class="code-editor-window" style="margin-bottom:18px">
+        <div class="code-editor-header">
+          <div class="code-editor-dots">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+          </div>
+          <div class="code-editor-title">
+            <svg viewBox="0 0 16 16" fill="none" stroke="#79c0ff" stroke-width="1.5"><path d="M9 1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V5L9 1z"/><path d="M9 1v4h4"/></svg>
+            <span>types.ads</span>
+          </div>
+          <div class="code-editor-lang">Ada 2022</div>
+        </div>
+        <div class="code-editor-body">
+          <table class="code-table">
+            <tbody>
+              <tr><td class="ln">01</td><td class="code-line"><span class="syn-k">type</span> <span class="syn-t">Frequency_Hz</span> <span class="syn-k">is range</span> <span class="syn-n">1_374</span> <span class="syn-k">..</span> <span class="syn-n">45_000_000</span>;</td></tr>
+              <tr><td class="ln">02</td><td class="code-line"><span class="syn-k">type</span> <span class="syn-t">Integer_Divider</span> <span class="syn-k">is range</span> <span class="syn-n">1</span> <span class="syn-k">..</span> <span class="syn-n">65_535</span>;</td></tr>
+              <tr><td class="ln">03</td><td class="code-line"><span class="syn-k">type</span> <span class="syn-t">Fractional_Divider</span> <span class="syn-k">is range</span> <span class="syn-n">0</span> <span class="syn-k">..</span> <span class="syn-n">255</span>;</td></tr>
+            </tbody>
+          </table>
         </div>
       </div>
       <p style="margin:0;color:#c0c3ca;font-size:17px;line-height:1.65">The compiler mathematically enforces these constraints at compile time under the <code>light-cortex-m0p</code> runtime profile. There are zero dynamic memory allocations, zero hidden heap calls, and zero compiler warnings.</p>
@@ -476,7 +509,9 @@ renderVals() { return {}; }
     var pct = maxScroll > 0 ? (currentScrollY / maxScroll) * 100 : 0;
     var pgbEls = document.querySelectorAll('.pgb');
     for (var i = 0; i < pgbEls.length; i++) {
-      pgbEls[i].style.width = pct + '%';
+      if (pgbEls[i] && pgbEls[i].style) {
+        pgbEls[i].style.width = pct + '%';
+      }
     }
 
     var btt = document.getElementById('floating-back-to-top');
@@ -564,48 +599,22 @@ renderVals() { return {}; }
     var realEmail = 'lokesh.panditi.29' + '@' + 'gmail.com';
     var vlEls = document.querySelectorAll('.vl');
     for (var i = 0; i < vlEls.length; i++) {
-      var v = vlEls[i];
-      var txt = v.textContent || '';
-      if (v.hasAttribute('data-email') || txt.indexOf('[email') !== -1 || txt.indexOf('email protected') !== -1 || v.querySelector('.__cf_email__')) {
-        v.textContent = realEmail;
+      var txt = vlEls[i].textContent || '';
+      if (txt.indexOf('email protected') !== -1 || txt.indexOf('[email') !== -1) {
+        vlEls[i].textContent = realEmail;
       }
     }
-    var cfEls = document.querySelectorAll('.__cf_email__, [data-cfemail]');
+    var cfEls = document.querySelectorAll('.__cf_email__');
     for (var j = 0; j < cfEls.length; j++) {
       cfEls[j].textContent = realEmail;
-      if (cfEls[j].tagName === 'A') {
-        cfEls[j].setAttribute('href', 'https://mail.google.com/mail/?view=cm&fs=1&to=' + realEmail);
-      }
-    }
-    var allLinks = document.querySelectorAll('a, span');
-    for (var k = 0; k < allLinks.length; k++) {
-      var t = allLinks[k].textContent || '';
-      if (t.indexOf('[email') !== -1 || t.indexOf('email protected') !== -1) {
-        allLinks[k].textContent = realEmail;
-      }
     }
   }
-  unmaskEmail();
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', unmaskEmail);
+  } else {
+    unmaskEmail();
   }
   window.addEventListener('load', unmaskEmail);
-  setTimeout(unmaskEmail, 50);
-  setTimeout(unmaskEmail, 200);
-  setTimeout(unmaskEmail, 500);
-  setTimeout(unmaskEmail, 1000);
-  setTimeout(unmaskEmail, 2000);
-
-  try {
-    var emailObserver = new MutationObserver(function() {
-      unmaskEmail();
-    });
-    emailObserver.observe(document.body || document.documentElement, {
-      childList: true,
-      subtree: true,
-      characterData: true
-    });
-  } catch(e) {}
 
 
 })();

@@ -284,30 +284,47 @@ html.cc .pg,html.cc .pg *{cursor:auto}
       <div class="d" style="font-size:clamp(26px,3vw,32px);margin:0 0 20px;line-height:1.15">Running Real-Time Animation on Physical Silicon</div>
       <p style="margin:0 0 16px;color:#c0c3ca;font-size:17px;line-height:1.65">A graphics framework is only theoretical until it runs smoothly on real hardware. I targeted the <b>Vicharak Shrike-Lite (Raspberry Pi RP2040)</b> paired with an SSD1306 monochrome OLED over I2C0 and an ILI9341 color display over SPI0.</p>
       <p style="margin:0 0 18px;color:#c0c3ca;font-size:17px;line-height:1.65">To push the engine, I wrote a real-time animated music player interface featuring a prominent rotating vinyl record, a swinging tonearm, crisp track typography ("Sailor Song" by Gigi Perez), and an animated progress scrubber driven by the hardware timer:</p>
-      <div style="padding:18px;background:#0d0f12;border:1px solid #23262c;border-radius:6px;overflow-x:auto;margin-bottom:18px">
-        <div class="mono" style="color:#8d9097;font-size:11px;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid #1c1f24">Ada 2022 (example/src/example_main.adb)</div>
-        <pre style="margin:0;font-family:'JetBrains Mono',monospace;font-size:13px;color:#c8ff5a;line-height:1.55"><code>with RP.GPIO;
-with RP.I2C_Master;
-with RP.Device;
-with Glyph.Colors;
-with Glyph.Fonts;
-with Glyph.Display.SSD1306;
-
-procedure Example_Main is
-   -- Create static zero-heap OLED instance
-   OLED : Glyph.Display.SSD1306.Display_T :=
-     Glyph.Display.SSD1306.Create (Glyph.Display.SSD1306.Framebuffer);
-begin
-   -- Initialize RP2040 I2C0 directly via Ada HAL
-   OLED.Init (RP.Device.I2CM_0'Access);
-   OLED.Clear;
-
-   -- Draw animated geometry & typography
-   OLED.Paint_Rectangle (0, 0, 127, 63, Glyph.Colors.White);
-   OLED.Paint_Circle (64, 28, Radius => 14, Color => Glyph.Colors.White);
-   OLED.Paint_Text ("GLYPH ADA 2022", 14, 48, Glyph.Colors.White);
-   OLED.Flush;
-end Example_Main;</code></pre>
+      <div class="code-editor-window">
+        <div class="code-editor-header">
+          <div class="code-editor-dots">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+          </div>
+          <div class="code-editor-title">
+            <svg viewBox="0 0 16 16" fill="none" stroke="#79c0ff" stroke-width="1.5"><path d="M9 1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V5L9 1z"/><path d="M9 1v4h4"/></svg>
+            <span>example_main.adb</span>
+          </div>
+          <div class="code-editor-lang">Ada 2022</div>
+        </div>
+        <div class="code-editor-body">
+          <table class="code-table">
+            <tbody>
+              <tr><td class="ln">01</td><td class="code-line"><span class="syn-k">with</span> <span class="syn-t">RP.GPIO</span>;</td></tr>
+              <tr><td class="ln">02</td><td class="code-line"><span class="syn-k">with</span> <span class="syn-t">RP.I2C_Master</span>;</td></tr>
+              <tr><td class="ln">03</td><td class="code-line"><span class="syn-k">with</span> <span class="syn-t">RP.Device</span>;</td></tr>
+              <tr><td class="ln">04</td><td class="code-line"><span class="syn-k">with</span> <span class="syn-t">Glyph.Colors</span>;</td></tr>
+              <tr><td class="ln">05</td><td class="code-line"><span class="syn-k">with</span> <span class="syn-t">Glyph.Fonts</span>;</td></tr>
+              <tr><td class="ln">06</td><td class="code-line"><span class="syn-k">with</span> <span class="syn-t">Glyph.Display.SSD1306</span>;</td></tr>
+              <tr><td class="ln">07</td><td class="code-line"></td></tr>
+              <tr><td class="ln">08</td><td class="code-line"><span class="syn-k">procedure</span> <span class="syn-f">Example_Main</span> <span class="syn-k">is</span></td></tr>
+              <tr><td class="ln">09</td><td class="code-line">   <span class="syn-c">-- Create static zero-heap OLED instance</span></td></tr>
+              <tr><td class="ln">10</td><td class="code-line">   <span class="syn-v">OLED</span> : <span class="syn-t">Glyph.Display.SSD1306.Display_T</span> <span class="syn-k">:=</span></td></tr>
+              <tr><td class="ln">11</td><td class="code-line">     <span class="syn-t">Glyph.Display.SSD1306</span>.<span class="syn-f">Create</span> (<span class="syn-t">Glyph.Display.SSD1306</span>.<span class="syn-v">Framebuffer</span>);</td></tr>
+              <tr><td class="ln">12</td><td class="code-line"><span class="syn-k">begin</span></td></tr>
+              <tr><td class="ln">13</td><td class="code-line">   <span class="syn-c">-- Initialize RP2040 I2C0 directly via Ada HAL</span></td></tr>
+              <tr><td class="ln">14</td><td class="code-line">   <span class="syn-v">OLED</span>.<span class="syn-f">Init</span> (<span class="syn-t">RP.Device</span>.<span class="syn-v">I2CM_0</span><span class="syn-a">'Access</span>);</td></tr>
+              <tr><td class="ln">15</td><td class="code-line">   <span class="syn-v">OLED</span>.<span class="syn-f">Clear</span>;</td></tr>
+              <tr><td class="ln">16</td><td class="code-line"></td></tr>
+              <tr><td class="ln">17</td><td class="code-line">   <span class="syn-c">-- Draw animated geometry &amp; typography</span></td></tr>
+              <tr><td class="ln">18</td><td class="code-line">   <span class="syn-v">OLED</span>.<span class="syn-f">Paint_Rectangle</span> (<span class="syn-n">0</span>, <span class="syn-n">0</span>, <span class="syn-n">127</span>, <span class="syn-n">63</span>, <span class="syn-t">Glyph.Colors</span>.<span class="syn-v">White</span>);</td></tr>
+              <tr><td class="ln">19</td><td class="code-line">   <span class="syn-v">OLED</span>.<span class="syn-f">Paint_Circle</span> (<span class="syn-n">64</span>, <span class="syn-n">28</span>, <span class="syn-a">Radius</span> <span class="syn-k">=&gt;</span> <span class="syn-n">14</span>, <span class="syn-a">Color</span> <span class="syn-k">=&gt;</span> <span class="syn-t">Glyph.Colors</span>.<span class="syn-v">White</span>);</td></tr>
+              <tr><td class="ln">20</td><td class="code-line">   <span class="syn-v">OLED</span>.<span class="syn-f">Paint_Text</span> (<span class="syn-s">"GLYPH ADA 2022"</span>, <span class="syn-n">14</span>, <span class="syn-n">48</span>, <span class="syn-t">Glyph.Colors</span>.<span class="syn-v">White</span>);</td></tr>
+              <tr><td class="ln">21</td><td class="code-line">   <span class="syn-v">OLED</span>.<span class="syn-f">Flush</span>;</td></tr>
+              <tr><td class="ln">22</td><td class="code-line"><span class="syn-k">end</span> <span class="syn-f">Example_Main</span>;</td></tr>
+            </tbody>
+          </table>
+        </div>
       </div>
       <p style="margin:0;color:#c0c3ca;font-size:17px;line-height:1.65">The animation ran fluidly at steady frame rates with zero jitter, zero dynamic memory churn, and rock-solid stability.</p>
     </div>
@@ -455,7 +472,9 @@ renderVals() { return {}; }
     var pct = maxScroll > 0 ? (currentScrollY / maxScroll) * 100 : 0;
     var pgbEls = document.querySelectorAll('.pgb');
     for (var i = 0; i < pgbEls.length; i++) {
-      pgbEls[i].style.width = pct + '%';
+      if (pgbEls[i] && pgbEls[i].style) {
+        pgbEls[i].style.width = pct + '%';
+      }
     }
 
     var btt = document.getElementById('floating-back-to-top');
@@ -543,48 +562,22 @@ renderVals() { return {}; }
     var realEmail = 'lokesh.panditi.29' + '@' + 'gmail.com';
     var vlEls = document.querySelectorAll('.vl');
     for (var i = 0; i < vlEls.length; i++) {
-      var v = vlEls[i];
-      var txt = v.textContent || '';
-      if (v.hasAttribute('data-email') || txt.indexOf('[email') !== -1 || txt.indexOf('email protected') !== -1 || v.querySelector('.__cf_email__')) {
-        v.textContent = realEmail;
+      var txt = vlEls[i].textContent || '';
+      if (txt.indexOf('email protected') !== -1 || txt.indexOf('[email') !== -1) {
+        vlEls[i].textContent = realEmail;
       }
     }
-    var cfEls = document.querySelectorAll('.__cf_email__, [data-cfemail]');
+    var cfEls = document.querySelectorAll('.__cf_email__');
     for (var j = 0; j < cfEls.length; j++) {
       cfEls[j].textContent = realEmail;
-      if (cfEls[j].tagName === 'A') {
-        cfEls[j].setAttribute('href', 'https://mail.google.com/mail/?view=cm&fs=1&to=' + realEmail);
-      }
-    }
-    var allLinks = document.querySelectorAll('a, span');
-    for (var k = 0; k < allLinks.length; k++) {
-      var t = allLinks[k].textContent || '';
-      if (t.indexOf('[email') !== -1 || t.indexOf('email protected') !== -1) {
-        allLinks[k].textContent = realEmail;
-      }
     }
   }
-  unmaskEmail();
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', unmaskEmail);
+  } else {
+    unmaskEmail();
   }
   window.addEventListener('load', unmaskEmail);
-  setTimeout(unmaskEmail, 50);
-  setTimeout(unmaskEmail, 200);
-  setTimeout(unmaskEmail, 500);
-  setTimeout(unmaskEmail, 1000);
-  setTimeout(unmaskEmail, 2000);
-
-  try {
-    var emailObserver = new MutationObserver(function() {
-      unmaskEmail();
-    });
-    emailObserver.observe(document.body || document.documentElement, {
-      childList: true,
-      subtree: true,
-      characterData: true
-    });
-  } catch(e) {}
 
 
 })();
