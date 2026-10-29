@@ -422,7 +422,7 @@ html.cc .pg,html.cc .pg *{cursor:auto}
 <a class="pr sv" href="Glyph.dc.html" style="margin-top:96px;border-bottom:1px solid #23262c"><span style="flex:1 1 360px"><span class="mono">Next project</span><span class="nm d" style="display:block;font-size:clamp(40px,6vw,76px);margin-top:8px">Glyph</span></span><span class="ar">→</span></a>
 <div style="height:24px"></div><footer style="position:relative;margin-top:80px;border-top:1px solid #1c1f24;background:#0d0f12"><div class="w" style="padding-top:48px">
 <div class="footer-nav-grid" style="display:flex;flex-wrap:wrap;gap:48px 64px;justify-content:space-between">
-<div class="fl" style="flex:0 1 170px"><div class="mono" style="margin-bottom:14px">Navigate</div><a href="Main.dc.html#about">About</a><a href="Main.dc.html#work">Work</a><a href="Main.dc.html#skills">Skills</a><a href="Main.dc.html#contact">Contact</a></div><div class="fl" style="flex:0 1 170px"><div class="mono" style="margin-bottom:14px">Projects</div><a href="Glyph.dc.html">Glyph</a><a href="Radio_Kit.dc.html">Radio_Kit</a><a href="MeshOS.dc.html">MeshOS</a></div><div class="fl" style="flex:0 1 170px"><div class="mono" style="margin-bottom:14px">Connect</div><a href="https://mail.google.com/mail/?view=cm&fs=1&to=lokesh.panditi.29@gmail.com" target="_blank" rel="noopener noreferrer">Email ↗</a><a href="https://github.com/thirstymelon">GitHub ↗</a><a href="https://www.linkedin.com/in/lokeshpanditi">LinkedIn ↗</a></div></div>
+<div class="fl" style="flex:0 1 170px"><div class="mono" style="margin-bottom:14px">Navigate</div><a href="Main.dc.html#about">About</a><a href="Main.dc.html#work">Work</a><a href="Main.dc.html#skills">Skills</a><a href="Main.dc.html#contact">Contact</a></div><div class="fl" style="flex:0 1 170px"><div class="mono" style="margin-bottom:14px">Projects</div><a href="Glyph.dc.html">Glyph</a><a href="Radio_Kit.dc.html">Radio_Kit</a><a href="MeshOS.dc.html">MeshOS</a></div><div class="fl" style="flex:0 1 170px"><div class="mono" style="margin-bottom:14px">Connect</div><!--email_off--><a href="https://mail.google.com/mail/?view=cm&fs=1&to=lokesh.panditi.29@gmail.com" target="_blank" rel="noopener noreferrer">Email ↗</a><!--/email_off--><a href="https://github.com/thirstymelon">GitHub ↗</a><a href="https://www.linkedin.com/in/lokeshpanditi">LinkedIn ↗</a></div></div>
 <div class="footer-thanks-line"><span class="thanks-intro">Special thanks to</span> <span class="thanks-ai"><img src="icons/chatgpt-icon.svg" class="thanks-ico" alt="" width="16" height="16" /><span class="thanks-chatgpt">ChatGPT</span></span><span class="thanks-sep">,</span> <span class="thanks-ai"><img src="icons/google-antigravity-icon.svg" class="thanks-ico" alt="" width="16" height="16" /><span class="thanks-ag">AntiGravity</span></span> <span class="thanks-sep">and</span> <span class="thanks-ai"><img src="icons/claude-ai-icon.svg" class="thanks-ico" alt="" width="16" height="16" /><span class="thanks-claude">Claude</span></span></div>
 <div class="mono" style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;margin-top:20px;padding:16px 0 16px;border-top:1px solid #1c1f24"><span>© 2026 Lokesh Panditi</span><span>Embedded · Firmware · High-Integrity Systems</span></div></div></footer>
 <a class="floating-back-to-top" id="floating-back-to-top" href="#top" aria-label="Back to top">Back to top <span class="btt-arrow">↑</span></a>
@@ -548,6 +548,54 @@ renderVals() { return {}; }
       window.open(GMAIL_COMPOSE_URL, '_blank', 'noopener,noreferrer');
     }
   }, true);
+
+  // Defeat Cloudflare email obfuscation fallback if active
+  function unmaskEmail() {
+    var realEmail = 'lokesh.panditi.29' + '@' + 'gmail.com';
+    var vlEls = document.querySelectorAll('.vl');
+    for (var i = 0; i < vlEls.length; i++) {
+      var v = vlEls[i];
+      var txt = v.textContent || '';
+      if (v.hasAttribute('data-email') || txt.indexOf('[email') !== -1 || txt.indexOf('email protected') !== -1 || v.querySelector('.__cf_email__')) {
+        v.textContent = realEmail;
+      }
+    }
+    var cfEls = document.querySelectorAll('.__cf_email__, [data-cfemail]');
+    for (var j = 0; j < cfEls.length; j++) {
+      cfEls[j].textContent = realEmail;
+      if (cfEls[j].tagName === 'A') {
+        cfEls[j].setAttribute('href', 'https://mail.google.com/mail/?view=cm&fs=1&to=' + realEmail);
+      }
+    }
+    var allLinks = document.querySelectorAll('a, span');
+    for (var k = 0; k < allLinks.length; k++) {
+      var t = allLinks[k].textContent || '';
+      if (t.indexOf('[email') !== -1 || t.indexOf('email protected') !== -1) {
+        allLinks[k].textContent = realEmail;
+      }
+    }
+  }
+  unmaskEmail();
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', unmaskEmail);
+  }
+  window.addEventListener('load', unmaskEmail);
+  setTimeout(unmaskEmail, 50);
+  setTimeout(unmaskEmail, 200);
+  setTimeout(unmaskEmail, 500);
+  setTimeout(unmaskEmail, 1000);
+  setTimeout(unmaskEmail, 2000);
+
+  try {
+    var emailObserver = new MutationObserver(function() {
+      unmaskEmail();
+    });
+    emailObserver.observe(document.body || document.documentElement, {
+      childList: true,
+      subtree: true,
+      characterData: true
+    });
+  } catch(e) {}
 
 
 })();
